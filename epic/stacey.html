@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>stacey</title>
+	</head>
+	<body>
+		<h1>Persona: Vendor</h1>
+		<div>
+		<h2>Stacey Sellers</h2>
+			<ul>
+				<li>Age: 32</li>
+				<li>Gender: Female</li>
+				<li>Profession: Frozen Custard truck owner</li>
+				<li>Technology: Galaxy s7 with Android 8.0, and a Windows 8.1 Dell Inspiron 3000 laptop</li>
+				<li>Attitude: Stacey loves her business, though it's hard work. She loves repeat customers,
+					and she wants more exposure.</li>
+				<li>Goals: Stacey needs an easier way of getting repeat customers and new customers. Many of her customers have expressed frustration that they have not been able to track her when they were
+					craving some of her custard. She uses Facebook to update her hours and location, but sometimes she forgets to do this, and not everyone uses Facebook.</li>
+				<li>Frustrations: Stacey has considered using other sites like roaminghunger.com, but many people in Albuquerque are not aware of this site. It requires several steps to find her food truck, and she would rather have something local.</li>
+			</ul>
+			<h2>User Story</h2>
+			<p>As a food truck owner, I want to post my location, menu, and hours of operation in a place that’s visible to my would-be customers.</p>
+			<h2>Use Cases</h2>
+			<ul>
+				<li>Description: Register new food truck</li>
+				<li>Persona: Stacy Sellers</li>
+				<li>Preconditions: Stacy has registered her account and wants to share her food truck’s location, hours, and menu.</li>
+				<li>Postconditions: Stacy’s food truck information is stored in the DB pending approval by app owners.</li>
+			</ul>
+			<ol>
+				<li>Stacy signs into "Food Truck Finder"</li>
+				<li>The server sends the food truck finder page to Stacy</li>
+				<li>Stacy clicks register link</li>
+				<li>Server sends registration form</li>
+				<li>Stacy fills out and submits</li>
+				<li>Server stores submitted information in temporary location (pending approval by app owners (yours truly))</li>
+			</ol>
+			<ul>
+				<li>Description: Update food truck location</li>
+				<li>Persona: Stacy Sellers</li>
+				<li>Preconditions: Stacy is a vetted registered food truck owner on the app. She needs to update her location data so that customers can find her.</li>
+				<li>Postconditions: Stacy has updated her location in the app. The location is now visible on the map element on the landing page of the app.</li>
+			</ul>
+			<ol>
+				<li>Stacy signs in</li>
+				<li>Server sends landing page.</li>
+				<li>Stacy clicks “update location” button in vendor tools.</li>
+				<li>Server sends update location form.</li>
+				<li>Stacy updates her location/hours and clicks “submit”.</li>
+				<li>Server updates Stacy’s new location and hours.</li>
+			</ol>
+		</div>
+	</body>
+</html>
