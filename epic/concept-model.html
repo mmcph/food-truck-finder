@@ -1,50 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Conceptual Model</title>
-</head>
-<body>
-    <h1>Conceptual Model for our Food Truck Finder</h1>
-    <ul>
-        <li><strong>Truck</strong><ul>
-            <li>truckId (primary)</li>
-            <li>truckProfileId (foreign)</li>
-            <li>truckName</li>
-            <li>truckMenu</li>
-            <li>truckLocation</li>
-            <li>truckIsOpen</li>
-            <li>truckBio</li>
-            <li>truckPhoneNumber</li>
-            <li>truckUrl</li>
-            <li>truckYelpUrl</li>
-            <li>truckTwitter</li>
-        </ul></li>
-    </ul>
-	<ul>
-		<li><strong>Category (Enumeration)</strong><ul>
-			<li>New Mexican</li>
-			<li>Mexican</li>
-			<li>American</li>
-			<li>Breakfast</li>
-			<li>Pizza</li>
-			<li>Dessert</li>
-			<li>Thai</li>
-			<li>Indian</li>
-			<li>Native American</li>
-			<li>Asian</li>
-		</ul></li>
-	</ul>
-    <ul>
-        <li><strong>Favorite</strong><ul>
-            <li>favoriteTruckId (composite key)</li>
-        </ul></li>
-    </ul>
-    <ul>
-        <li><strong>Like</strong><ul>
-            <li>likeTruckId (composite key)</li>
-            <li>dislikeTruckId (composite key)</li>
-        </ul></li>
-    </ul>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Conceptual Model</title>
+	</head>
+	<body>
+		<h1>Conceptual Model for our Food Truck Finder</h1>
+		<ul>
+			<li><strong>Truck</strong>
+				<ul>
+					<li>truckId (primary)</li>
+					<li>truckProfileId (foreign)</li>
+					<li>truckName</li>
+					<li>truckMenu</li>
+					<li>truckLocation</li>
+					<li>truckIsOpen</li>
+					<li>truckBio</li>
+					<li>truckPhoneNumber</li>
+					<li>truckUrl</li>
+					<li>truckYelpUrl</li>
+					<li>truckTwitter</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Category (Enumeration)</strong>
+				<ul>
+					<li>New Mexican</li>
+					<li>Mexican</li>
+					<li>American</li>
+					<li>Breakfast</li>
+					<li>Pizza</li>
+					<li>Dessert</li>
+					<li>Thai</li>
+					<li>Indian</li>
+					<li>Native American</li>
+					<li>Asian</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Favorite</strong>
+				<ul>
+					<li>favoriteTruckId (composite key)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Like</strong>
+				<ul>
+					<li>likeTruckId (composite key)</li>
+					<li>dislikeTruckId (composite key)</li>
+				</ul>
+			</li>
+		</ul>
+	</body>
 </html>
