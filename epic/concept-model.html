@@ -8,8 +8,8 @@
     <h1>Conceptual Model for our Food Truck Finder</h1>
     <ul>
         <li><strong>Truck</strong><ul>
-            <li>truckId</li>
-            <li>truckProfileId</li>
+            <li>truckId (primary)</li>
+            <li>truckProfileId (foreign)</li>
             <li>truckName</li>
             <li>truckMenu</li>
             <li>truckLocation</li>
@@ -22,7 +22,7 @@
         </ul></li>
     </ul>
 	<ul>
-		<li><strong>Category</strong><ul>
+		<li><strong>Category (Enumeration)</strong><ul>
 			<li>New Mexican</li>
 			<li>Mexican</li>
 			<li>American</li>
