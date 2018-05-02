@@ -12,7 +12,7 @@
 					<li>profileId (uuid)(primary key)</li>
 					<li>profileEmail (varchar 128)</li>
 					<li>profileHash (char 97)</li>
-					<li>profileIsOwner (bool)</li>
+					<li>profileIsOwner (tinyint)</li>
 					<li>profileFirstName (varchar 64)</li>
 					<li>profileLastName (varchar 64)</li>
 					<li>profileUserName (varchar 64)</li>
@@ -27,9 +27,9 @@
 					<li>truckName(varchar 64)</li>
 					<li>truckLongitude(decimal(11, 8))</li>
 					<li>truckLatitude(decimal(10, 8)</li>
-					<li>truckIsOpen(bool)</li>
-					<li>truckBio(blob)</li>
-					<li>truckPhoneNumber(varchar 15)</li>
+					<li>truckIsOpen(tinyint)</li>
+					<li>truckBio(varchar 1024)</li>
+					<li>truckPhoneNumber(varchar 24)</li>
 					<li>truckUrl(varchar 128)</li>
 				</ul>
 			</li>
@@ -45,7 +45,7 @@
 		<ul>
 			<li><strong>TruckCategory</strong>
 				<ul>
-					<li>truckCategoryCategoryId (int)(foreign key)</li>
+					<li>truckCategoryCategoryId (tinyint)(foreign key)</li>
 					<li>truckCategoryTruckId (uuid)(foreign key)</li>
 				</ul>
 			</li>
@@ -68,4 +68,9 @@
 			</li>
 		</ul>
 	</body>
+</html>
+</html>
+</html>
+</html>
+</html>
 </html>
