@@ -7,71 +7,63 @@
 	<body>
 		<h1>Conceptual Model for our Food Truck Finder</h1>
 		<ul>
-			<li><strong>Truck</strong>
-				<ul>
-					<li>truckId (uuid)(primary)</li>
-					<li>truckProfileId (uuid)(foreign)</li>
-					<li>truckName(varchar 64)</li>
-					<li>truckLongitude(decimal(11, 8))</li>
-					<li>truckLatitude(decimal(10, 8)</li>
-					<li>truckIsOpen(bool)</li>
-					<li>truckBio(blob)</li>
-					<li>truckPhoneNumber(varchar 15)</li>
-					<li>truckUrl(varchar 64)</li>
-				</ul>
-			</li>
-		</ul>
-		<ul>
-			<li><strong>Category (Enumeration)</strong>
-				<ul>
-					<li>New Mexican</li>
-					<li>Mexican</li>
-					<li>American</li>
-					<li>Breakfast</li>
-					<li>Pizza</li>
-					<li>Dessert</li>
-					<li>Thai</li>
-					<li>Indian</li>
-					<li>Native American</li>
-					<li>Asian</li>
-				</ul>
-			</li>
-		</ul>
-		<ul>
-			<li><strong>TruckCategory</strong>
-				<ul>
-					<li>truckCategoryCategoryId (uuid)(composite primary)</li>
-					<li>truckCategoryTruckId (uuid)(composite primary)</li>
-				</ul>
-			</li>
-		</ul>
-		<ul>
-			<li><strong>Favorite</strong>
-				<ul>
-					<li>favoriteTruckId (uuid)(composite key)</li>
-					<li>favoriteProfileId (uuid)(composite key)</li>
-				</ul>
-			</li>
-		</ul>
-		<ul>
-			<li><strong>Vote</strong>
-				<ul>
-					<li>voteProfileId (uuid)(composite key)</li>
-					<li>voteTruckId (uuid)(composite key)</li>
-					<li>voteValue(tinyint(1 || -1))</li>
-				</ul>
-			</li>
-		</ul>
-		<ul>
 			<li><strong>Profile</strong>
 				<ul>
-					<li>profileId (uuid)</li>
+					<li>profileId (uuid)(primary key)</li>
 					<li>profileEmail (varchar 128)</li>
 					<li>profileHash (char 97)</li>
 					<li>profileIsOwner (bool)</li>
 					<li>profileFirstName (varchar 64)</li>
 					<li>profileLastName (varchar 64)</li>
 					<li>profileUserName (varchar 64)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Truck</strong>
+				<ul>
+					<li>truckId (uuid)(primary key)</li>
+					<li>truckProfileId (uuid)(foreign key)</li>
+					<li>truckName(varchar 64)</li>
+					<li>truckLongitude(decimal(11, 8))</li>
+					<li>truckLatitude(decimal(10, 8)</li>
+					<li>truckIsOpen(bool)</li>
+					<li>truckBio(blob)</li>
+					<li>truckPhoneNumber(varchar 15)</li>
+					<li>truckUrl(varchar 128)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Category (Enumeration)</strong>
+				<ul>
+					<li>categoryId (int unsigned auto_increment not null)(primary key)</li>
+					<li>categoryName(varchar 32)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>TruckCategory</strong>
+				<ul>
+					<li>truckCategoryCategoryId (uuid)(foreign key)</li>
+					<li>truckCategoryTruckId (uuid)(foreign key)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Favorite</strong>
+				<ul>
+					<li>favoriteTruckId (uuid)(foreign key)</li>
+					<li>favoriteProfileId (uuid)(foreign key)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Vote</strong>
+				<ul>
+					<li>voteProfileId (uuid)(foreign key)</li>
+					<li>voteTruckId (uuid)(foreign key)</li>
+					<li>voteValue(tinyint(1 || -1))</li>
 				</ul>
 			</li>
 		</ul>
