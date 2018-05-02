@@ -9,17 +9,15 @@
 		<ul>
 			<li><strong>Truck</strong>
 				<ul>
-					<li>truckId (primary)</li>
-					<li>truckProfileId (foreign)</li>
-					<li>truckName</li>
-					<li>truckMenu</li>
-					<li>truckLocation</li>
-					<li>truckIsOpen</li>
-					<li>truckBio</li>
-					<li>truckPhoneNumber</li>
-					<li>truckUrl</li>
-					<li>truckYelpUrl</li>
-					<li>truckTwitter</li>
+					<li>truckId (uuid)(primary)</li>
+					<li>truckProfileId (uuid)(foreign)</li>
+					<li>truckName(varchar 64)</li>
+					<li>truckLongitude(decimal(11, 8))</li>
+					<li>truckLatitude(decimal(10, 8)</li>
+					<li>truckIsOpen(bool)</li>
+					<li>truckBio(blob)</li>
+					<li>truckPhoneNumber(varchar 15)</li>
+					<li>truckUrl(varchar 64)</li>
 				</ul>
 			</li>
 		</ul>
@@ -40,28 +38,39 @@
 			</li>
 		</ul>
 		<ul>
-			<li><strong>Favorite</strong>
+			<li><strong>TruckCategory</strong>
 				<ul>
-					<li>favoriteTruckId (composite key)</li>
+					<li>truckCategoryCategoryId (uuid)(composite primary)</li>
+					<li>truckCategoryTruckId (uuid)(composite primary)</li>
 				</ul>
 			</li>
 		</ul>
 		<ul>
-			<li><strong>Like</strong>
+			<li><strong>Favorite</strong>
 				<ul>
-					<li>likeTruckId (composite key)</li>
-					<li>dislikeTruckId (composite key)</li>
+					<li>favoriteTruckId (uuid)(composite key)</li>
+					<li>favoriteProfileId (uuid)(composite key)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Vote</strong>
+				<ul>
+					<li>voteProfileId (uuid)(composite key)</li>
+					<li>voteTruckId (uuid)(composite key)</li>
+					<li>voteValue(tinyint(1 || -1))</li>
 				</ul>
 			</li>
 		</ul>
 		<ul>
 			<li><strong>Profile</strong></li>
 			<li>profileId (uuid)</li>
-			<li>profileEmail (varchar)</li>
-			<li>profileHash (varchar)</li>
-			<li>profileIsOwner (varchar)</li>
-			<li>profileName (varchar)</li>
-			<li>profileUserName (varchar)</li>
+			<li>profileEmail (varchar 128)</li>
+			<li>profileHash (char 97)</li>
+			<li>profileIsOwner (bool)</li>
+			<li>profileFirstName (varchar 64)</li>
+			<li>profileLastName (varchar 64)</li>
+			<li>profileUserName (varchar 64)</li>
 		</ul>
 	</body>
 </html>
