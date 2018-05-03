@@ -52,13 +52,15 @@ CREATE TABLE truck (
 	PRIMARY KEY(truckId)
 );
 
-CREATE TABLE favorite (
-	favoriteTruckId BINARY(16) NOT NULL,
-	favoriteProfileId BINARY(16) NOT NULL,
-	INDEX(favoriteTruckId),
-	INDEX(favoriteProfileId),
-	FOREIGN KEY(favoriteTruckId) REFERENCES truck(truckId),
-	FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId)
+CREATE TABLE vote (
+	voteProfileId BINARY(16) NOT NULL,
+	voteTruckId BINARY(16) NOT NULL,
+	voteValue TINYINT NOT NULL,
+	INDEX(voteProfileId),
+	INDEX(voteTruckId),
+	INDEX(voteValue),
+	FOREIGN KEY(voteProfileId) REFERENCES profile(profileId),
+	FOREIGN KEY(voteTruckId) REFERENCES truck(truckId)
 );
 
 CREATE TABLE truckCategory (
@@ -70,14 +72,12 @@ CREATE TABLE truckCategory (
 	FOREIGN KEY(truckCategoryTruckId) REFERENCES truck(truckId)
 );
 
-CREATE TABLE vote (
-	voteProfileId BINARY(16) NOT NULL,
-	voteTruckId BINARY(16) NOT NULL,
-	voteValue TINYINT NOT NULL,
-	INDEX(voteProfileId),
-	INDEX(voteTruckId),
-	INDEX(voteValue),
-	FOREIGN KEY(voteProfileId) REFERENCES profile(profileId),
-	FOREIGN KEY(voteTruckId) REFERENCES truck(truckId)
+CREATE TABLE favorite (
+	favoriteTruckId BINARY(16) NOT NULL,
+	favoriteProfileId BINARY(16) NOT NULL,
+	INDEX(favoriteTruckId),
+	INDEX(favoriteProfileId),
+	FOREIGN KEY(favoriteTruckId) REFERENCES truck(truckId),
+	FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId)
 );
 
