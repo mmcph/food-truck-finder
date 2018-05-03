@@ -25,7 +25,7 @@ CREATE TABLE profile (
 CREATE TABLE category (
 	categoryId TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	categoryName VARCHAR(32) NOT NULL,
-	UNIQUE(catagoryId),
+	UNIQUE(categoryId),
 	UNIQUE(categoryName),
 	INDEX(categoryId),
 	INDEX(categoryName),
