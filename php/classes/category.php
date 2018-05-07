@@ -5,10 +5,10 @@ namespace Edu\Cnm\FoodTruck;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-class Category implements \JsonSerializable {
+class category implements \JsonSerializable {
 
 	/**
-	 * id for this Category; this is the primary key
+	 * id for this category; this is the primary key
 	 * @var integer $categoryId
 	 **/
 	protected $categoryId;
@@ -21,7 +21,7 @@ class Category implements \JsonSerializable {
 	// CONSTRUCTOR
 
 	/**
-	 * constructor for Category
+	 * constructor for category
 	 *
 	 * @param integer $newCategoryId id of this category or null if a new category
 	 * @param string $newCategoryName
