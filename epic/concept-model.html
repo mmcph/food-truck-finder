@@ -20,27 +20,35 @@
 			</li>
 		</ul>
 		<ul>
-			<li><strong>Truck</strong>
-				<ul>
-					<li>truckId (uuid)(primary key)</li>
-					<li>truckProfileId (uuid)(foreign key)</li>
-					<li>truckName(varchar 64)</li>
-					<li>truckLongitude(decimal(11, 8))</li>
-					<li>truckLatitude(decimal(10, 8)</li>
-					<li>truckIsOpen(tinyint)</li>
-					<li>truckBio(varchar 1024)</li>
-					<li>truckPhoneNumber(varchar 24)</li>
-					<li>truckUrl(varchar 128)</li>
-				</ul>
-			</li>
-		</ul>
-		<ul>
 			<li><strong>Category (Enumeration)</strong>
 				<ul>
 					<li>categoryId (int unsigned auto_increment not null)(primary key)</li>
 					<li>categoryName(varchar 32)</li>
 				</ul>
 			</li>
+		</ul>
+		<ul>
+			<li><strong>Truck</strong>
+				<ul>
+					<li>truckId (uuid)(primary key)</li>
+					<li>truckProfileId (uuid)(foreign key)</li>
+					<li>truckBio(varchar 1024)</li>
+					<li>truckIsOpen(tinyint)</li>
+					<li>truckLatitude(decimal(10, 8)</li>
+					<li>truckLongitude(decimal(11, 8))</li>
+					<li>truckName(varchar 64)</li>
+					<li>truckPhone(varchar 24)</li>
+					<li>truckUrl(varchar 128)</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><strong>Vote</strong>
+				<ul>
+					<li>voteProfileId (uuid)(foreign key)</li>
+					<li>voteTruckId (uuid)(foreign key)</li>
+					<li>voteValue(tinyint(1 || -1))</li>
+				</ul>
 		</ul>
 		<ul>
 			<li><strong>TruckCategory</strong>
@@ -58,13 +66,6 @@
 				</ul>
 			</li>
 		</ul>
-		<ul>
-			<li><strong>Vote</strong>
-				<ul>
-					<li>voteProfileId (uuid)(foreign key)</li>
-					<li>voteTruckId (uuid)(foreign key)</li>
-					<li>voteValue(tinyint(1 || -1))</li>
-				</ul>
 			</li>
 		</ul>
 	</body>
