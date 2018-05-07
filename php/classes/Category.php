@@ -89,17 +89,19 @@ class Category implements \JsonSerializable {
 	 * @throws \TypeError if $newCategoryName is not a string
 	 * @throws \RangeException if $newCategoryName > 32chars OR empty string
 	 **/
-	public function setProfileActivationToken($newProfileActivationToken): void {
-		if(is_string($newProfileActivationToken) === false) {
+	public function setCategoryName($newCategoryName): void {
+		if(is_string($newCategoryName) === false) {
 			throw(new \TypeError("Input is not a string"));
 		}
 
-		if(strlen($newProfileActivationToken) > 32 || empty($newProfileActivationToken) === true) {
-			throw(new \RangeException("Activation token empty or too large"));
+		if(strlen($newCategoryName) > 32 || empty($newCategoryName) === true) {
+			throw(new \RangeException("category name empty or too large"));
 		}
-		// store new profileActivationToken
-		$this->profileActivationToken = $newProfileActivationToken;
+		// store new categoryName
+		$this->categoryName = $newCategoryName;
 
 	}
+
+
 
 }
