@@ -169,8 +169,10 @@ class profile  implements /JsonSerializable {
 }
 
 	/**
-	 *
-	 * @param mixed $profileFirstName
+	 * mutator method
+	 * @param string value of $newProfileFirstName
+	 * @throws \InvalidArgumentException if $newProfileFirstName is not a string or insecure
+	 * @throws \RangeException if $newProfileFirstName is > 64 characters
 	 */
 	public function setProfileFirstName(string $newProfileFirstName) {
 	$newProfileFirstName = trim($newProfileFirstName);
@@ -194,7 +196,11 @@ class profile  implements /JsonSerializable {
 }
 
 	/**
-	 * @param mixed $profileLastName
+	 * mutator method
+	 *
+	 * @param string value of $profileLastName
+	 * @throws \InvalidArgumentException if $newProfileLastName is not a string or insecure
+	 * @throws \RangeException if $newProfileLastName is > 64 characters
 	 */
 	public function setProfileLastName(string $newProfileLastName) : void {
 	$newProfileLastName = trim($newProfileLastName);
@@ -216,8 +222,12 @@ class profile  implements /JsonSerializable {
 	}
 
 	/**
+	 * mutator method
 	 *
-	 * @param mixed $profileUserName
+	 * @param string of $newProfileUserName
+	 * @throws \InvalidArgumentException if $newProfileUserName is not a string or insecure
+	 * @throws \RangeException if $newProfileUsername is > 64 characters
+	 * @throws \TypeError if $newProfileUsername is not a string
 	 */
 	public function setProfileUserName(string $newProfileUserName) {
 		$newProfileUserName = trim($newProfileUserName);
