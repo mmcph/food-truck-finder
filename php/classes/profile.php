@@ -168,6 +168,7 @@ class profile  implements /JsonSerializable {
 	return $this->profileFirstName;
 }
 
+
 	/**
 	 * mutator method
 	 * @param string value of $newProfileFirstName
