@@ -44,7 +44,6 @@ CREATE TABLE truck (
 	truckUrl VARCHAR(128),
 	UNIQUE(truckId),
 	UNIQUE(truckProfileId),
-	-- UNIQUE(truckName), <—maybe not? for companies with multiple trucks under the same company name (same for truckProfileId
 	INDEX(truckId),
 	INDEX(truckProfileId),
 	INDEX(truckName),
