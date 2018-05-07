@@ -11,11 +11,10 @@ CREATE TABLE profile (
 	profileId BINARY(16) NOT NULL,
 	profileEmail VARCHAR(128) NOT NULL,
 	profileHash CHAR(97) NOT NULL,
-	profileIsOwner TINYINT NOT NULL,
-	profileUserName VARCHAR(32) NOT NULL,
+	profileIsOwner TINYINT UNSIGNED NOT NULL,
 	profileFirstName VARCHAR(64) NOT NULL,
 	profileLastName VARCHAR(64) NOT NULL,
-	UNIQUE(profileId),
+	profileUserName VARCHAR(32) NOT NULL,
 	UNIQUE(profileEmail),
 	UNIQUE(profileUserName),
 	INDEX(profileId),
@@ -25,26 +24,20 @@ CREATE TABLE profile (
 CREATE TABLE category (
 	categoryId TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	categoryName VARCHAR(32) NOT NULL,
-	UNIQUE(categoryId),
 	UNIQUE(categoryName),
-	INDEX(categoryId),
-	INDEX(categoryName),
 	PRIMARY KEY(categoryId)
 );
 
 CREATE TABLE truck (
 	truckId BINARY(16) NOT NULL,
 	truckProfileId BINARY(16) NOT NULL,
-	truckName VARCHAR(64) NOT NULL,
-	truckLongitude DECIMAL(11,8),
-	truckLatitude DECIMAL(10,8),
-	truckIsOpen TINYINT NOT NULL,
 	truckBio VARCHAR(1024),
+	truckIsOpen TINYINT NOT NULL,
+	truckLatitude DECIMAL(10,8),
+	truckLongitude DECIMAL(11,8),
+	truckName VARCHAR(64) NOT NULL,
 	truckPhone VARCHAR(24),
 	truckUrl VARCHAR(128),
-	UNIQUE(truckId),
-	UNIQUE(truckProfileId),
-	INDEX(truckId),
 	INDEX(truckProfileId),
 	INDEX(truckName),
 	FOREIGN KEY(truckProfileId) REFERENCES profile(profileId),
@@ -57,7 +50,6 @@ CREATE TABLE vote (
 	voteValue TINYINT NOT NULL,
 	INDEX(voteProfileId),
 	INDEX(voteTruckId),
-	INDEX(voteValue),
 	FOREIGN KEY(voteProfileId) REFERENCES profile(profileId),
 	FOREIGN KEY(voteTruckId) REFERENCES truck(truckId)
 );
