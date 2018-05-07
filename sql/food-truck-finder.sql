@@ -1,4 +1,4 @@
-ALTER DATABASE php-taco-trucks CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER DATABASE foodtruck CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS truckCategory;
