@@ -1,4 +1,5 @@
-<?php
+
+		<?php
 
 namespace Edu\Cnm\food-truck-finder;
 require_once("autoload.php");
@@ -7,7 +8,6 @@ use Ramsey\Uuid\Uuid;
 
 
 class profile  implements /JsonSerializable {
-
 		/**
 		 * UNIQUE
 		 * id for profile
