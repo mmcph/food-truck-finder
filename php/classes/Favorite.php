@@ -1,5 +1,4 @@
 <?php
-
 namespace Edu\Cnm\food-truck-finder;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -10,13 +9,13 @@ class favorite implements \JsonSerializable {
 
 	/**
 	 * foreign key
-	 * @var
+	 * @var Uuid $favoriteTruckId
 	 */
 	private $favoriteTruckId;
 
 	/**
 	 *foreign key
-	 * @var
+	 * @var Uuid $favoriteProfileId
 	 */
 	private $favoriteProfileId;
 
@@ -61,13 +60,17 @@ class favorite implements \JsonSerializable {
 	/**
 	 * mutator method
 	 *
-	 * @param Uuid value of $favoriteProfileId
+	 * @param Uuid | string value of $favoriteProfileId
+	 * @throws \RangeException if $newFavoriteProfileId is not positive
+	 * @throws \TypeError if $newFavoriteProfileId is not a string
 	 */
-	public function setFavoriteProfileId($newFavoriteProfileId): void {
-		$this->favoriteProfileId = $favoriteProfileId;
+	public function setTruckProfileId($newTruckProfileId): void {
+		try {
+			$uuid = self::validateUuid($newTruckProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+		}
+		$this->favoriteTruckId = $uuid;
 	}
-
-
-
 	}
 
