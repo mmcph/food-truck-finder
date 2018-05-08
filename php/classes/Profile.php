@@ -81,7 +81,7 @@ class profile  implements /JsonSerializable {
 		/**
 		 * accessor method
 		 *
-		 * @return value Uuid | string of profile id
+		 * @return Uuid | string of profile id
 		 */
 	public function getProfileId() : Uuid {
 	return $this->profileId;
