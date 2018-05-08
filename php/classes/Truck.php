@@ -63,7 +63,7 @@ class truck implements \JsonSerializable {
 	 * constructor for truck
 	 *
 	 * @param Uuid $newTruckId id of this Truck or null if a new Truck
-	 * @param string $newTruckProfileId
+	 * @param Uuid $newTruckProfileId
 	 * @param string $newTruckBio
 	 * @param int $newTruckIsOpen
 	 * @param float $newTruckLatitude
@@ -77,10 +77,17 @@ class truck implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct(int $newCategoryId, string $newCategoryName) {
+	public function __construct(Uuid $newTruckId, Uuid $newTruckProfileId, string $newTruckBio, int $newTruckIsOpen, float $newTruckLatitude, float $newTruckLongitude, string $newTruckName, int $newTruckPhone, string $newTruckUrl) {
 		try {
-			$this->setCategoryId($newCategoryId);
-			$this->setCategoryName($newCategoryName);
+			$this->setTruckId($newTruckId);
+			$this->setTruckProfileId($newTruckProfileId);
+			$this->setTruckBio($newTruckBio);
+			$this->setTruckIsOpen($newTruckIsOpen);
+			$this->setTruckLatitude($newTruckLatitude);
+			$this->setTruckLongitude($newTruckLongitude);
+			$this->setTruckName($newTruckName);
+			$this->setTruckPhone($newTruckPhone);
+			$this->setTruckUrl($newTruckUrl);
 		} //determine what exception type was thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -91,41 +98,122 @@ class truck implements \JsonSerializable {
 	// ACCESSORS AND MUTATORS
 
 	/**
-	 * accessor method for categoryId
+	 * accessor method for truckId
 	 *
-	 * @return integer value of categoryId
+	 * @return Uuid value of truckId
 	 **/
-	public function getCategoryId(): int {
-		return ($this->categoryId);
+	public function getTruckId(): Uuid {
+		return ($this->truckId);
 	}
 
 	/**
-	 * mutator method for categoryId
+	 * mutator method for truckId
 	 *
-	 * @param int $newCategoryId new value of categoryId
-	 * @throws \TypeError if $newCategoryId is not an integer
-	 * @throws \RangeException if $newCategoryId too small OR too large OR empty string
+	 * @param Uuid|string $newTruckId new value of truck id
+	 * @throws \RangeException if $newTruckId is not positive
+	 * @throws \TypeError if $newTruckId is not a uuid or string
 	 **/
-	public function setCategoryId($newCategoryId): void {
-		if(is_int($newCategoryId) === false) {
-			throw(new \TypeError("Input is not an integer"));
+	public function setTruckId($newTruckId): void {
+		try {
+			$uuid = self::validateUuid($newTruckId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 
-		if($newCategoryId < 0 || $newCategoryId > 255 || empty($newCategoryId) === true) {
-			throw(new \RangeException("CategoryId is not a value between 0 and 255"));
-		}
-		// store new categoryId
-		$this->categoryId = $newCategoryId;
-
+		// convert and store the profile id
+		$this->truckId = $uuid;
 	}
 
 	/**
-	 * accessor method for categoryName
+	 * accessor method for truckProfileId
 	 *
-	 * @return string value of categoryName
+	 * @return Uuid value of truckProfileId
 	 **/
-	public function getCategoryName(): string {
-		return ($this->categoryName);
+	public function getTruckProfileId(): Uuid {
+		return ($this->truckProfileId);
+	}
+
+	/**
+	 * mutator method for truckProfileId
+	 *
+	 * @param Uuid|string $newTruckProfileId new value of profile id
+	 * @throws \RangeException if $newTruckProfileId is not positive
+	 * @throws \TypeError if $newTruckProfileId is not a uuid or string
+	 **/
+	public function setTruckProfileId($newTruckProfileId): void {
+		try {
+			$uuid = self::validateUuid($newTruckProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
+		// convert and store the profile id
+		$this->truckProfileId = $uuid;
+	}
+
+	/**
+	 * accessor method for truckBio
+	 *
+	 * @return string value of truckBio
+	 **/
+	public function getTruckBio(): string {
+		return ($this->truckBio);
+	}
+
+	/**
+	 * accessor method for truckIsOpen
+	 *
+	 * @return int value of truckIsOpen
+	 **/
+	public function getTruckIsOpen(): int {
+		return ($this->truckIsOpen);
+	}
+
+	/**
+	 * accessor method for truckLatitude
+	 *
+	 * @return float value of truckLatitude
+	 **/
+	public function getTruckLatitude(): float {
+		return ($this->truckLatitude);
+	}
+
+	/**
+	 * accessor method for truckLongitude
+	 *
+	 * @return float value of truckLongitude
+	 **/
+	public function getTruckLongitude(): float {
+		return ($this->truckLongitude);
+	}
+
+	/**
+	 * accessor method for truckName
+	 *
+	 * @return string value of truckName
+	 **/
+	public function getTruckName(): string {
+		return ($this->truckName);
+	}
+
+	/**
+	 * accessor method for truckPhone
+	 *
+	 * @return int value of truckPhone
+	 **/
+	public function getTruckPhone(): int {
+		return ($this->truckPhone);
+	}
+
+	/**
+	 * accessor method for truckUrl
+	 *
+	 * @return string value of truckUrl
+	 **/
+	public function getTruckUrl(): string {
+		return ($this->truckUrl);
 	}
 
 	/**
@@ -147,6 +235,9 @@ class truck implements \JsonSerializable {
 		$this->categoryName = $newCategoryName;
 
 	}
+
+
+
 
 	// PDO Methods
 
