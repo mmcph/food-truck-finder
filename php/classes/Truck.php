@@ -163,6 +163,23 @@ class truck implements \JsonSerializable {
 	}
 
 	/**
+	 * mutator method for truckBio
+	 *
+	 * @param string $newTruckBio new value of truckBio
+	 * @throws \TypeError if $newTruckBio is not a string
+	 * @throws \RangeException if $newTruckBio > 1024 chars OR empty string
+	 **/
+	public function setTruckBio(string $newTruckBio): void {
+
+		if(strlen($newTruckBio) > 1024 || empty($newTruckBio) === true) {
+			throw(new \RangeException("Truck bio empty or too large"));
+		}
+		// store new truckBio
+		$this->truckBio = $newTruckBio;
+
+	}
+
+	/**
 	 * accessor method for truckIsOpen
 	 *
 	 * @return int value of truckIsOpen
@@ -199,6 +216,23 @@ class truck implements \JsonSerializable {
 	}
 
 	/**
+	 * mutator method for truckName
+	 *
+	 * @param string $newTruckName new value of truckName
+	 * @throws \TypeError if $newTruckName is not a string
+	 * @throws \RangeException if $newTruckName > 64 chars OR empty string
+	 **/
+	public function setTruckBio(string $newTruckName): void {
+
+		if(strlen($newTruckName) > 64 || empty($newTruckName) === true) {
+			throw(new \RangeException("Truck name empty or too large"));
+		}
+		// store new truckName
+		$this->truckName = $newTruckName;
+
+	}
+
+	/**
 	 * accessor method for truckPhone
 	 *
 	 * @return int value of truckPhone
@@ -216,25 +250,7 @@ class truck implements \JsonSerializable {
 		return ($this->truckUrl);
 	}
 
-	/**
-	 * mutator method for categoryName
-	 *
-	 * @param string $newCategoryName new value of categoryName
-	 * @throws \TypeError if $newCategoryName is not a string
-	 * @throws \RangeException if $newCategoryName > 32chars OR empty string
-	 **/
-	public function setCategoryName(string $newCategoryName): void {
-//		if(is_string($newCategoryName) === false) {
-//			throw(new \TypeError("Input is not a string"));
-//		}
 
-		if(strlen($newCategoryName) > 32 || empty($newCategoryName) === true) {
-			throw(new \RangeException("category name empty or too large"));
-		}
-		// store new categoryName
-		$this->categoryName = $newCategoryName;
-
-	}
 
 
 

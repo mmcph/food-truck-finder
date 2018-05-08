@@ -90,9 +90,12 @@ class category implements \JsonSerializable {
 	 * @throws \RangeException if $newCategoryName > 32chars OR empty string
 	 **/
 	public function setCategoryName(string $newCategoryName): void {
-//		if(is_string($newCategoryName) === false) {
-//			throw(new \TypeError("Input is not a string"));
-//		}
+		// verify the token is secure
+		$newCategoryName = trim($newCategoryName);
+		$newCategoryName = filter_var($newCategoryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newCategoryName) === true) {
+			throw(new \InvalidArgumentException("Category name value is empty or insecure"));
+		}
 
 		if(strlen($newCategoryName) > 32 || empty($newCategoryName) === true) {
 			throw(new \RangeException("category name empty or too large"));
