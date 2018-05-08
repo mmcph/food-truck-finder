@@ -1,11 +1,9 @@
-
 <?php
 
 namespace Edu\Cnm\food-truck-finder;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
-
 
 class profile  implements /JsonSerializable {
 		/**
@@ -149,16 +147,16 @@ class profile  implements /JsonSerializable {
 
 	/**
 	 * accessor method
-	 * @return boolean value of profile is owner
+	 * @return int value of profile is owner
 	 */
-	public function getProfileIsOwner() : bool {
+	public function getProfileIsOwner() : int {
 	return $this->profileIsOwner;
 }
 
 	/**
-	 * @param mixed $profileIsOwner
+	 * @param int $profileIsOwner
 	 */
-	public function setProfileIsOwner(bool $newProfileIsOwner) {
+	public function setProfileIsOwner($newProfileIsOwner) : int {
 	$this->profileIsOwner = $newProfileIsOwner;
 }
 
@@ -245,3 +243,4 @@ class profile  implements /JsonSerializable {
 		$this->profileUserName = $newProfileUserName;
 	}
 }
+
