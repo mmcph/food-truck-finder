@@ -131,14 +131,17 @@ class profile  implements /JsonSerializable {
 
 	/**
 	 * accessor method
-	 * @return
+	 * @return string value of $profileHash
 	 */
 	public function getProfileHash() {
 	return $this->profileHash;
 }
 
 	/**
-	 * @param mixed $profileHash
+	 * @param string $profileHash\
+	 * @throws \InvalidArgumentException if the hash is not secure
+	 * @throws \RangeException if the hash is not 128 characters
+	 * @throws \TypeError if profile hash is not a string
 	 */
 	public function setProfileHash($profileHash) {
 	$this->profileHash = $profileHash;
