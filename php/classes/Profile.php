@@ -127,6 +127,7 @@ class profile  implements /JsonSerializable {
 	$this->profileEmail = $newProfileEmail;
 }
 
+
 	/**
 	 * accessor method
 	 * @return string value of $profileHash
