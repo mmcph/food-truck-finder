@@ -86,17 +86,15 @@ class Vote implements \JsonSerializable {
      * accessor method for vote value
      * @return number for vote value
      **/
-    public function getVoteValue () : number {
+    public function getVoteValue () : int {
         return($this->voteValue);
     }
     /**
      * mutator method for vote value
      **/
-    public function setVoteValue($newVoteValue): void {
-        try {
-            $newVoteValue = self::($newVoteValue)
-        }   catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+    public function setVoteValue (int $newVoteValue): void {
+        if($newVoteValue !== -1 || $newVoteValue !== 1) {
+            throw(new \InvalidArgumentException("vote value is incorrect"));
         }
         // store the vote value
         $this->voteValue = $newVoteValue;
