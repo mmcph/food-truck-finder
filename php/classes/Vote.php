@@ -114,4 +114,14 @@ class Vote implements \JsonSerializable {
             $this->voteProfileId->getBytes(), "voteTruckId" => $this->voteTruckId->getBytes(), "voteValue" => $this->voteValue];
         $statement->execute($parameters);
         }
+    /**
+     *
+     * deletes this Vote from mySQL
+     */
+    public function delete(\PDO $pdo) : void {
+        // delete query table
+        $query = "DELETE FROM vote WHERE voteProfileId = :profileId AND truckId = :truckId";
+        $statement = $pdo->prepare($query);
     }
+}
+
