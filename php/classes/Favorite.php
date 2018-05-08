@@ -20,6 +20,15 @@ class favorite implements \JsonSerializable {
 	private $favoriteProfileId;
 
 
+	public function __construct($favoriteTruckId, $favoriteProfileId) {
+		try {
+			$this->favoriteTruckId($newFavoriteTruck);
+			$this->favoriteProfileId($newFavoriteTruck);
+		} catch (\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
 
 
 	/**
@@ -45,7 +54,7 @@ class favorite implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 		}
-		$this->favoriteTruckId = $favoriteTruckId;
+		$this->favoriteTruckId = $newFavoriteTruckId;
 	}
 
 	/**
