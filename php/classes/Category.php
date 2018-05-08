@@ -89,10 +89,10 @@ class category implements \JsonSerializable {
 	 * @throws \TypeError if $newCategoryName is not a string
 	 * @throws \RangeException if $newCategoryName > 32chars OR empty string
 	 **/
-	public function setCategoryName($newCategoryName): void {
-		if(is_string($newCategoryName) === false) {
-			throw(new \TypeError("Input is not a string"));
-		}
+	public function setCategoryName(string $newCategoryName): void {
+//		if(is_string($newCategoryName) === false) {
+//			throw(new \TypeError("Input is not a string"));
+//		}
 
 		if(strlen($newCategoryName) > 32 || empty($newCategoryName) === true) {
 			throw(new \RangeException("category name empty or too large"));
