@@ -23,11 +23,11 @@ class Vote implements \JsonSerializable {
     /**
      * id of the truck that is being voted on; this is a primary key for the class
      * this is a foreign key referencing the truckId
-     */
+     **/
     private $voteTruckId;
     /**
      * the value of the vote, which will be either an up or down vote
-     */
+     **/
     private $voteValue;
     /**
      * constructor for this Vote
@@ -47,22 +47,58 @@ class Vote implements \JsonSerializable {
     /**
      * accessor method for profile Id
      * @return Uuid value for profile Id
-     */
+     **/
     public function getVoteProfileId () : Uuid {
         return($this->voteProfileId);
     }
     /**
-     * accessor method for truck Id
-     * @return Uuid value for truck Id
-     */
+     * mutator method for profile Id
+     **/
+    public function setVoteProfileId () : void {
+        try {
+            $uuid = self::validateUuid($newVoteProfileId)
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+        }
+        // convert and store the profile Id
+        $this->VoteProfileId = $uuid;
+    }
+     /**
+      * accessor method for truck Id
+      * @return Uuid value for truck Id
+     **/
     public function getVoteTruckId () : Uuid {
         return($this->voteTruckId);
     }
     /**
+     * mutator method for truck Id
+     **/
+    public function setVoteTruckId () : void {
+        try {
+            $uuid = self::validateUuid($newVoteTruckId)
+        }  catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+        }
+        // convert and store the truck Id
+        $this->VoteTruckId = $uuid;
+    }
+    /**
      * accessor method for vote value
      * @return Uuid value for vote value
-     */
-    public function getVoteValue () : tinyInt {
+     **/
+    public function getVoteValue () : int {
         return($this->voteValue);
+    }
+    /**
+     * mutator method for vote value
+     **/
+    public function setVoteValue($newVoteValue): void {
+        try {
+            $newVoteValue = self::($newVoteValue)
+        }   catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+        }
+        // store the vote value
+        $this->voteValue = $newVoteValue;
     }
 }
