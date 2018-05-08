@@ -84,9 +84,9 @@ class Vote implements \JsonSerializable {
     }
     /**
      * accessor method for vote value
-     * @return Uuid value for vote value
+     * @return number for vote value
      **/
-    public function getVoteValue () : int {
+    public function getVoteValue () : number {
         return($this->voteValue);
     }
     /**
@@ -101,4 +101,19 @@ class Vote implements \JsonSerializable {
         // store the vote value
         $this->voteValue = $newVoteValue;
     }
-}
+    /**
+     *inserts this Vote into mySQL
+     *
+     * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related errors occur
+     **/
+    public function insert(\PDO $pdo) : void {
+        // create a query template
+        $query = "INSERT INTO `vote` (voteProfileId, voteTruckId, voteValue) VALUES (:voteProfileId, :voteTruckId, :voteValue)";
+        $statement = $pdo->prepare($query);
+        // bind the member variables to the place holders in the template
+        $parameters = ["voteProfileId" =>
+            $this->voteProfileId->getBytes(), "voteTruckId" => $this->voteTruckId->getBytes(), "voteValue" => $this->voteValue];
+        $statement->execute($parameters);
+        }
+    }
