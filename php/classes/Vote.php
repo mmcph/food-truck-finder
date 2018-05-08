@@ -16,8 +16,8 @@ use Ramsey\Uuid\Uuid;
 class Vote implements \JsonSerializable {
     use ValidateUuid;
     /**
-     * id for this vote; this is the primary key
-     * @var Uuid $truckId
+     * id for profile that is casting this vote; this is the primary key for the class
+     *
      **/
     private $voteProfileId;
     /**
@@ -25,7 +25,7 @@ class Vote implements \JsonSerializable {
      */
     private $voteTruckId;
     /**
-     * the value of the vote; either up or down vote
+     * the value of the vote, which will be either an up or down vote
      */
     private $voteValue;
     /**
