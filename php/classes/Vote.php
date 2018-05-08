@@ -123,5 +123,37 @@ class Vote implements \JsonSerializable {
         $query = "DELETE FROM vote WHERE voteProfileId = :profileId AND truckId = :truckId";
         $statement = $pdo->prepare($query);
     }
+    /**
+     *
+     * gets the vote by profileId
+     *
+     */
+    public static function getVoteByVoteProfileId (\PDO $pdo, $voteProfileId): ?Vote {
+        // sanitize the voteProfileId before searching
+        try {
+            $voteProfileId = self::validateUuid($voteProfileId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage () 0, $exception));
+        }
+        // create query template
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM vote WHERE voteProfileId = :voteProfileId";
+        $statement = $pdo->prepare($query);
+
+        // bind the voteProfileId to the place holder in the template
+        $parameters = ["voteProfileId" => $voteProfileId->getBytes()];
+        $statement->execute($parameters);
+
+        // grab the vote from myuSQL
+        try {
+            $vote = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $row = $statement->fetch();
+            if(row !== false) {
+                $tweet = new Vote($row["voteProfileId"], $row["voteTruckId"], $row["newVoteValue"]);
+            }
+
+    }
+    }
+
 }
 
