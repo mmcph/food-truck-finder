@@ -124,7 +124,81 @@ class TruckCategory implements \JsonSerializable {
 
 
 
+	/**
+	 * -- inserts this truckCategory into mySQL
+	 *
+	 * -- @param \PDO $pdo PDO connection object
+	 * -- @throws \PDOException when mySQL related errors occur
+	 * -- @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
 
+		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
+		$statement = $pdo->prepare($query);
+		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId->getBytes(),"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+
+	public function delete(\PDO $pdo): void {
+
+		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
+		$statement = $pdo->prepare($query);
+		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId->getBytes(),"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+
+	public function update(\PDO $pdo): void {
+
+// create query template
+		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
+		$statement = $pdo->prepare($query);
+		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId->getBytes(),"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+
+
+	/**
+	 * gets the TruckCategory by TruckCategoryCategory
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid| string $truckCategoryCategoryId TruckCategory id to search for
+	 * @return TruckCategory|null Truck found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getTruckCategoryByTruckCategoryCategoryId(\PDO $pdo, $truckCategoryCategoryId): ?truckCategory {
+		// sanitize the personaId before searching
+		try {
+			$truckCategoryCategoryId = self::validateUuid($truckCategoryCategoryId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT personaId, personaEmail";
+		$statement = $pdo->prepare($query);
+
+		// bind the persona id to the place holder in the template
+		$parameters = ["personaId" => $truckCategoryCategoryId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the persona from mySQL
+		try {
+			$truckCategory = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$truckCategory = new truckCategory($row["personaId"], $row["personaEmail"], $row["personaPhone"], $row["personaType"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($truckCategory);
+	}
 
 
 
