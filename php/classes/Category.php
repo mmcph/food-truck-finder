@@ -31,7 +31,7 @@ class category implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct(integer $newCategoryId, string $newCategoryName) {
+	public function __construct(int $newCategoryId, string $newCategoryName) {
 		try {
 			$this->setCategoryId($newCategoryId);
 			$this->setCategoryName($newCategoryName);

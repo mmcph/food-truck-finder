@@ -7,7 +7,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
 
-class category implements \JsonSerializable {
+class truck implements \JsonSerializable {
 
 	use ValidateUuid;
 
@@ -37,22 +37,22 @@ class category implements \JsonSerializable {
 	 **/
 	protected $truckLatitude;
 	/**
-	 * latitudinal coord for truck location
+	 * longitudinal coord for truck location
 	 * @var float $truckLongitude
 	 **/
 	protected $truckLongitude;
 	/**
-	 * the user's profile name
+	 * name of this food truck
 	 * @var string $truckName
 	 **/
 	protected $truckName;
 	/**
-	 * the user's profile name
-	 * @var string $truckPhone
+	 * phone number for this truck
+	 * @var int $truckPhone
 	 **/
 	protected $truckPhone;
 	/**
-	 * the user's profile name
+	 * URL for this truck
 	 * @var string $truckUrl
 	 **/
 	protected $truckUrl;
@@ -60,17 +60,24 @@ class category implements \JsonSerializable {
 	// CONSTRUCTOR
 
 	/**
-	 * constructor for category
+	 * constructor for truck
 	 *
-	 * @param integer $newCategoryId id of this category or null if a new category
-	 * @param string $newCategoryName
+	 * @param Uuid $newTruckId id of this Truck or null if a new Truck
+	 * @param string $newTruckProfileId
+	 * @param string $newTruckBio
+	 * @param int $newTruckIsOpen
+	 * @param float $newTruckLatitude
+	 * @param float $newTruckLongitude
+	 * @param string $newTruckName
+	 * @param int $newTruckPhone
+	 * @param string $newTruckUrl
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct(integer $newCategoryId, string $newCategoryName) {
+	public function __construct(int $newCategoryId, string $newCategoryName) {
 		try {
 			$this->setCategoryId($newCategoryId);
 			$this->setCategoryName($newCategoryName);
