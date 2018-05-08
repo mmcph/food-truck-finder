@@ -16,12 +16,13 @@ use Ramsey\Uuid\Uuid;
 class Vote implements \JsonSerializable {
     use ValidateUuid;
     /**
-     * id for profile that is casting this vote; this is the primary key for the class
-     *
+     * id for profile that is casting this vote; this is a primary key for the class
+     * this is a foreign key referencing the profileId
      **/
     private $voteProfileId;
     /**
-     * id of the truck that is being voted on
+     * id of the truck that is being voted on; this is a primary key for the class
+     * this is a foreign key referencing the truckId
      */
     private $voteTruckId;
     /**
@@ -29,8 +30,25 @@ class Vote implements \JsonSerializable {
      */
     private $voteValue;
     /**
+     * constructor for this Vote
+     *
+     **/
+    public function __construct($newVoteProfileId, $newVoteTruckId, $newVoteValue) {
+        try {
+            $this->setVoteProfileId);
+            $this->setVoteTruckId);
+            $this->setVoteValue);
+        }
+            // determine what exception type was thrown
+        catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            $exceptionType = get_class($exception);
+            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+        }
+    }
+
+    /**
+     *
+     *
      *
      */
-
-
 }
