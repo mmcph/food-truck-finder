@@ -31,7 +31,6 @@ class Vote implements \JsonSerializable {
     private $voteValue;
     /**
      * constructor for this Vote
-     *
      **/
     public function __construct($newVoteProfileId, $newVoteTruckId, $newVoteValue) {
         try {
@@ -45,10 +44,25 @@ class Vote implements \JsonSerializable {
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
     }
-
     /**
-     *
-     *
-     *
+     * accessor method for profile Id
+     * @return Uuid value for profile Id
      */
+    public function getVoteProfileId () : Uuid {
+        return($this->voteProfileId);
+    }
+    /**
+     * accessor method for truck Id
+     * @return Uuid value for truck Id
+     */
+    public function getVoteTruckId () : Uuid {
+        return($this->voteTruckId);
+    }
+    /**
+     * accessor method for vote value
+     * @return Uuid value for vote value
+     */
+    public function getVoteValue () : tinyInt {
+        return($this->voteValue);
+    }
 }
