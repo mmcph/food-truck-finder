@@ -102,6 +102,59 @@ class category implements \JsonSerializable {
 
 	}
 
+	// PDO Methods
 
+	/** inserts new category into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+
+	public function insert(\PDO $pdo): void {
+
+		// create query template
+		$query = "INSERT INTO category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the placeholders in the template
+		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
+
+	/** deletes this category from mysql
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+
+	public function delete(\PDO $pdo): void {
+
+		// create query template
+		$query = "DELETE FROM category WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+
+		// bind member vars to placeholder in template
+		$parameters = ["categoryId" => $this->categoryId];
+		$statement->execute($parameters);
+	}
+
+	/** updates this category in mysql
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+
+	public function update(\PDO $pdo): void {
+
+		// create query template
+		$query = "UPDATE category SET categoryName = :categoryName WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
 
 }
