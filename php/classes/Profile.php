@@ -1,5 +1,5 @@
 
-		<?php
+<?php
 
 namespace Edu\Cnm\food-truck-finder;
 require_once("autoload.php");

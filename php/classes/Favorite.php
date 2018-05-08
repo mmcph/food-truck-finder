@@ -6,42 +6,54 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 
-class favorite {
+class favorite implements \JsonSerializable {
 
-
+	/**
+	 * @var
+	 */
 	private $favoriteTruckId;
 
+	/**
+	 *
+	 * @var
+	 */
 	private $favoriteProfileId;
 
 
 
 
 	/**
+	 *
 	 * accessor method
-	 * @return mixed
+	 * @return Uuid
 	 */
-	public function getFavoriteTruckId() {
+	public function getFavoriteTruckId() : string {
 		return $this->favoriteTruckId;
 	}
 
 	/**
-	 * @param mixed $favoriteTruckId
+	 * mutator method
+	 * @param Uuid | string value of  $newFavoriteTruckId
 	 */
 	public function setFavoriteTruckId($favoriteTruckId): void {
 		$this->favoriteTruckId = $favoriteTruckId;
 	}
 
 	/**
-	 * @return mixed
+	 * accessor method
+	 *
+	 * @return Uuid
 	 */
-	public function getFavoriteProfileId() {
+	public function getFavoriteProfileId() : string {
 		return $this->favoriteProfileId;
 	}
 
 	/**
-	 * @param mixed $favoriteProfileId
+	 * mutator method
+	 *
+	 * @param Uuid $favoriteProfileId
 	 */
-	public function setFavoriteProfileId($favoriteProfileId): void {
+	public function setFavoriteProfileId($newFavoriteProfileId): void {
 		$this->favoriteProfileId = $favoriteProfileId;
 	}
 
