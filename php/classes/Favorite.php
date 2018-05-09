@@ -83,3 +83,21 @@ class favorite implements \JsonSerializable {
 	}
 	}
 
+	/**
+	 * PDO's
+	 *
+	 */
+
+	public function insert(\PDO $pdo) : void {
+		$query = "INSERT INTO favorite(favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
+		$statement = $pdo->prepare($query);
+		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
+		$statements->execute($parameters);
+	}
+
+	public function delete(\PDO $pdo) : void {
+		$query = "DELETE FROM favorite WHERE favoriteTruckId = :favoriteTruckId and favoriteProfileId = :favoriteProfileId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
+		$statement->execute($parameters);
+}
