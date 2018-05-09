@@ -22,8 +22,8 @@ class favorite implements \JsonSerializable {
 
 	public function __construct($favoriteTruckId, $favoriteProfileId) {
 		try {
-			$this->favoriteTruckId($newFavoriteTruck);
-			$this->favoriteProfileId($newFavoriteTruck);
+			$this->favoriteTruckId($newFavoriteTruckId);
+			$this->favoriteProfileId($newFavoriteProfileId);
 		} catch (\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -87,6 +87,7 @@ class favorite implements \JsonSerializable {
 	 * PDO's
 	 *
 	 */
+
 
 	public function insert(\PDO $pdo) : void {
 		$query = "INSERT INTO favorite(favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
