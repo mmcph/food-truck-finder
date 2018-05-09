@@ -243,5 +243,32 @@ class profile  implements /JsonSerializable {
 		}
 		$this->profileUserName = $newProfileUserName;
 	}
-}
+
+	/**
+	 * PDO's
+	 */
+
+	public function insert(\PDO $pdo) : void {
+		$query = "INSERT INTO profile(profileId, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName) VALUES(:profileId, :profileEmail, :profileHash, :profileIsOwner,:profileFirstName,:profileLastName,:profileUserName)";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["profileId" => $this->profileId->getBytes(), "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileIsOwner" => $this->profileIsOwner, "profileFirstName" => $this->profileFirstName, "profileLastName" => $this->profileLastName, "profileUserName" => $this->profileUserName];
+		$statement->execute($parameters);
+	}
+
+	public function delete(\PDO $pdo) : void {
+		$query = "DELETE FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["profileId" => $this->profileId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	public function update(\PDO $pdo) : void {
+		$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, profileHash = :profileHash, profileIsOwner = :profileIsOwner, profileFirstName = :profileFirstName, profileLastName = :profileLastName, profileUserName = :profileUserName WHERE profileId = profileId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["profileId" => $this->profileId->getBytes(), "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileIsOwner" => $this->profileIsOwner, "profileFirstName" => $this->profileFirstName, "profileLastName" => $this->profileLastName, "profileUserName" => $this->profileUserName];
+		$statement->execute($parameters);
+	}
+
 
