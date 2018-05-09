@@ -196,6 +196,26 @@ class truck implements \JsonSerializable {
 	}
 
 	/**
+	 * mutator method for truckIsOpen
+	 *
+	 * @param int $newTruckIsOpen new value of truckIsOpen
+	 * @throws \TypeError if $newTruckIsOpen is not an integer
+	 * @throws \RangeException if $newTruckIsOpen too small OR too large OR empty string
+	 **/
+	public function setTruckIsOpen($newTruckIsOpen): void {
+		if(is_int($newTruckIsOpen) === false) {
+			throw(new \TypeError("Input is not an integer"));
+		}
+
+		if($newTruckIsOpen < 0 || $newTruckIsOpen > 1 || empty($newTruckIsOpen) === true) {
+			throw(new \RangeException("TruckIsOpen is not a value in range [0,1]"));
+		}
+		// store new truckIsOpen
+		$this->truckIsOpen = $newTruckIsOpen;
+
+	}
+
+	/**
 	 * accessor method for truckLatitude
 	 *
 	 * @return float value of truckLatitude
@@ -205,12 +225,52 @@ class truck implements \JsonSerializable {
 	}
 
 	/**
+	 * mutator method for truckLatitude
+	 *
+	 * @param float $newTruckLatitude new value of truckLatitude
+	 * @throws \TypeError if $newTruckLatitude is not a float
+	 * @throws \RangeException if $newTruckLatitude too small OR too large OR empty string
+	 **/
+	public function setTruckLatitude($newTruckLatitude): void {
+		if(is_float($newTruckLatitude) === false) {
+			throw(new \TypeError("Latitude input is not a float"));
+		}
+
+		if($newTruckLatitude < -90 || $newTruckLatitude > 90 || empty($newTruckLatitude) === true) {
+			throw(new \RangeException("Invalid latitude value: must be in range [-90,90]"));
+		}
+		// store new truckLatitude
+		$this->truckLatitude = $newTruckLatitude;
+
+	}
+
+	/**
 	 * accessor method for truckLongitude
 	 *
 	 * @return float value of truckLongitude
 	 **/
 	public function getTruckLongitude(): float {
 		return ($this->truckLongitude);
+	}
+
+	/**
+	 * mutator method for truckLongitude
+	 *
+	 * @param float $newTruckLongitude new value of truckLongitude
+	 * @throws \TypeError if $newTruckLongitude is not a float
+	 * @throws \RangeException if $newTruckLongitude too small OR too large OR empty string
+	 **/
+	public function setTruckLongitude($newTruckLongitude): void {
+		if(is_float($newTruckLongitude) === false) {
+			throw(new \TypeError("Longitude input is not a float"));
+		}
+
+		if($newTruckLongitude < 0 || $newTruckLongitude > 180 || empty($newTruckLongitude) === true) {
+			throw(new \RangeException("Invalid longitude value: must be in range [0,180]"));
+		}
+		// store new truckLongitude
+		$this->truckLongitude = $newTruckLongitude;
+
 	}
 
 	/**
@@ -274,7 +334,7 @@ class truck implements \JsonSerializable {
 		if(strlen($newTruckPhone) > 24) {
 			throw(new \RangeException("Truck phone number input too long"));
 		}
-		// store new truckBio
+		// store new truckPhone
 		$this->truckPhone = $newTruckPhone;
 
 	}
@@ -296,24 +356,21 @@ class truck implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if input is empty
 	 * @throws \RangeException if $newTruckUrl > 128 chars
 	 **/
-	public function setTruckPhone(string $newTruckPhone): void {
+	public function setTruckUrl(string $newTruckUrl): void {
 		// verify the token is secure
-		$newTruckPhone = trim($newTruckPhone);
-		$newTruckPhone = filter_var($newTruckPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newTruckPhone) === true) {
-			throw(new \InvalidArgumentException("Truck phone number value is empty or insecure"));
+		$newTruckUrl = trim($newTruckUrl);
+		$newTruckUrl = filter_var($newTruckUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newTruckUrl) === true) {
+			throw(new \InvalidArgumentException("Truck url value is empty or insecure"));
 		}
 
-		if(strlen($newTruckPhone) > 24) {
-			throw(new \RangeException("Truck phone number input too long"));
+		if(strlen($newTruckUrl) > 24) {
+			throw(new \RangeException("Truck url input too long"));
 		}
-		// store new truckBio
-		$this->truckPhone = $newTruckPhone;
+		// store new truckUrl
+		$this->truckUrl = $newTruckUrl;
 
 	}
-
-
-
 
 	// PDO Methods
 
@@ -368,6 +425,20 @@ class truck implements \JsonSerializable {
 
 		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
 		$statement->execute($parameters);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
+
+		$fields["truckId"] = $this->truckId->toString();
+		$fields["truckProfileId"] = $this->truckProfileId->toString();
+
+		return($fields);
 	}
 
 }
