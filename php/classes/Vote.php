@@ -100,7 +100,7 @@ class Vote implements \JsonSerializable {
         $this->voteValue = $newVoteValue;
     }
     /**
-     *inserts this Vote into mySQL
+     * inserts this Vote into mySQL
      *
      * @param \PDO $pdo PDO connection object
      * @throws \PDOException when mySQL related errors occur
@@ -115,45 +115,54 @@ class Vote implements \JsonSerializable {
         $statement->execute($parameters);
         }
     /**
-     *
      * deletes this Vote from mySQL
+     *
+     * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related errors occur
      */
     public function delete(\PDO $pdo) : void {
         // delete query table
-        $query = "DELETE FROM vote WHERE voteProfileId = :profileId AND truckId = :truckId";
+        $query = "DELETE FROM `vote` WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
         $statement = $pdo->prepare($query);
+        //bind the member variables to the placeholders in the template
+        $parameters = ["voteProfileId" =>$this->voteProfileId->getBytes(), "voteTruckId" => $this->voteTruckId->getBytes()];
+    }
+    /**
+     * gets the Vote by profile id and truck id
+     *
+     *
+     */
+    public static function getVotesByVoteProfileId (\PDO $pdo, $voteProfileId): \SplFixedArray {
+        try {
+            $voteProfileId = self::validateUuid($voteProfileId);
+        } catch(\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception){
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+        // create query template
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM `vote` WHERE voteProfileId = :voteProfileId";
+        $statement = $pdo->prepare($query);
+        // bind the member variables to the place holder in the template
+        $parameters = ["voteProfileId" => $voteProfileId->getBytes()];
+        $statement->execute($parameters);
+        // build the array of votes
+        $votes = new \SplFixedArray($statement->rowCount());
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        while(($row = $statement->fetch()) !==false) {
+            try {
+                $vote = new Vote($row["voteProfileId"],
+                    $row["voteProfileId"], $row["voteTruckId"]);
+                $votes[$votes->key()] = $vote;
+                $votes->next();
+            } catch(\Exception $exception) {
+                // if the row couldn't be converted, rethrow it
+                throw(new \PDOException($exception->getMessage(),0, $exception));
+            }
+        }
+        return ($votes);
     }
     /**
      *
-     * gets the vote by profileId
-     *
      */
-    public static function getVoteByVoteProfileId (\PDO $pdo, $voteProfileId): ?Vote {
-        // sanitize the voteProfileId before searching
-        try {
-            $voteProfileId = self::validateUuid($voteProfileId);
-        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-            throw(new \PDOException($exception->getMessage () 0, $exception));
-        }
-        // create query template
-        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM vote WHERE voteProfileId = :voteProfileId";
-        $statement = $pdo->prepare($query);
-
-        // bind the voteProfileId to the place holder in the template
-        $parameters = ["voteProfileId" => $voteProfileId->getBytes()];
-        $statement->execute($parameters);
-
-        // grab the vote from myuSQL
-        try {
-            $vote = null;
-            $statement->setFetchMode(\PDO::FETCH_ASSOC);
-            $row = $statement->fetch();
-            if(row !== false) {
-                $tweet = new Vote($row["voteProfileId"], $row["voteTruckId"], $row["newVoteValue"]);
-            }
-
-    }
-    }
 
 }
 
