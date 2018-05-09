@@ -236,6 +236,7 @@ class category implements \JsonSerializable {
 		return($category);
 	}
 
+
 	/**
 	 * formats the state variables for JSON serialization
 	 *
