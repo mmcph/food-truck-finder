@@ -167,12 +167,19 @@ class truck implements \JsonSerializable {
 	 *
 	 * @param string $newTruckBio new value of truckBio
 	 * @throws \TypeError if $newTruckBio is not a string
-	 * @throws \RangeException if $newTruckBio > 1024 chars OR empty string
+	 * @throws \InvalidArgumentException if input is empty
+	 * @throws \RangeException if $newTruckBio > 1024 chars
 	 **/
 	public function setTruckBio(string $newTruckBio): void {
+		// verify the token is secure
+		$newTruckBio = trim($newTruckBio);
+		$newTruckBio = filter_var($newTruckBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newTruckBio) === true) {
+			throw(new \InvalidArgumentException("Truck bio value is empty or insecure"));
+		}
 
-		if(strlen($newTruckBio) > 1024 || empty($newTruckBio) === true) {
-			throw(new \RangeException("Truck bio empty or too large"));
+		if(strlen($newTruckBio) > 1024) {
+			throw(new \RangeException("Truck bio input too long"));
 		}
 		// store new truckBio
 		$this->truckBio = $newTruckBio;
@@ -220,12 +227,19 @@ class truck implements \JsonSerializable {
 	 *
 	 * @param string $newTruckName new value of truckName
 	 * @throws \TypeError if $newTruckName is not a string
-	 * @throws \RangeException if $newTruckName > 64 chars OR empty string
+	 * @throws \InvalidArgumentException if input is empty
+	 * @throws \RangeException if $newTruckName > 64 chars
 	 **/
-	public function setTruckBio(string $newTruckName): void {
+	public function setTruckName(string $newTruckName): void {
+		// verify the token is secure
+		$newTruckName = trim($newTruckName);
+		$newTruckName = filter_var($newTruckName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newTruckName) === true) {
+			throw(new \InvalidArgumentException("Truck name value is empty or insecure"));
+		}
 
-		if(strlen($newTruckName) > 64 || empty($newTruckName) === true) {
-			throw(new \RangeException("Truck name empty or too large"));
+		if(strlen($newTruckName) > 64) {
+			throw(new \RangeException("Truck name too long"));
 		}
 		// store new truckName
 		$this->truckName = $newTruckName;
@@ -242,6 +256,30 @@ class truck implements \JsonSerializable {
 	}
 
 	/**
+	 * mutator method for truckPhone
+	 *
+	 * @param string $newTruckPhone new value of truckPhone
+	 * @throws \TypeError if $newTruckPhone is not a string
+	 * @throws \InvalidArgumentException if input is empty
+	 * @throws \RangeException if $newTruckPhone > 24 chars
+	 **/
+	public function setTruckPhone(string $newTruckPhone): void {
+		// verify the token is secure
+		$newTruckPhone = trim($newTruckPhone);
+		$newTruckPhone = filter_var($newTruckPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newTruckPhone) === true) {
+			throw(new \InvalidArgumentException("Truck phone number value is empty or insecure"));
+		}
+
+		if(strlen($newTruckPhone) > 24) {
+			throw(new \RangeException("Truck phone number input too long"));
+		}
+		// store new truckBio
+		$this->truckPhone = $newTruckPhone;
+
+	}
+
+	/**
 	 * accessor method for truckUrl
 	 *
 	 * @return string value of truckUrl
@@ -250,7 +288,29 @@ class truck implements \JsonSerializable {
 		return ($this->truckUrl);
 	}
 
+	/**
+	 * mutator method for truckUrl
+	 *
+	 * @param string $newTruckUrl new value of truckUrl
+	 * @throws \TypeError if $newTruckUrl is not a string
+	 * @throws \InvalidArgumentException if input is empty
+	 * @throws \RangeException if $newTruckUrl > 128 chars
+	 **/
+	public function setTruckPhone(string $newTruckPhone): void {
+		// verify the token is secure
+		$newTruckPhone = trim($newTruckPhone);
+		$newTruckPhone = filter_var($newTruckPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newTruckPhone) === true) {
+			throw(new \InvalidArgumentException("Truck phone number value is empty or insecure"));
+		}
 
+		if(strlen($newTruckPhone) > 24) {
+			throw(new \RangeException("Truck phone number input too long"));
+		}
+		// store new truckBio
+		$this->truckPhone = $newTruckPhone;
+
+	}
 
 
 

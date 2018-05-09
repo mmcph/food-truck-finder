@@ -97,8 +97,8 @@ class category implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Category name value is empty or insecure"));
 		}
 
-		if(strlen($newCategoryName) > 32 || empty($newCategoryName) === true) {
-			throw(new \RangeException("category name empty or too large"));
+		if(strlen($newCategoryName) > 32) {
+			throw(new \RangeException("category name too long"));
 		}
 		// store new categoryName
 		$this->categoryName = $newCategoryName;
