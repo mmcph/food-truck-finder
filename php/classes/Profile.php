@@ -67,7 +67,7 @@ trait ValidateUuid {
  * @package Edu\Cnm\food-truck-finder
  * @author G. Cordova
  */
-class profile  implements /JsonSerializable {
+class Profile  implements /JsonSerializable {
 		/**
 		 * UNIQUE
 		 * id for profile
