@@ -7,6 +7,13 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
 
+/**
+ * Class truck - represents each individual food truck. Weak entity; one profile may have many food trucks.
+ * @package Edu\Cnm\FoodTruck
+ *
+ * @author: Marlon McPherson (marlon.c.mcpherson@gmail.com)
+ */
+
 class truck implements \JsonSerializable {
 
 	use ValidateUuid;
@@ -427,8 +434,6 @@ class truck implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
-	getTruckByTruckId
-	getTruck
 	/**
 	 * gets the Truck by truckId
 	 *
@@ -452,6 +457,84 @@ class truck implements \JsonSerializable {
 
 		// bind the truck id to the place holder in the template
 		$parameters = ["truckId" => $truckId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the truck from mySQL
+		try {
+			$truck = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($truck);
+	}
+
+
+getTruckByTruckName
+
+	/**
+	 * gets the Truck by truckProfileId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $truckProfileId truck profileId to search for
+	 * @return Truck|null Truck found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getTruckByTruckProfileId(\PDO $pdo, $truckProfileId) : ?Truck {
+		// sanitize the truckProfileId before searching
+		try {
+			$truckProfileId = self::validateUuid($truckProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckProfileId = :truckProfileId";
+		$statement = $pdo->prepare($query);
+
+		// bind the truckProfileId to the place holder in the template
+		$parameters = ["truckProfileId" => $truckProfileId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the truck from mySQL
+		try {
+			$truck = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($truck);
+	}
+
+	/**
+	 * gets the Truck by truckIsOpen
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $truckIsOpen truck open/closed status to search for
+	 * @return Truck|null Truck found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getTruckByTruckIsOpen(\PDO $pdo, $truckIsOpen) : ?Truck {
+		// int inputs don't require sanitizing
+
+		// create query template
+		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckIsOpen = :truckIsOpen";
+		$statement = $pdo->prepare($query);
+
+		// bind the truckIsOpen to the place holder in the template
+		$parameters = ["truckIsOpen" => $truckIsOpen];
 		$statement->execute($parameters);
 
 		// grab the truck from mySQL
