@@ -39,12 +39,12 @@ class truck implements \JsonSerializable {
 	 **/
 	protected $truckIsOpen;
 	/**
-	 * latitudinal coord for truck location
+	 * latitudinal coordinate for truck location
 	 * @var float $truckLatitude
 	 **/
 	protected $truckLatitude;
 	/**
-	 * longitudinal coord for truck location
+	 * longitudinal coordinate for truck location
 	 * @var float $truckLongitude
 	 **/
 	protected $truckLongitude;
@@ -474,9 +474,6 @@ class truck implements \JsonSerializable {
 		return($truck);
 	}
 
-
-getTruckByTruckName
-
 	/**
 	 * gets the Truck by truckProfileId
 	 *
@@ -535,6 +532,46 @@ getTruckByTruckName
 
 		// bind the truckIsOpen to the place holder in the template
 		$parameters = ["truckIsOpen" => $truckIsOpen];
+		$statement->execute($parameters);
+
+		// grab the truck from mySQL
+		try {
+			$truck = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($truck);
+	}
+
+	/**
+	 * gets the Truck by truckName
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $truckName truck name to search for
+	 * @return Truck|null Truck found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getTruckByTruckName(\PDO $pdo, $truckName) : ?Truck {
+		// verify the token is secure
+		$truckName = trim($truckName);
+		$truckName = filter_var($truckName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($truckName) === true) {
+			throw(new \InvalidArgumentException("Enter a truck name to search for."));
+		}
+
+		// create query template
+		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckName = :truckName";
+		$statement = $pdo->prepare($query);
+
+		// bind the truckIsOpen to the place holder in the template
+		$parameters = ["truckName" => $truckName];
 		$statement->execute($parameters);
 
 		// grab the truck from mySQL
