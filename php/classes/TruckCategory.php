@@ -15,7 +15,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
- *
+ *Truck---
  *
  * @author Manuel Escobar III <mescobar14@cnm.edu>
  *
@@ -27,13 +27,17 @@ class TruckCategory implements \JsonSerializable {
 	 * id for this truckCategoryCategoryId; this is the primary key
 	 * @var Uuid $truckCategoryCategoryId
 	 **/
-	protected $truckCategoryCategoryId;
+	private $truckCategoryCategoryId;
+
+
+//protected $category
+//protected $truck
 
 	/**
 	 * id for truckCategoryTruckId; this is the primary key
 	 * @var Uuid $truckCategoryTruckId
 	 **/
-	protected $truckCategoryTruckId;
+	private $truckCategoryTruckId;
 
 // Constructor
 
@@ -142,9 +146,13 @@ class TruckCategory implements \JsonSerializable {
 
 	public function delete(\PDO $pdo): void {
 
-		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
+
+		// create query template
+		$query = "DELETE FROM TruckCategory WHERE TruckCategoryId = :TruckCategoryId";
 		$statement = $pdo->prepare($query);
-		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId->getBytes(),"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
+
+		// bind the member variables to the place holder in the template
+		$parameters = ["TruckCategoryId" => $this->TruckCategoryId->getBytes()];
 		$statement->execute($parameters);
 	}
 
@@ -159,7 +167,6 @@ class TruckCategory implements \JsonSerializable {
 	}
 
 
-
 	/**
 	 * gets the TruckCategory by TruckCategoryCategoryId
 	 *
@@ -170,19 +177,13 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
 	public static function getTruckCategoryByTruckCategoryCategoryId(\PDO $pdo, $truckCategoryCategoryId): ?truckCategory {
-		// sanitize the personaId before searching
-		try {
-			$truckCategoryCategoryId = self::validateUuid($truckCategoryCategoryId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
 
 		// create query template
 		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId";
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-		$parameters = ["truckCategory" => $truckCategoryCategoryId->getBytes()];
+		$parameters = ["truckCategory" => $truckCategoryCategoryId];
 		$statement->execute($parameters);
 
 		// grab the truckCategory from mySQL
@@ -212,7 +213,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
 	public static function getTruckCategoryByTruckCategoryTruckId(\PDO $pdo, $truckCategoryTruckId): ?truckCategory {
-		// sanitize the personaId before searching
+		// sanitize the truckCategoryId before searching
 		try {
 			$truckCategoryTruckId = self::validateUuid($truckCategoryTruckId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -220,7 +221,7 @@ class TruckCategory implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId";
+		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId like";
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
@@ -251,9 +252,9 @@ class TruckCategory implements \JsonSerializable {
 	 * @return array resulting state variables to serialize
 	 **/
 	public function jsonSerialize(): array {
-
 		$fields = get_object_vars($this);
-		$fields["personaId"] = $this->personaId->toString();
+		$fields["truckCategoryCategoryId"] = $this->truckCategoryCategoryId->toString();
+		$fields["truckCategoryTruckId"] = $this->truckCategoryTruckId->toString();
 		return ($fields);
 	}
 }
