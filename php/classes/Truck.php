@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
  * @author: Marlon McPherson (marlon.c.mcpherson@gmail.com)
  */
 
-class truck implements \JsonSerializable {
+class Truck implements \JsonSerializable {
 
 	use ValidateUuid;
 

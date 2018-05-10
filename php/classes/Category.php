@@ -5,7 +5,7 @@ namespace Edu\Cnm\FoodTruck;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-class category implements \JsonSerializable {
+class Category implements \JsonSerializable {
 
 	/**
 	 * id for this category; this is the primary key
