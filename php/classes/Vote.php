@@ -150,7 +150,7 @@ class Vote implements \JsonSerializable {
         while(($row = $statement->fetch()) !==false) {
             try {
                 $vote = new Vote($row["voteProfileId"],
-                    $row["voteProfileId"], $row["voteTruckId"]);
+                    $row["voteProfileId"], $row["voteTruckId"], $row ["voteValue"]);
                 $votes[$votes->key()] = $vote;
                 $votes->next();
             } catch(\Exception $exception) {
@@ -162,7 +162,41 @@ class Vote implements \JsonSerializable {
     }
     /**
      *
+     * gets Vote by truck Id
      */
-
+    public static function getVoteByTruckId (\PDO $pdo, $voteTruckId): \SplFixedArray {
+        // create query template
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM `vote` WHERE voteProfileId = :voteProfileId";
+        $statement = $pdo->prepare($query);
+        // bind the member variables to the place holder in the template
+        $parameters = ["voteTruckId"=> $voteTruckId->getBytes()];
+        $statement->execute($parameters);
+        // build the array of votes
+        $votes = new \SplFixedArray($statement->rowCount());
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        while(($row = $statement->fetch()) !==false) {
+            try {
+                $vote = new Vote($row["voteProfileId"], $row["voteTruckId"], ["voteValue"]);
+                    $row["voteProfileId"], $row["voteTruckId"], $row["voteValue"]);
+                $votes[$votes->key()] = $vote;
+                $votes->next();
+            } catch(\Exception $exception) {
+                // if the row couldn't be converted, rethrow it
+            } throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+    }
+    /**
+     * formats the state variables for JSON serialization
+     *
+     * @return array resulting state variables to serialize
+     **/
+    public function jsonSerialize() {
+        $fields = get_object_vars($this);
+        //format the date so that the front end can consume it
+        $fields["voteProfileId"] = $this->voteProfileId;
+        $fields["voteTruckId"] = $this->voteTruckId;
+        $fields["voteValue"] = $this->voteValue;
+        return ($fields);
+    }
 }
 
