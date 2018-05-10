@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marlon
- * Date: 5/7/18
- * Time: 3:34 PM
- */
-namespace Edu\Cnm\DataDesign;
+
+namespace Edu\Cnm\FoodTruck;
 
 require_once("autoload.php");
 
@@ -29,10 +24,6 @@ class TruckCategory implements \JsonSerializable {
 	 **/
 	private $truckCategoryCategoryId;
 
-
-//protected $category
-//protected $truck
-
 	/**
 	 * id for truckCategoryTruckId; this is the primary key
 	 * @var Uuid $truckCategoryTruckId
@@ -44,7 +35,7 @@ class TruckCategory implements \JsonSerializable {
 	/**
 	 * constructor for this TruckCategory
 	 *
-	 * @param string|Uuid $truckCategoryCategoryId; id of this truck CategoryId
+	 * @param int | $truckCategoryCategoryId; id of this truck CategoryId
 	 * @param string|Uuid $truckCategoryTruckId; id of this truck Category Truck Id
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
@@ -52,7 +43,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($truckCategoryCategoryId, $truckCategoryTruckId) {
+	public function __construct(int $truckCategoryCategoryId, $truckCategoryTruckId) {
 		try {
 			$this->setTruckCategoryCategoryId($truckCategoryCategoryId);
 			$this->setTruckCategoryTruckId($truckCategoryTruckId);
@@ -66,8 +57,8 @@ class TruckCategory implements \JsonSerializable {
 
 
 	/**
-	 * accessor method for getting personaId
-	 * @return Uuid value of personaId
+	 * accessor method for getting truckCategoryId
+	 * @return Uuid value of truckCategoryId
 	 *
 	 */
 	public function getTruckCategoryCategoryId(): Uuid {
@@ -82,15 +73,13 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \TypeError if $newProfileId is not a uuid or string
 	 *
 	 */
-	public function setTruckCategoryCategoryId($newTruckCategoryCategoryId): void {
-		try {
-			$uuid = self::validateUuid($newTruckCategoryCategoryId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	public function setTruckCategoryCategoryId(int $newTruckCategoryCategoryId): void {
+		if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
+			throw new \RangeException("truckCategoryCategoryId is out of range");
 		}
-		// convert and store the profile id
-		$this->truckCategoryCategoryId = $uuid;
+
+		// convert and store the truckCategoryCategoryId
+		$this->truckCategoryCategoryId = $newTruckCategoryCategoryId;
 	}
 
 
@@ -157,16 +146,6 @@ class TruckCategory implements \JsonSerializable {
 	}
 
 
-	public function update(\PDO $pdo): void {
-
-// create query template
-		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
-		$statement = $pdo->prepare($query);
-		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId->getBytes(),"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
-		$statement->execute($parameters);
-	}
-
-
 	/**
 	 * gets the TruckCategory by TruckCategoryCategoryId
 	 *
@@ -176,14 +155,16 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckCategoryByTruckCategoryCategoryId(\PDO $pdo, $truckCategoryCategoryId): ?truckCategory {
+
+	//TODO: getTruckCategoryByTruckCategoryCategoryId
+	public static function getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(\PDO $pdo, $truckCategoryCategoryId, $truckCategoryTruckId): ?TruckCategory {
 
 		// create query template
-		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId";
+		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId AND truckCategoryTruckId = :truckCategoryTruckId";
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-		$parameters = ["truckCategory" => $truckCategoryCategoryId];
+		$parameters = ["truckCategory" => $truckCategoryCategoryId,"truckCategoryTruckId" => $truckCategoryTruckId];
 		$statement->execute($parameters);
 
 		// grab the truckCategory from mySQL
