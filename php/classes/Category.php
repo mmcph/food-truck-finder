@@ -23,7 +23,7 @@ class Category implements \JsonSerializable {
 	/**
 	 * constructor for category
 	 *
-	 * @param integer $newCategoryId id of this category or null if a new category
+	 * @param int|null $newCategoryId id of this category or null if a new category
 	 * @param string $newCategoryName
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
