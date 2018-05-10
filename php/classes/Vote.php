@@ -1,14 +1,13 @@
 <?php
 namespace Edu\Cnm\FoodTruck;
-
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
-
 use Ramsey\Uuid\Uuid;
 
 /**
- * This is the class for our attribute of Vote
- *
+ * This is the class for our attribute of Vote where users can up or down vote a food truck.
+ * It is an intersection table (composite entity) between Truck and Vote (a 1-to-m relationship)
+ * and Profile and Vote (a 1-to-1 relationship)
  *
  * @author Yvette Johnson-Rodgers <itsyvejr@gmail.com>
  * @version 1.0
@@ -17,54 +16,72 @@ class Vote implements \JsonSerializable {
     use ValidateUuid;
     /**
      * id for profile that is casting this vote; this is a primary key for the class
-     * this is a foreign key referencing the profileId
+     * (and a foreign key referencing the profileId)
+     * @var Uuid $voteProfileId
      **/
     private $voteProfileId;
     /**
      * id of the truck that is being voted on; this is a primary key for the class
      * this is a foreign key referencing the truckId
+     * @var Uuid $voteTruckId
      **/
     private $voteTruckId;
     /**
      * the value of the vote, which will be either an up or down vote
+     * @var $voteValue
      **/
     private $voteValue;
     /**
      * constructor for this Vote
+     * @param string|Uuid $newVoteProfileId id of the profile casting the vote
+     * @param string|Uuid $newVoteTruckId id of the truck receiving the vote
+     * @param integer|null $newVoteValue for the value of the vote
+     * @throws \InvalidArgumentException if data types are not valid
+     * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+     * @throws \TypeError if data types violate type hints
+     * @throws \Exception if some other exception is thrown
+     *
      **/
-    public function __construct($newVoteProfileId, $newVoteTruckId, $newVoteValue) {
+    public function __construct( $newVoteProfileId, $newVoteTruckId, $newVoteValue) {
+        //
         try {
-            $this->setVoteProfileId);
-            $this->setVoteTruckId);
-            $this->setVoteValue);
-        }
+            $this->setVoteProfileId($newVoteProfileId);
+            $this->setVoteTruckId($newVoteTruckId);
+            $this->setVoteValue($newVoteValue);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             // determine what exception type was thrown
-        catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
     }
     /**
      * accessor method for profile Id
+     *
      * @return Uuid value for profile Id
-     **/
+     **
     public function getVoteProfileId () : Uuid {
         return($this->voteProfileId);
     }
     /**
      * mutator method for profile Id
+     *
+     * @param string $newVoteProfileId new value of vote id
+     * @throws \RangeException if $newVoteProfileId is not positive
+     * @throws \TypeError if $newProfileId is not an integer
      **/
-    public function setVoteProfileId () : void {
+    public function setVoteProfileId ($newVoteProfileId) : void {
         try {
-            $uuid = self::validateUuid($newVoteProfileId)
+            $uuid = self::validateUuid($newVoteProfileId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
         // convert and store the profile Id
-        $this->VoteProfileId = $uuid;
+        $this->voteProfileId = $uuid;
     }
      /**
       * accessor method for truck Id
+      *
       * @return Uuid value for truck Id
      **/
     public function getVoteTruckId () : Uuid {
@@ -72,18 +89,24 @@ class Vote implements \JsonSerializable {
     }
     /**
      * mutator method for truck Id
+     *
+     * @param string $newVoteTruckId new value of vote
+     * @throws \RangeException if $newProfileId is not positive
+     * @throws \TypeError if $newProfileId is not an integer
      **/
-    public function setVoteTruckId () : void {
+    public function setVoteTruckId ($newVoteTruckId) : void {
         try {
-            $uuid = self::validateUuid($newVoteTruckId)
+            $uuid = self::validateUuid($newVoteTruckId);
         }  catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
         // convert and store the truck Id
-        $this->VoteTruckId = $uuid;
+        $this->voteTruckId = $uuid;
     }
     /**
      * accessor method for vote value
+     *
      * @return number for vote value
      **/
     public function getVoteValue () : int {
@@ -91,12 +114,16 @@ class Vote implements \JsonSerializable {
     }
     /**
      * mutator method for vote value
+     *
+     * @param integer $newVoteValue value of vote
+     * @throws \RangeException if $newVoteValue is not positive
+     * @throws \TypeError if $newVoteTruckId is not an integer
      **/
     public function setVoteValue (int $newVoteValue): void {
         if($newVoteValue !== -1 || $newVoteValue !== 1) {
             throw(new \InvalidArgumentException("vote value is incorrect"));
         }
-        // store the vote value
+        // convert and store the vote value
         $this->voteValue = $newVoteValue;
     }
     /**
@@ -121,7 +148,7 @@ class Vote implements \JsonSerializable {
      * @throws \PDOException when mySQL related errors occur
      */
     public function delete(\PDO $pdo) : void {
-        // delete query table
+        // create query table
         $query = "DELETE FROM `vote` WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
         $statement = $pdo->prepare($query);
         //bind the member variables to the placeholders in the template
@@ -129,7 +156,9 @@ class Vote implements \JsonSerializable {
     }
     /**
      * gets the Vote by profile id and truck id
-     *
+     * @param \PDO $pdo PDO connection object
+     * @param string $newVoteId
+     * @param string $
      *
      */
     public static function getVotesByVoteProfileId (\PDO $pdo, $voteProfileId): \SplFixedArray {
@@ -149,8 +178,7 @@ class Vote implements \JsonSerializable {
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         while(($row = $statement->fetch()) !==false) {
             try {
-                $vote = new Vote($row["voteProfileId"],
-                    $row["voteProfileId"], $row["voteTruckId"], $row ["voteValue"]);
+                $vote = new Vote($row["voteProfileId"], $row["voteTruckId"], $row ["voteValue"]);
                 $votes[$votes->key()] = $vote;
                 $votes->next();
             } catch(\Exception $exception) {
