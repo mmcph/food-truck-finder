@@ -102,3 +102,4 @@ class favorite implements \JsonSerializable {
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
 }
+

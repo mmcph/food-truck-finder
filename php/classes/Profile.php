@@ -5,6 +5,67 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
+
+/**
+ * Trait ValidateUuid
+ * @package Edu\Cnm\food-truck-finder
+ *
+ * This trait will validate proper UUIDs for the following formats:
+ * -human readable string (36 bytes)
+ * -binary string (16 bytes)
+ * -
+ */
+trait ValidateUuid {
+	/**
+	 * validates a uuid irrespective of format
+	 *
+	 * @param string|Uuid $newUuid uuid to validate
+	 * @return Uuid object with validated uuid
+	 * @throws \InvalidArgumentException if $newUuid is not a valid uuid
+	 * @throws \RangeException if $newUuid is not a valid uuid v4
+	 **/
+	private static function validateUuid($newUuid) : Uuid {
+		// verify a string uuid
+		if(gettype($newUuid) === "string") {
+			// 16 characters is binary data from mySQL - convert to string and fall to next if block
+			if(strlen($newUuid) === 16) {
+				$newUuid = bin2hex($newUuid);
+				$newUuid = substr($newUuid, 0, 8) . "-" . substr($newUuid, 8, 4) . "-" . substr($newUuid,12, 4) . "-" . substr($newUuid, 16, 4) . "-" . substr($newUuid, 20, 12);
+			}
+			// 36 characters is a human readable uuid
+			if(strlen($newUuid) === 36) {
+				if(Uuid::isValid($newUuid) === false) {
+					throw(new \InvalidArgumentException("invalid uuid"));
+				}
+				$uuid = Uuid::fromString($newUuid);
+			} else {
+				throw(new \InvalidArgumentException("invalid uuid"));
+			}
+		} else if(gettype($newUuid) === "object" && get_class($newUuid) === "Ramsey\\Uuid\\Uuid") {
+			// if the misquote id is already a valid UUID, press on
+			$uuid = $newUuid;
+		} else {
+			// throw out any other trash
+			throw(new \InvalidArgumentException("invalid uuid"));
+		}
+		// verify the uuid is uuid v4
+		if($uuid->getVersion() !== 4) {
+			throw(new \RangeException("uuid is incorrect version"));
+		}
+		return($uuid);
+	}
+}
+
+
+/**
+ * Class profile
+ *
+ * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
+ * being designated as a "vendor" or "customer"
+ *
+ * @package Edu\Cnm\food-truck-finder
+ * @author G. Cordova
+ */
 class profile  implements /JsonSerializable {
 		/**
 		 * UNIQUE
@@ -14,7 +75,6 @@ class profile  implements /JsonSerializable {
 		 */
 		private
 		$profileId;
-
 		/**
 		 * UNIQUE
 		 * email for profile
@@ -62,19 +122,19 @@ class profile  implements /JsonSerializable {
 
 		public
 		function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newprofileLastName, string $newProfileUserName)
-			try {
-				$this->setProfileId($newProfileId);
-				$this->setProfileEmail($newProfileEmailId);
-				$this->setProfileHash($newProfileHash);
-				$this->setProfileIsOwner($newProfileIsOwner);
-				$this->setProfileFirstName($newProfileFirstName);
-				$this->setProfileLastName($newProfileLastName);
-				$this->setProfileUserName($newProfileUserName);
-			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-				$exceptionType = get_class($exception);
-				throw(new $exceptionType($exception->getMessage(), 0, $exception));
-			}
-}
+		try {
+			$this->setProfileId($newProfileId);
+			$this->setProfileEmail($newProfileEmailId);
+			$this->setProfileHash($newProfileHash);
+			$this->setProfileIsOwner($newProfileIsOwner);
+			$this->setProfileFirstName($newProfileFirstName);
+			$this->setProfileLastName($newProfileLastName);
+			$this->setProfileUserName($newProfileUserName);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
 
 		/**
 		 * accessor method
@@ -82,7 +142,7 @@ class profile  implements /JsonSerializable {
 		 * @return Uuid | string of profile id
 		 */
 	public function getProfileId() : Uuid {
-	return $this->profileId;
+		return $this->profileId;
 }
 
 	/**
@@ -107,7 +167,7 @@ class profile  implements /JsonSerializable {
 	 * @return string value of profile email
 	 */
 	public function getProfileEmail() : string {
-	return $this->profileEmail;
+		return $this->profileEmail;
 }
 
 	/**
@@ -248,6 +308,13 @@ class profile  implements /JsonSerializable {
 	 * PDO's
 	 */
 
+			/**
+			 * inserts profile into mySQL
+			 *
+			 * @param \PDO $pdo PDO connection object
+			 * @throws \PDOException when mySQL related error occurs
+			 * @throws \TypeError if $pdo is not a PDO connection object
+			 */
 	public function insert(\PDO $pdo) : void {
 		$query = "INSERT INTO profile(profileId, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName) VALUES(:profileId, :profileEmail, :profileHash, :profileIsOwner,:profileFirstName,:profileLastName,:profileUserName)";
 		$statement = $pdo->prepare($query);
@@ -256,6 +323,14 @@ class profile  implements /JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+
+	/*
+	 * deletes profile from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL error occurs
+	 * @throws \TypeError if $pdo if PDO is not a connection object
+	 */
 	public function delete(\PDO $pdo) : void {
 		$query = "DELETE FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
@@ -263,6 +338,12 @@ class profile  implements /JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+			/**
+			 *
+			 * @param \PDO $pdo PDO connection object
+			 * @throws \PDOException when mySQL error occurs
+			 * @throws \TypeError if $pdo is not a PDO connection object
+			 */
 	public function update(\PDO $pdo) : void {
 		$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, profileHash = :profileHash, profileIsOwner = :profileIsOwner, profileFirstName = :profileFirstName, profileLastName = :profileLastName, profileUserName = :profileUserName WHERE profileId = profileId";
 		$statement = $pdo->prepare($query);
