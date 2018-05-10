@@ -9,11 +9,12 @@ use Ramsey\Uuid\Uuid;
 /**
  * Trait ValidateUuid
  * @package Edu\Cnm\food-truck-finder
+ * @author Dylan McDonald <dmcdonald21@cnm.edu>
  *
  * This trait will validate proper UUIDs for the following formats:
  * -human readable string (36 bytes)
  * -binary string (16 bytes)
- * -
+ * -Ramsey\Uuid\Uuid object
  */
 trait ValidateUuid {
 	/**
@@ -119,7 +120,15 @@ class profile  implements /JsonSerializable {
 		private
 		$profileUserName;
 
-
+		/**
+		 * @param $newProfileId
+		 * @param string $newProfileEmail
+		 * @param string $newProfileHash
+		 * @param bool $newProfileIsOwner
+		 * @param string $newProfileFirstName
+		 * @param string $newprofileLastName
+		 * @param string $newProfileUserName
+		 */
 		public
 		function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newprofileLastName, string $newProfileUserName)
 		try {
