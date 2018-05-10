@@ -374,7 +374,7 @@ class truck implements \JsonSerializable {
 
 	// PDO Methods
 
-	/** inserts new category into mySQL
+	/** inserts new truck into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -384,15 +384,15 @@ class truck implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 
 		// create query template
-		$query = "INSERT INTO category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
+		$query = "INSERT INTO truck(truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl) VALUES(:truckId, :truckProfileId, :truckBio, :truckIsOpen, :truckLatitude, :truckLongitude, :truckName, :truckPhone, :truckUrl)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the placeholders in the template
-		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
+		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName"=> $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
 	}
 
-	/** deletes this category from mysql
+	/** deletes this truck from mysql
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -402,15 +402,15 @@ class truck implements \JsonSerializable {
 	public function delete(\PDO $pdo): void {
 
 		// create query template
-		$query = "DELETE FROM category WHERE categoryId = :categoryId";
+		$query = "DELETE FROM truck WHERE truckId = :truckId";
 		$statement = $pdo->prepare($query);
 
 		// bind member vars to placeholder in template
-		$parameters = ["categoryId" => $this->categoryId];
+		$parameters = ["truckId" => $this->truckId];
 		$statement->execute($parameters);
 	}
 
-	/** updates this category in mysql
+	/** updates this truck in mysql
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -420,11 +420,53 @@ class truck implements \JsonSerializable {
 	public function update(\PDO $pdo): void {
 
 		// create query template
-		$query = "UPDATE category SET categoryName = :categoryName WHERE categoryId = :categoryId";
+		$query = "UPDATE truck SET truckProfileId = :truckProfileId, truckBio = :truckBio, truckIsOpen = :truckIsOpen, truckLatitude = :truckLatitude, truckLongitude = :truckLongitude, truckName = :truckName, truckPhone = :truckPhone, truckUrl = :truckUrl WHERE truckId = :truckId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
+		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName"=> $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
+	}
+
+	getTruckByTruckId
+	getTruck
+	/**
+	 * gets the Truck by truckId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $truckId truck id to search for
+	 * @return Truck|null Truck found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getTruckByTruckId(\PDO $pdo, $truckId) : ?Truck {
+		// sanitize the truckId before searching
+		try {
+			$truckId = self::validateUuid($truckId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckId = :truckId";
+		$statement = $pdo->prepare($query);
+
+		// bind the truck id to the place holder in the template
+		$parameters = ["truckId" => $truckId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the truck from mySQL
+		try {
+			$truck = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($truck);
 	}
 
 	/**
