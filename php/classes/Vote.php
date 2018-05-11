@@ -35,14 +35,14 @@ class Vote implements \JsonSerializable {
      * constructor for this Vote
      * @param string|Uuid $newVoteProfileId id of the profile casting the vote
      * @param string|Uuid $newVoteTruckId id of the truck receiving the vote
-     * @param integer|null $newVoteValue for the value of the vote
+     * @param int $newVoteValue for the value of the vote
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
      * @throws \Exception if some other exception is thrown
      *
      **/
-    public function __construct( $newVoteProfileId, $newVoteTruckId, $newVoteValue) {
+    public function __construct( $newVoteProfileId, $newVoteTruckId, int $newVoteValue) {
         //
         try {
             $this->setVoteProfileId($newVoteProfileId);
@@ -58,7 +58,7 @@ class Vote implements \JsonSerializable {
      * accessor method for profile Id
      *
      * @return Uuid value for profile Id
-     **
+     **/
     public function getVoteProfileId () : Uuid {
         return($this->voteProfileId);
     }
@@ -115,7 +115,7 @@ class Vote implements \JsonSerializable {
     /**
      * mutator method for vote value
      *
-     * @param integer $newVoteValue value of vote
+     * @param int $newVoteValue value of vote
      * @throws \RangeException if $newVoteValue is not positive
      * @throws \TypeError if $newVoteTruckId is not an integer
      **/
@@ -134,7 +134,7 @@ class Vote implements \JsonSerializable {
      **/
     public function insert(\PDO $pdo) : void {
         // create a query template
-        $query = "INSERT INTO `vote` (voteProfileId, voteTruckId, voteValue) VALUES (:voteProfileId, :voteTruckId, :voteValue)";
+        $query = "INSERT INTO vote (voteProfileId, voteTruckId, voteValue) VALUES (:voteProfileId, :voteTruckId, :voteValue)";
         $statement = $pdo->prepare($query);
         // bind the member variables to the place holders in the template
         $parameters = ["voteProfileId" =>
@@ -149,17 +149,19 @@ class Vote implements \JsonSerializable {
      */
     public function delete(\PDO $pdo) : void {
         // create query table
-        $query = "DELETE FROM `vote` WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
+        $query = "DELETE FROM vote WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
         $statement = $pdo->prepare($query);
         //bind the member variables to the placeholders in the template
         $parameters = ["voteProfileId" =>$this->voteProfileId->getBytes(), "voteTruckId" => $this->voteTruckId->getBytes()];
+        $statement->execute($parameters);
     }
     /**
-     * gets the Vote by profile id and truck id
-     * @param \PDO $pdo PDO connection object
-     * @param string $newVoteId
-     * @param string $
      *
+     * gets the Vote by profile id
+     * @param \PDO $pdo PDO connection object
+     * @param \PDO Uuid|string $VoteProfileId to search by
+     * @return \SplFixedArray SplFixedArray of Votes found or null if not found
+     * @throws \PDOException when mySQL related errors occur
      */
     public static function getVotesByVoteProfileId (\PDO $pdo, $voteProfileId): \SplFixedArray {
         try {
@@ -168,7 +170,7 @@ class Vote implements \JsonSerializable {
             throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
         // create query template
-        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM `vote` WHERE voteProfileId = :voteProfileId";
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM vote WHERE voteProfileId = :voteProfileId";
         $statement = $pdo->prepare($query);
         // bind the member variables to the place holder in the template
         $parameters = ["voteProfileId" => $voteProfileId->getBytes()];
@@ -191,10 +193,20 @@ class Vote implements \JsonSerializable {
     /**
      *
      * gets Vote by truck Id
+     * @param \PDO $pdo PDO connection object
+     * @param \PDO Uuid|string $VoteTruckId to search by
+     * @return \SplFixedArray SplFixedArray of Votes found or null if not found
+     * @throws \PDOException when mySQL related errors occur
+     *
      */
     public static function getVoteByTruckId (\PDO $pdo, $voteTruckId): \SplFixedArray {
+        try {
+            $voteProfileId = self::validateUuid($voteProfileId);
+        } catch(\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception){
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
         // create query template
-        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM `vote` WHERE voteProfileId = :voteProfileId";
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM vote WHERE voteProfileId = :voteProfileId";
         $statement = $pdo->prepare($query);
         // bind the member variables to the place holder in the template
         $parameters = ["voteTruckId"=> $voteTruckId->getBytes()];
