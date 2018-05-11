@@ -17,70 +17,63 @@ use ValidateUuid;
  * @package Edu\Cnm\food-truck-finder
  * @author G. Cordova
  */
-class Profile  implements /JsonSerializable {
-		/**
-		 * UNIQUE
-		 * id for profile
-		 * PRIMARY key
-		 * @var Uuid $profileId
-		 */
-		private
-		$profileId;
-		/**
-		 * UNIQUE
-		 * email for profile
-		 * @var string $profileEmail
-		 */
-		private
-		$profileEmail;
+class Profile  implements \JsonSerializable {
+	/**
+	 * UNIQUE
+	 * id for profile
+	 * PRIMARY key
+	 * @var Uuid $profileId
+	 */
+	private $profileId;
+	/**
+	 * UNIQUE
+	 * email for profile
+	 * @var string $profileEmail
+	 */
+	private $profileEmail;
 
-		/**
-		 * hash for profile (pw)
-		 * @var mixed $profileHash
-		 */
-		private
-		$profileHash;
+	/**
+	 * hash for profile (pw)
+	 * @var mixed $profileHash
+	 */
+	private $profileHash;
 
-		/**
-		 * indication of whether or not the profile is one of a vendor
-		 * @var bool $profileIsOwner
-		 */
-		private
-		$profileIsOwner;
+	/**
+	 * indication of whether or not the profile is one of a vendor
+	 * @var bool $profileIsOwner
+	 */
+	private $profileIsOwner;
 
-		/**
-		 * first name of profile user
-		 * @var string $profileFirstName
-		 */
-		private
-		$profileFirstName;
+	/**
+	 * first name of profile user
+	 * @var string $profileFirstName
+	 */
+	private $profileFirstName;
 
-		/**
-		 * last name of profile user
-		 * @var string $profileLastName
-		 */
-		private
-		$profileLastName;
+	/**
+	 * last name of profile user
+	 * @var string $profileLastName
+	 */
+	private $profileLastName;
 
-		/**
-		 * UNIQUE
-		 * user name of profile (handle)
-		 * @var string $profileUserName
-		 */
-		private
-		$profileUserName;
+	/**
+	 * UNIQUE
+	 * user name of profile (handle)
+	 * @var string $profileUserName
+	 */
+	private $profileUserName;
 
-		/**
-		 * @param $newProfileId
-		 * @param string $newProfileEmail
-		 * @param string $newProfileHash
-		 * @param bool $newProfileIsOwner
-		 * @param string $newProfileFirstName
-		 * @param string $newprofileLastName
-		 * @param string $newProfileUserName
-		 */
-		public
-		function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newprofileLastName, string $newProfileUserName)
+	/**
+	 * @param $newProfileId
+	 * @param string $newProfileEmail
+	 * @param string $newProfileHash
+	 * @param bool $newProfileIsOwner
+	 * @param string $newProfileFirstName
+	 * @param string $newprofileLastName
+	 * @param string $newProfileUserName
+	 */
+	public
+	function __construct($newProfileId, string $newProfileEmailId, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName) {
 		try {
 			$this->setProfileId($newProfileId);
 			$this->setProfileEmail($newProfileEmailId);
@@ -93,16 +86,16 @@ class Profile  implements /JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+	}
 
-
-		/**
-		 * accessor method
-		 *
-		 * @return Uuid | string of profile id
-		 */
-	public function getProfileId() : Uuid {
+	/**
+	 * accessor method
+	 *
+	 * @return Uuid | string of profile id
+	 */
+	public function getProfileId(): Uuid {
 		return $this->profileId;
-}
+	}
 
 	/**
 	 *mutator method
@@ -111,23 +104,23 @@ class Profile  implements /JsonSerializable {
 	 * @throws \RangeException if $newProfileId is not positive
 	 * @throws \TypeError if $newProfileId is not a uuid or string
 	 */
-	public function setProfileId($newProfileId) : void {
-	try {
-		$uuid = self::validateUuid($newProfileId);
-	} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-		$exceptionType = get_class($exception);
-		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	public function setProfileId($newProfileId): void {
+		try {
+			$uuid = self::validateUuid($newProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->profileId = $uuid;
 	}
-	$this->profileId = $uuid;
-}
 
 	/**
 	 * accessor method
 	 * @return string value of profile email
 	 */
-	public function getProfileEmail() : string {
+	public function getProfileEmail(): string {
 		return $this->profileEmail;
-}
+	}
 
 	/**
 	 * mutator method
@@ -137,14 +130,14 @@ class Profile  implements /JsonSerializable {
 	 * @throws \RangeException if $newProfileEmail is > 255 characters
 	 * @throws \TypeError if $newProfileEmail is not a string
 	 */
-	public function setProfileEmail(string $newProfileEmail) : void {
-	$newProfileEmail = trim($newProfileEmail);
-	$newProfileEmail = filter_var($newProfileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	if(empty($newProfileEmail) === true) {
-		throw(new \InvalidArgumentException("email address is empty of insecure"));
+	public function setProfileEmail(string $newProfileEmail): void {
+		$newProfileEmail = trim($newProfileEmail);
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileEmail) === true) {
+			throw(new \InvalidArgumentException("email address is empty of insecure"));
+		}
+		$this->profileEmail = $newProfileEmail;
 	}
-	$this->profileEmail = $newProfileEmail;
-}
 
 
 	/**
@@ -152,42 +145,43 @@ class Profile  implements /JsonSerializable {
 	 * @return string value of $profileHash
 	 */
 	public function getProfileHash() {
-	return $this->profileHash;
-}
+		return $this->profileHash;
+	}
 
 	/**
-	 * @param string $profileHash\
+	 * @param string $profileHash \
 	 * @throws \InvalidArgumentException if the hash is not secure
 	 * @throws \RangeException if the hash is not 128 characters
 	 * @throws \TypeError if profile hash is not a string
 	 */
-	public function setProfileHash($profileHash) {
-	$this->profileHash = $profileHash;
-}
+	public function setProfileHash(string $profileHash) {
+		$this->profileHash = $profileHash;
+	}
 
 	/**
 	 * accessor method
 	 * @return int value of profile is owner
 	 */
-	public function getProfileIsOwner() : int {
-	return $this->profileIsOwner;
-}
+	public function getProfileIsOwner(): int {
+		return $this->profileIsOwner;
+	}
 
 	/**
+	 * mutator method
 	 * @param int $profileIsOwner
 	 */
-	public function setProfileIsOwner($newProfileIsOwner) : int {
-	$this->profileIsOwner = $newProfileIsOwner;
-}
+	public function setProfileIsOwner($newProfileIsOwner): int {
+		$this->profileIsOwner = $newProfileIsOwner;
+	}
 
 	/**
 	 * accessor method
 	 *
 	 * @return string value of profile first name
 	 */
-	public function getProfileFirstName() : string {
-	return $this->profileFirstName;
-}
+	public function getProfileFirstName(): string {
+		return $this->profileFirstName;
+	}
 
 
 	/**
@@ -197,25 +191,25 @@ class Profile  implements /JsonSerializable {
 	 * @throws \RangeException if $newProfileFirstName is > 64 characters
 	 */
 	public function setProfileFirstName(string $newProfileFirstName) {
-	$newProfileFirstName = trim($newProfileFirstName);
-	$newProfileFirstName = filter_var($newProfileFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	if(empty($newProfileFirstName) === true) {
-		throw(new \InvalidArgumentException("first name content is invalid"));
+		$newProfileFirstName = trim($newProfileFirstName);
+		$newProfileFirstName = filter_var($newProfileFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileFirstName) === true) {
+			throw(new \InvalidArgumentException("first name content is invalid"));
+		}
+		if(strlen($newProfileFirstName) > 64) {
+			throw(new \RangeException("first name content is too long"));
+		}
+		$this->profileFirstName = $newProfileFirstName;
 	}
-	if(strlen($newProfileFirstName) > 64) {
-		throw(new \RangeException("first name content is too long"));
-	}
-	$this->profileFirstName = $newProfileFirstName;
-}
 
 
 	/**
 	 * accessor method
 	 * @return string value of profile last name
 	 */
-	public function getProfileLastName() : string {
-	return $this->profileLastName;
-}
+	public function getProfileLastName(): string {
+		return $this->profileLastName;
+	}
 
 	/**
 	 * mutator method
@@ -224,14 +218,15 @@ class Profile  implements /JsonSerializable {
 	 * @throws \InvalidArgumentException if $newProfileLastName is not a string or insecure
 	 * @throws \RangeException if $newProfileLastName is > 64 characters
 	 */
-	public function setProfileLastName(string $newProfileLastName) : void {
-	$newProfileLastName = trim($newProfileLastName);
-	$newProfileLastName = filter_var($newProfileLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	if(empty($newProfileLastName) === true) {
-		throw(new \InvalidArgumentException("last name content is invalid"));
-	}
-	if (strlen($newProfileLastName) > 64) {
-		throw(new \RangeException("last name content is too long"));
+	public function setProfileLastName(string $newProfileLastName): void {
+		$newProfileLastName = trim($newProfileLastName);
+		$newProfileLastName = filter_var($newProfileLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileLastName) === true) {
+			throw(new \InvalidArgumentException("last name content is invalid"));
+		}
+		if(strlen($newProfileLastName) > 64) {
+			throw(new \RangeException("last name content is too long"));
+		}
 		$this->profileLastName = $newProfileLastName;
 	}
 
@@ -239,7 +234,8 @@ class Profile  implements /JsonSerializable {
 	 * accessor method
 	 * @return string value of profile user name
 	 */
-	public function getProfileUserName() : string {
+	public
+	function getProfileUserName(): string {
 		return $this->profileUserName;
 	}
 
@@ -251,7 +247,8 @@ class Profile  implements /JsonSerializable {
 	 * @throws \RangeException if $newProfileUsername is > 64 characters
 	 * @throws \TypeError if $newProfileUsername is not a string
 	 */
-	public function setProfileUserName(string $newProfileUserName) {
+	public
+	function setProfileUserName(string $newProfileUserName) {
 		$newProfileUserName = trim($newProfileUserName);
 		$newProfileUserName = filter_var($newProfileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newProfileUserName) === true) {
@@ -267,14 +264,14 @@ class Profile  implements /JsonSerializable {
 	 * PDO's
 	 */
 
-			/**
-			 * inserts profile into mySQL
-			 *
-			 * @param \PDO $pdo PDO connection object
-			 * @throws \PDOException when mySQL related error occurs
-			 * @throws \TypeError if $pdo is not a PDO connection object
-			 */
-	public function insert(\PDO $pdo) : void {
+	/**
+	 * inserts profile into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related error occurs
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo): void {
 		$query = "INSERT INTO profile(profileId, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName) VALUES(:profileId, :profileEmail, :profileHash, :profileIsOwner,:profileFirstName,:profileLastName,:profileUserName)";
 		$statement = $pdo->prepare($query);
 
@@ -290,20 +287,20 @@ class Profile  implements /JsonSerializable {
 	 * @throws \PDOException when mySQL error occurs
 	 * @throws \TypeError if $pdo if PDO is not a connection object
 	 */
-	public function delete(\PDO $pdo) : void {
+	public function delete(\PDO $pdo): void {
 		$query = "DELETE FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["profileId" => $this->profileId->getBytes()];
 		$statement->execute($parameters);
 	}
 
-			/**
-			 *
-			 * @param \PDO $pdo PDO connection object
-			 * @throws \PDOException when mySQL error occurs
-			 * @throws \TypeError if $pdo is not a PDO connection object
-			 */
-	public function update(\PDO $pdo) : void {
+	/**
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL error occurs
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function update(\PDO $pdo): void {
 		$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, profileHash = :profileHash, profileIsOwner = :profileIsOwner, profileFirstName = :profileFirstName, profileLastName = :profileLastName, profileUserName = :profileUserName WHERE profileId = profileId";
 		$statement = $pdo->prepare($query);
 
@@ -311,6 +308,18 @@ class Profile  implements /JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	public function getProfileByProfileId(\PDO $pdo, $profileId): \SplFixedArray {
+		try {
+			$profileId = self::validateUuid($profileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		$query = "SELECT profileId, ";
+	}
 
-
-
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
+		$fields["profileId"] = $this->profileId->toString();
+		return($fields);
+	}
+}

@@ -39,7 +39,7 @@ class favorite implements \JsonSerializable {
 		try {
 			$this->favoriteTruckId($newFavoriteTruckId);
 			$this->favoriteProfileId($newFavoriteProfileId);
-		} catch (\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -51,7 +51,7 @@ class favorite implements \JsonSerializable {
 	 * accessor method
 	 * @return Uuid value of $favoriteTruckId
 	 */
-	public function getFavoriteTruckId() : string {
+	public function getFavoriteTruckId(): string {
 		return $this->favoriteTruckId;
 	}
 
@@ -77,7 +77,7 @@ class favorite implements \JsonSerializable {
 	 *
 	 * @return Uuid
 	 */
-	public function getFavoriteProfileId() : string {
+	public function getFavoriteProfileId(): string {
 		return $this->favoriteProfileId;
 	}
 
@@ -96,7 +96,6 @@ class favorite implements \JsonSerializable {
 		}
 		$this->favoriteTruckId = $uuid;
 	}
-	}
 
 	/**
 	 * PDO's
@@ -104,17 +103,24 @@ class favorite implements \JsonSerializable {
 	 */
 
 
-	public function insert(\PDO $pdo) : void {
+	public function insert(\PDO $pdo): void {
 		$query = "INSERT INTO favorite(favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statements->execute($parameters);
 	}
 
-	public function delete(\PDO $pdo) : void {
+	public function delete(\PDO $pdo): void {
 		$query = "DELETE FROM favorite WHERE favoriteTruckId = :favoriteTruckId and favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
+	}
+
+	public function jsonSerialize(): array {
+		$fields = get_object_vars($this);
+		$fields["profileId"] = $this->profileId->toString();
+		return ($fields);
+	}
 }
 
