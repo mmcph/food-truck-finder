@@ -1,11 +1,7 @@
 <?php
-
 namespace Edu\Cnm\FoodTruck;
-
 require_once("autoload.php");
-
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
-
 
 use Ramsey\Uuid\Uuid;
 
@@ -226,7 +222,7 @@ class TruckCategory implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid| string $truckCategoryTruckId TruckCategory id to search for
-	 * @return TruckCategory|null Truck found or null if not found
+	 * @return \SplFixedArray SplFixedArray of truckCategory
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
@@ -243,27 +239,23 @@ class TruckCategory implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-		$parameters = ["truckCategory" => $truckCategoryTruckId->getBytes()];
+		$parameters = ["truckCategoryTruckId" => $truckCategoryTruckId->getBytes()];
 		$statement->execute($parameters);
 
-		//build an array on truckCategory
+		//build an array on truckCategories
 		$truckCategories = new \SPLFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-
-		// grab the truckCategory from mySQL
-		try {
-			$truckCategory = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"],
-				$row["truckCategoryCategoryId"]);
+			while(($row = $statement->fetch()) !== false) {
+				try {
+					$truckCategory = new TruckCategory($row["TruckCategoryId"], $row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
+					$truckCategories[$truckCategories->key()] = $truckCategory;
+					$truckCategories->next();
+				} catch(\Exception $exception) {
+					// if the row couldn't be converted, rethrow it
+					throw(new \PDOException($exception->getMessage(), 0, $exception));
+				}
 			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($truckCategory);
+		return($truckCategories);
 	}
 
 
