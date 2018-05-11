@@ -1,0 +1,17 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="Twitter Data Design">
+            <file>ProfileTest.php</file>
+            <file>CategoryTest.php</file>
+            <file>TruckTest.php</file>
+            <file>VoteTest.php</file>
+            <file>TruckCategoryTest.php</file>
+            <file>FavoriteTest.php</file>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">..</directory>
+        </whitelist>
+    </filter>
+</phpunit>
