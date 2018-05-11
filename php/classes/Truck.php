@@ -13,7 +13,6 @@ use Ramsey\Uuid\Uuid;
  *
  * @author: Marlon McPherson (marlon.c.mcpherson@gmail.com)
  */
-
 class Truck implements \JsonSerializable {
 
 	use ValidateUuid;
@@ -209,13 +208,10 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError if $newTruckIsOpen is not an integer
 	 * @throws \RangeException if $newTruckIsOpen too small OR too large OR empty string
 	 **/
-	public function setTruckIsOpen($newTruckIsOpen): void {
-		if(is_int($newTruckIsOpen) === false) {
-			throw(new \TypeError("Input is not an integer"));
-		}
+	public function setTruckIsOpen(int $newTruckIsOpen): void {
 
-		if($newTruckIsOpen < 0 || $newTruckIsOpen > 1 || empty($newTruckIsOpen) === true) {
-			throw(new \RangeException("TruckIsOpen is not a value in range [0,1]"));
+		if($newTruckIsOpen !== -1 || $newTruckIsOpen !== 1) {
+			throw(new \RangeException("TruckIsOpen is not -1 or 1"));
 		}
 		// store new truckIsOpen
 		$this->truckIsOpen = $newTruckIsOpen;
@@ -238,10 +234,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError if $newTruckLatitude is not a float
 	 * @throws \RangeException if $newTruckLatitude too small OR too large OR empty string
 	 **/
-	public function setTruckLatitude($newTruckLatitude): void {
-		if(is_float($newTruckLatitude) === false) {
-			throw(new \TypeError("Latitude input is not a float"));
-		}
+	public function setTruckLatitude(float $newTruckLatitude): void {
 
 		if($newTruckLatitude < -90 || $newTruckLatitude > 90 || empty($newTruckLatitude) === true) {
 			throw(new \RangeException("Invalid latitude value: must be in range [-90,90]"));
@@ -267,10 +260,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError if $newTruckLongitude is not a float
 	 * @throws \RangeException if $newTruckLongitude too small OR too large OR empty string
 	 **/
-	public function setTruckLongitude($newTruckLongitude): void {
-		if(is_float($newTruckLongitude) === false) {
-			throw(new \TypeError("Longitude input is not a float"));
-		}
+	public function setTruckLongitude(float $newTruckLongitude): void {
 
 		if($newTruckLongitude < 0 || $newTruckLongitude > 180 || empty($newTruckLongitude) === true) {
 			throw(new \RangeException("Invalid longitude value: must be in range [0,180]"));
@@ -395,7 +385,7 @@ class Truck implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the placeholders in the template
-		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName"=> $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
+		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
 	}
 
@@ -430,7 +420,7 @@ class Truck implements \JsonSerializable {
 		$query = "UPDATE truck SET truckProfileId = :truckProfileId, truckBio = :truckBio, truckIsOpen = :truckIsOpen, truckLatitude = :truckLatitude, truckLongitude = :truckLongitude, truckName = :truckName, truckPhone = :truckPhone, truckUrl = :truckUrl WHERE truckId = :truckId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName"=> $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
+		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
 	}
 
@@ -443,7 +433,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckByTruckId(\PDO $pdo, $truckId) : ?Truck {
+	public static function getTruckByTruckId(\PDO $pdo, $truckId): ?Truck {
 		// sanitize the truckId before searching
 		try {
 			$truckId = self::validateUuid($truckId);
@@ -471,7 +461,7 @@ class Truck implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($truck);
+		return ($truck);
 	}
 
 	/**
@@ -483,8 +473,9 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckByTruckProfileId(\PDO $pdo, $truckProfileId) : ?Truck {
+	public static function getTruckByTruckProfileId(\PDO $pdo, $truckProfileId): ?Truck {
 		// sanitize the truckProfileId before searching
+		//todo while thru whole table
 		try {
 			$truckProfileId = self::validateUuid($truckProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -511,7 +502,7 @@ class Truck implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($truck);
+		return ($truck);
 	}
 
 	/**
@@ -523,9 +514,9 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckByTruckIsOpen(\PDO $pdo, $truckIsOpen) : ?Truck {
+	public static function getTruckByTruckIsOpen(\PDO $pdo, $truckIsOpen): ?Truck {
 		// int inputs don't require sanitizing
-
+//todo while "" ref getTweetByTweetContent
 		// create query template
 		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckIsOpen = :truckIsOpen";
 		$statement = $pdo->prepare($query);
@@ -546,7 +537,7 @@ class Truck implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($truck);
+		return ($truck);
 	}
 
 	/**
@@ -558,7 +549,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckByTruckName(\PDO $pdo, $truckName) : ?Truck {
+	public static function getTruckByTruckName(\PDO $pdo, $truckName): ?Truck {
 		// verify the token is secure
 		$truckName = trim($truckName);
 		$truckName = filter_var($truckName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -567,7 +558,7 @@ class Truck implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckName = :truckName";
+		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckName LIKE :truckName";
 		$statement = $pdo->prepare($query);
 
 		// bind the truckIsOpen to the place holder in the template
@@ -575,6 +566,7 @@ class Truck implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		// grab the truck from mySQL
+		//todo while
 		try {
 			$truck = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -586,7 +578,7 @@ class Truck implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($truck);
+		return ($truck);
 	}
 
 	/**
@@ -594,13 +586,13 @@ class Truck implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() : array {
+	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 
 		$fields["truckId"] = $this->truckId->toString();
 		$fields["truckProfileId"] = $this->truckProfileId->toString();
 
-		return($fields);
+		return ($fields);
 	}
 
 }

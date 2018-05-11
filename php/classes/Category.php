@@ -5,6 +5,13 @@ namespace Edu\Cnm\FoodTruck;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
+/**
+ * Class Category
+ * This class represents an enumeration table holding pairs of categoryIds (auto-incrementing) and categoryNames
+ * @package Edu\Cnm\FoodTruck
+ *
+ * @author Marlon McPherson (marlon.c.mcpherson@gmail.com)
+ */
 class Category implements \JsonSerializable {
 
 	/**
@@ -60,12 +67,9 @@ class Category implements \JsonSerializable {
 	 * @throws \TypeError if $newCategoryId is not an integer
 	 * @throws \RangeException if $newCategoryId too small OR too large OR empty string
 	 **/
-	public function setCategoryId($newCategoryId): void {
-		if(is_int($newCategoryId) === false) {
-			throw(new \TypeError("Input is not an integer"));
-		}
+	public function setCategoryId(?int $newCategoryId): void {
 
-		if($newCategoryId < 0 || $newCategoryId > 255 || empty($newCategoryId) === true) {
+		if($newCategoryId < 0 || $newCategoryId > 255 || $newCategoryId !== null) {
 			throw(new \RangeException("CategoryId is not a value between 0 and 255"));
 		}
 		// store new categoryId
@@ -169,7 +173,7 @@ class Category implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getCategoryByCategoryId(\PDO $pdo, $categoryId) : ?Category {
+	public static function getCategoryByCategoryId(\PDO $pdo, $categoryId): ?Category {
 		// sanitize the categoryId before searching
 		if(is_int($categoryId) === false) {
 			throw(new \InvalidArgumentException("Category ID value is not an integer"));
@@ -195,7 +199,7 @@ class Category implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($category);
+		return ($category);
 	}
 
 	/**
@@ -207,14 +211,10 @@ class Category implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getCategoryByCategoryName(\PDO $pdo, $categoryName) : ?Category {
-		// sanitize the categoryId before searching
-		if(is_string($categoryName) === false) {
-			throw(new \InvalidArgumentException("Category name value is not a string"));
-		}
-
+	public static function getCategoryByCategoryName(\PDO $pdo, string $categoryName): ?Category {
+//todo getAllCategories
 		// create query template
-		$query = "SELECT categoryId, categoryName FROM category WHERE categoryName = :categoryName";
+		$query = "SELECT categoryId, categoryName FROM category WHERE categoryName LIKE :categoryName";
 		$statement = $pdo->prepare($query);
 
 		// bind the category id to the place holder in the template
@@ -233,7 +233,7 @@ class Category implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($category);
+		return ($category);
 	}
 
 
@@ -242,10 +242,10 @@ class Category implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() : array {
+	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 
-		return($fields);
+		return ($fields);
 	}
 
 }
