@@ -194,14 +194,14 @@ class Vote implements \JsonSerializable {
      *
      * gets Vote by truck Id
      * @param \PDO $pdo PDO connection object
-     * @param \PDO Uuid|string $VoteTruckId to search by
+     * @param Uuid| string $voteTruckId to search by
      * @return \SplFixedArray SplFixedArray of Votes found or null if not found
      * @throws \PDOException when mySQL related errors occur
      *
-     */
+     **/
     public static function getVoteByTruckId (\PDO $pdo, $voteTruckId): \SplFixedArray {
         try {
-            $voteProfileId = self::validateUuid($voteProfileId);
+            $voteProfileId = self::validateUuid($voteTruckId);
         } catch(\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception){
             throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
@@ -216,14 +216,42 @@ class Vote implements \JsonSerializable {
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         while(($row = $statement->fetch()) !==false) {
             try {
-                $vote = new Vote($row["voteProfileId"], $row["voteTruckId"], ["voteValue"]);
-                    $row["voteProfileId"], $row["voteTruckId"], $row["voteValue"]);
+                $vote = new vote($row["voteProfileId"], $row["voteTruckId"], $row ["voteValue"]);
                 $votes[$votes->key()] = $vote;
                 $votes->next();
             } catch(\Exception $exception) {
                 // if the row couldn't be converted, rethrow it
             } throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
+    }
+
+    /**
+     *
+     * @param \PDO $pdo connection object
+     * @param Uuid|string $voteProfileId $voteTruckId to search for
+     * @return \PDOException when mySQL related errors occur
+     * @throws \TypeError when a variable is not the correct data type
+     **/
+    public static function getVoteByVoteProfileIdAndVoteTruckId (\PDO $pdo, $voteProfileId, $voteTruckId): ?Vote {
+        // create query template
+        $query = "SELECT voteProfileId, voteTruckId FROM  vote WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
+        $statement = $pdo->prepare($query);
+        // bind the vote from mySQL
+
+        try {
+            $vote = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $row = $statement->fetch();
+            if($row !== false) {
+                $vote = new vote($row["voteProfileId"], $row["voteTruckId"]);
+            }
+        } catch(\Exception $exception) {
+            // if the row couldn't be converted, rethrow it
+            throw (new \PDOException($exception->getMessage(),0, $exception));
+        }
+        return ($vote);
+
+
     }
     /**
      * formats the state variables for JSON serialization
