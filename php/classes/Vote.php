@@ -224,7 +224,6 @@ class Vote implements \JsonSerializable {
             } throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
     }
-
     /**
      *
      * @param \PDO $pdo connection object
@@ -237,7 +236,6 @@ class Vote implements \JsonSerializable {
         $query = "SELECT voteProfileId, voteTruckId FROM  vote WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
         $statement = $pdo->prepare($query);
         // bind the vote from mySQL
-
         try {
             $vote = null;
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -250,8 +248,6 @@ class Vote implements \JsonSerializable {
             throw (new \PDOException($exception->getMessage(),0, $exception));
         }
         return ($vote);
-
-
     }
     /**
      * formats the state variables for JSON serialization
