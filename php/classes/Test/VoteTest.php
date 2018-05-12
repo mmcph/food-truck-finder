@@ -56,9 +56,84 @@ class VoteTest extends TacoTruckTest {
         // create and insert the mocked profile
         $this->profile = new Profile(generateUuid4(), test@phpunit.de, $this->VALID_HASH, newIsOwner 1, newFirstName "Misty", newLastName "Smith", newUserName "ihearttacos";
         $this->profile->insert($this->getPDO());
+    //todo finish writing mocked truck
+        //create and insert the mocked truck
+        $this->truck = new Truck(generateUuid4(), $this->truck->getTruckId(), "????")
 
         // create and insert the mocked vote
         $this->vote = new Vote(generateUuid4(), $this->profile->getProfileId(), "PHPUnit vote test passing");
         $this->vote->insert($this->getPDO());
     }
+    /**
+     *
+     *
+     *  test inserting a valid Vote and verify that the actual mySQL data matches
+     *
+     *
+     *
+     */
+    public function testInsertValidVote() : void {
+        // count the number of rows and save it for later
+        $numRows = $this->getConnection()->getRowCount("like");
+
+        // create a new Vote and insert to into mySQL
+
+    }
+
+    /**
+     * test creating a Vote and then deleting it
+     */
+    public function testDeleteValidVote () {
+
+    }
+
+    /**
+     * test inserting a Vote and re-grabbing it from mySQL
+     */
+    public function testGetValidVoteByProfileIdAndTruckId () {
+
+    }
+
+    /**
+     * test grabbing a Vote that does not exist
+     */
+    //todo does this need to be tested?
+    //public function testGetInvalidVoteByProfileIdAndTruckId () {   }
+
+
+    /**
+     * test grabbing a Vote by profile
+     */
+
+    public function testGetValidVoteByVoteProfileId () {
+
+    }
+
+    /**
+     * test grabbing a Vote by a profile that has not made any votes
+     */
+
+    public function testGetInvalidVoteByVoteProfileId () {
+
+    }
+
+    /**
+     * test grabbing a Vote by truck
+     */
+
+    public function testGetValidVoteByVoteTruckId () {
+
+    }
+
+    /**
+     * test grabbing a Vote by truck that has no votes
+     */
+    public function testGetInvalidVoteByVoteTruckId () {
+    }
+
+
+
+
+
+
 }
