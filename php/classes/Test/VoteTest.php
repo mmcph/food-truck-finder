@@ -40,11 +40,9 @@ class VoteTest extends TacoTruckTest {
      * @var string $VALID_ACTIVATION
      **/
     private $VALID_ACTIVATION;
-
-
     /**
      *
-     *
+     * create dependent objects before running each test
      */
     public final function setUp() : void {
         // run the default setUp() method first
@@ -56,7 +54,11 @@ class VoteTest extends TacoTruckTest {
         $this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
         // create and insert the mocked profile
-        $this->profile = new Profile(generateUuid4(), null, "@phpunit", "https")
+        $this->profile = new Profile(generateUuid4(), test@phpunit.de, $this->VALID_HASH, newIsOwner 1, newFirstName "Misty", newLastName "Smith", newUserName "ihearttacos";
+        $this->profile->insert($this->getPDO());
 
+        // create and insert the mocked vote
+        $this->vote = new Vote(generateUuid4(), $this->profile->getProfileId(), "PHPUnit vote test passing");
+        $this->vote->insert($this->getPDO());
     }
 }
