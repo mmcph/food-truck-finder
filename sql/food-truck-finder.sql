@@ -15,6 +15,7 @@ CREATE TABLE profile (
 	profileFirstName VARCHAR(64) NOT NULL,
 	profileLastName VARCHAR(64) NOT NULL,
 	profileUserName VARCHAR(32) NOT NULL,
+	profileActivationToken CHAR(32),
 	UNIQUE(profileEmail),
 	UNIQUE(profileUserName),
 	INDEX(profileId),
