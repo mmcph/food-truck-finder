@@ -164,6 +164,11 @@ class Vote implements \JsonSerializable {
      * @param \PDO $pdo PDO connection object
      * @param \PDO Uuid|string $VoteProfileId to search by
      * @return \SplFixedArray SplFixedArray of Votes found or null if not found
+     * @throws \InvalidArgumentException if data types are not valid
+     * @throws \RangeException if data values are out of bounds
+     * @throws \Exception for any other exceptions
+     * @throws \TypeError if not Uuid
+     * @throws \Exception for any other exceptions
      * @throws \PDOException when mySQL related errors occur
      */
     public static function getVotesByVoteProfileId (\PDO $pdo, $voteProfileId): \SplFixedArray {
@@ -226,17 +231,21 @@ class Vote implements \JsonSerializable {
                 $vote = new vote($row["voteProfileId"], $row["voteTruckId"], $row ["voteValue"]);
                 $votes[$votes->key()] = $vote;
                 $votes->next();
-            } catch(\Exception $exception) {
+            } catch (\Exception $exception) {
                 // if the row couldn't be converted, rethrow it
-            } throw(new \PDOException($exception->getMessage(), 0, $exception));
+                throw(new \PDOException($exception->getMessage(), 0, $exception));
+            }
         }
+        return ($votes);
     }
+
     /**
      *
      * @param \PDO $pdo connection object
      * @param Uuid|string $voteProfileId $voteTruckId to search for
      * @return vote to mySQL
      * @throws \PDOException  when mySQL related errors occur
+     * @catch \Exception for any other exceptions
      **/
     public static function getVoteByVoteProfileIdAndVoteTruckId (\PDO $pdo, $voteProfileId, $voteTruckId): ?Vote {
         // create query template
@@ -252,7 +261,7 @@ class Vote implements \JsonSerializable {
             }
         } catch(\Exception $exception) {
             // if the row couldn't be converted, rethrow it
-            throw (new \PDOException($exception->getMessage(),0, $exception));
+            throw(new \PDOException($exception->getMessage(),0, $exception));
         }
         return ($vote);
     }
