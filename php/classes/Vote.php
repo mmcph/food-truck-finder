@@ -38,8 +38,8 @@ class Vote implements \JsonSerializable {
      * @param int $newVoteValue for the value of the vote
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
-     * @throws \TypeError if data types violate type hints
      * @throws \Exception if some other exception is thrown
+     * @throws \TypeError if data types violate type hints
      *
      **/
     public function __construct( $newVoteProfileId, $newVoteTruckId, int $newVoteValue) {
@@ -235,8 +235,8 @@ class Vote implements \JsonSerializable {
      *
      * @param \PDO $pdo connection object
      * @param Uuid|string $voteProfileId $voteTruckId to search for
-     * @return \PDOException when mySQL related errors occur
-     * @throws \TypeError when a variable is not the correct data type
+     * @return vote to mySQL
+     * @throws \PDOException  when mySQL related errors occur
      **/
     public static function getVoteByVoteProfileIdAndVoteTruckId (\PDO $pdo, $voteProfileId, $voteTruckId): ?Vote {
         // create query template

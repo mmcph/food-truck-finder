@@ -9,13 +9,13 @@ DROP TABLE IF EXISTS profile;
 
 CREATE TABLE profile (
 	profileId BINARY(16) NOT NULL,
+  profileActivationToken CHAR(32),
 	profileEmail VARCHAR(128) NOT NULL,
 	profileHash CHAR(97) NOT NULL,
 	profileIsOwner TINYINT UNSIGNED NOT NULL,
 	profileFirstName VARCHAR(64) NOT NULL,
 	profileLastName VARCHAR(64) NOT NULL,
 	profileUserName VARCHAR(32) NOT NULL,
-	profileActivationToken CHAR(32),
 	UNIQUE(profileEmail),
 	UNIQUE(profileUserName),
 	INDEX(profileId),
