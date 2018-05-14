@@ -57,7 +57,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @return Uuid value of truckCategoryId
 	 *
 	 */
-	public function getTruckCategoryCategoryId(): Uuid {
+	public function getTruckCategoryCategoryId(): int {
 		return ($this->truckCategoryCategoryId);
 	}
 
@@ -87,7 +87,7 @@ class TruckCategory implements \JsonSerializable {
 	 *
 	 */
 	public function getTruckCategoryTruckId(): Uuid {
-		return ($this->truckCategoryCategoryId);
+		return ($this->truckCategoryTruckId);
 	}
 
 
@@ -124,7 +124,7 @@ class TruckCategory implements \JsonSerializable {
 
 		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
 		$statement = $pdo->prepare($query);
-		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId->getBytes(),"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
+		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId,"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
 		$statement->execute($parameters);
 	}
 
@@ -272,7 +272,7 @@ class TruckCategory implements \JsonSerializable {
 	 **/
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
-		$fields["truckCategoryCategoryId"] = $this->truckCategoryCategoryId->toString();
+		$fields["truckCategoryCategoryId"] = $this->truckCategoryCategoryId;
 		$fields["truckCategoryTruckId"] = $this->truckCategoryTruckId->toString();
 		return ($fields);
 	}
