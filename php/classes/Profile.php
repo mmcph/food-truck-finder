@@ -124,7 +124,7 @@ class Profile  implements \JsonSerializable {
 
 	/*
 	 * accessor method
-	 * @return string | Uuid value of $profileActivationToken
+	 * @return string value of $profileActivationToken
 	 */
 	function getProfileActivationToken(): string {
 		return $this->profileActivationToken;
@@ -134,18 +134,22 @@ class Profile  implements \JsonSerializable {
 	 * mutator method
 	 *
 	 * @params string of $newProfileActivationToken
+	 * @throws \InvalidArguementException if $newProfileActivationToken is not a string or insecure
 	 * @throws \RangeException if $newProfileActivationToken
 	 * @throws \TypeError if $newProfileActivationToken is not a uuid or string
 	 */
 	public function setProfileActivationToken(string $newProfileActivationToken) {
-		try {
-			$uuid = self::ValidateUuid($newProfileActivationToken);
-		} catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception) {
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		$newProfileActivationToken = trim($newProfileActivationToken);
+		$newProfileActivationToken = filter_var($newProfileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileActivationToken) === true) {
+			throw(new \InvalidArgumentException("Activation Token is empty or insecure"));
 		}
-		$this->profileActivationToken = $uuid;
+		if(strlen($newProfileActivationToken) > 32) {
+			throw(new \RangeException("Activation Token too large"));
+		}
+		$this->profileActivationToken = $newProfileActivationToken;
 	}
+
 
 
 	/**
@@ -388,9 +392,32 @@ class Profile  implements \JsonSerializable {
 					throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($tweets);
+		return($profiles);
 	}
 
+	public function getProfileByProfileEmail(\PDO $pdo, $profileEmail): \SplFixedArray {
+		try {
+			$profileEmail = self::ValidateUuid($profileUserName);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileUserName = :profileUserName";
+		$statement = $pdo->prepare($query);
+		$parameters = ["profileUserName" => $profileUserName->getBytes()];
+		$statement->execute($parameters);
+		$profiles = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($profiles);
+	}
 
 	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
