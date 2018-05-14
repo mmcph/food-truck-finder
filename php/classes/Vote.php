@@ -66,7 +66,9 @@ class Vote implements \JsonSerializable {
      * mutator method for profile Id
      *
      * @param string $newVoteProfileId new value of vote id
+     * @throws \InvalidArgumentException if $newVoteProfileId is if data types are not valid
      * @throws \RangeException if $newVoteProfileId is not positive
+     * @throws \Exception if $newVoteProfileId is if some other exception is thrown
      * @throws \TypeError if $newProfileId is not an integer
      **/
     public function setVoteProfileId ($newVoteProfileId) : void {
