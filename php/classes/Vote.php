@@ -93,7 +93,9 @@ class Vote implements \JsonSerializable {
      * mutator method for truck Id
      *
      * @param string $newVoteTruckId new value of vote
+     * @throws \InvalidArgumentException if $setVoteTruckId data types are not valid
      * @throws \RangeException if $newProfileId is not positive
+     * @throws \Exception if if some other exception is thrown
      * @throws \TypeError if $newProfileId is not an integer
      **/
     public function setVoteTruckId ($newVoteTruckId) : void {
@@ -118,8 +120,7 @@ class Vote implements \JsonSerializable {
      * mutator method for vote value
      *
      * @param int $newVoteValue value of vote
-     * @throws \RangeException if $newVoteValue is not positive
-     * @throws \TypeError if $newVoteTruckId is not an integer
+     * @throws \InvalidArgumentException if $newVoteValue  data types are not valid
      **/
     public function setVoteValue (int $newVoteValue): void {
         if($newVoteValue !== -1 || $newVoteValue !== 1) {
@@ -198,6 +199,10 @@ class Vote implements \JsonSerializable {
      * @param \PDO $pdo PDO connection object
      * @param Uuid| string $voteTruckId to search by
      * @return \SplFixedArray SplFixedArray of Votes found or null if not found
+     * @throws \InvalidArgumentException if data types are not valid
+     * @throws \RangeException if out of range
+     * @throws \Exception if some other exception is thrown
+     * @throws \TypeError if not a UUID
      * @throws \PDOException when mySQL related errors occur
      *
      **/
