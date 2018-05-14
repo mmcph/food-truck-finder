@@ -64,6 +64,13 @@ class Profile  implements \JsonSerializable {
 	private $profileUserName;
 
 	/**
+	 * UNIQUE
+	 * activation token to gain access as a registered user + user features
+	 * @var string $profileActivationToken
+	 */
+	private $profileActivationToken;
+
+	/**
 	 * @param $newProfileId
 	 * @param string $newProfileEmail
 	 * @param string $newProfileHash
@@ -73,15 +80,16 @@ class Profile  implements \JsonSerializable {
 	 * @param string $newProfileUserName
 	 */
 	public
-	function __construct($newProfileId, string $newProfileEmailId, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName) {
+	function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName, string $profileActivationToken) {
 		try {
 			$this->setProfileId($newProfileId);
-			$this->setProfileEmail($newProfileEmailId);
+			$this->setProfileEmail($newProfileEmail);
 			$this->setProfileHash($newProfileHash);
 			$this->setProfileIsOwner($newProfileIsOwner);
 			$this->setProfileFirstName($newProfileFirstName);
 			$this->setProfileLastName($newProfileLastName);
 			$this->setProfileUserName($newProfileUserName);
+			$this->setProfileActivationToken($newProfileActivationToken);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -247,8 +255,7 @@ class Profile  implements \JsonSerializable {
 	 * @throws \RangeException if $newProfileUsername is > 64 characters
 	 * @throws \TypeError if $newProfileUsername is not a string
 	 */
-	public
-	function setProfileUserName(string $newProfileUserName) {
+	public function setProfileUserName(string $newProfileUserName) {
 		$newProfileUserName = trim($newProfileUserName);
 		$newProfileUserName = filter_var($newProfileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newProfileUserName) === true) {
@@ -258,6 +265,13 @@ class Profile  implements \JsonSerializable {
 			throw(new \InvalidArgumentException("user name is too long"));
 		}
 		$this->profileUserName = $newProfileUserName;
+	}
+
+	function getProfileActivationToken() : string {
+	}
+
+	function setProfileActivationToken(string $newProfileUserName) {
+
 	}
 
 	/**
@@ -308,14 +322,32 @@ class Profile  implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	/*
+	 * 
+	 */
 	public function getProfileByProfileId(\PDO $pdo, $profileId): \SplFixedArray {
 		try {
 			$profileId = self::validateUuid($profileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		$query = "SELECT profileId, ";
+		$query = "SELECT profileId, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
+		$statement->execute($parameters);
+		$profiles = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while($row = $statement->fetch() !== false) {
+			try {
+				$profile = new Profile($row["profileId"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($profiles);
 	}
+
+
 
 	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
@@ -323,3 +355,4 @@ class Profile  implements \JsonSerializable {
 		return($fields);
 	}
 }
+
