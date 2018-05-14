@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\TacoTruck\Test;
+namespace Edu\Cnm\FoodTruck\Test;
 
 use Edu\Cnm\FoodTruck\{Vote, Profile, Truck};
 use function Sodium\randombytes_random16;
@@ -54,8 +54,11 @@ class VoteTest extends TacoTruckTest {
         $this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
         // create and insert the mocked profile
-        $this->profile = new Profile(generateUuid4(), "test@phpunit.de", $this->VALID_HASH, newIsOwner 1, newFirstName "Misty", newLastName "Smith", newUserName "ihearttacos");
+        $this->profile = new Profile (generateUuid4(), "test@phpunit.de", $this->VALID_HASH, 1, "php", "unit", "phpunit");
         $this->profile->insert($this->getPDO());
+
+
+
     //todo finish writing mocked truck
         //create and insert the mocked truck
         $this->truck = new Truck(generateUuid4(), $this->truck->getTruckId(), "????")
