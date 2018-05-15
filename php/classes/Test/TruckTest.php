@@ -204,25 +204,25 @@ class TruckTest extends TacoTruckTest {
 
 
 	/**
-	 * test creating a Tweet and then deleting it
+	 * test creating a Truck and then deleting it
 	 **/
-	public function testDeleteValidTweet() : void {
+	public function testDeleteValidTruck() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Truck and insert to into mySQL
+		$truckId = generateUuidV4();
+		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
+		$truck->insert($this->getPDO());
 
-		// delete the Tweet from mySQL
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$tweet->delete($this->getPDO());
+		// delete the Truck from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
+		$truck->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Tweet does not exist
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertNull($pdoTweet);
-		$this->assertEquals($numRows, $this->getConnection()->getRowCount("tweet"));
+		// grab the data from mySQL and enforce the Truck does not exist
+		$pdoTruck = Truck::getTruckByTruckId($this->getPDO(), $truck->getTruckId());
+		$this->assertNull($pdoTruck);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("truck"));
 	}
 
 
