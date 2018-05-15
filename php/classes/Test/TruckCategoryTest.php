@@ -21,31 +21,37 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  * @author Manuel L Escobar III <manuel.esco.20@gmail.com>
  **/
 class TruckCategoryTest extends TacoTruckTest {
+
 	/**
 	 * profile of the truck with the truckCategory Id
 	 * @var $profile
 	 */
 	protected $profile;
+
 	/**
 	 * valid activation to be used
-	 * @var $VALID_ACTIVATION
+	 * @var $VALID_ACTIVATION_TOKEN
 	 */
-	protected $VALID_ACTIVATION;
+	protected $VALID_ACTIVATION_TOKEN;
+
 	/**
 	 * The valid Hash used
 	 * @var $VALID_HASH
 	 */
 	protected $VALID_HASH;
+
 	/**
 	 *truck that has a TruckCategory
 	 * @var $truck
 	 */
 	protected $truck;
+
 	/**
 	 * category that has the TruckCategory
 	 * @var $category
 	 */
 	protected $category;
+
 	/**
 	 *
 	 * create dependent objects before running each test
@@ -60,12 +66,12 @@ class TruckCategoryTest extends TacoTruckTest {
 
 		//create and insert the mocked truck
 		$truckId = generateUuidV4();
-		$this->truck = new Truck ($truckId, $this->profile->getProfileId(), "We have eggroll.", 1, 35.0772, 106.6614, "EggRoll Dynasty", 5058596496, "https://phpunit.de/");
+		$this->truck = new Truck ($truckId, $this->profile->getProfileId(), "We have eggroll.", 1, 35.07720000, 106.66141111, "EggRoll Dynasty", "5058596496", "https://phpunit.de/");
 		$this->truck->insert($this->getPDO());
 
 		//create and insert the mocked Category
-		$categoryId = 7;
-		$this->category = new Category ($categoryId, "pizza pie");
+		// todo Marlon suggested using null val for categoryId - change made to all instances of new TruckCategory
+		$this->category = new Category (null, "pizza pie");
 		$this->category->insert($this->getPDO());
 	}
 
@@ -75,14 +81,15 @@ class TruckCategoryTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
+//todo which PDO method should be used here
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
 	}
 
 	public function testDeleteValidTruckCategory(): void {
@@ -100,9 +107,9 @@ class TruckCategoryTest extends TacoTruckTest {
 // grab the data from mySQL and enforce the fields match our expectations
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
-
+//todo Marlon suggested change to latter half of assertEquals params (changed from comparisons based on current class)
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
 	}
 
 
