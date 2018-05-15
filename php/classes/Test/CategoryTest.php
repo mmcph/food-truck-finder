@@ -30,7 +30,13 @@ class CategoryTest extends TacoTruckTest {
 	 * Name for this category
 	 * @var string $VALID_CATEGORYNAME
 	 **/
-	protected $VALID_CATEGORYNAME = "New Mexican";
+	protected $VALID_CATEGORYNAME = "Mexican";
+
+	/**
+	 * Updated Name for this category
+	 * @var string $VALID_CATEGORYNAME2
+	 **/
+	protected $VALID_CATEGORYNAME2 = "New Mexican";
 
 	/**
 	 * create dependent objects ... if there are any
@@ -61,19 +67,21 @@ class CategoryTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test inserting a Tweet, editing it, and then updating it
+	 * test inserting a Category, editing it, and then updating it
 	 **/
-	public function testUpdateValidTweet() : void {
+	public function testUpdateValidCategory() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("category");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Category and insert to into mySQL
+		$category = new Category(null, $this->VALID_CATEGORYNAME);
+		$category->insert($this->getPDO());
+
+		// grab categoryId from newly created Category for later comparison
+		$category->getCategoryId();
 
 		// edit the Tweet and update it in mySQL
-		$tweet->setTweetContent($this->VALID_TWEETCONTENT2);
+		$category->setCategoryName($this->VALID_CATEGORYNAME2);
 		$tweet->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
