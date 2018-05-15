@@ -35,91 +35,91 @@ class TruckTest extends TacoTruckTest {
 	 * id of the truck
 	 * @var Uuid $VALID_TRUCKID
 	 **/
-	protected $VALID_TRUCKID = "PHPUnit test passing";
+	protected $VALID_TRUCKID = generateUuidV4();
 
 	/**
 	 * content of truck's bio
 	 * @var string $VALID_TRUCKBIO
 	 **/
-	protected $VALID_TRUCKBIO;
+	protected $VALID_TRUCKBIO = "We serve tacos";
 
 	/**
 	 * content of the updated truck bio
 	 * @var string $VALID_TRUCKBIO2
 	 **/
-	protected $VALID_TRUCKBIO2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKBIO2 = "We serve tacos and burritos";
 
 	/**
 	 * content of truck is open
 	 * @var int $VALID_TRUCKISOPEN
 	 **/
-	protected $VALID_TRUCKISOPEN;
+	protected $VALID_TRUCKISOPEN = 1;
 
 	/**
 	 * content of the updated truck is open
 	 * @var int $VALID_TRUCKISOPEN2
 	 **/
-	protected $VALID_TRUCKISOPEN2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKISOPEN2 = -1;
 
 	/**
 	 * content of truck latitude
 	 * @var float $VALID_TRUCKLATITUDE
 	 **/
-	protected $VALID_TRUCKLATITUDE;
+	protected $VALID_TRUCKLATITUDE = 35.08599910;
 
 	/**
 	 * content of the updated truck latitude
 	 * @var float $VALID_TRUCKLATITUDE2
 	 **/
-	protected $VALID_TRUCKLATITUDE2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKLATITUDE2 = 36.12345678;
 
 	/**
 	 * content of truck longitude
 	 * @var float $VALID_TRUCKLONGITUDE
 	 **/
-	protected $VALID_TRUCKLONGITUDE;
+	protected $VALID_TRUCKLONGITUDE = -106.64991650;
 
 	/**
 	 * content of the updated truck longitude
 	 * @var float $VALID_TRUCKLONGITUDE2
 	 **/
-	protected $VALID_TRUCKLONGITUDE2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKLONGITUDE2 = -107.12345678;
 
 	/**
 	 * content of truck name
 	 * @var string $VALID_TRUCKNAME
 	 **/
-	protected $VALID_TRUCKNAME;
+	protected $VALID_TRUCKNAME = "Froyo Baggins";
 
 	/**
 	 * content of the updated truck name
 	 * @var string $VALID_TRUCKNAME2
 	 **/
-	protected $VALID_TRUCKNAME2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKNAME2 = "Sandwise Jamgee";
 
 	/**
 	 * content of truck phone
-	 * @var int $VALID_TRUCKPHONE
+	 * @var string $VALID_TRUCKPHONE
 	 **/
-	protected $VALID_TRUCKPHONE;
+	protected $VALID_TRUCKPHONE = "15055555555";
 
 	/**
 	 * content of the updated truck phone
-	 * @var int $VALID_TRUCKPHONE2
+	 * @var string $VALID_TRUCKPHONE2
 	 **/
-	protected $VALID_TRUCKPHONE2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKPHONE2 = "15055556666";
 
 	/**
 	 * content of truck url
 	 * @var string $VALID_TRUCKURL
 	 **/
-	protected $VALID_TRUCKURL;
+	protected $VALID_TRUCKURL = "http://www.google.com";
 
 	/**
 	 * content of the updated truck url
 	 * @var string $VALID_TRUCKURL2
 	 **/
-	protected $VALID_TRUCKURL2 = "PHPUnit test still passing";
+	protected $VALID_TRUCKURL2 = "http://www.yahoo.com";
 
 	/**
 	 * create dependent objects before running each test
@@ -131,7 +131,7 @@ class TruckTest extends TacoTruckTest {
 		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 
-		// create and insert a Profile to own the test Tweet
+		// create and insert a Profile to own the test Truck
 		$this->profile = new Profile (generateUuidV4(), "test@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
 
@@ -313,11 +313,11 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Tweet by content that does not exist
+	 * test grabbing a Truck by truckIsOpen that does not exist
 	 **/
-	public function testGetInvalidTweetByTweetContent() : void {
-		// grab a tweet by content that does not exist
-		$tweet = Tweet::getTweetByTweetContent($this->getPDO(), "Comcast has the best service EVER #comcastLove");
+	public function testGetInvalidTruckByTruckIsOpen() : void {
+		// grab a truck by truckIsOpen that does not exist
+		$truck = Truck::getTruckByTruckIsOpen($this->getPDO(), "1");
 		$this->assertCount(0, $tweet);
 	}
 
