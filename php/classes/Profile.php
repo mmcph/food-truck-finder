@@ -407,7 +407,7 @@ class Profile implements \JsonSerializable {
 			$profileEmail = filter_var($profileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($profileEmail) === true) {
 				throw(new \PDOException("email address is invalid"));
-			}
+  			}
 			$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
 			$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
 			$statement = $pdo->prepare($query);

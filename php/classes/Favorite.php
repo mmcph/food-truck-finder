@@ -117,6 +117,10 @@ class favorite implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	public function getFavoriteByFavoriteTruckId
+
+	public function getFavoriteByFavoriteProfileId
+
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 		$fields["profileId"] = $this->profileId->toString();
