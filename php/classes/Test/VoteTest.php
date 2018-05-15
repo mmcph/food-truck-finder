@@ -5,7 +5,7 @@ use function Sodium\randombytes_random16;
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
 // grab the uuid generator
-require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "../lib/uuid.php");
 /**
  * Full PHPUnit test for the Vote class
  *
@@ -17,7 +17,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  *
  **/
 class VoteTest extends TacoTruckTest {
-    /**
+    /*
      * Profile that created the Vote; this is for foreign key relations
      * @var Vote $vote
      **/
