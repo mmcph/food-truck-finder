@@ -61,10 +61,6 @@ class CategoryTest extends TacoTruckTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
 		$this->assertEquals($pdoCategory->getCategoryId(), $category->getCategoryId());
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORYNAME);
-
-		// todo Do I need Insert? Can I delete update/insert from my Class?
-		// todo per George's advice - stores last inserted ID in auto-incrementing table so that it can be compared against
-		$this->quoteId = intval($pdo->lastInsertId());
 	}
 
 	/**
@@ -95,34 +91,6 @@ class CategoryTest extends TacoTruckTest {
 		// grab a category id that exceeds the maximum allowable category id
 		$category = Category::getCategoryByCategoryId($this->getPDO(), 256);
 		$this->assertNull($category);
-	}
-
-	/**
-	 * test inserting a Tweet and regrabbing it from mySQL
-	 **/
-	public function testGetValidTweetByTweetProfileId() {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
-
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetProfileId($this->getPDO(), $tweet->getTweetProfileId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
-
-		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
 	}
 
 	/**

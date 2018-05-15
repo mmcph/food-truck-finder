@@ -127,6 +127,9 @@ class Category implements \JsonSerializable {
 		// bind the member variables to the placeholders in the template
 		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
 		$statement->execute($parameters);
+
+		// todo per George's advice - stores last inserted ID in auto-incrementing table so that it can be compared against
+		$this->quoteId = intval($pdoCategory->lastInsertId());
 	}
 
 	/** deletes this category from mysql
