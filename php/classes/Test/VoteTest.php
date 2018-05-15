@@ -157,7 +157,7 @@ class VoteTest extends TacoTruckTest {
         $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
         $vote->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = Vote::getVotesByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
+        $results = Vote::getVoteByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
         $this->assertCount(1, $results);
         // enforce no other objects are bleeding into the test
@@ -167,16 +167,12 @@ class VoteTest extends TacoTruckTest {
         $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(), $this->vote->getTruckId());
     }
-
     /**
      * test grabbing a Vote by truck that has no votes
      */
-    public function testGetInvalidVoteByTruckId () {
+    public function testGetInvalidVoteByTruckId () : void {
+        // try to grab a vote for a truck that has no votes
+        $vote = Vote::getVoteByVoteTruckId($this->getPDO(), generateUuidV4());
+        $this->assertCount(0, $vote);
     }
-
-
-
-
-
-
 }
