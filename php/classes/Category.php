@@ -121,7 +121,7 @@ class Category implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 
 		// create query template
-		$query = "INSERT INTO category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
+		$query = "INSERT INTO Category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the placeholders in the template
@@ -139,7 +139,7 @@ class Category implements \JsonSerializable {
 	public function delete(\PDO $pdo): void {
 
 		// create query template
-		$query = "DELETE FROM category WHERE categoryId = :categoryId";
+		$query = "DELETE FROM Category WHERE categoryId = :categoryId";
 		$statement = $pdo->prepare($query);
 
 		// bind member vars to placeholder in template

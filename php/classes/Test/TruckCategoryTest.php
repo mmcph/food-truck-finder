@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\FoodTruck\Test;
 
-use Edu\Cnm\FoodTruck\{Truck, Category, TruckCategory};
+use Edu\Cnm\FoodTruck\{Truck, Category,Profile, TruckCategory};
 sodium_add();
 
 // grab the class under scrutiny
@@ -80,7 +80,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
-
+	}
 
 	public function testDeleteValidTruckCategory(): void {
 		//counts the number of rows and save's it for later
@@ -100,26 +100,55 @@ class TruckCategoryTest extends TacoTruckTest {
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
 	}
-}
 
 
+	public function getValidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(): void {
+		//counts the number of rows and saves it for later
+		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
-public function getValidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(): void {
-	//counts the number of rows and saves it for later
-	$numRows = $this->getConnection()->getRowCount("truckCategory");
-
-	// create a new TruckCategory and insert to into mySQL
-	$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
-	$truckCategory->insert($this->getPDO());
+		// create a new TruckCategory and insert to into mySQL
+		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
-	$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
-	$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
-	$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
-	$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+	}
+
+
+	public function getValidTruckCategoryByTruckCategoryCategoryId(): void {
+		//counts the number of rows and saves it for later
+		$numRows = $this->getConnection()->getRowCount("truckCategory");
+
+		// create a new TruckCategory and insert to into mySQL
+		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory->insert($this->getPDO());
+
+// grab the data from mySQL and enforce the fields match our expectations
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryId($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+	}
+
+
+	public function getValidTruckCategoryCategoryId(): void {
+		//counts the number of rows and saves it for later
+		$numRows = $this->getConnection()->getRowCount("truckCategory");
+
+		// create a new TruckCategory and insert to into mySQL
+		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory->insert($this->getPDO());
+
+// grab the data from mySQL and enforce the fields match our expectations
+		$pdoTruckCategory = TruckCategory::getTruckCategoryCategoryId($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
 	}
 }
-
 
 
 
