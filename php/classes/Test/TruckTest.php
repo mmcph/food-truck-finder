@@ -18,13 +18,12 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  * @see Truck
  * @author Marlon McPherson <mmcpherson5@cnm.edu>
  **/
-class TruckTest extends TacTruckTest {
+class TruckTest extends TacoTruckTest {
 	/**
 	 * Profile that created the Truck; this is for foreign key relations
 	 * @var Profile profile
 	 **/
 	protected $profile = null;
-
 
 	/**
 	 * valid profile hash to create the profile object to own the test
@@ -142,25 +141,29 @@ class TruckTest extends TacTruckTest {
 	}
 
 	/**
-	 * test inserting a valid Tweet and verify that the actual mySQL data matches
+	 * test inserting a valid Truck and verify that the actual mySQL data matches
 	 **/
-	public function testInsertValidTweet() : void {
+	public function testInsertValidTruck() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Truck and insert to into mySQL
+		$truckId = generateUuidV4();
+		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
+		$truck->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+		$pdoTruck = Truck::getTruckByTruckId($this->getPDO(), $truck->getTruckId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
+		$this->assertEquals($pdoTruck->getTruckId(), $truckId);
+		$this->assertEquals($pdoTruck->getTruckProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTruck->getTruckBio(), $this->VALID_TRUCKBIO);
+		$this->assertEquals($pdoTruck->getTruckIsOpen(), $this->VALID_TRUCKISOPEN);
+		$this->assertEquals($pdoTruck->getTruckLatitude(), $this->VALID_TRUCKLATITUDE);
+		$this->assertEquals($pdoTruck->getTruckLongitude(), $this->VALID_TRUCKLONGITUDE);
+		$this->assertEquals($pdoTruck->getTruckName(), $this->VALID_TRUCKNAME);
+		$this->assertEquals($pdoTruck->getTruckPhone(), $this->VALID_TRUCKPHONE);
+		$this->assertEquals($pdoTruck->getTruckUrl(), $this->VALID_TRUCKURL);
 	}
 
 	/**
