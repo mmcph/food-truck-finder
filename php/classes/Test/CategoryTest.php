@@ -46,11 +46,12 @@ class CategoryTest extends TacoTruckTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("category");
 
-		// todo do I need to assign a category ID?
 		// create a new Category and insert to into mySQL
-		$categoryId = 1;
-		$category = new Category($categoryId, $this->VALID_CATEGORYNAME);
+		$category = new Category(null, $this->VALID_CATEGORYNAME);
 		$category->insert($this->getPDO());
+
+		// grab categoryId from newly created Category for later comparison
+		$category->getCategoryId();
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
