@@ -49,15 +49,14 @@ class CategoryTest extends TacoTruckTest {
 		// todo do I need to assign a category ID?
 		// create a new Category and insert to into mySQL
 		$categoryId = 1;
-		$categoryName = $this->VALID_CATEGORYNAME;
-		$category = new Category($categoryId, $categoryName);
+		$category = new Category($categoryId, $this->VALID_CATEGORYNAME);
 		$category->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
 		$this->assertEquals($pdoCategory->getCategoryId(), $categoryId);
-		$this->assertEquals($pdoCategory->getCategoryName(), $categoryName);
+		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORYNAME);
 	}
 
 	/**
