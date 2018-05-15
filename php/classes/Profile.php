@@ -397,13 +397,16 @@ class Profile  implements \JsonSerializable {
 
 	public function getProfileByProfileEmail(\PDO $pdo, $profileEmail): \SplFixedArray {
 		try {
-			$profileEmail = self::ValidateUuid($profileUserName);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileUserName = :profileUserName";
+			$profileEmail = trim($profileEmail);
+			$profileEmail = filter_var($profileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			if(empty($profileEmail) === true) {
+				throw(new \PDOException("email address is invalid"));
+			}
+			$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
+			$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileUserName = :profileUserName";
 		$statement = $pdo->prepare($query);
-		$parameters = ["profileUserName" => $profileUserName->getBytes()];
+		$profileEmail = "%$profileEmail%";
+		$parameters = ["profileEmail" => $profileEmail];
 		$statement->execute($parameters);
 		$profiles = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
