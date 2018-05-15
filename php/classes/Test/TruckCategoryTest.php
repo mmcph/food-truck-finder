@@ -21,28 +21,31 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  * @author Manuel L Escobar III <manuel.esco.20@gmail.com>
  **/
 class TruckCategoryTest extends TacoTruckTest {
-
-
 	/**
-	 * profile that has the TruckCategory
-	 * @var
+	 * profile of the truck with the truckCategory Id
+	 * @var $profile
 	 */
-	private $profile = null;
-
-
+	protected $profile;
+	/**
+	 * valid activation to be used
+	 * @var $VALID_ACTIVATION
+	 */
+	protected $VALID_ACTIVATION;
+	/**
+	 * The valid Hash used
+	 * @var $VALID_HASH
+	 */
+	protected $VALID_HASH;
 	/**
 	 *truck that has a TruckCategory
-	 * @var
+	 * @var $truck
 	 */
-	private $truck = null;
-
-
+	protected $truck;
 	/**
 	 * category that has the TruckCategory
-	 * @var
+	 * @var $category
 	 */
-	private $category = null;
-
+	protected $category;
 	/**
 	 *
 	 * create dependent objects before running each test
@@ -57,7 +60,7 @@ class TruckCategoryTest extends TacoTruckTest {
 
 		//create and insert the mocked truck
 		$truckId = generateUuidV4();
-		$this->truck = new Truck ($truckId, $this->profile->getProfileId(), "I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", 5058596496, "https://phpunit.de/");
+		$this->truck = new Truck ($truckId, $this->profile->getProfileId(), "We have eggroll.", 1, 35.0772, 106.6614, "EggRoll Dynasty", 5058596496, "https://phpunit.de/");
 		$this->truck->insert($this->getPDO());
 
 		//create and insert the mocked Category
@@ -116,6 +119,14 @@ class TruckCategoryTest extends TacoTruckTest {
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
 	}
+		/**
+		 * test grabbing a TruckCategory by content that does not exist
+		 **/
+		public function testGetInvalidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId() : void {
+			// grab a TruckCategory by content that does not exist
+			$truck = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO(), -1);
+			$this->assertCount(0, $truck);
+}
 
 
 	public function getValidTruckCategoryByTruckCategoryCategoryId(): void {
@@ -131,10 +142,19 @@ class TruckCategoryTest extends TacoTruckTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
-	}
+		}
+		/**
+		 * test grabbing a TruckCategory by content that does not exist
+		 **/
+		public function testGetInvalidTruckCategoryCategoryId() : void {
+			// grab a TruckCategory by content that does not exist
+			$truck = TruckCategory::testGetTruckCategoryCategoryId($this->getPDO(), -1);
+			$this->assertCount(0, $truck);
+		}
 
 
-	public function getValidTruckCategoryCategoryId(): void {
+
+	public function getValidTruckCategoryByTruckCategoryTruckId(): void {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
@@ -143,10 +163,18 @@ class TruckCategoryTest extends TacoTruckTest {
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
-		$pdoTruckCategory = TruckCategory::getTruckCategoryCategoryId($this->getPDO());
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryTruckId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+	}
+	/**
+	 * test grabbing a TruckCategory by content that does not exist
+	 **/
+	public function testGetInvalidTruckCategoryTruckId() : void {
+		// grab a TruckCategory by content that does not exist
+		$truck = TruckCategory::testGetTruckCategoryTruckId($this->getPDO(), -1);
+		$this->assertCount(0, $truck);
 	}
 }
 

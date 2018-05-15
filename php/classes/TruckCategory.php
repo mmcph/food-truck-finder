@@ -220,7 +220,6 @@ class TruckCategory implements \JsonSerializable {
 
 
 
-
 	/**
 	 * gets the TruckCategory by TruckCategoryTruckId
 	 *
@@ -261,7 +260,6 @@ class TruckCategory implements \JsonSerializable {
 			}
 		return($truckCategories);
 	}
-
 
 
 	/**
