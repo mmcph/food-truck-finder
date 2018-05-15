@@ -117,6 +117,7 @@ class favorite implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+
 	public function getFavoriteByFavoriteTruckId
 
 	public function getFavoriteByFavoriteProfileId
