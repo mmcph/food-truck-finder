@@ -150,7 +150,7 @@ class VoteTest extends TacoTruckTest {
     /**
      * test grabbing a Vote by truck
      */
-    public function testGetValidVoteByTruckId () : void {
+    public function testGetValidVotesByTruckId () : void {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("vote");
         // create a new Vote and insert it into mySQL
