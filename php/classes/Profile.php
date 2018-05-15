@@ -79,7 +79,7 @@ class Profile implements \JsonSerializable {
 	 * @param string $newprofileLastName
 	 * @param string $newProfileUserName
 	 */
-	public function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName, string $profileActivationToken) {
+	public function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName, string $newProfileActivationToken) {
 		try {
 			$this->setProfileId($newProfileId);
 			$this->setProfileEmail($newProfileEmail);
@@ -137,7 +137,7 @@ class Profile implements \JsonSerializable {
 	 * @throws \RangeException if $newProfileActivationToken
 	 * @throws \TypeError if $newProfileActivationToken is not a uuid or string
 	 */
-	public function setProfileActivationToken(string $newProfileActivationToken) {
+	public function setProfileActivationToken($newProfileActivationToken) {
 		$newProfileActivationToken = trim($newProfileActivationToken);
 		$newProfileActivationToken = filter_var($newProfileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newProfileActivationToken) === true) {
@@ -402,7 +402,7 @@ class Profile implements \JsonSerializable {
 		/*
 		 *
 		 */
-	public function getProfileByProfileEmail(\PDO $pdo, $profileEmail): ?profileEmail {
+	public function getProfileByProfileEmail(\PDO $pdo, $profileEmail): ?Profile {
 		$profileEmail = trim($profileEmail);
 		$profileEmail = filter_var($profileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($profileEmail) === true) {
@@ -418,7 +418,7 @@ class Profile implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$profile new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
+				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
 		}
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -429,7 +429,7 @@ class Profile implements \JsonSerializable {
 		/*
 		 *
 		 */
-		public function getProfileByProfileActivationToken(\PDO $pdo $profileActivationToken): ?Profile {
+		public function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken): ?Profile {
 			$profileActivationToken = trim($profileActivationToken);
 			$profileActivationToken = filter_var($profileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($profileActivationToken) === true) {
@@ -439,13 +439,13 @@ class Profile implements \JsonSerializable {
 		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["$profileActivationToken" => $profileActivationToken];
-		$statement->execute($parameters)
+		$statement->execute($parameters);
 		try {
 			$profile = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$profile new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
+				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
 		}
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
