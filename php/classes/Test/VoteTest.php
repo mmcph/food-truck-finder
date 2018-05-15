@@ -8,7 +8,7 @@ use function Sodium\randombytes_random16;
 require_once(dirname(__DIR__) . "/autoload.php");
 
 // grab the uuid generator
-require_once(dirnam(__DIR__, 2) . "lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "lib/uuid.php");
 
 /**
  * Full PHPUnit test for the Vote class
@@ -68,10 +68,7 @@ class VoteTest extends TacoTruckTest {
     }
     /**
      *
-     *
      *  test inserting a valid Vote and verify that the actual mySQL data matches
-     *
-     *
      *
      */
     public function testInsertValidVote() : void {
@@ -89,11 +86,22 @@ class VoteTest extends TacoTruckTest {
         $this->assertEquals($pdoVote->getTruckProfileId(),
         $this->vote->getVoteId());
     }
-
     /**
      * test creating a Vote and then deleting it
      */
     public function testDeleteValidVote () {
+    // count the  number of rows and save it for later
+    $numRows = $this->getConnection()->getRowCount("vote");
+    //create a new Vote and insert it into mySQL
+    $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+    $vote->insert($this->getPDO());
+    // delete the Vote from mySQL
+    $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
+    $vote->delete($this->getPDO());
+    //grab the data from mySQL and enforce the Vote does not exist
+    $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(),$this->profile->getProfileId(),$this->truck->getTruckId());
+    $this->assertNull($pdoVote);
+    $this->assertEquals($numRows, $this->getConnection()->getRowCount("vote"));
 
     }
 
