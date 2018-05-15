@@ -39,13 +39,6 @@ class CategoryTest extends TacoTruckTest {
 	protected $VALID_CATEGORYNAME2 = "New Mexican";
 
 	/**
-	 * create dependent objects ... if there are any
-	 **/
-	public final function setUp()  : void {
-
-	}
-
-	/**
 	 * test inserting a valid Category and verify that the actual mySQL data matches
 	 **/
 	public function testInsertValidCategory() : void {
