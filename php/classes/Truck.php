@@ -475,7 +475,6 @@ class Truck implements \JsonSerializable {
 	 **/
 	public static function getTruckByTruckProfileId(\PDO $pdo, $truckProfileId): ?Truck {
 		// sanitize the truckProfileId before searching
-		//todo while thru whole table
 		try {
 			$truckProfileId = self::validateUuid($truckProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -491,16 +490,18 @@ class Truck implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		// grab the truck from mySQL
-		try {
-			$truck = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$truck = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if($row !== false) {
+					$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+				}
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($truck);
 	}
@@ -515,8 +516,6 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
 	public static function getTruckByTruckIsOpen(\PDO $pdo, $truckIsOpen): ?Truck {
-		// int inputs don't require sanitizing
-//todo while "" ref getTweetByTweetContent
 		// create query template
 		$query = "SELECT truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl FROM truck WHERE truckIsOpen = :truckIsOpen";
 		$statement = $pdo->prepare($query);
@@ -526,16 +525,18 @@ class Truck implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		// grab the truck from mySQL
-		try {
-			$truck = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$truck = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if($row !== false) {
+					$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+				}
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($truck);
 	}
@@ -566,17 +567,18 @@ class Truck implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		// grab the truck from mySQL
-		//todo while
-		try {
-			$truck = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$truck = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if($row !== false) {
+					$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+				}
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($truck);
 	}
