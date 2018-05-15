@@ -168,7 +168,6 @@ class Vote implements \JsonSerializable {
      * @throws \RangeException if data values are out of bounds
      * @throws \Exception for any other exceptions
      * @throws \TypeError if not Uuid
-     * @throws \Exception for any other exceptions
      * @throws \PDOException when mySQL related errors occur
      */
     public static function getVotesByVoteProfileId (\PDO $pdo, $voteProfileId): \SplFixedArray {

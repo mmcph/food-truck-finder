@@ -76,10 +76,18 @@ class VoteTest extends TacoTruckTest {
      */
     public function testInsertValidVote() : void {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("like");
+        $numRows = $this->getConnection()->getRowCount("vote");
 
         // create a new Vote and insert to into mySQL
+        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+        $vote->insert($this->getPDO());
 
+        // grab the data from mySQL and enforce the fields match our expectations
+        $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->vote->getTruckId());
+        $this->asssertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
+        $this->assertEquals($pdoVote->getVoteProfileId(), $this->vote->getProfileId());
+        $this->assertEquals($pdoVote->getTruckProfileId(),
+        $this->vote->getVoteId());
     }
 
     /**
