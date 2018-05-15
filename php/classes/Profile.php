@@ -8,64 +8,64 @@ use Ramsey\Uuid\Uuid;
 use ValidateUuid;
 
 
-/**
- * Class profile
- *
- * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
- * being designated as a "vendor" or "customer"
- *
- * @package Edu\Cnm\food-truck-finder
- * @author G. Cordova
- */
+
+	 * activation token to gain access as a registered user/**
+     * Class profile
+     *
+     * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
+     * being designated as a "vendor" or "customer"
+     *
+     * @package Edu\Cnm\food-truck-finder
+     * @author G. Cordova
+     */
 class Profile implements \JsonSerializable {
-	/**
-	 * UNIQUE
-	 * id for profile
-	 * PRIMARY key
-	 * @var Uuid $profileId
-	 */
-	private $profileId;
-	/**
-	 * UNIQUE
-	 * email for profile
-	 * @var string $profileEmail
-	 */
-	private $profileEmail;
+    /**
+     * UNIQUE
+     * id for profile
+     * PRIMARY key
+     * @var Uuid $profileId
+     */
+    private $profileId;
+    /**
+     * UNIQUE
+     * email for profile
+     * @var string $profileEmail
+     */
+    private $profileEmail;
 
-	/**
-	 * hash for profile (pw)
-	 * @var mixed $profileHash
-	 */
-	private $profileHash;
+    /**
+     * hash for profile (pw)
+     * @var mixed $profileHash
+     */
+    private $profileHash;
 
-	/**
-	 * indication of whether or not the profile is one of a vendor
-	 * @var bool $profileIsOwner
-	 */
-	private $profileIsOwner;
+    /**
+     * indication of whether or not the profile is one of a vendor
+     * @var bool $profileIsOwner
+     */
+    private $profileIsOwner;
 
-	/**
-	 * first name of profile user
-	 * @var string $profileFirstName
-	 */
-	private $profileFirstName;
+    /**
+     * first name of profile user
+     * @var string $profileFirstName
+     */
+    private $profileFirstName;
 
-	/**
-	 * last name of profile user
-	 * @var string $profileLastName
-	 */
-	private $profileLastName;
+    /**
+     * last name of profile user
+     * @var string $profileLastName
+     */
+    private $profileLastName;
 
-	/**
-	 * UNIQUE
-	 * user name of profile (handle)
-	 * @var string $profileUserName
-	 */
-	private $profileUserName;
+    /**
+     * UNIQUE
+     * user name of profile (handle)
+     * @var string $profileUserName
+     */
+    private $profileUserName;
 
-	/**
-	 * UNIQUE
-	 * activation token to gain access as a registered user + user features
+    /**
+     * UNIQUE + user features
 	 * @var string $profileActivationToken
 	 */
 	private $profileActivationToken;
