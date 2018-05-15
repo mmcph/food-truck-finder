@@ -228,7 +228,7 @@ class TruckTest extends TacoTruckTest {
 
 
 	/**
-	 * test grabbing a Truck that does not exist
+	 * test grabbing a Truck that does not exist via truckId
 	 **/
 	public function testGetInvalidTruckByTruckId() : void {
 		// grab a truck id that exceeds the maximum allowable truck id
@@ -270,41 +270,46 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Tweet that does not exist
+	 * test grabbing a Truck that does not exist via truckProfileId
 	 **/
-	public function testGetInvalidTweetByTweetProfileId() : void {
-		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetProfileId($this->getPDO(), generateUuidV4());
-		$this->assertCount(0, $tweet);
+	public function testGetInvalidTruckByTruckProfileId() : void {
+		// grab a truck profile id that exceeds the maximum allowable truck profile id
+		$truck = Truck::getTruckByTruckProfileId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $truck);
 	}
 
 	/**
-	 * test grabbing a Tweet by tweet content
+	 * test grabbing a Truck by truckIsOpen
 	 **/
-	public function testGetValidTweetByTweetContent() : void {
+	public function testGetValidTruckByTruckIsOpen() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Truck and insert to into mySQL
+		$truckId = generateUuidV4();
+		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
+		$truck->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetContent($this->getPDO(), $tweet->getTweetContent());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+		$results = Truck::getTruckByTruckIsOpen($this->getPDO(), $truck->getTruckIsOpen());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Truck", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+		$pdoTruck = $results[0];
+		$this->assertEquals($pdoTruck->getTruckId(), $truckId);
+		$this->assertEquals($pdoTruck->getTruckProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTruck->getTruckBio(), $this->VALID_TRUCKBIO);
+		$this->assertEquals($pdoTruck->getTruckIsOpen(), $this->VALID_TRUCKISOPEN);
+		$this->assertEquals($pdoTruck->getTruckLatitude(), $this->VALID_TRUCKLATITUDE);
+		$this->assertEquals($pdoTruck->getTruckLongitude(), $this->VALID_TRUCKLONGITUDE);
+		$this->assertEquals($pdoTruck->getTruckName(), $this->VALID_TRUCKNAME);
+		$this->assertEquals($pdoTruck->getTruckPhone(), $this->VALID_TRUCKPHONE);
+		$this->assertEquals($pdoTruck->getTruckUrl(), $this->VALID_TRUCKURL);
+
 	}
 
 	/**
