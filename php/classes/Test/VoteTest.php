@@ -53,7 +53,7 @@ class VoteTest extends TacoTruckTest {
         $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(),"I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", 5058596496, "https://phpunit.de/");
         $this->truck->insert($this->getPDO());
         // create and insert the mocked vote
-        $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), "PHPUnit vote test passing");
+        $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), 1 );
         $this->vote->insert($this->getPDO());
     }
     /**
