@@ -62,6 +62,7 @@ class CategoryTest extends TacoTruckTest {
 		$this->assertEquals($pdoCategory->getCategoryId(), $category->getCategoryId());
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORYNAME);
 
+		// todo Do I need Insert? Can I delete update/insert from my Class?
 		// todo per George's advice - stores last inserted ID in auto-incrementing table so that it can be compared against
 		$this->quoteId = intval($pdo->lastInsertId());
 	}
@@ -88,7 +89,7 @@ class CategoryTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Category that does not exist
+	 * test grabbing a Category that does not exist (via categoryId)
 	 **/
 	public function testGetInvalidCategoryByCategoryId() : void {
 		// grab a category id that exceeds the maximum allowable category id
@@ -125,52 +126,13 @@ class CategoryTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Tweet that does not exist
+	 * test grabbing a Category that does not exist (via categoryName)
 	 **/
-	public function testGetInvalidTweetByTweetProfileId() : void {
-		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetProfileId($this->getPDO(), generateUuidV4());
-		$this->assertCount(0, $tweet);
+	public function testGetInvalidCategoryByCategoryName() : void {
+		// grab a category name that does not exist (though the standards to which some food trucks hold themselves may relegate them to this particular category)
+		$category = Category::getCategoryByCategoryName($this->getPDO(), "Dog Food");
+		$this->assertCount(0, $category);
 	}
-
-	/**
-	 * test grabbing a Tweet by tweet content
-	 **/
-	public function testGetValidTweetByTweetContent() : void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
-
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetContent($this->getPDO(), $tweet->getTweetContent());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertCount(1, $results);
-
-		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
-
-		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
-	}
-
-	/**
-	 * test grabbing a Tweet by content that does not exist
-	 **/
-	public function testGetInvalidTweetByTweetContent() : void {
-		// grab a tweet by content that does not exist
-		$tweet = Tweet::getTweetByTweetContent($this->getPDO(), "Comcast has the best service EVER #comcastLove");
-		$this->assertCount(0, $tweet);
-	}
-
 
 	/**
 	 * test grabbing all Tweets
