@@ -5,11 +5,11 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
-use ValidateUuid;
 
 
 
-	 * activation token to gain access as a registered user/**
+
+	 /** activation token to gain access as a registered user/**
      * Class profile
      *
      * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
@@ -19,6 +19,7 @@ use ValidateUuid;
      * @author G. Cordova
      */
 class Profile implements \JsonSerializable {
+	use ValidateUuid;
     /**
      * UNIQUE
      * id for profile
@@ -310,7 +311,6 @@ class Profile implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 		$query = "INSERT INTO profile(profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName) VALUES(:profileId, :profileActivationToken, :profileEmail, :profileHash, :profileIsOwner,:profileFirstName,:profileLastName,:profileUserName)";
 		$statement = $pdo->prepare($query);
-
 		$parameters = ["profileId" => $this->profileId->getBytes(), "profileActivationCode" => $this->profileActivationToken, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileIsOwner" => $this->profileIsOwner, "profileFirstName" => $this->profileFirstName, "profileLastName" => $this->profileLastName, "profileUserName" => $this->profileUserName];
 		$statement->execute($parameters);
 	}
@@ -339,7 +339,6 @@ class Profile implements \JsonSerializable {
 	public function update(\PDO $pdo): void {
 		$query = "UPDATE profile SET profileId = :profileId, profileActivationToken = :profileActivationToken, profileEmail = :profileEmail, profileHash = :profileHash, profileIsOwner = :profileIsOwner, profileFirstName = :profileFirstName, profileLastName = :profileLastName, profileUserName = :profileUserName WHERE profileId = profileId";
 		$statement = $pdo->prepare($query);
-
 		$parameters = ["profileId" => $this->profileId->getBytes(), "profileActivationToken" => $this->profileActivationToken, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileIsOwner" => $this->profileIsOwner, "profileFirstName" => $this->profileFirstName, "profileLastName" => $this->profileLastName, "profileUserName" => $this->profileUserName];
 		$statement->execute($parameters);
 	}
@@ -354,7 +353,7 @@ class Profile implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
-		$statement->$pdo->prepare($query);
+		$statement = $pdo->prepare($query);
 		$parameters = ["$profileId" => $profileId->getBytes()];
 		$statement->execute($parameters);
 		try {
@@ -412,7 +411,7 @@ class Profile implements \JsonSerializable {
 		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
 		$statement = $pdo->prepare($query);
 		$parameters = ["$profileEmail" => $profileEmail];
-		$statement->execute($parameters)
+		$statement->execute($parameters);
 		try {
 			$profile = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -435,7 +434,7 @@ class Profile implements \JsonSerializable {
 			if(empty($profileActivationToken) === true) {
 				throw(new \PDOException("profile activation token is invalid"));
   			}
-  			$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
+  			$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileActivationToken));
 		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["$profileActivationToken" => $profileActivationToken];
