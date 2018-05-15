@@ -62,33 +62,29 @@ class CategoryTest extends TacoTruckTest {
 		$this->assertEquals($pdoCategory->getCategoryId(), $category->getCategoryId());
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORYNAME);
 
-		// todo per George
+		// todo per George's advice - stores last inserted ID in auto-incrementing table so that it can be compared against
 		$this->quoteId = intval($pdo->lastInsertId());
 	}
 
-
-
-
 	/**
-	 * test creating a Tweet and then deleting it
+	 * test creating a Category and then deleting it
 	 **/
-	public function testDeleteValidTweet() : void {
+	public function testDeleteValidCategory() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("category");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Category and insert to into mySQL
+		$category = new Category(null, $this->VALID_CATEGORYNAME);
+		$category->insert($this->getPDO());
 
-		// delete the Tweet from mySQL
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$tweet->delete($this->getPDO());
+		// delete the Category from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
+		$category->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Tweet does not exist
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertNull($pdoTweet);
-		$this->assertEquals($numRows, $this->getConnection()->getRowCount("tweet"));
+		// grab the data from mySQL and enforce the Category does not exist
+		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
+		$this->assertNull($pdoCategory);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("category"));
 	}
 
 
