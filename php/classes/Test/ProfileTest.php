@@ -65,8 +65,53 @@ class ProfileTest extends TacoTruckTest {
     parent::setUp();
     //
     $password = "strongpassword";
-    --------------------------------------
+    $this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+    $this->VALID_ACTIVATION = bin2hex(random_bytes(16));
     }
+    /**
+     * test inserting a valid Profile and verify that the actual mySQL data matches
+     */
+    public function testInsertValidProfile() : void {
+        // count the number of rows and save it for later
+        $numRows = $this->getConnection()->getRowCount("profile");
+        $profileId = generateUuidV4();
+        $profile = new Profile($profileId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_ISOWNER, $this->VALID_FIRSTNAME, $this->VALID_LASTNAME, $this->VALID_USERNAME);
+        $profile->insert($this->getPDO());
+        // grab the data from mySQL and enforce the fields match our expectations
+        $pdoProfile = Profile::getProfileByProfileId($this->getPDO(),$profile->getProfileId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+        $this->assertEquals($pdoProfile->getProfileId(), $profileId);
+        $this->assertEquals($pdoProfile->getProfileActivationToken(), $this->VALID_ACTIVATION);
+        $this->assertEquals($pdoProfile->getProfileEmail(), $this->VALID_EMAIL);
+        $this->assertEquals($pdoProfile->getProfileHash(), $this->VALID_HASH);
+        $this->assertEquals($pdoProfile->getProfileIsOwner(), $this->VALID_ISOWNER);
+        $this->assertEquals($pdoProfile->getProfileFirstName(), $this->VALID_FIRSTNAME);
+        $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME);
+        $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME);
+        $this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
