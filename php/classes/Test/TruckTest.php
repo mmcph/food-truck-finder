@@ -35,7 +35,7 @@ class TruckTest extends TacoTruckTest {
 	 * id of the truck
 	 * @var Uuid $VALID_TRUCKID
 	 **/
-	protected $VALID_TRUCKID = generateUuidV4();
+	protected $VALID_TRUCKID = "dda3cc9b-8181-4dba-8c21-a855e7f98cf2";
 
 	/**
 	 * content of truck's bio
