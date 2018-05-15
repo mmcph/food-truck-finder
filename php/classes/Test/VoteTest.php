@@ -138,36 +138,15 @@ class VoteTest extends TacoTruckTest {
         $pdoVote= $results[0];
         $this->assertEquals($pdoVote->getVoteProfileId(),$this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(), $this->vote->getTruckId());
-        // f
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
     /**
      * test grabbing Votes by a profile that has not made any votes
      */
-
-    public function testGetInvalidVotesByProfileId () {
-
+    public function testGetInvalidVotesByProfileId (): void {
+        // try to grab votes that do not exist under this profile
+        $vote = Vote::getVotesByVoteProfileId($this->getPDO(), generateUuidV4());
+        $this->assertCount(0, $vote);
     }
-
     /**
      * test grabbing a Vote by truck
      */
