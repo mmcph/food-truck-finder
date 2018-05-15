@@ -4,8 +4,6 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
-use ValidateUuid;
-
 /**
  * Class: favorite
  *
@@ -16,6 +14,8 @@ use ValidateUuid;
  * @package Edu\Cnm\food
  */
 class favorite implements \JsonSerializable {
+
+	use ValidateUuid;
 
 	/**
 	 * foreign key
@@ -35,10 +35,10 @@ class favorite implements \JsonSerializable {
 	 * @param $favoriteTruckId
 	 * @param $favoriteProfileId
 	 */
-	public function __construct($favoriteTruckId, $favoriteProfileId) {
+	public function __construct($newFavoriteTruckId, $newFavoriteProfileId) {
 		try {
-			$this->favoriteTruckId($newFavoriteTruckId);
-			$this->favoriteProfileId($newFavoriteProfileId);
+			$this->setFavoriteTruckId($newFavoriteTruckId);
+			$this->setFavoriteProfileId($newFavoriteProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -88,7 +88,7 @@ class favorite implements \JsonSerializable {
 	 * @throws \RangeException if $newFavoriteProfileId is not positive
 	 * @throws \TypeError if $newFavoriteProfileId is not a string
 	 */
-	public function setTruckProfileId($newTruckProfileId): void {
+	public function setFavoriteProfileId($newTruckProfileId): void {
 		try {
 			$uuid = self::validateUuid($newTruckProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -107,7 +107,7 @@ class favorite implements \JsonSerializable {
 		$query = "INSERT INTO favorite(favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
-		$statements->execute($parameters);
+		$statement->execute($parameters);
 	}
 
 	public function delete(\PDO $pdo): void {
@@ -124,7 +124,8 @@ class favorite implements \JsonSerializable {
 
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
-		$fields["profileId"] = $this->profileId->toString();
+		$fields["favoriteTruckId"] = $this->favoriteTruckId->toString();
+		$fields["favoriteProfileId"]
 		return ($fields);
 	}
 }
