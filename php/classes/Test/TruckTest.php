@@ -256,8 +256,7 @@ class TruckTest extends TacoTruckTest {
 
 		// grab the result from the array and validate it
 		$pdoTruck = $results[0];
-
-		$this->assertEquals($pdoTruck->getTruckId(), $tweetId);
+		$this->assertEquals($pdoTruck->getTruckId(), $truckId);
 		$this->assertEquals($pdoTruck->getTruckProfileId(), $this->profile->getProfileId());
 		$this->assertEquals($pdoTruck->getTruckBio(), $this->VALID_TRUCKBIO);
 		$this->assertEquals($pdoTruck->getTruckIsOpen(), $this->VALID_TRUCKISOPEN);
@@ -317,10 +316,52 @@ class TruckTest extends TacoTruckTest {
 	 **/
 	public function testGetInvalidTruckByTruckIsOpen() : void {
 		// grab a truck by truckIsOpen that does not exist
-		$truck = Truck::getTruckByTruckIsOpen($this->getPDO(), "1");
-		$this->assertCount(0, $tweet);
+		$truck = Truck::getTruckByTruckIsOpen($this->getPDO(), 2);
+		$this->assertCount(0, $truck);
 	}
 
+	/**
+	 * test grabbing a Truck by truckName
+	 **/
+	public function testGetValidTruckByTruckName() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("truck");
+
+		// create a new Truck and insert to into mySQL
+		$truckId = generateUuidV4();
+		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
+		$truck->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Truck::getTruckByTruckName($this->getPDO(), $truck->getTruckName());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
+		$this->assertCount(1, $results);
+
+		// enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Truck", $results);
+
+		// grab the result from the array and validate it
+		$pdoTruck = $results[0];
+		$this->assertEquals($pdoTruck->getTruckId(), $truckId);
+		$this->assertEquals($pdoTruck->getTruckProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTruck->getTruckBio(), $this->VALID_TRUCKBIO);
+		$this->assertEquals($pdoTruck->getTruckIsOpen(), $this->VALID_TRUCKISOPEN);
+		$this->assertEquals($pdoTruck->getTruckLatitude(), $this->VALID_TRUCKLATITUDE);
+		$this->assertEquals($pdoTruck->getTruckLongitude(), $this->VALID_TRUCKLONGITUDE);
+		$this->assertEquals($pdoTruck->getTruckName(), $this->VALID_TRUCKNAME);
+		$this->assertEquals($pdoTruck->getTruckPhone(), $this->VALID_TRUCKPHONE);
+		$this->assertEquals($pdoTruck->getTruckUrl(), $this->VALID_TRUCKURL);
+
+	}
+
+	/**
+	 * test grabbing a Truck by truckName that does not exist
+	 **/
+	public function testGetInvalidTruckByTruckName() : void {
+		// grab a truck by truckName that does not exist
+		$truck = Truck::getTruckByTruckName($this->getPDO(), "Vegan Dirt Burgers");
+		$this->assertCount(0, $truck);
+	}
 
 	/**
 	 * test grabbing all Tweets
