@@ -95,7 +95,7 @@ class TruckTest extends TacoTruckTest {
 	 * content of the updated truck name
 	 * @var string $VALID_TRUCKNAME2
 	 **/
-	protected $VALID_TRUCKNAME2 = "Sandwise Jamgee";
+	protected $VALID_TRUCKNAME2 = "Sandwise Hamgee";
 
 	/**
 	 * content of truck phone
@@ -130,13 +130,9 @@ class TruckTest extends TacoTruckTest {
 		$password = "abc123";
 		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
-
 		// create and insert a Profile to own the test Truck
 		$this->profile = new Profile (generateUuidV4(), "test@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
-
-
-
 
 	}
 
@@ -202,7 +198,6 @@ class TruckTest extends TacoTruckTest {
 		$this->assertEquals($pdoTruck->getTruckUrl(), $this->VALID_TRUCKURL2);
 	}
 
-
 	/**
 	 * test creating a Truck and then deleting it
 	 **/
@@ -224,8 +219,6 @@ class TruckTest extends TacoTruckTest {
 		$this->assertNull($pdoTruck);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("truck"));
 	}
-
-
 
 	/**
 	 * test grabbing a Truck that does not exist via truckId
@@ -363,30 +356,4 @@ class TruckTest extends TacoTruckTest {
 		$this->assertCount(0, $truck);
 	}
 
-	/**
-	 * test grabbing all Tweets
-	 **/
-	public function testGetAllValidTweets() : void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
-
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getAllTweets($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
-
-		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
-	}
 }
