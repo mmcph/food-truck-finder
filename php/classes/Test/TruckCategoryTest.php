@@ -2,7 +2,7 @@
 namespace Edu\Cnm\FoodTruck\Test;
 
 use Edu\Cnm\FoodTruck\{Truck, Category,Profile, TruckCategory};
-sodium_add();
+//sodium_add();
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -108,7 +108,6 @@ class TruckCategoryTest extends TacoTruckTest {
 	public function getValidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(): void {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
-
 		// create a new TruckCategory and insert to into mySQL
 		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
@@ -116,6 +115,7 @@ class TruckCategoryTest extends TacoTruckTest {
 // grab the data from mySQL and enforce the fields match our expectations
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
+		$this->
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
 	}
