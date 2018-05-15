@@ -96,11 +96,6 @@ class VoteTest extends TacoTruckTest {
     /**
      * test inserting a Vote and re-grabbing it from mySQL
      */
-
-
-
-
-
     public function testGetValidVoteByProfileIdAndTruckId () {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("vote");
@@ -113,20 +108,16 @@ class VoteTest extends TacoTruckTest {
         $this->assertEquals($pdoVote->getVoteProfileId(),$this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(),
             $this->vote->getTruckId());
-
         //todo question - are we testing the vote values anywhere?
     }
-
-
-
-
-
-
     /**
      * test grabbing a Vote that does not exist
-     */
-    //todo does this need to be tested?
-    //public function testGetInvalidVoteByProfileIdAndTruckId () {   }
+     **/
+    public function testGetInvalidVoteByProfileIdAndTruckId () {
+        // grab a profile id and a truck id that exceed the maximum allowable profile id and truck id
+        $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), generateUuidV4(), generateUuidV4());
+        $this->assertNull($vote);
+    }
 
 
     /**
