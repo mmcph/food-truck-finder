@@ -56,43 +56,17 @@ class CategoryTest extends TacoTruckTest {
 		$category = new Category(null, $this->VALID_CATEGORYNAME);
 		$category->insert($this->getPDO());
 
-		// grab categoryId from newly created Category for later comparison
-		$category->getCategoryId();
-
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
-		$this->assertEquals($pdoCategory->getCategoryId(), $categoryId);
+		$this->assertEquals($pdoCategory->getCategoryId(), $category->getCategoryId());
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORYNAME);
+
+		// todo per George
+		$this->quoteId = intval($pdo->lastInsertId());
 	}
 
-	/**
-	 * test inserting a Category, editing it, and then updating it
-	 **/
-	public function testUpdateValidCategory() : void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("category");
 
-		// create a new Category and insert to into mySQL
-		$category = new Category(null, $this->VALID_CATEGORYNAME);
-		$category->insert($this->getPDO());
-
-		// grab categoryId from newly created Category for later comparison
-		$category->getCategoryId();
-
-		// edit the Tweet and update it in mySQL
-		$category->setCategoryName($this->VALID_CATEGORYNAME2);
-		$tweet->update($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
-	}
 
 
 	/**
