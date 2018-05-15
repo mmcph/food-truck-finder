@@ -36,6 +36,10 @@ class TruckCategoryTest extends TacoTruckTest {
 	 */
 	private $truck =null;
 
+	protected $VALID_TRUCKCATEGORYTRUCKID = null;
+
+	protected $VALID_TRUCKCATEGORYCATEGORYID = "3";
+
 	/**
 	 * category that has the TruckCategory
 	 * @var
