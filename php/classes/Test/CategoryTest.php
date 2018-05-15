@@ -87,15 +87,13 @@ class CategoryTest extends TacoTruckTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("category"));
 	}
 
-
-
 	/**
-	 * test grabbing a Tweet that does not exist
+	 * test grabbing a Category that does not exist
 	 **/
-	public function testGetInvalidTweetByTweetId() : void {
-		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetId($this->getPDO(), generateUuidV4());
-		$this->assertNull($tweet);
+	public function testGetInvalidCategoryByCategoryId() : void {
+		// grab a category id that exceeds the maximum allowable category id
+		$category = Category::getCategoryByCategoryId($this->getPDO(), 256);
+		$this->assertNull($category);
 	}
 
 	/**
