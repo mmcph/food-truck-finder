@@ -105,11 +105,11 @@ class TruckCategoryTest extends TacoTruckTest {
 
 
 public function getValidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(): void {
-	//counts the number of rows and save's it for later
-	$numRows = $this->getConnection()->getRowCount("truckCategoryCategoryIdAndTruckCategoryTruckId");
+	//counts the number of rows and saves it for later
+	$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 	// create a new TruckCategory and insert to into mySQL
-	$truckCategory = new truckCategoryCategoryIdAndTruckCategoryTruckId(7, $this->truck->getTruckId());
+	$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
 	$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
