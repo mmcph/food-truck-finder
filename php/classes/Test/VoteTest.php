@@ -111,28 +111,55 @@ class VoteTest extends TacoTruckTest {
         //todo question - are we testing the vote values anywhere?
     }
     /**
-     * test grabbing a Vote that does not exist
+     * test grabbing Vote that does not exist
      **/
     public function testGetInvalidVoteByProfileIdAndTruckId () {
-        // grab a profile id and a truck id that exceed the maximum allowable profile id and truck id
+        // we would expect to get an error when searching for a vote that does not exist such as in this case of a null tweet
         $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), generateUuidV4(), generateUuidV4());
         $this->assertNull($vote);
     }
 
 
+
+
+
+
+
+
     /**
-     * test grabbing a Vote by profile
+     * test grabbing Votes by profile
      */
 
-    public function testGetValidVoteByVoteProfileId () {
+
+
+    public function testGetValidVotesByProfileId () {
+
+
+
+
+
+
+
+
+
+
 
     }
 
+
+
+
+
+
+
+
+
+
     /**
-     * test grabbing a Vote by a profile that has not made any votes
+     * test grabbing Votes by a profile that has not made any votes
      */
 
-    public function testGetInvalidVoteByVoteProfileId () {
+    public function testGetInvalidVotesByProfileId () {
 
     }
 
@@ -140,14 +167,14 @@ class VoteTest extends TacoTruckTest {
      * test grabbing a Vote by truck
      */
 
-    public function testGetValidVoteByVoteTruckId () {
+    public function testGetValidVoteByTruckId () {
 
     }
 
     /**
      * test grabbing a Vote by truck that has no votes
      */
-    public function testGetInvalidVoteByVoteTruckId () {
+    public function testGetInvalidVoteByTruckId () {
     }
 
 
