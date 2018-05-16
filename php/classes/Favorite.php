@@ -189,7 +189,7 @@ class favorite implements \JsonSerializable {
 				$statement->setFetchMode(\PDO::FETCH_ASSOC);
 				$row = $statement->fetch();
 				if($row !== false) {
-					$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"], $row["likeDate"]);
+					$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]) ;
 				}
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
