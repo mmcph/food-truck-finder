@@ -70,11 +70,6 @@ class Profile implements \JsonSerializable {
 	 */
 	private $profileUserName;
 
-	/**
-	 * UNIQUE + user features
-	 * @var string $profileActivationToken
-	 */
-	private $profileActivationToken;
 
 	/**
 	 * @param $newProfileId
