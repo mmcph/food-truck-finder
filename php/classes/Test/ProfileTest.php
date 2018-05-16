@@ -148,7 +148,7 @@ public function testGetValidProfileByProfileActivationToken(): void {
 	$this->assertNull($profile);
 }
 
-public function testGetValidProfileByActivationToken(): void {
+public function testGetValidProfileByProfileActivationToken(): void {
 	// count the number of rows and save it for later
 	$numRows = $this->getConnection()->getRowCount("profile");
 	$profileId = generateUuidV4();
@@ -167,10 +167,6 @@ public function testGetValidProfileByActivationToken(): void {
 	$this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
 }
 
-public function getInvalidProfileByActivationToken(): void {
-	$profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "35317a6000b7437d8e59714ae0e84db3");
-	$this->assertNull($profile);
-}
 
 public function getValidProfileByProfileEmail () : void {
 	// count the number of rows and save it for later
