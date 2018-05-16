@@ -118,19 +118,84 @@ class favorite implements \JsonSerializable {
 	}
 
 
-	public function getFavoriteByFavoriteTruckId(\PDO $pdo, $favorite) {
-
+	public function getFavoriteByFavoriteTruckId(\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
+		try {
+			$favoriteTruckId = self::validateUuid($favoriteTruckId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteTruckId = :favoriteTruckId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["favoriteTruckId" => $favoriteTruckId->getBytes()];
+		$statement->execute($parameters);
+		$favorites = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$tweet = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
+				$favorites[$favorites->key()] = $favorite;
+				$favorites->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($favorites);
 	}
 
 
 
-	public function getFavoriteByFavoriteProfileId() {
-
+	public function getFavoriteByFavoriteProfileId(\PDO $pdo, $favoriteProfileId) {
+		try {
+			$favoriteProfileId = self::validateUuid($favoriteProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteProfileId = :favoriteProfileId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["favoriteTruckId" => $favoriteProfileId->getBytes()];
+		$statement->execute($parameters);
+		$favorites = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
+				$favorites[$favorites->key()] = $favorite;
+				$favorites->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($favorites);
 	}
 
-	public  function getFavoriteByFavoriteProfileIdAndFavoriteTruckId() {
-
-	}
+	public  function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
+			try {
+				$favoriteTruckId = self::validateUuid($favoriteTruckId);
+			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+			try {
+				$favoriteProfileId = self::validateUuid($favoriteProfileId);
+			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+			$query = "SELECT favoriteTruckId, favoriteProfileId FROM `favorite` WHERE favoriteTruckId = :favoriteTruckId AND favoriteProfileId = :favoriteProfileId";
+			$statement = $pdo->prepare($query);
+			$parameters = ["$favoriteTruckId" => $favoriteTruckId->getBytes(), "favoriteProfileId" => $favoriteProfileId->getBytes()];
+			$statement->execute($parameters);
+			try {
+				$favorite = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if($row !== false) {
+					$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"], $row["likeDate"]);
+				}
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+			return ($favorite);
+		}
 
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
