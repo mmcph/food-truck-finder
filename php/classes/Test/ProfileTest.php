@@ -37,7 +37,7 @@ class ProfileTest extends TacoTruckTest {
 	/**
 	 * @var int $VALID_ISOWNER
 	 **/
-	private $VALID_ISOWNER = 1;
+	private $VALID_ISOWNER =  1;
 	/**
 	 * valid first name to use
 	 * @var $VALID_FIRSTNAME
@@ -85,7 +85,6 @@ class ProfileTest extends TacoTruckTest {
 		 $this->assertEquals($pdoProfile->getProfileHash(), $this->VALID_HASH);
 		 $this->assertEquals($pdoProfile->getProfileIsOwner(), $this->VALID_ISOWNER);
 		 $this->assertEquals($pdoProfile->getProfileFirstName(), $this->VALID_FIRSTNAME);
-		 $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME);
 		 $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME);
 		 $this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
 	 }
