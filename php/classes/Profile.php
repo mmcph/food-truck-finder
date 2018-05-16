@@ -213,7 +213,7 @@ class Profile implements \JsonSerializable {
 	 * @param int $newProfileIsOwner
 	 * @return int value of $newProfileIsOwner
 	 */
-	public function setProfileIsOwner($newProfileIsOwner): int {
+	public function setProfileIsOwner($newProfileIsOwner): void {
 		$this->profileIsOwner = $newProfileIsOwner;
 	}
 
