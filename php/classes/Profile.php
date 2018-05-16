@@ -80,7 +80,7 @@ class Profile implements \JsonSerializable {
 	 * @param string $newprofileLastName
 	 * @param string $newProfileUserName
 	 */
-	public function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, bool $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName, string $newProfileActivationToken) {
+	public function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, int $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName, string $newProfileActivationToken) {
 		try {
 			$this->setProfileId($newProfileId);
 			$this->setProfileEmail($newProfileEmail);
@@ -205,7 +205,8 @@ class Profile implements \JsonSerializable {
 
 	/**
 	 * mutator method
-	 * @param int $profileIsOwner
+	 * @param int $newProfileIsOwner
+	 * @return int value of $newProfileIsOwner
 	 */
 	public function setProfileIsOwner($newProfileIsOwner): int {
 		$this->profileIsOwner = $newProfileIsOwner;
