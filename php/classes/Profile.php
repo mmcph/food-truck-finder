@@ -284,7 +284,6 @@ class Profile implements \JsonSerializable {
 
 	/**
 	 * mutator method
-	 * ````````````````````````````````````````````````````\   `       *
 	 * @param string of $newProfileUserName
 	 * @throws \InvalidArgumentException if $newProfileUserName is not a string or insecure
 	 * @throws \RangeException if $newProfileUsername is > 64 characters
@@ -387,7 +386,7 @@ class Profile implements \JsonSerializable {
 	/*
 	 *
 	 */
-	public function getProfileByProfileUserName(\PDO $pdo, $profileUserName): \SplFixedArray {
+	public function getProfileByProfileUserName(\PDO $pdo, string $profileUserName): \SplFixedArray {
 		$profileUserName = trim($profileUserName);
 		$profileUserName = filter_var($profileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($profileUserName) === true) {
@@ -416,17 +415,26 @@ class Profile implements \JsonSerializable {
 	/*
 	 *
 	 */
-	public function getProfileByProfileEmail(\PDO $pdo, $profileEmail): ?Profile {
+	public function getProfileByProfileEmail(\PDO $pdo, string $profileEmail): ?Profile {
+	    // sanitize the email before searching
 		$profileEmail = trim($profileEmail);
-		$profileEmail = filter_var($profileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$profileEmail = filter_var($profileEmail, FILTER_VALIDATE_EMAIL);
+
 		if(empty($profileEmail) === true) {
 			throw(new \PDOException("email is invalid"));
 		}
-		$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
-		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
+
+		//$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
+
+        // create query template
+        $query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
 		$statement = $pdo->prepare($query);
-		$parameters = ["$profileEmail" => $profileEmail];
+
+		// bind the profile id to the place holder in the template
+		$parameters = ["profileEmail" => $profileEmail];
 		$statement->execute($parameters);
+
+		// grab the profile from mySQL
 		try {
 			$profile = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -435,6 +443,7 @@ class Profile implements \JsonSerializable {
 				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
 			}
 		} catch(\Exception $exception) {
+            // if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($profile);
