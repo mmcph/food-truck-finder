@@ -135,7 +135,7 @@ class ProfileTest extends TacoTruckTest {
      * test grabbing a profile that does not exist
      */
     public function getInvalidProfileByProfileId (): void {
-        // grab a profile id that does not exist
+        // test grabbing for a profile id that does not exist
         $fakeProfileId = generateUuidV4();
         $profile = Profile::getProfileByProfileId($this->getPDO(), $fakeProfileId);
         $this->assertNull($profile);
@@ -143,7 +143,7 @@ class ProfileTest extends TacoTruckTest {
     /**
      * test grabbing a profile by the user name
      */
-    public function getValidProfileByProfileUserName () {
+    public function getValidProfileByProfileUserName (): void {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("profile");
         $profileId = generateUuidV4();
@@ -169,6 +169,13 @@ class ProfileTest extends TacoTruckTest {
     /**
      *
      */
+    public function getInvalidProfileByProfileUserName () : void {
+        // test grabbing for a profile id by a profile user name that does not exist
+        $fakeUserName = "Heidi Martinez";
+        $profile = Profile::getProfileByProfileUserName($this->getPDO(),$fakeProfileUserName);
+        $this->assertNull($profile);
+    }
+
 
 
 
