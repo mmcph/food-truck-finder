@@ -52,7 +52,7 @@ class ProfileTest extends TacoTruckTest {
 	 * valid last name to use when we change the last name
 	 * @var $VALID_LASTNAME2
 	 */
-	private $VALID_LASTNAME2 = "Johnson-Rodgers"
+	private $VALID_LASTNAME2 = "Johnson-Rodgers";
     /**
 	  * valid username to use
 	  * @var string $VALID_USERNAME
@@ -167,7 +167,7 @@ class ProfileTest extends TacoTruckTest {
         $this->assertEquals($pdoProfile->getProfileByProfileUserName(), $this->VALID_USERNAME);
     }
     /**
-     *
+     * test grabbing a Profile by at username that does not exist
      */
     public function getInvalidProfileByProfileUserName () : void {
         // test grabbing for a profile id by a profile user name that does not exist
@@ -182,13 +182,16 @@ class ProfileTest extends TacoTruckTest {
      * getValidProfileByProfileActivationToken
      * getInvalidProfileByProfileActivationToken , quick note to self, will delete later
      *
+     *
+     *
+     * test grabbing a profile by its activation
      */
     public function testGetInvalidProfileByProfileActivationToken(): void {
         $profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "ef3b26bb428e4b9db3cc4d9b6955efd8");
         $this->assertNull($profile);
     }
     /**
-     *
+     * test grabbing a Profile by an activation token that does not exists
      */
     public function testGetValidProfileByProfileActivationToken(): void {
         // count the number of rows and save it for later
@@ -209,7 +212,7 @@ class ProfileTest extends TacoTruckTest {
         $this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
     }
     /**
-     *
+     * test grabbing a Profile by email
      */
     public function getValidProfileByProfileEmail () : void {
         // count the number of rows and save it for later
@@ -230,7 +233,7 @@ class ProfileTest extends TacoTruckTest {
         $this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
 }
 /**
- *
+ * test grabbing a Profile by an email that does not exist
  */
 public function getInvalidProfileByProfileEmail () : void {
         $profile = Profile::getProfileByProfileEmail($this->getPDO(), "invalid@doesnt.exist");
