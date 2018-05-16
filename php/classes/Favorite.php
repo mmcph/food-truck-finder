@@ -118,18 +118,24 @@ class favorite implements \JsonSerializable {
 	}
 
 
-	public function getFavoriteByFavoriteTruckId(\PDO $pdo, $favorite)
+	public function getFavoriteByFavoriteTruckId(\PDO $pdo, $favorite) {
+
+	}
 
 
 
-	public function getFavoriteByFavoriteProfileId()
+	public function getFavoriteByFavoriteProfileId() {
 
-	public  function getFavoriteByFavoriteProfileIdAndFavoriteTruckId()
+	}
+
+	public  function getFavoriteByFavoriteProfileIdAndFavoriteTruckId() {
+
+	}
 
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 		$fields["favoriteTruckId"] = $this->favoriteTruckId->toString();
-		$fields["favoriteProfileId"]
+		$fields["favoriteProfileId"];
 		return ($fields);
 	}
 }
