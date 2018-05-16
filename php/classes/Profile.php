@@ -134,7 +134,7 @@ class Profile implements \JsonSerializable {
 	 * mutator method
 	 *
 	 * @params string of $newProfileActivationToken
-	 * @throws \InvalidArguementException if $newProfileActivationToken is not a string or insecure
+	 * @throws \InvalidArgumentException if $newProfileActivationToken is not a string or insecure
 	 * @throws \RangeException if $newProfileActivationToken
 	 * @throws \TypeError if $newProfileActivationToken is not a uuid or string
 	 */
