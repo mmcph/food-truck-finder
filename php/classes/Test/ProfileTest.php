@@ -172,7 +172,7 @@ class ProfileTest extends TacoTruckTest {
     public function getInvalidProfileByProfileUserName () : void {
         // test grabbing for a profile id by a profile user name that does not exist
         $fakeUserName = "Heidi Martinez";
-        $profile = Profile::getProfileByProfileUserName($this->getPDO(),$fakeProfileUserName);
+        $profile = Profile::getProfileByProfileUserName($this->getPDO(),"fakeProfileUserName");
         $this->assertNull($profile);
     }
     /*
