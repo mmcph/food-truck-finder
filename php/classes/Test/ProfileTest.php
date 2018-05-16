@@ -123,15 +123,35 @@ class ProfileTest extends TacoTruckTest {
         $profile = Profile::getProfileByProfileId($this->getPDO(), $fakeProfileId);
         $this->assertNull($profile);
     }
-
-
+    /**
+     * test grabbing a profile by the user name
+     */
+    public function getValidProfileByProfileUserName () {
+        // count the number of rows and save it for later
+        $numRows = $this->getConnection()->getRowCount("profile");
+        $profileId = generateUuidV4();
+        $profile = new Profile($profileId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_ISOWNER, $this->VALID_HASH, $this->VALID_ISOWNER, $this->VALID_FIRSTNAME, $this->VALID_LASTNAME, $this->VALID_USERNAME);
+        $profile->insert($this->getPDO());
+        // grab the data from mySQL
+        $results = Profile::getProfileByProfileUserName ($this->getPDO(), $this->VALID_USERNAME);
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+        // enforce no other objects are bleeding into profile
+        $this->assertContainsOnlyInstancesOf("Edu\\CNM\\FoodTruck\\Profile", $results);
+        // enforce the results meet the expectations
+        $pdoProfile = $results[0];
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+        $this->assertEquals($pdoProfile->getProfileId(), $profileId);
+        $this->assertEquals($pdoProfile->getProfileActivationToken(), $this->VALID_ACTIVATION);
+        $this->assertEquals($pdoProfile->getProfileByProfileEmail(), $this->VALID_EMAIL);
+        $this->assertEquals($pdoProfile->getProfileHash(), $this->VALID_HASH);
+        $this->assertEquals($pdoProfile->getProfileIsOwner(), $this->VALID_ISOWNER);
+        $this->assertEquals($pdoProfile->getProfileFirstName(), $this->VALID_FIRSTNAME);
+        $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME2);
+        $this->assertEquals($pdoProfile->getProfileByProfileUserName(), $this->VALID_USERNAME);
+    }
     /**
      *
      */
-    public function getValidProfileByProfileUserName () {
-        //
-
-    }
 
 
 
