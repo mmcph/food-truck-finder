@@ -100,7 +100,7 @@ class ProfileTest extends TacoTruckTest {
 		 $profile->insert($this->getPDO());
 		 // edit the Profile and update it in my SQL
 		 $profile->setProfileLastName($this->VALID_LASTNAME2);
-		 $profile->insert($this->getPDO());
+		 $profile->update($this->getPDO());
 		 // grab the data from mySQL and enforce the fields match our expectations
 		 $pdoProfile = Profile::getProfileByProfileId($this->getPDO(), $profile->getProfileId());
 		 $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
