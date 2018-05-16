@@ -386,7 +386,7 @@ class Profile implements \JsonSerializable {
 	/*
 	 *
 	 */
-	public function getProfileByProfileUserName(\PDO $pdo, string $profileUserName): \SplFixedArray {
+	public static function getProfileByProfileUserName(\PDO $pdo, string $profileUserName): \SplFixedArray {
 		$profileUserName = trim($profileUserName);
 		$profileUserName = filter_var($profileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($profileUserName) === true) {
@@ -413,9 +413,14 @@ class Profile implements \JsonSerializable {
 	}
 
 	/*
+	 * gets the Profile by email
 	 *
-	 */
-	public function getProfileByProfileEmail(\PDO $pdo, string $profileEmail): ?Profile {
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $profileEmail to search for
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getProfileByProfileEmail(\PDO $pdo, string $profileEmail): ?Profile {
 	    // sanitize the email before searching
 		$profileEmail = trim($profileEmail);
 		$profileEmail = filter_var($profileEmail, FILTER_VALIDATE_EMAIL);
@@ -424,7 +429,7 @@ class Profile implements \JsonSerializable {
 			throw(new \PDOException("email is invalid"));
 		}
 
-		//$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
+		// $profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
 
         // create query template
         $query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
@@ -452,7 +457,7 @@ class Profile implements \JsonSerializable {
 	/*
 	 *
 	 */
-	public function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken): ?Profile {
+	public static function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken): ?Profile {
 		$profileActivationToken = trim($profileActivationToken);
 		$profileActivationToken = filter_var($profileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($profileActivationToken) === true) {

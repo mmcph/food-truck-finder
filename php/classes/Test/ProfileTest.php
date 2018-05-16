@@ -106,12 +106,12 @@ class ProfileTest extends TacoTruckTest {
 		 $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
 		 $this->assertEquals($pdoProfile->getProfileId(), $profileId);
 		 $this->assertEquals($pdoProfile->getProfileActivationToken(), $this->VALID_ACTIVATION);
-		 $this->assertEquals($pdoProfile->getProfileByProfileEmail(), $this->VALID_EMAIL);
+		 $this->assertEquals($pdoProfile->getProfileEmail(), $this->VALID_EMAIL);
 		 $this->assertEquals($pdoProfile->getProfileHash(), $this->VALID_HASH);
 		 $this->assertEquals($pdoProfile->getProfileIsOwner(), $this->VALID_ISOWNER);
 		 $this->assertEquals($pdoProfile->getProfileFirstName(), $this->VALID_FIRSTNAME);
 		 $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME2);
-		 $this->assertEquals($pdoProfile->getProfileByProfileUserName(), $this->VALID_USERNAME);
+		 $this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
 	 }
 	 /**
       * test creating a Profile and then deleting it
