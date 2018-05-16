@@ -124,8 +124,8 @@ class TruckCategoryTest extends TacoTruckTest {
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
 	}
 		/**
 		 * test grabbing a TruckCategory by content that does not exist
@@ -148,8 +148,8 @@ class TruckCategoryTest extends TacoTruckTest {
 // grab the data from mySQL and enforce the fields match our expectations
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
 		}
 		/**
 		 * test grabbing a TruckCategory by content that does not exist
