@@ -114,6 +114,23 @@ class ProfileTest extends TacoTruckTest {
 		 $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME2);
 		 $this->assertEquals($pdoProfile->getProfileByProfileUserName(), $this->VALID_USERNAME);
 	 }
+	 /**
+      * test creating a Profile and then deleting it
+      */
+	 public function testDeleteValidProfile(): void {
+         // count the number of rows and save it for later
+         $numRows = $this->getConnection()->getRowCount("profile");
+         $profileId = generateUuidV4();
+         $profile = new Profile($profileId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_ISOWNER, $this->VALID_FIRSTNAME, $this->VALID_LASTNAME, $this->VALID_USERNAME);
+         $profile->insert($this->getPDO());
+         // delete the profile from mySQL
+         $this->assertEquals($numRows + 1, $this->getConnection()->getConnection()->getRowCount("profile"));
+         $profile->delete($this->getPDO());
+         // grab the data from mySQL and enforce the Profile does not exist
+         $pdoProfile = Profile::getProfileByProfileId($this->getPDO(), $profile->getProfileId());
+         $this->assertNull($pdoProfile);
+         $this->assertEquals($numRows, $this->getConnection()->getRowCount("profile"));
+     }
     /**
      * test grabbing a profile that does not exist
      */
@@ -163,22 +180,16 @@ class ProfileTest extends TacoTruckTest {
 
 
 
-public function testDeleteValidProfile(): void {
-	// count the number of rows and save it for later
-	$numRows = $this->getConnection()->getRowCount("profile");
-	$profileId = generateUuidV4();
-	$profile = new Profile($profileId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_ISOWNER, $this->VALID_FIRSTNAME, $this->VALID_LASTNAME, $this->VALID_USERNAME);
-	$profile->insert($this->getPDO());
-	// delete the profile from mySQL
-	$this->assertEquals($numRows + 1, $this->getConnection()->getConnection()->getRowCount("profile"));
-	$profile->delete($this->getPDO());
-	// grab the data from mySQL and enforce the Profile does not exist
-	$pdoProfile = Profile::getProfileByProfileId($this->getPDO(), $profile->getProfileId());
-	$this->assertNull($pdoProfile);
-	$this->assertEquals($numRows, $this->getConnection()->getRowCount("profile"));
-}
+
 
 /*
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  * getValidProfileByProfileEmail
  * getInvalidProfileByProfileEmail
  * getValidProfileByProfileActivationToken
