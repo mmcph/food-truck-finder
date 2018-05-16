@@ -7,7 +7,9 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 
-/** activation token to gain access as a registered user/**
+/**
+ *
+ * activation token to gain access as a registered user
  * Class profile
  *
  * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
@@ -464,9 +466,9 @@ class Profile implements \JsonSerializable {
 			throw(new \PDOException("profile activation token is invalid"));
 		}
 //		$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileActivationToken));
-		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileActivationToken = :profileActivationToken";
 		$statement = $pdo->prepare($query);
-		$parameters = ["$profileActivationToken" => $profileActivationToken];
+		$parameters = ["profileActivationToken" => $profileActivationToken];
 		$statement->execute($parameters);
 		try {
 			$profile = null;

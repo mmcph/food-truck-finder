@@ -181,12 +181,13 @@ class ProfileTest extends TacoTruckTest {
      *
      *
      *
-     * test grabbing a profile by its activation
+     * test grabbing a profile that does not exist
      */
     public function testGetInvalidProfileByProfileActivationToken(): void {
         $profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "ef3b26bb428e4b9db3cc4d9b6955efd8");
-        $this->assertCount(0, $profile);    }
-    /**
+        $this->assertNull($profile);
+    }
+        /**
      * test grabbing a Profile by an activation token that does not exists
      */
     public function testGetValidProfileByProfileActivationToken(): void {
