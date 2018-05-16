@@ -2,8 +2,8 @@
     <testsuites>
         <testsuite name="FoodTruck Test">
             <!--<file>ProfileTest.php</file>-->
-            <file>CategoryTest.php</file>
-            <!--<file>TruckTest.php</file>-->
+            <!--<file>CategoryTest.php</file>-->
+            <file>TruckTest.php</file>
             <!--<file>VoteTest.php</file>-->
             <!--<file>TruckCategoryTest.php</file>-->
             <!--<file>FavoriteTest.php</file>-->

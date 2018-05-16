@@ -210,7 +210,7 @@ class Truck implements \JsonSerializable {
 	 **/
 	public function setTruckIsOpen(int $newTruckIsOpen): void {
 
-		if($newTruckIsOpen !== -1 || $newTruckIsOpen !== 1) {
+		if($newTruckIsOpen < -1 || $newTruckIsOpen > 1) {
 			throw(new \RangeException("TruckIsOpen is not -1 or 1"));
 		}
 		// store new truckIsOpen
@@ -262,8 +262,8 @@ class Truck implements \JsonSerializable {
 	 **/
 	public function setTruckLongitude(float $newTruckLongitude): void {
 
-		if($newTruckLongitude < 0 || $newTruckLongitude > 180 || empty($newTruckLongitude) === true) {
-			throw(new \RangeException("Invalid longitude value: must be in range [0,180]"));
+		if($newTruckLongitude < -180 || $newTruckLongitude > 180) {
+			throw(new \RangeException("Invalid longitude value: must be in range [-180,180]"));
 		}
 		// store new truckLongitude
 		$this->truckLongitude = $newTruckLongitude;
@@ -385,7 +385,7 @@ class Truck implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the placeholders in the template
-		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
+		$parameters = ["truckId" => $this->truckId->getBytes(), "truckProfileId" => $this->truckProfileId->getBytes(), "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
 	}
 
