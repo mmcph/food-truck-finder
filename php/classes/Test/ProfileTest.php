@@ -28,7 +28,7 @@ class ProfileTest extends TacoTruckTest {
 	 * valid email to use
 	 * @var string $VALID_EMAIL
 	 */
-	private $VALID_EMAIL = "test@phpunit.de";
+	private $VALID_EMAIL = "gcordova25@cnm.edu";
 	/**
 	 * valid hash to use
 	 * @var $VALID_HASH
