@@ -27,11 +27,10 @@ class Profile implements \JsonSerializable {
 	private $profileId;
 	/**
 	 * UNIQUE
-	 * id for profile
-	 * PRIMARY key
-	 * @var Uuid $profileId
+	 * activation token for this profile
+	 * @var string $profileActivationToken
 	 */
-	private $profileId;
+	private $profileActivationToken;
 
 	/**
 	 * UNIQUE
@@ -79,23 +78,24 @@ class Profile implements \JsonSerializable {
 
 	/**
 	 * @param $newProfileId
+	 * @param string $newProfileActivationToken
 	 * @param string $newProfileEmail
 	 * @param string $newProfileHash
-	 * @param bool $newProfileIsOwner
+	 * @param int $newProfileIsOwner
 	 * @param string $newProfileFirstName
-	 * @param string $newprofileLastName
+	 * @param string $newProfileLastName
 	 * @param string $newProfileUserName
 	 */
-	public function __construct($newProfileId, string $newProfileEmail, string $newProfileHash, int $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName, string $newProfileActivationToken) {
+	public function __construct($newProfileId, string $newProfileActivationToken, string $newProfileEmail, string $newProfileHash, int $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName) {
 		try {
 			$this->setProfileId($newProfileId);
+			$this->setProfileActivationToken($newProfileActivationToken);
 			$this->setProfileEmail($newProfileEmail);
 			$this->setProfileHash($newProfileHash);
 			$this->setProfileIsOwner($newProfileIsOwner);
 			$this->setProfileFirstName($newProfileFirstName);
 			$this->setProfileLastName($newProfileLastName);
 			$this->setProfileUserName($newProfileUserName);
-			$this->setProfileActivationToken($newProfileActivationToken);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
