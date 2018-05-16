@@ -463,7 +463,7 @@ class Profile implements \JsonSerializable {
 		if(empty($profileActivationToken) === true) {
 			throw(new \PDOException("profile activation token is invalid"));
 		}
-		$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileActivationToken));
+//		$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileActivationToken));
 		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["$profileActivationToken" => $profileActivationToken];
