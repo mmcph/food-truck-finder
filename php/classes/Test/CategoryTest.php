@@ -41,6 +41,7 @@ class CategoryTest extends TacoTruckTest {
 	/**
 	 * test inserting a valid Category and verify that the actual mySQL data matches
 	 **/
+
 	public function testInsertValidCategory() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("category");
@@ -50,6 +51,7 @@ class CategoryTest extends TacoTruckTest {
 		$category->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
+
 		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
 		$this->assertEquals($pdoCategory->getCategoryId(), $category->getCategoryId());
@@ -92,7 +94,8 @@ class CategoryTest extends TacoTruckTest {
 	public function testGetInvalidCategoryByCategoryName() : void {
 		// grab a category name that does not exist (though the standards to which some food trucks hold themselves may relegate them to this particular category)
 		$category = Category::getCategoryByCategoryName($this->getPDO(), "Dog Food");
-		$this->assertCount(0, $category);
+		//$this->assertCount(0, $category);
+        $this->assertNull($category);
 	}
 
 	/**

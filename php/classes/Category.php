@@ -25,6 +25,7 @@ class Category implements \JsonSerializable {
 	 **/
 	protected $categoryName;
 
+
 	// CONSTRUCTOR
 
 	/**
@@ -38,7 +39,7 @@ class Category implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct(int $newCategoryId, string $newCategoryName) {
+	public function __construct($newCategoryId, string $newCategoryName) {
 		try {
 			$this->setCategoryId($newCategoryId);
 			$this->setCategoryName($newCategoryName);
@@ -56,8 +57,8 @@ class Category implements \JsonSerializable {
 	 *
 	 * @return integer value of categoryId
 	 **/
-	public function getCategoryId(): int {
-		return ($this->categoryId);
+	public function getCategoryId() {
+        return ($this->categoryId);
 	}
 
 	/**
@@ -69,12 +70,11 @@ class Category implements \JsonSerializable {
 	 **/
 	public function setCategoryId(?int $newCategoryId): void {
 
-		if($newCategoryId < 0 || $newCategoryId > 255 || $newCategoryId !== null) {
+		if($newCategoryId < 0 || $newCategoryId > 255) {
 			throw(new \RangeException("CategoryId is not a value between 0 and 255"));
 		}
 		// store new categoryId
 		$this->categoryId = $newCategoryId;
-
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Category implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 
 		// create query template
-		$query = "INSERT INTO Category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
+		$query = "INSERT INTO category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the placeholders in the template
@@ -129,7 +129,7 @@ class Category implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		// todo per George's advice - stores last inserted ID in auto-incrementing table so that it can be compared against
-		$this->quoteId = intval($pdoCategory->lastInsertId());
+		$this->categoryId = intval($pdo->lastInsertId());
 	}
 
 	/** deletes this category from mysql
@@ -142,7 +142,7 @@ class Category implements \JsonSerializable {
 	public function delete(\PDO $pdo): void {
 
 		// create query template
-		$query = "DELETE FROM Category WHERE categoryId = :categoryId";
+		$query = "DELETE FROM category WHERE categoryId = :categoryId";
 		$statement = $pdo->prepare($query);
 
 		// bind member vars to placeholder in template
@@ -176,13 +176,8 @@ class Category implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getCategoryByCategoryId(\PDO $pdo, $categoryId): ?Category {
-		// sanitize the categoryId before searching
-		if(is_int($categoryId) === false) {
-			throw(new \InvalidArgumentException("Category ID value is not an integer"));
-		}
-
-		// create query template
+	public static function getCategoryByCategoryId(\PDO $pdo, int $categoryId): ?Category {
+	    // create query template
 		$query = "SELECT categoryId, categoryName FROM category WHERE categoryId = :categoryId";
 		$statement = $pdo->prepare($query);
 
