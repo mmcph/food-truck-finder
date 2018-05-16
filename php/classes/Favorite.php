@@ -118,7 +118,7 @@ class favorite implements \JsonSerializable {
 	}
 
 
-	public function getFavoriteByFavoriteTruckId(\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
+	public function getFavoriteByFavoriteTruckId (\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
 		try {
 			$favoriteTruckId = self::validateUuid($favoriteTruckId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
