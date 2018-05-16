@@ -92,7 +92,7 @@ class ProfileTest extends TacoTruckTest {
     /**
 	  * test inserting a profile, editing it, and then updating it
 	  */
-    public function testUpdateValidProfile() {
+    public function testUpdateValidProfile(): void {
 		 // count the number of rows and save it for later
 		 $numRows = $this->getConnection()->getRowCount("profile");
 		 // create a new Profile and insert into mySQL
@@ -114,9 +114,31 @@ class ProfileTest extends TacoTruckTest {
 		 $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME2);
 		 $this->assertEquals($pdoProfile->getProfileByProfileUserName(), $this->VALID_USERNAME);
 	 }
-/**
- * test creating a profile and then deleting it
- */
+    /**
+     * test grabbing a profile that does not exist
+     */
+    public function getInvalidProfileByProfileId (): void {
+        // grab a profile id that does not exist
+        $fakeProfileId = generateUuidV4();
+        $profile = Profile::getProfileByProfileId($this->getPDO(), $fakeProfileId);
+        $this->assertNull($profile);
+    }
+
+
+    /**
+     *
+     */
+    public function getValidProfileByProfileUserName () {
+        //
+
+    }
+
+
+
+
+
+
+
 
 
 
@@ -138,9 +160,9 @@ public function testDeleteValidProfile(): void {
 
 /*
  * getValidProfileByProfileEmail
-getInvalidProfileByProfileEmail
-getValidProfileByProfileActivationToken
-getInvalidProfileByProfileActivationToken , quick note to self, will delete later
+ * getInvalidProfileByProfileEmail
+ * getValidProfileByProfileActivationToken
+ * getInvalidProfileByProfileActivationToken , quick note to self, will delete later
  */
 
 public function testGetValidProfileByProfileActivationToken(): void {
