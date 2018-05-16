@@ -17,17 +17,16 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  *
  * @see Favorite
  * @author Marlon McPherson <mmcpherson5@cnm.edu>
- * @author
  **/
 class FavoriteTest extends TacoTruckTest {
 	/**
 	 * Profile that created the Favorite; this is for foreign key relations
-	 * @var Profile profile
+	 * @var Profile
 	 **/
 	protected $profile = null;
 	/**
 	 * Truck that is favorited; this is for foreign key relations
-	 * var Truck truck
+	 * var Truck
 	 **/
 	protected $truck = null;
 

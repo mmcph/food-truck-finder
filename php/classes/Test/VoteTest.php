@@ -19,15 +19,17 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 class VoteTest extends TacoTruckTest {
     /*
      * Profile that created the Vote; this is for foreign key relations
-     * @var Vote $vote
+     * @var Profile $profile
      **/
     private $profile;
     /**
      * this is the truck being voted on
+     * @var Truck $truck
      */
     private $truck;
     /**
      * valid hash to use
+     * @var $VALID_HASH
      **/
     private $VALID_HASH;
     /**
