@@ -54,11 +54,26 @@ class FavoriteTest extends TacoTruckTest {
         $this->profile = new Profile (generateUuidV4(), "test@phpunit.de", $this->VALID_HASH, 1, "php", "unit", "phpunit");
         $this->profile->insert($this->getPDO());
         //create and insert the mocked truck
-        $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(), "I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", 5058596496, "https://phpunit.de/");
+        $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(), "I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", "5058596496", "https://phpunit.de/");
         $this->truck->insert($this->getPDO());
-        // create and insert the mocked vote
-        $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), 1);
-        $this->vote->insert($this->getPDO());
     }
+
+    public function testInsertFavorite() : void {
+
+		 // count the number of rows and save it for later
+		 $numRows = $this->getConnection()->getRowCount("favorite");
+
+		// create a new favorite and insert to into mySQL
+		 $favorite = new Favorite($this->profile->getProfileId(),$this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
+		 $favorite->insert($this->getPDO());
+
+		 // grab the data from mySQL and enforce the fields match our expectations
+		 $pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
+		 $this->assertNull($pdoFavorite);
+		 $this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
+
+
+	 }
+
 }
 

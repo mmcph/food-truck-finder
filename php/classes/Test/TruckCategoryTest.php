@@ -2,7 +2,7 @@
 namespace Edu\Cnm\FoodTruck\Test;
 
 use Edu\Cnm\FoodTruck\{Truck, Category,Profile, TruckCategory};
-//sodium_add();
+
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
