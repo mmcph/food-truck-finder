@@ -175,35 +175,16 @@ class ProfileTest extends TacoTruckTest {
         $profile = Profile::getProfileByProfileUserName($this->getPDO(),$fakeProfileUserName);
         $this->assertNull($profile);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
- *
- *
- *
- *
- *
- *
  *
  * getValidProfileByProfileEmail
  * getInvalidProfileByProfileEmail
  * getValidProfileByProfileActivationToken
  * getInvalidProfileByProfileActivationToken , quick note to self, will delete later
+ *
  */
 
-public function testGetValidProfileByProfileActivationToken(): void {
+public function testGetInvalidProfileByProfileActivationToken(): void {
 	$profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "ef3b26bb428e4b9db3cc4d9b6955efd8");
 	$this->assertNull($profile);
 }
