@@ -7,66 +7,72 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 
-
-
-	 /** activation token to gain access as a registered user/**
-     * Class profile
-     *
-     * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
-     * being designated as a "vendor" or "customer"
-     *
-     * @package Edu\Cnm\food-truck-finder
-     * @author G. Cordova
-     */
+/** activation token to gain access as a registered user/**
+ * Class profile
+ *
+ * This class will serve as a platform in which users will utilize to gain access to "registered user" abilities, such as
+ * being designated as a "vendor" or "customer"
+ *
+ * @package Edu\Cnm\food-truck-finder
+ * @author G. Cordova
+ */
 class Profile implements \JsonSerializable {
 	use ValidateUuid;
-    /**
-     * UNIQUE
-     * id for profile
-     * PRIMARY key
-     * @var Uuid $profileId
-     */
-    private $profileId;
-    /**
-     * UNIQUE
-     * email for profile
-     * @var string $profileEmail
-     */
-    private $profileEmail;
+	/**
+	 * UNIQUE
+	 * id for profile
+	 * PRIMARY key
+	 * @var Uuid $profileId
+	 */
+	private $profileId;
+	/**
+	 * UNIQUE
+	 * id for profile
+	 * PRIMARY key
+	 * @var Uuid $profileId
+	 */
+	private $profileId;
 
-    /**
-     * hash for profile (pw)
-     * @var mixed $profileHash
-     */
-    private $profileHash;
+	/**
+	 * UNIQUE
+	 * email for profile
+	 * @var string $profileEmail
+	 */
+	private $profileEmail;
 
-    /**
-     * indication of whether or not the profile is one of a vendor
-     * @var bool $profileIsOwner
-     */
-    private $profileIsOwner;
+	/**
+	 * hash for profile (pw)
+	 * @var mixed $profileHash
+	 */
+	private $profileHash;
 
-    /**
-     * first name of profile user
-     * @var string $profileFirstName
-     */
-    private $profileFirstName;
+	/**
+	 * indication of whether or not the profile is one of a vendor
+	 * @var bool $profileIsOwner
+	 */
+	private $profileIsOwner;
 
-    /**
-     * last name of profile user
-     * @var string $profileLastName
-     */
-    private $profileLastName;
+	/**
+	 * first name of profile user
+	 * @var string $profileFirstName
+	 */
+	private $profileFirstName;
 
-    /**
-     * UNIQUE
-     * user name of profile (handle)
-     * @var string $profileUserName
-     */
-    private $profileUserName;
+	/**
+	 * last name of profile user
+	 * @var string $profileLastName
+	 */
+	private $profileLastName;
 
-    /**
-     * UNIQUE + user features
+	/**
+	 * UNIQUE
+	 * user name of profile (handle)
+	 * @var string $profileUserName
+	 */
+	private $profileUserName;
+
+	/**
+	 * UNIQUE + user features
 	 * @var string $profileActivationToken
 	 */
 	private $profileActivationToken;
@@ -363,45 +369,45 @@ class Profile implements \JsonSerializable {
 			$row = $statement->fetch();
 			if($row !== false) {
 				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
-		}
-		} catch(\Exception $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
 		return ($profile);
-}
+	}
 
 	/*
 	 *
 	 */
 	public function getProfileByProfileUserName(\PDO $pdo, $profileUserName): \SplFixedArray {
-			$profileUserName = trim($profileUserName);
-			$profileUserName = filter_var($profileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-			if(empty($profileUserName) === true) {
-				throw(new \PDOException("user name is invalid"));
-			}
-			$profileUserName = str_replace("_", "\\_", str_replace("%", "\\%", $profileUserName));
-			$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileUserName = :profileUserName";
-			$statement = $pdo->prepare($query);
-			$profileUserName = "%$profileUserName%";
-			$parameters = ["profileUserName" => $profileUserName];
-			$statement->execute($parameters);
-			$profiles = new \SplFixedArray($statement->rowCount());
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			while(($row = $statement->fetch()) !== false) {
-				try {
-					$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
-					$profiles[$profiles->key()] = $profile;
-					$profiles->next();
-				} catch(\Exception $exception) {
-					throw(new \PDOException($exception->getMessage(), 0, $exception));
-				}
-			}
-			return ($profiles);
+		$profileUserName = trim($profileUserName);
+		$profileUserName = filter_var($profileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($profileUserName) === true) {
+			throw(new \PDOException("user name is invalid"));
 		}
+		$profileUserName = str_replace("_", "\\_", str_replace("%", "\\%", $profileUserName));
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileUserName = :profileUserName";
+		$statement = $pdo->prepare($query);
+		$profileUserName = "%$profileUserName%";
+		$parameters = ["profileUserName" => $profileUserName];
+		$statement->execute($parameters);
+		$profiles = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($profiles);
+	}
 
-		/*
-		 *
-		 */
+	/*
+	 *
+	 */
 	public function getProfileByProfileEmail(\PDO $pdo, $profileEmail): ?Profile {
 		$profileEmail = trim($profileEmail);
 		$profileEmail = filter_var($profileEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -419,23 +425,23 @@ class Profile implements \JsonSerializable {
 			$row = $statement->fetch();
 			if($row !== false) {
 				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
-		}
+			}
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($profile);
-}
+	}
 
-		/*
-		 *
-		 */
-		public function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken): ?Profile {
-			$profileActivationToken = trim($profileActivationToken);
-			$profileActivationToken = filter_var($profileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-			if(empty($profileActivationToken) === true) {
-				throw(new \PDOException("profile activation token is invalid"));
-  			}
-  			$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileActivationToken));
+	/*
+	 *
+	 */
+	public function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken): ?Profile {
+		$profileActivationToken = trim($profileActivationToken);
+		$profileActivationToken = filter_var($profileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($profileActivationToken) === true) {
+			throw(new \PDOException("profile activation token is invalid"));
+		}
+		$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileActivationToken));
 		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["$profileActivationToken" => $profileActivationToken];
@@ -446,38 +452,38 @@ class Profile implements \JsonSerializable {
 			$row = $statement->fetch();
 			if($row !== false) {
 				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
-		}
+			}
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($profile);
-}
+	}
 
-		/*
-		 * UNNECESSARY CODE
-		 *
-		public function getAllProfiles(\PDO $pdo) : \SplFixedArray {
-			$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
-			$statement = $pdo->prepare($query);
-			$statement->execute();
-			$profiles = new \SplFixedArray($statement->rowCount());
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			while(($row = $statement->fetch()) !==false) {
-				try {
-					$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
-					$profiles[$profiles->key()] = $profile;
-					$profiles->next();
-				} catch(\Exception $exception) {
-					throw(new \PDOException($exception->getMessage(), 0, $exception));
-				}
+	/*
+	 * UNNECESSARY CODE
+	 *
+	public function getAllProfiles(\PDO $pdo) : \SplFixedArray {
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+		$profiles = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !==false) {
+			try {
+				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-			return ($profiles);
-			}
+		}
+		return ($profiles);
+		}
 */
 
 	public function jsonSerialize(): array {
-			$fields = get_object_vars($this);
-			$fields["profileId"] = $this->profileId->toString();
-			return ($fields);
-		}
+		$fields = get_object_vars($this);
+		$fields["profileId"] = $this->profileId->toString();
+		return ($fields);
+	}
 }
