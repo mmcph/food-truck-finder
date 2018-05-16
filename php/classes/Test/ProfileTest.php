@@ -77,7 +77,7 @@ class ProfileTest extends TacoTruckTest {
 		 $profile = new Profile($profileId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_ISOWNER, $this->VALID_FIRSTNAME, $this->VALID_LASTNAME, $this->VALID_USERNAME);
 		 $profile->insert($this->getPDO());
 		 // grab the data from mySQL and enforce the fields match our expectations
-		 $pdoProfile = Profile::getProfileByProfileId($this->getPDO(), $profile->getProfileId());
+		 $pdoProfile = Profile::getProfileByProfileId($this->getPDO(),$profile->getProfileId());
 		 $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
 		 $this->assertEquals($pdoProfile->getProfileId(), $profileId);
 		 $this->assertEquals($pdoProfile->getProfileActivationToken(), $this->VALID_ACTIVATION);

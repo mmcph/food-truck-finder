@@ -350,17 +350,22 @@ class Profile implements \JsonSerializable {
 	}
 
 	/*
-	 * 
+	 * gets the profile by profile id
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $profileId profile id to search for
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
 	 */
-	public function getProfileByProfileId(\PDO $pdo, $profileId): ?Profile {
+	public static function getProfileByProfileId(\PDO $pdo, string $profileId): ?Profile {
+	    //sanitize the profile id before searching
 		try {
 			$profileId = self::ValidateUuid($profileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileId = :profileId";
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
-		$parameters = ["$profileId" => $profileId->getBytes()];
+		$parameters = ["profileId" => $profileId->getBytes()];
 		$statement->execute($parameters);
 		try {
 			$profile = null;
@@ -370,6 +375,7 @@ class Profile implements \JsonSerializable {
 				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileEmail"], $row["profileHash"], $row["profileIsOwner"], $row["profileFirstName"], $row["profileLastName"], $row["profileUserName"]);
 			}
 		} catch(\Exception $exception) {
+		    // if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($profile);
