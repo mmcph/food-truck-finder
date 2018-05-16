@@ -138,8 +138,7 @@ class ProfileTest extends TacoTruckTest {
         // test grabbing for a profile id that does not exist
         $fakeProfileId = generateUuidV4();
         $profile = Profile::getProfileByProfileId($this->getPDO(), $fakeProfileId);
-        $this->assertNull($profile);
-    }
+        $this->assertCount(0, $profile);    }
     /**
      * test grabbing a profile by the user name
      */
@@ -173,8 +172,7 @@ class ProfileTest extends TacoTruckTest {
         // test grabbing for a profile id by a profile user name that does not exist
         $fakeUserName = "Heidi Martinez";
         $profile = Profile::getProfileByProfileUserName($this->getPDO(),$fakeUserName);
-        $this->assertNull($profile);
-    }
+        $this->assertCount(0, $profile);    }
     /*
      *
      * getValidProfileByProfileEmail
@@ -188,8 +186,7 @@ class ProfileTest extends TacoTruckTest {
      */
     public function testGetInvalidProfileByProfileActivationToken(): void {
         $profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "ef3b26bb428e4b9db3cc4d9b6955efd8");
-        $this->assertNull($profile);
-    }
+        $this->assertCount(0, $profile);    }
     /**
      * test grabbing a Profile by an activation token that does not exists
      */
@@ -237,7 +234,7 @@ class ProfileTest extends TacoTruckTest {
  */
 public function getInvalidProfileByProfileEmail () : void {
         $profile = Profile::getProfileByProfileEmail($this->getPDO(), "invalid@doesnt.exist");
-        $this->assertNull($profile);
+        $this->assertCount(0, $profile);
     }
 }
 
