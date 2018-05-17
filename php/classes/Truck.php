@@ -555,7 +555,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckByTruckName(\PDO $pdo, $truckName): ?Truck {
+	public static function getTruckByTruckName(\PDO $pdo, string $truckName): \SplFixedArray {
 		// verify the token is secure
 		$truckName = trim($truckName);
 		$truckName = filter_var($truckName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -571,21 +571,23 @@ class Truck implements \JsonSerializable {
 		$parameters = ["truckName" => $truckName];
 		$statement->execute($parameters);
 
+		//build array of trucks
+		$trucks = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+
 		// grab the truck from mySQL
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$truck = null;
-				$statement->setFetchMode(\PDO::FETCH_ASSOC);
-				$row = $statement->fetch();
-				if($row !== false) {
-					$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
-				}
+				$truck = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+				$trucks[$trucks->key()] = $truck;
+				$trucks->next();
+
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return ($truck);
+		return ($trucks);
 	}
 
 	/**
