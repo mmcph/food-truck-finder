@@ -6,7 +6,7 @@
             <!--<file>TruckTest.php</file>-->
             <file>VoteTest.php</file>
             <!--<file>TruckCategoryTest.php</file>-->
-            <!--<file>FavoriteTest.php</file>-->
+            <file>FavoriteTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

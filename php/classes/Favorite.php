@@ -132,8 +132,8 @@ class favorite implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$tweet = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
-				$favorites[$favorites->key()] = $favorite;
+				$favorites = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
+				$favorites[$favorites->key()] = $favorites;
 				$favorites->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -169,7 +169,7 @@ class favorite implements \JsonSerializable {
 		return($favorites);
 	}
 
-	public  function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
+	public function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
 			try {
 				$favoriteTruckId = self::validateUuid($favoriteTruckId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {

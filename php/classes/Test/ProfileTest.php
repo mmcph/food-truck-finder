@@ -88,6 +88,7 @@ class ProfileTest extends TacoTruckTest {
 		 $this->assertEquals($pdoProfile->getProfileLastName(), $this->VALID_LASTNAME);
 		 $this->assertEquals($pdoProfile->getProfileUserName(), $this->VALID_USERNAME);
 	 }
+
     /**
 	  * test inserting a profile, editing it, and then updating it
 	  */
