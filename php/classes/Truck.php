@@ -83,7 +83,8 @@ class Truck implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct( $newTruckId, $newTruckProfileId, string $newTruckBio, int $newTruckIsOpen, float $newTruckLatitude, float $newTruckLongitude, string $newTruckName, int $newTruckPhone, string $newTruckUrl) {
+	// todo check with bridge regarding UUID type declarations and consequences of removing them
+	public function __construct($newTruckId, $newTruckProfileId, string $newTruckBio, int $newTruckIsOpen, float $newTruckLatitude, float $newTruckLongitude, string $newTruckName, int $newTruckPhone, string $newTruckUrl) {
 		try {
 			$this->setTruckId($newTruckId);
 			$this->setTruckProfileId($newTruckProfileId);
@@ -420,7 +421,7 @@ class Truck implements \JsonSerializable {
 		$query = "UPDATE truck SET truckProfileId = :truckProfileId, truckBio = :truckBio, truckIsOpen = :truckIsOpen, truckLatitude = :truckLatitude, truckLongitude = :truckLongitude, truckName = :truckName, truckPhone = :truckPhone, truckUrl = :truckUrl WHERE truckId = :truckId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["truckId" => $this->truckId, "truckProfileId" => $this->truckProfileId, "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
+		$parameters = ["truckId" => $this->truckId->getBytes(), "truckProfileId" => $this->truckProfileId->getBytes(), "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
 	}
 

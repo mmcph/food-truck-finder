@@ -174,7 +174,7 @@ class TruckTest extends TacoTruckTest {
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
 
-		// edit the Tweet and update it in mySQL
+		// edit the Truck and update it in mySQL
 		$truck->setTruckBio($this->VALID_TRUCKBIO2);
 		$truck->setTruckIsOpen($this->VALID_TRUCKISOPEN2);
 		$truck->setTruckLatitude($this->VALID_TRUCKLATITUDE2);
