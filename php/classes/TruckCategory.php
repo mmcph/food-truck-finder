@@ -124,7 +124,7 @@ class TruckCategory implements \JsonSerializable {
 
 		$query = "INSERT INTO truckCategory(truckCategoryCategoryId, truckCategoryTruckId) VALUES(:truckCategoryCategoryId, :truckCategoryTruckId)";
 		$statement = $pdo->prepare($query);
-		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId,"truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
+		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId, "truckCategoryTruckId" => $this->truckCategoryTruckId->getBytes()];
 		$statement->execute($parameters);
 	}
 

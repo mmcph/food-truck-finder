@@ -87,7 +87,7 @@ class Profile implements \JsonSerializable {
      * @throws  \Exception for any other errors
      * @throws \TypeError if data types violate type hints
 	 */
-	public function __construct($newProfileId, string $newProfileActivationToken, string $newProfileEmail, string $newProfileHash, int $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName) {
+	public function __construct($newProfileId, ?string $newProfileActivationToken, string $newProfileEmail, string $newProfileHash, int $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName) {
 		try {
 			$this->setProfileId($newProfileId);
 			$this->setProfileActivationToken($newProfileActivationToken);
@@ -129,7 +129,7 @@ class Profile implements \JsonSerializable {
 		$this->profileId = $uuid;
 	}
 
-	/*
+	/**
 	 * accessor method
 	 * @return string value of $profileActivationToken
 	 */
@@ -137,22 +137,27 @@ class Profile implements \JsonSerializable {
 		return $this->profileActivationToken;
 	}
 
-	/*
-	 * mutator method
+
+	/**
+	 * mutator method for account activation token
 	 *
-	 * @params string of $newProfileActivationToken
-	 * @throws \InvalidArgumentException if $newProfileActivationToken is not a string or insecure
-	 * @throws \RangeException if $newProfileActivationToken
-	 * @throws \TypeError if $newProfileActivationToken is not a uuid or string
+	 * @param string $newProfileActivationToken
+	 * @throws \InvalidArgumentException  if the token is not a string or insecure
+	 * @throws \RangeException if the token is not exactly 32 characters
+	 * @throws \TypeError if the activation token is not a string
 	 */
-	public function setProfileActivationToken($newProfileActivationToken) {
-		$newProfileActivationToken = trim($newProfileActivationToken);
-		$newProfileActivationToken = filter_var($newProfileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newProfileActivationToken) === true) {
-			throw(new \InvalidArgumentException("Activation Token is empty or insecure"));
+	public function setProfileActivationToken(?string $newProfileActivationToken): void {
+		if($newProfileActivationToken === null) {
+			$this->profileActivationToken = null;
+			return;
 		}
-		if(strlen($newProfileActivationToken) > 32) {
-			throw(new \RangeException("Activation Token too large"));
+		$newProfileActivationToken = strtolower(trim($newProfileActivationToken));
+		if(ctype_xdigit($newProfileActivationToken) === false) {
+			throw(new\RangeException("user activation is not valid"));
+		}
+		//make sure user activation token is only 32 characters
+		if(strlen($newProfileActivationToken) !== 32) {
+			throw(new\RangeException("user activation token has to be 32"));
 		}
 		$this->profileActivationToken = $newProfileActivationToken;
 	}
