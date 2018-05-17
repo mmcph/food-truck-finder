@@ -53,7 +53,7 @@ CREATE TABLE vote (
 	INDEX(voteTruckId),
 	FOREIGN KEY(voteProfileId) REFERENCES profile(profileId),
 	FOREIGN KEY(voteTruckId) REFERENCES truck(truckId),
-	PRIMARY KEY	(voteProfileId, voteTruckId)
+	PRIMARY KEY(voteProfileId, voteTruckId)
 );
 
 CREATE TABLE truckCategory (
@@ -63,7 +63,7 @@ CREATE TABLE truckCategory (
 	INDEX(truckCategoryTruckId),
 	FOREIGN KEY(truckCategoryCategoryId) REFERENCES category(categoryId),
 	FOREIGN KEY(truckCategoryTruckId) REFERENCES truck(truckId),
-	PRIMARY KEY (truckCategoryCategoryId, truckCategoryTruckId)
+	PRIMARY KEY(truckCategoryCategoryId, truckCategoryTruckId)
 );
 
 CREATE TABLE favorite (
@@ -73,6 +73,6 @@ CREATE TABLE favorite (
 	INDEX(favoriteProfileId),
 	FOREIGN KEY(favoriteTruckId) REFERENCES truck(truckId),
 	FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId),
-	PRIMARY KEY (favoriteTruckId, favoriteProfileId)
+	PRIMARY KEY(favoriteTruckId, favoriteProfileId)
 );
 

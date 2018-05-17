@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\FoodTruck\Test;
 
-use Edu\Cnm\FoodTruck\{TruckCategory, Profile, Truck, Category};
+use Edu\Cnm\FoodTruck\{TruckCategory, Profile, Category, Truck};
 
 
 // grab the class under scrutiny
@@ -88,7 +88,7 @@ class TruckCategoryTest extends TacoTruckTest {
 
 // grab the data from mySQL and enforce the fields match our expectations
 //todo which PDO method should be used here
-		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO(), $this->category->getCategoryId(),$this->truck->getTruckId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());

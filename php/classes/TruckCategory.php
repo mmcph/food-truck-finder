@@ -202,20 +202,20 @@ class TruckCategory implements \JsonSerializable {
 		$parameters = ["truckCategoryTruckId" => $truckCategoryCategoryId];
 		$statement->execute($parameters);
 
-		//build an array on truckCategories
-		$truckCategories = new \SPLFixedArray($statement->rowCount());
+		//build an array on truckCategory
+		$truckCategory = new \SPLFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$truckCategory = new TruckCategory($row["TruckCategoryId"], $row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-				$truckCategories[$truckCategories->key()] = $truckCategory;
-				$truckCategories->next();
+				$truckCategory[$truckCategory->key()] = $truckCategory;
+				$truckCategory->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($truckCategories);
+		return($truckCategory);
 	}
 
 
@@ -245,20 +245,20 @@ class TruckCategory implements \JsonSerializable {
 		$parameters = ["truckCategoryTruckId" => $truckCategoryTruckId->getBytes()];
 		$statement->execute($parameters);
 
-		//build an array on truckCategories
-		$truckCategories = new \SPLFixedArray($statement->rowCount());
+		//build an array on truckCategory
+		$truckCategory = new \SPLFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
 					$truckCategory = new TruckCategory($row["TruckCategoryId"], $row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-					$truckCategories[$truckCategories->key()] = $truckCategory;
-					$truckCategories->next();
+					$truckCategory[$truckCategory->key()] = $truckCategory;
+					$truckCategory->next();
 				} catch(\Exception $exception) {
 					// if the row couldn't be converted, rethrow it
 					throw(new \PDOException($exception->getMessage(), 0, $exception));
 				}
 			}
-		return($truckCategories);
+		return($truckCategory);
 	}
 
 
