@@ -39,7 +39,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct(int $truckCategoryCategoryId, $truckCategoryTruckId) {
+	public function __construct( $truckCategoryCategoryId, $truckCategoryTruckId) {
 		try {
 			$this->setTruckCategoryCategoryId($truckCategoryCategoryId);
 			$this->setTruckCategoryTruckId($truckCategoryTruckId);
@@ -69,7 +69,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \TypeError if $truckCategoryCategoryId is not a int
 	 *
 	 */
-	public function setTruckCategoryCategoryId(int $newTruckCategoryCategoryId): void {
+	public function setTruckCategoryCategoryId( $newTruckCategoryCategoryId): void {
 		if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
 			throw new \RangeException("truckCategoryCategoryId is out of range");
 		}
@@ -137,7 +137,7 @@ class TruckCategory implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = ["TruckCategoryId" => $this->TruckCategoryId->getBytes()];
+		$parameters = ["TruckCategoryId" => $this->TruckCategoryId];
 		$statement->execute($parameters);
 	}
 
@@ -199,7 +199,7 @@ class TruckCategory implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-		$parameters = ["truckCategoryTruckId" => $truckCategoryCategoryId->getBytes()];
+		$parameters = ["truckCategoryTruckId" => $truckCategoryCategoryId];
 		$statement->execute($parameters);
 
 		//build an array on truckCategories

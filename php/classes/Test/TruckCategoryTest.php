@@ -59,19 +59,21 @@ class TruckCategoryTest extends TacoTruckTest {
 	public final function setUp(): void {
 		// run the default setUp() method first
 		parent::setUp();
+		$password = "password";
+		$this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+		$this->VALID_ACTIVATION_TOKEN = bin2hex(random_bytes(16));
 
 		// create and insert the mocked profile into mySQL
-		$this->profile = new Profile (generateUuidV4(), "test@phpunit.de", $this->VALID_HASH, 1, "php", "unit", "phpunit");
+		$this->profile = new Profile (generateUuidV4(),$this->VALID_ACTIVATION_TOKEN ,"abc123@gmail.com", $this->VALID_HASH,  1, "Bimbo", "Baggins", "BimboSwaggins");
 		$this->profile->insert($this->getPDO());
 
 		//create and insert the mocked truck
-		$truckId = generateUuidV4();
-		$this->truck = new Truck ($truckId, $this->profile->getProfileId(), "We have eggroll.", 1, 35.07720000, 106.66141111, "EggRoll Dynasty", "5058596496", "https://phpunit.de/");
+		$this->truck = new Truck(generateUuidV4(), $this->profile->getProfileId(), "We have eggroll.", 1, 35.07720000, 106.66141111, "EggRoll Dynasty", "5058596496", "https://phpunit.de/");
 		$this->truck->insert($this->getPDO());
 
 		//create and insert the mocked Category
 		// todo Marlon suggested using null val for categoryId - change made to all instances of new TruckCategory
-		$this->category = new Category (null, "pizza pie");
+		$this->category = new Category(null, "pizza pie");
 		$this->category->insert($this->getPDO());
 	}
 
@@ -97,7 +99,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 		//delete the TruckCategory from mySQL
@@ -117,7 +119,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
@@ -167,14 +169,14 @@ class TruckCategoryTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryTruckId($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->truckCategoryCategoryId->getCategoryCategoryId());
-		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truckCategoryTruckId->getCategoryTruckId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
+		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
 	}
 	/**
 	 * test grabbing a TruckCategory by content that does not exist
