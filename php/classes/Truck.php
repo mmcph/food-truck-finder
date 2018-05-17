@@ -404,7 +404,7 @@ class Truck implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind member vars to placeholder in template
-		$parameters = ["truckId" => $this->truckId];
+		$parameters = ["truckId" => $this->truckId->getBytes()];
 		$statement->execute($parameters);
 	}
 
