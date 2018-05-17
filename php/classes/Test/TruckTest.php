@@ -244,7 +244,6 @@ class TruckTest extends TacoTruckTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Truck::getTruckByTruckProfileId($this->getPDO(), $truck->getTruckProfileId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
-		var_dump($results);
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Truck", $results);
 
