@@ -49,14 +49,14 @@ class VoteTest extends TacoTruckTest {
         $this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
         $this->VALID_ACTIVATION = bin2hex(random_bytes(16));
         // create and insert the mocked profile into mySQL
-        $this->profile = new Profile(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_ISOWNER, $this->VALID_FIRSTNAME, $this->VALID_LASTNAME, $this->VALID_USERNAME);
+        $this->profile = new Profile(generateUuidV4(), $this->VALID_ACTIVATION, "hi@gmail.com", $this->VALID_HASH, 1, "my name is", "slim shady", "eminem");
         $this->profile->insert($this->getPDO());
         //create and insert the mocked truck
-        $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(),"I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", 5058596496, "https://phpunit.de/");
+        $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(),"I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", "5058591234", "https://phpunit.de/");
         $this->truck->insert($this->getPDO());
         // create and insert the mocked vote
-        $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), 1 );
-        $this->vote->insert($this->getPDO());
+       // $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), 1 );
+       // $this->vote->insert($this->getPDO());
     }
     /**
      *
