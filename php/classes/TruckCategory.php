@@ -132,11 +132,11 @@ class TruckCategory implements \JsonSerializable {
 
 
 		// create query template
-		$query = "DELETE FROM truckCategory WHERE truckCategoryId = :truckCategoryId";
+		$query = "DELETE FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = ["truckCategoryId" => $this->truckCategoryId];
+		$parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId];
 		$statement->execute($parameters);
 	}
 
@@ -145,12 +145,13 @@ class TruckCategory implements \JsonSerializable {
 	 * gets the TruckCategory by TruckCategoryCategoryId And TruckCategoryTruckId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid| string $truckCategoryCategoryId and $truckCategoryTruckId
+	 * @param int | null $truckCategoryCategoryId
+     * @param Uuid | string $truckCategoryTruckId
 	 * @return TruckCategory|null Truck found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(\PDO $pdo, $truckCategoryCategoryId, $truckCategoryTruckId): ?TruckCategory {
+	public static function getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(\PDO $pdo, ?int $truckCategoryCategoryId, $truckCategoryTruckId): ?TruckCategory {
 
 		// create query template
 		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId AND truckCategoryTruckId = :truckCategoryTruckId";

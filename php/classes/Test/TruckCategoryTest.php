@@ -108,7 +108,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		$truckCategory->delete($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
-		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO(), $this->category->getCategoryId(), $this->truck->getTruckId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 //todo Marlon suggested change to latter half of assertEquals params (changed from comparisons based on current class)
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
