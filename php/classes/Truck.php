@@ -211,7 +211,7 @@ class Truck implements \JsonSerializable {
 	 **/
 	public function setTruckIsOpen(int $newTruckIsOpen): void {
 //todo ask about this if block
-		if($newTruckIsOpen < -1 || $newTruckIsOpen > 1) {
+		if($newTruckIsOpen !== -1 && $newTruckIsOpen !== 1) {
 			throw(new \RangeException("TruckIsOpen is not -1 or 1"));
 		}
 		// store new truckIsOpen
