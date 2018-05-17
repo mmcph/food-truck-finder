@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\FoodTruck\Test;
 
-use Edu\Cnm\FoodTruck\{Truck, Category,Profile, TruckCategory};
+use Edu\Cnm\FoodTruck\{TruckCategory, Profile, Truck, Category};
 
 
 // grab the class under scrutiny
