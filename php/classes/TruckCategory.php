@@ -31,18 +31,18 @@ class TruckCategory implements \JsonSerializable {
 	/**
 	 * constructor for this TruckCategory
 	 *
-	 * @param int | $truckCategoryCategoryId; id of this truck CategoryId
-	 * @param string|Uuid $truckCategoryTruckId; id of this truck Category Truck Id
+	 * @param int | $newTruckCategoryCategoryId; id of this truck CategoryId
+	 * @param string|Uuid $newTruckCategoryTruckId; id of this truck Category Truck Id
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct( $truckCategoryCategoryId, $truckCategoryTruckId) {
+	public function __construct( $newTruckCategoryCategoryId, $newTruckCategoryTruckId) {
 		try {
-			$this->setTruckCategoryCategoryId($truckCategoryCategoryId);
-			$this->setTruckCategoryTruckId($truckCategoryTruckId);
+			$this->setTruckCategoryCategoryId($newTruckCategoryCategoryId);
+			$this->setTruckCategoryTruckId($newTruckCategoryTruckId);
 		} //determine what exception type was thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -69,7 +69,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \TypeError if $truckCategoryCategoryId is not a int
 	 *
 	 */
-	public function setTruckCategoryCategoryId( $newTruckCategoryCategoryId): void {
+	public function setTruckCategoryCategoryId(?int $newTruckCategoryCategoryId): void {
 		if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
 			throw new \RangeException("truckCategoryCategoryId is out of range");
 		}
@@ -108,7 +108,7 @@ class TruckCategory implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		// convert and store the profile id
-		$this->$newTruckCategoryTruckId = $uuid;
+		$this->truckCategoryTruckId = $uuid;
 	}
 
 
@@ -133,11 +133,11 @@ class TruckCategory implements \JsonSerializable {
 
 
 		// create query template
-		$query = "DELETE FROM TruckCategory WHERE TruckCategoryId = :TruckCategoryId";
+		$query = "DELETE FROM truckCategory WHERE truckCategoryId = :truckCategoryId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = ["TruckCategoryId" => $this->TruckCategoryId];
+		$parameters = ["truckCategoryId" => $this->truckCategoryId];
 		$statement->execute($parameters);
 	}
 
