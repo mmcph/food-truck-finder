@@ -310,7 +310,7 @@ class TruckTest extends TacoTruckTest {
 	 **/
 	public function testGetInvalidTruckByTruckIsOpen() : void {
 		// grab a truck by truckIsOpen that does not exist
-		$truck = Truck::getTruckByTruckIsOpen($this->getPDO(), 2);
+		$truck = Truck::getTruckByTruckIsOpen($this->getPDO(), 1);
 		$this->assertCount(0, $truck);
 	}
 
