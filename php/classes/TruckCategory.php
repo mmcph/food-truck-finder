@@ -128,7 +128,6 @@ class TruckCategory implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
-
 	public function delete(\PDO $pdo): void {
 
 
@@ -158,7 +157,8 @@ class TruckCategory implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-		$parameters = ["truckCategory" => $truckCategoryCategoryId,"truckCategoryTruckId" => $truckCategoryTruckId];
+        //		$parameters = ["likeProfileId" => $likeProfileId->getBytes()];
+		$parameters = ["truckCategoryCategoryId" => $truckCategoryCategoryId,"truckCategoryTruckId" => $truckCategoryTruckId->getBytes()];
 		$statement->execute($parameters);
 
 		// grab the truckCategory from mySQL
@@ -250,7 +250,7 @@ class TruckCategory implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
-					$truckCategory = new TruckCategory($row["TruckCategoryId"], $row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
+					$truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
 					$truckCategory[$truckCategory->key()] = $truckCategory;
 					$truckCategory->next();
 				} catch(\Exception $exception) {
