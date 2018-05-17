@@ -3,7 +3,6 @@ namespace Edu\Cnm\FoodTruck;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
-
 /**
  * Class: favorite
  *
@@ -14,22 +13,17 @@ use Ramsey\Uuid\Uuid;
  * @package Edu\Cnm\food
  */
 class favorite implements \JsonSerializable {
-
 	use ValidateUuid;
-
 	/**
 	 * foreign key
 	 * @var Uuid $favoriteTruckId
 	 */
 	private $favoriteTruckId;
-
 	/**
 	 *foreign key
 	 * @var Uuid $favoriteProfileId
 	 */
 	private $favoriteProfileId;
-
-
 	/**
 	 * favorite constructor.
 	 * @param $favoriteTruckId
@@ -44,8 +38,6 @@ class favorite implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
-
-
 	/**
 	 *
 	 * accessor method
@@ -54,7 +46,6 @@ class favorite implements \JsonSerializable {
 	public function getFavoriteTruckId(): string {
 		return $this->favoriteTruckId;
 	}
-
 	/**
 	 * mutator method
 	 *
@@ -71,7 +62,6 @@ class favorite implements \JsonSerializable {
 		}
 		$this->favoriteTruckId = $newFavoriteTruckId;
 	}
-
 	/**
 	 * accessor method
 	 *
@@ -80,7 +70,6 @@ class favorite implements \JsonSerializable {
 	public function getFavoriteProfileId(): string {
 		return $this->favoriteProfileId;
 	}
-
 	/**
 	 * mutator method
 	 *
@@ -96,28 +85,22 @@ class favorite implements \JsonSerializable {
 		}
 		$this->favoriteTruckId = $uuid;
 	}
-
 	/**
 	 * PDO's
 	 *
 	 */
-
-
 	public function insert(\PDO $pdo): void {
 		$query = "INSERT INTO favorite(favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
 	}
-
 	public function delete(\PDO $pdo): void {
 		$query = "DELETE FROM favorite WHERE favoriteTruckId = :favoriteTruckId and favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
 	}
-
-
 	public function getFavoriteByFavoriteTruckId (\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
 		try {
 			$favoriteTruckId = self::validateUuid($favoriteTruckId);
@@ -142,9 +125,6 @@ class favorite implements \JsonSerializable {
 		}
 		return($favorites);
 	}
-
-
-
 	public function getFavoriteByFavoriteProfileId(\PDO $pdo, $favoriteProfileId) {
 		try {
 			$favoriteProfileId = self::validateUuid($favoriteProfileId);
@@ -168,35 +148,33 @@ class favorite implements \JsonSerializable {
 		}
 		return($favorites);
 	}
-
 	public function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
-			try {
-				$favoriteTruckId = self::validateUuid($favoriteTruckId);
-			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-			try {
-				$favoriteProfileId = self::validateUuid($favoriteProfileId);
-			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-			$query = "SELECT favoriteTruckId, favoriteProfileId FROM `favorite` WHERE favoriteTruckId = :favoriteTruckId AND favoriteProfileId = :favoriteProfileId";
-			$statement = $pdo->prepare($query);
-			$parameters = ["$favoriteTruckId" => $favoriteTruckId->getBytes(), "favoriteProfileId" => $favoriteProfileId->getBytes()];
-			$statement->execute($parameters);
-			try {
-				$favorite = null;
-				$statement->setFetchMode(\PDO::FETCH_ASSOC);
-				$row = $statement->fetch();
-				if($row !== false) {
-					$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]) ;
-				}
-			} catch(\Exception $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-			return ($favorite);
+		try {
+			$favoriteTruckId = self::validateUuid($favoriteTruckId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-
+		try {
+			$favoriteProfileId = self::validateUuid($favoriteProfileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		$query = "SELECT favoriteTruckId, favoriteProfileId FROM `favorite` WHERE favoriteTruckId = :favoriteTruckId AND favoriteProfileId = :favoriteProfileId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["$favoriteTruckId" => $favoriteTruckId->getBytes(), "favoriteProfileId" => $favoriteProfileId->getBytes()];
+		$statement->execute($parameters);
+		try {
+			$favorite = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]) ;
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($favorite);
+	}
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 		$fields["favoriteTruckId"] = $this->favoriteTruckId->toString();
@@ -204,4 +182,3 @@ class favorite implements \JsonSerializable {
 		return ($fields);
 	}
 }
-

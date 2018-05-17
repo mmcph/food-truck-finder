@@ -57,7 +57,7 @@ class TruckCategory implements \JsonSerializable {
 	 * @return Uuid value of truckCategoryId
 	 *
 	 */
-	public function getTruckCategoryCategoryId(): int {
+	public function getTruckCategoryCategoryId(): ?int {
 		return ($this->truckCategoryCategoryId);
 	}
 
@@ -96,9 +96,9 @@ class TruckCategory implements \JsonSerializable {
 	 * mutator method for $truckCategoryCategoryId
 	 *
 	 * @param mixed $newTruckCategoryTruckId
-     * @param string  $newTruckCategoryTruckId new value of truckCategoryTruckId id
-     * @throws \RangeException if $newTruckCategoryTruckId is not positive
-     * @throws \TypeError if $newTruckCategoryTruckId is not an integer
+	 * @param string  $newTruckCategoryTruckId new value of truckCategoryTruckId id
+	 * @throws \RangeException if $newTruckCategoryTruckId is not positive
+	 * @throws \TypeError if $newTruckCategoryTruckId is not an integer
 	 */
 	public function setTruckCategoryTruckId($newTruckCategoryTruckId): void {
 		try {
@@ -146,7 +146,7 @@ class TruckCategory implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int | null $truckCategoryCategoryId
-     * @param Uuid | string $truckCategoryTruckId
+	 * @param Uuid | string $truckCategoryTruckId
 	 * @return TruckCategory|null Truck found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
@@ -158,7 +158,7 @@ class TruckCategory implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-        //		$parameters = ["likeProfileId" => $likeProfileId->getBytes()];
+		//		$parameters = ["likeProfileId" => $likeProfileId->getBytes()];
 		$parameters = ["truckCategoryCategoryId" => $truckCategoryCategoryId,"truckCategoryTruckId" => $truckCategoryTruckId->getBytes()];
 		$statement->execute($parameters);
 
@@ -187,36 +187,28 @@ class TruckCategory implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getTruckCategoryByTruckCategoryCategoryId(\PDO $pdo, $truckCategoryCategoryId): \SPLFixedArray  {
-		// sanitize the truckCategoryId before searching
-		try {
-			$truckCategoryCategoryId = self::validateUuid($truckCategoryCategoryId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
+	public static function getTruckCategoryByTruckCategoryCategoryId(\PDO $pdo, ?int $truckCategoryCategoryId): ?TruckCategory {
 
 		// create query template
-		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE $truckCategoryCategoryId = :$truckCategoryCategoryId";
+		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId";
 		$statement = $pdo->prepare($query);
 
 		// bind the truckCategory id to the place holder in the template
-		$parameters = ["truckCategoryTruckId" => $truckCategoryCategoryId];
+		$parameters = ["truckCategoryCategoryId" => $truckCategoryCategoryId];
 		$statement->execute($parameters);
 
-		//build an array on truckCategory
-		$truckCategory = new \SPLFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$truckCategory = new TruckCategory($row["TruckCategoryId"], $row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-				$truckCategory[$truckCategory->key()] = $truckCategory;
-				$truckCategory->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
+		try {
+			$truckCategory = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
 			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($truckCategory);
+		return ($truckCategory);
 	}
 
 
@@ -249,16 +241,16 @@ class TruckCategory implements \JsonSerializable {
 		//build an array on truckCategory
 		$truckCategory = new \SPLFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			while(($row = $statement->fetch()) !== false) {
-				try {
-					$truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-					$truckCategory[$truckCategory->key()] = $truckCategory;
-					$truckCategory->next();
-				} catch(\Exception $exception) {
-					// if the row couldn't be converted, rethrow it
-					throw(new \PDOException($exception->getMessage(), 0, $exception));
-				}
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
+				$truckCategory[$truckCategory->key()] = $truckCategory;
+				$truckCategory->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
+		}
 		return($truckCategory);
 	}
 

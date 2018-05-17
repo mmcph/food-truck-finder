@@ -158,8 +158,8 @@ class TruckCategoryTest extends TacoTruckTest {
 		 **/
 		public function testGetInvalidTruckCategoryCategoryId() : void {
 			// grab a TruckCategory by content that does not exist
-			$truck = TruckCategory::testGetTruckCategoryCategoryId($this->getPDO(), -1);
-			$this->assertCount(0, $truck);
+			$truck = TruckCategory::getTruckCategoryByTruckCategoryCategoryId($this->getPDO(), -1);
+			$this->assertNull($truck);
 		}
 
 
