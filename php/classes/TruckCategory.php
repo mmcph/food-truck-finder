@@ -96,9 +96,9 @@ class TruckCategory implements \JsonSerializable {
 	 * mutator method for $truckCategoryCategoryId
 	 *
 	 * @param mixed $newTruckCategoryTruckId
-	 * @throws \RangeException if $newProfileId is not positive
-	 * @throws \TypeError if $newProfileId is not a uuid
-	 *
+     * @param string  $newTruckCategoryTruckId new value of truckCategoryTruckId id
+     * @throws \RangeException if $newTruckCategoryTruckId is not positive
+     * @throws \TypeError if $newTruckCategoryTruckId is not an integer
 	 */
 	public function setTruckCategoryTruckId($newTruckCategoryTruckId): void {
 		try {
