@@ -144,7 +144,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(7, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
