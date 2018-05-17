@@ -61,10 +61,10 @@ class TruckCategoryTest extends TacoTruckTest {
 		parent::setUp();
 		$password = "password";
 		$this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
-		$this->VALID_ACTIVATION_TOKEN = bin2hex(random_bytes(16));
+		//$this->VALID_ACTIVATION_TOKEN = bin2hex(random_bytes(16));
 
 		// create and insert the mocked profile into mySQL
-		$this->profile = new Profile (generateUuidV4(),$this->VALID_ACTIVATION_TOKEN ,"abc123@gmail.com", $this->VALID_HASH,  1, "Bimbo", "Baggins", "BimboSwaggins");
+		$this->profile = new Profile (generateUuidV4(), null ,"abc123@gmail.com", $this->VALID_HASH,  1, "Bimbo", "Baggins", "BimboSwaggins");
 		$this->profile->insert($this->getPDO());
 
 		//create and insert the mocked truck

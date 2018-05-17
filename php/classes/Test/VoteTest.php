@@ -41,6 +41,7 @@ class VoteTest extends TacoTruckTest {
      *
      * create dependent objects before running each test
      */
+
     public final function setUp() : void {
         // run the default setUp() method first
         parent::setUp();
@@ -68,15 +69,15 @@ class VoteTest extends TacoTruckTest {
         $numRows = $this->getConnection()->getRowCount("vote");
 
         // create a new Vote and insert to into mySQL
-        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), 1);
         $vote->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->vote->getTruckId());
-        $this->asssertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
-        $this->assertEquals($pdoVote->getVoteProfileId(), $this->vote->getProfileId());
-        $this->assertEquals($pdoVote->getTruckProfileId(),
-        $this->vote->getVoteId());
+        $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
+        $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());
+        $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
+       // $this->assertEquals($pdoVote->getVoteValue(), $this->getVoteValue())
     }
     /**
      * test creating a Vote and then deleting it

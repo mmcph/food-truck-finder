@@ -123,7 +123,7 @@ class Vote implements \JsonSerializable {
      * @throws \InvalidArgumentException if $newVoteValue  data types are not valid
      **/
     public function setVoteValue (int $newVoteValue): void {
-        if($newVoteValue !== -1 || $newVoteValue !== 1) {
+        if($newVoteValue < -1 || $newVoteValue > 1) {
             throw(new \InvalidArgumentException("vote value is incorrect"));
         }
         // convert and store the vote value
