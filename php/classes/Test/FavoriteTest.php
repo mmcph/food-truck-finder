@@ -1,10 +1,14 @@
 <?php
 namespace Edu\Cnm\FoodTruck\Test;
+
 use Edu\Cnm\FoodTruck\{Profile, Truck, Favorite};
+
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
+
 // grab the uuid generator
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
+
 /**
  * Full PHPUnit test for the Favorite class
  *
@@ -35,119 +39,143 @@ class FavoriteTest extends TacoTruckTest {
 	 * @var string $VALID_ACTIVATION
 	 **/
 	private $VALID_ACTIVATION;
+
 	/**
 	 *
 	 * create dependent objects before running each test
 	 */
 	public final function setUp(): void {
-
+		
 		// run the default setUp() method first
 		parent::setUp();
-
+		
 		// create a hash for the mocked profile
 		$password = "abc123";
 		$this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
-
+		
 		// create and insert the mocked profile into mySQL
-		$this->profile = new Profile (generateUuidV4(), "test@phpunit.de", $this->VALID_HASH, 1, "php", "unit", "phpunit");
+		$this->profile = new Profile (generateUuidV4(), "58c29d4ff4514fe087f70840e6a1a396
+", "something@gmail.com", $this->VALID_HASH, 1, 1, "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
-
+		
 		//create and insert the mocked truck
 		$this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(), "I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", "5058596496", "https://phpunit.de/");
 		$this->truck->insert($this->getPDO());
 	}
+
 	public function testInsertFavorite(): void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
+
 		// create a new favorite and insert to into mySQL
-		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$favorite->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
+		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->truck->getTruckId(), $this->profile->getProfileId());
 		$this->assertNull($pdoFavorite);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 	}
-	public function testDeleteFavorite() : void {
 
+	public function testDeleteFavorite() : void {
+		
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
-
+		
 		// create a new Favorite and insert to into mySQL
 		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
 		$favorite->insert($this->getPDO());
+
 		// delete the Favorite from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$favorite->delete($this->getPDO());
+
 		// grab the data from mySQL and enforce the Truck does not exist
 		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertNull($pdoFavorite);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 	}
+
 	public function testGetFavoriteByFavoriteTruckIdAndFavoriteProfileId() : void {
-
+		
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("like");
-
-		// create a new Like and insert to into mySQL
-		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
+		$numRows = $this->getConnection()->getRowCount("favorite");
+		
+		// create a new Favorite and insert to into mySQL
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$favorite->insert($this->getPDO());
-
+		
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
 		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
 	}
+
 	public function testGetInvalidLikeByFavoriteTruckIdandFavoriteProfileId() {
-		$favorite = Like::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), generateUuidV4(), generateUuidV4());
+		$favorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), generateUuidV4(), generateUuidV4());
 		$this->assertNull($favorite);
 	}
-	public function testGetFavoriteByFavoriteTruckId() : void {
 
+	public function testGetFavoriteByFavoriteTruckId() : void {
+		
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
-
+		
 		// create a new Favorite and insert to into mySQL
-		$like = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
-		$like->insert($this->getPDO());
-
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
+		$favorite->insert($this->getPDO());
+		
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Favorite::getFavoriteByFavoriteTruckId($this->getPDO(), $this->truck->getTruckId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Favorite", $results);
-
+		
 		// grab the result from the array and validate it
 		$pdoFavorite = $results[0];
 		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
 		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
 	}
+
 	public function testGetInvalidFavoriteByFavoriteTruckId() : void {
+
 		// grab a truck id that exceeds the maximum allowable truck id
 		$favorite = Favorite::getFavoriteByFavoriteTruckId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $favorite);
 	}
-	public function testGetFavoriteByFavoriteProfileId() : void {
 
+	public function testGetFavoriteByFavoriteProfileId() : void {
+		
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
+
 		// create a new Favorite and insert to into mySQL
 		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
 		$favorite->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Favorite::getFavoriteByFavoriteProfileId($this->getPDO(), $this->profile->getProfileId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$this->assertCount(1, $results);
+
 		// enforce no other objects are bleeding into the test
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Favorite", $results);
+
 		// grab the result from the array and validate it
 		$pdoFavorite = $results[0];
 		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
 		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
+
+
 	}
+
 	public function testGetInvalidFavoriteByProfileId() : void {
+
 		$favorite = Favorite::getLikeByFavoriteProfileId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $favorite);
 	}
 }
+
