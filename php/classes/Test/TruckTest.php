@@ -124,6 +124,8 @@ class TruckTest extends TacoTruckTest {
 	/**
 	 * create dependent objects before running each test
 	 **/
+	protected $VALID_ACTIVATIONTOKEN = null;
+
 	public final function setUp()  : void {
 		// run the default setUp() method first
 		parent::setUp();
@@ -131,7 +133,7 @@ class TruckTest extends TacoTruckTest {
 		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 		// create and insert a Profile to own the test Truck
-		$this->profile = new Profile (generateUuidV4(), "AUTHTOKENwqwqwqwqwqwqwqwqwqwqwqw", "test@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit");
+		$this->profile = new Profile (generateUuidV4(), $this->VALID_ACTIVATIONTOKEN, "test@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
 
 	}
