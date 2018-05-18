@@ -49,9 +49,11 @@ class VoteTest extends TacoTruckTest {
         $password = "abc123";
         $this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
         $this->VALID_ACTIVATION = bin2hex(random_bytes(16));
+
         // create and insert the mocked profile into mySQL
         $this->profile = new Profile(generateUuidV4(), $this->VALID_ACTIVATION, "hi@gmail.com", $this->VALID_HASH, 1, "my name is", "slim shady", "eminem");
         $this->profile->insert($this->getPDO());
+
         //create and insert the mocked truck
         $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(),"I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", "5058591234", "https://phpunit.de/");
         $this->truck->insert($this->getPDO());
@@ -73,6 +75,7 @@ class VoteTest extends TacoTruckTest {
         $vote->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
+       // $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
         $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
         $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());

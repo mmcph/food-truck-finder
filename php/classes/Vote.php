@@ -17,13 +17,13 @@ class Vote implements \JsonSerializable {
     /**
      * id for profile that is casting this vote; this is a primary key for the class
      * (and a foreign key referencing the profileId)
-     * @var Uuid $voteProfileId
+     * @var Uuid|string  $voteProfileId
      **/
     private $voteProfileId;
     /**
      * id of the truck that is being voted on; this is a primary key for the class
      * this is a foreign key referencing the truckId
-     * @var Uuid $voteTruckId
+     * @var Uuid | string $voteTruckId
      **/
     private $voteTruckId;
     /**
@@ -42,7 +42,7 @@ class Vote implements \JsonSerializable {
      * @throws \TypeError if data types violate type hints
      *
      **/
-    public function __construct( $newVoteProfileId, $newVoteTruckId, int $newVoteValue) {
+    public function __construct($newVoteProfileId, $newVoteTruckId, $newVoteValue) {
         //
         try {
             $this->setVoteProfileId($newVoteProfileId);
@@ -65,7 +65,7 @@ class Vote implements \JsonSerializable {
     /**
      * mutator method for profile Id
      *
-     * @param string $newVoteProfileId new value of vote id
+     * @param string|Uuid $newVoteProfileId new value of vote id
      * @throws \InvalidArgumentException if $newVoteProfileId is if data types are not valid
      * @throws \RangeException if $newVoteProfileId is not positive
      * @throws \Exception if $newVoteProfileId is if some other exception is thrown
@@ -92,7 +92,7 @@ class Vote implements \JsonSerializable {
     /**
      * mutator method for truck Id
      *
-     * @param string $newVoteTruckId new value of vote
+     * @param string|Uuid $newVoteTruckId new value of vote
      * @throws \InvalidArgumentException if $setVoteTruckId data types are not valid
      * @throws \RangeException if $newProfileId is not positive
      * @throws \Exception if if some other exception is thrown
@@ -241,28 +241,65 @@ class Vote implements \JsonSerializable {
     /**
      *
      * @param \PDO $pdo connection object
-     * @param Uuid|string $voteProfileId $voteTruckId to search for
+     * @param Uuid|string $voteProfileId
+     * @param string|Uuid $voteTruckId to search for
      * @return vote to mySQL
      * @throws \PDOException  when mySQL related errors occur
      * @catch \Exception for any other exceptions
      **/
     public static function getVoteByVoteProfileIdAndVoteTruckId (\PDO $pdo, $voteProfileId, $voteTruckId): ?Vote {
-        // create query template
-        $query = "SELECT voteProfileId, voteTruckId FROM  vote WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
-        $statement = $pdo->prepare($query);
-        // bind the vote from mySQL
+
         try {
-            $vote = null;
-            $statement->setFetchMode(\PDO::FETCH_ASSOC);
-            $row = $statement->fetch();
-            if($row !== false) {
-                $vote = new vote($row["voteProfileId"], $row["voteTruckId"]);
-            }
-        } catch(\Exception $exception) {
-            // if the row couldn't be converted, rethrow it
-            throw(new \PDOException($exception->getMessage(),0, $exception));
+            $voteProfileId = self::validateUuid($voteProfileId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
-        return ($vote);
+
+        try {
+            $voteTruckId = self::validateUuid($voteTruckId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+
+        // create query template
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM  vote WHERE voteProfileId = :voteProfileId AND voteTruckId = :voteTruckId";
+        $statement = $pdo->prepare($query);
+
+        // bind the profile id and the truck id to the place holder in the template from mySQL
+        $parameters = ["voteProfileId" => $voteProfileId->getBytes(), "voteTruckId" => $voteTruckId->getBytes()];
+        $statement ->execute($parameters);
+
+        // grab the vote from mySQL
+
+    try {
+        $vote = null;
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        $row = $statement->fetch();
+        if($row !== false) {
+            $vote = new Vote($row["voteProfileId"], $row["voteTruckId"], $row["voteValue"]);
+        }
+    } catch(\Exception $exception) {
+        // if the row couldn't be converted, rethrow it
+        throw(new \PDOException($exception->getMessage(), 0, $exception));
+    }
+    return ($vote);
+
+
+
+
+
+//        try {
+//            $vote = null;
+//            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+//            $row = $statement->fetch();
+//            if($row !== false) {
+//                $vote = new vote($row["voteProfileId"], $row["voteTruckId"]);
+//            }
+//        } catch(\Exception $exception) {
+//            // if the row couldn't be converted, rethrow it
+//            throw(new \PDOException($exception->getMessage(),0, $exception));
+//        }
+//        return ($vote);
     }
     /**
      * formats the state variables for JSON serialization

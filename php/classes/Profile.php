@@ -109,7 +109,7 @@ class Profile implements \JsonSerializable {
 	 * @return Uuid | string of profile id
 	 */
 	public function getProfileId(): Uuid {
-		return $this->profileId;
+        return($this->profileId);
 	}
 
 	/**
