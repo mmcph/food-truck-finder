@@ -175,7 +175,7 @@ class VoteTest extends TacoTruckTest {
         // grab the result from the array and validate it
         $pdoVote = $results[0];
         $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());
-        $this->assertEquals($pdoVote->getVoteTruckId(), $this->vote->getTruckId());
+        $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
     }
     /**
      * test grabbing a Vote by truck that has no votes
