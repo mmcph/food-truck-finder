@@ -37,7 +37,9 @@ class VoteTest extends TacoTruckTest {
      * @var string $VALID_ACTIVATION
      **/
     private $VALID_ACTIVATION;
-
+	/**
+	 * valid VoteValue for testing purposes
+	 */
 	protected $VALID_VOTEVALUE = 1;
 
     /**
@@ -112,11 +114,10 @@ class VoteTest extends TacoTruckTest {
         $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(),$this->profile->getProfileId(),$this->vote->getTruckId());
+        $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(),$this->profile->getProfileId(),$this->truck->getTruckId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
         $this->assertEquals($pdoVote->getVoteProfileId(),$this->profile->getProfileId());
-        $this->assertEquals($pdoVote->getVoteTruckId(),
-            $this->vote->getTruckId());
+        $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
         //todo question - are we testing the vote values anywhere?
     }
     /**
