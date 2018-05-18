@@ -175,13 +175,6 @@ class ProfileTest extends TacoTruckTest {
         $this->assertCount(0, $profile);    }
     /*
      *
-     * getValidProfileByProfileEmail
-     * getInvalidProfileByProfileEmail
-     * getValidProfileByProfileActivationToken
-     * getInvalidProfileByProfileActivationToken , quick note to self, will delete later
-     *
-     *
-     *
      * test grabbing a profile that does not exist
      */
     public function testGetInvalidProfileByProfileActivationToken(): void {
@@ -238,34 +231,3 @@ public function getInvalidProfileByProfileEmail () : void {
         $this->assertCount(0, $profile);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
