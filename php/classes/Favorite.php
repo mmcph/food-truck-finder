@@ -120,7 +120,7 @@ class favorite implements \JsonSerializable {
 	}
 
 
-	public function getFavoriteByFavoriteTruckId (\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
+	public static function getFavoriteByFavoriteTruckId (\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
 		try {
 			$favoriteTruckId = self::validateUuid($favoriteTruckId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -147,7 +147,7 @@ class favorite implements \JsonSerializable {
 
 
 
-	public function getFavoriteByFavoriteProfileId(\PDO $pdo, string $favoriteProfileId) : \SplFixedArray {
+	public static function getFavoriteByFavoriteProfileId(\PDO $pdo, string $favoriteProfileId) : \SplFixedArray {
 		try {
 			$favoriteProfileId = self::validateUuid($favoriteProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -171,7 +171,7 @@ class favorite implements \JsonSerializable {
 		return($favorites);
 	}
 
-	public function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
+	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
 			try {
 				$favoriteTruckId = self::validateUuid($favoriteTruckId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
