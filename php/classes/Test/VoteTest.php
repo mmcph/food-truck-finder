@@ -37,6 +37,9 @@ class VoteTest extends TacoTruckTest {
      * @var string $VALID_ACTIVATION
      **/
     private $VALID_ACTIVATION;
+
+	protected $VALID_VOTEVALUE = 1;
+
     /**
      *
      * create dependent objects before running each test
@@ -71,7 +74,7 @@ class VoteTest extends TacoTruckTest {
         $numRows = $this->getConnection()->getRowCount("vote");
 
         // create a new Vote and insert to into mySQL
-        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), 1);
+        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
@@ -89,7 +92,7 @@ class VoteTest extends TacoTruckTest {
     // count the  number of rows and save it for later
     $numRows = $this->getConnection()->getRowCount("vote");
     //create a new Vote and insert it into mySQL
-    $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+    $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
     $vote->insert($this->getPDO());
     // delete the Vote from mySQL
     $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
@@ -106,7 +109,7 @@ class VoteTest extends TacoTruckTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("vote");
         // create a new Vote and insert into my SQL
-        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
         $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(),$this->profile->getProfileId(),$this->vote->getTruckId());
@@ -132,7 +135,7 @@ class VoteTest extends TacoTruckTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("vote");
         // create a new Vote and insert it into mySQL
-        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
         $results = Vote::getVotesByVoteProfileId($this->getPDO(), $this->profile->getProfile());
@@ -160,7 +163,7 @@ class VoteTest extends TacoTruckTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("vote");
         // create a new Vote and insert it into mySQL
-        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->voteValue->getVoteValue());
+        $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
         $results = Vote::getVoteByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
