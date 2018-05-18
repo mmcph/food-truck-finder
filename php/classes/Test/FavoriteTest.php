@@ -70,12 +70,12 @@ class FavoriteTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
 		// create a new favorite and insert to into mySQL
-		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
+		$favorite = new Favorite($this->truck->getTruckId(), $this->profile->getProfileId());
 		$favorite->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->truck->getTruckId(), $this->profile->getProfileId());
-		$this->assertNull($pdoFavorite);
+		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckId($this->getPDO(), $this->truck->getTruckId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoFavorite);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 	}
 
@@ -85,7 +85,7 @@ class FavoriteTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 		
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$favorite->insert($this->getPDO());
 
 		// delete the Favorite from mySQL
@@ -175,7 +175,7 @@ class FavoriteTest extends TacoTruckTest {
 
 	public function testGetInvalidFavoriteByProfileId() : void {
 
-		$favorite = Favorite::getLikeByFavoriteProfileId($this->getPDO(), generateUuidV4());
+		$favorite = Favorite::getFavoriteByFavoriteProfileId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $favorite);
 	}
 }

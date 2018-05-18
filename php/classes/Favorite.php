@@ -147,7 +147,7 @@ class favorite implements \JsonSerializable {
 
 
 
-	public function getFavoriteByFavoriteProfileId(\PDO $pdo, string $favoriteProfileId) {
+	public function getFavoriteByFavoriteProfileId(\PDO $pdo, string $favoriteProfileId) : \SplFixedArray {
 		try {
 			$favoriteProfileId = self::validateUuid($favoriteProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -155,7 +155,7 @@ class favorite implements \JsonSerializable {
 		}
 		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
-		$parameters = ["favoriteTruckId" => $favoriteProfileId->getBytes()];
+		$parameters = ["favoriteProfileId" => $favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
 		$favorites = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
