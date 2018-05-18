@@ -98,6 +98,7 @@ class FavoriteTest extends TacoTruckTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 	}
 
+
 	public function testGetFavoriteByFavoriteTruckIdAndFavoriteProfileId() : void {
 		
 		// count the number of rows and save it for later
