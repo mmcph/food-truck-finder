@@ -210,14 +210,14 @@ class Vote implements \JsonSerializable {
      * @throws \PDOException when mySQL related errors occur
      *
      **/
-    public static function getVoteByTruckId (\PDO $pdo, $voteTruckId): \SplFixedArray {
+    public static function getVoteByVoteTruckId (\PDO $pdo, $voteTruckId): \SplFixedArray {
         try {
-            $voteProfileId = self::validateUuid($voteTruckId);
+            $voteTruckId = self::validateUuid($voteTruckId);
         } catch(\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception){
             throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
         // create query template
-        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM vote WHERE voteProfileId = :voteProfileId";
+        $query = "SELECT voteProfileId, voteTruckId, voteValue FROM vote WHERE voteTruckId = :voteTruckId";
         $statement = $pdo->prepare($query);
         // bind the member variables to the place holder in the template
         $parameters = ["voteTruckId"=> $voteTruckId->getBytes()];
