@@ -32,8 +32,8 @@ class favorite implements \JsonSerializable {
 
 	/**
 	 * favorite constructor.
-	 * @param $newFavoriteProfileId
-	 * @param $newFavoriteTruckId
+	 * @param Uuid|string $newFavoriteProfileId
+	 * @param Uuid|string $newFavoriteTruckId
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \Exception if some other exception is thrown
@@ -41,8 +41,8 @@ class favorite implements \JsonSerializable {
 	 */
 	public function __construct($newFavoriteProfileId, $newFavoriteTruckId) {
 		try {
-            $this->setFavoriteTruckId($newFavoriteTruckId);
             $this->setFavoriteProfileId($newFavoriteProfileId);
+            $this->setFavoriteTruckId($newFavoriteTruckId);
 
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -54,9 +54,9 @@ class favorite implements \JsonSerializable {
 	/**
 	 *
 	 * accessor method
-	 * @return Uuid value of $favoriteTruckId
+	 * @return Uuid|string value of $favoriteTruckId
 	 */
-	public function getFavoriteTruckId(): string {
+	public function getFavoriteTruckId(): Uuid {
 		return ($this->favoriteTruckId);
 	}
 
@@ -83,7 +83,7 @@ class favorite implements \JsonSerializable {
 	 *
 	 * @return Uuid
 	 */
-	public function getFavoriteProfileId(): string {
+	public function getFavoriteProfileId(): Uuid {
 		return ($this->favoriteProfileId);
 	}
 
@@ -94,7 +94,7 @@ class favorite implements \JsonSerializable {
 	 * @throws \RangeException if $newFavoriteProfileId is not positive
 	 * @throws \TypeError if $newFavoriteProfileId is not a string
 	 */
-	public function setFavoriteProfileId(string $newFavoriteProfileId) : void {
+	public function setFavoriteProfileId($newFavoriteProfileId) : void {
 		try {
 			$uuid = self::validateUuid($newFavoriteProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -112,29 +112,29 @@ class favorite implements \JsonSerializable {
 
 	public function insert(\PDO $pdo): void {
 	    // create a query template
-		$query = "INSERT INTO favorite (favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
+		$query = "INSERT INTO favorite (favoriteProfileId,favoriteTruckId) VALUES (:favoriteProfileId, :favoriteTruckId)";
 		$statement = $pdo->prepare($query);
         //bind the member variables to the place holders in the template
-		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes ()];
+		$parameters = ["favoriteProfileId" => $this->favoriteProfileId->getBytes (),"favoriteTruckId" => $this->favoriteTruckId->getBytes()];
 		$statement->execute($parameters);
 	}
 
 	public function delete(\PDO $pdo): void {
 		$query = "DELETE FROM favorite WHERE favoriteTruckId = :favoriteTruckId and favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
-		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
+		$parameters = ["favoriteProfileId" => $this->favoriteProfileId->getBytes(), "favoriteTruckId" => $this->favoriteTruckId->getBytes()];
 		$statement->execute($parameters);
 	}
     /**
      *
      * gets the favorite by truck id
      * @param \PDO $pdo PDO connection object
-     * @param string $favoriteTruckId id to search for
+     * @param Uuid|string $favoriteTruckId id to search for
      * @return \SplFixedArray array of Likes found or null if not found
      * @throws \PDOException when mySQL related errors occur
      **/
 
-	public static function getFavoriteByFavoriteTruckId (\PDO $pdo, string $favoriteTruckId) : \SplFixedArray {
+	public static function getFavoriteByFavoriteTruckId (\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
 		try {
 			$favoriteTruckId = self::validateUuid($favoriteTruckId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -167,7 +167,7 @@ class favorite implements \JsonSerializable {
 
     /**
      * @param \PDO $pdo
-     * @param string $favoriteProfileId to search by
+     * @param Uuid|string $favoriteProfileId to search by
      * @return \SplFixedArray of favorites found
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \PDOException when mySQL related errors occur
@@ -175,7 +175,7 @@ class favorite implements \JsonSerializable {
      */
 
 
-	public static function getFavoriteByFavoriteProfileId(\PDO $pdo, string $favoriteProfileId) : \SplFixedArray {
+	public static function getFavoriteByFavoriteProfileId(\PDO $pdo, $favoriteProfileId) : \SplFixedArray {
 		try {
 			$favoriteProfileId = self::validateUuid($favoriteProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -207,11 +207,11 @@ class favorite implements \JsonSerializable {
 
     /**
      * @param \PDO $pdo
-     * @param string $favoriteTruckId
-     * @param string $favoriteProfileId
+     * @param string|Uuid  $favoriteTruckId
+     * @param string|Uuid $favoriteProfileId
      * @return favorite|null
      */
-	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
+	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo,  $favoriteTruckId,  $favoriteProfileId) {
 			try {
 				$favoriteTruckId = self::validateUuid($favoriteTruckId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
