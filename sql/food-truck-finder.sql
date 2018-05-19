@@ -67,9 +67,9 @@ CREATE TABLE truckCategory (
 );
 
 CREATE TABLE favorite (
+	favoriteProfileId BINARY(16) NOT NULL,
 	favoriteTruckId BINARY(16) NOT NULL,
-  favoriteProfileId BINARY(16) NOT NULL,
-  INDEX(favoriteTruckId),
+	INDEX(favoriteTruckId),
 	INDEX(favoriteProfileId),
 	FOREIGN KEY(favoriteTruckId) REFERENCES truck(truckId),
 	FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId),
