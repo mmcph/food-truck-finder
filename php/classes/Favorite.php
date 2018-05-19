@@ -120,7 +120,7 @@ class favorite implements \JsonSerializable {
 	}
 
 	public function delete(\PDO $pdo): void {
-		$query = "DELETE FROM favorite WHERE favoriteTruckId = :favoriteTruckId and favoriteProfileId = :favoriteProfileId";
+		$query = "DELETE FROM favorite WHERE favoriteProfileId = :favoriteProfileId  and favoriteTruckId = :favoriteTruckId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["favoriteProfileId" => $this->favoriteProfileId->getBytes(), "favoriteTruckId" => $this->favoriteTruckId->getBytes()];
 		$statement->execute($parameters);
@@ -142,7 +142,7 @@ class favorite implements \JsonSerializable {
 		}
 
         // create query template
-		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteTruckId = :favoriteTruckId";
+		$query = "SELECT favoriteProfileId, favoriteTruckId  FROM favorite WHERE favoriteTruckId = :favoriteTruckId";
 		$statement = $pdo->prepare($query);
 
         // bind the member variables to the place holders in the template
@@ -154,7 +154,7 @@ class favorite implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
+				$favorite = new Favorite($row["favoriteProfileId"], $row["favoriteTruckId"]);
 				$favorites[$favorites->key()] = $favorite;
 				$favorites->next();
 			} catch(\Exception $exception) {
@@ -183,7 +183,7 @@ class favorite implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteProfileId = :favoriteProfileId";
+		$query = "SELECT favoriteProfileId, favoriteTruckId FROM favorite WHERE favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
@@ -211,22 +211,21 @@ class favorite implements \JsonSerializable {
      * @param string|Uuid $favoriteProfileId
      * @return favorite|null
      */
-	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo,  $favoriteTruckId,  $favoriteProfileId) {
-			try {
+	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo,  $favoriteProfileId,  $favoriteTruckId) {
+        try {
+            $favoriteProfileId = self::validateUuid($favoriteProfileId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+
+	    try {
 				$favoriteTruckId = self::validateUuid($favoriteTruckId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 
-
-			try {
-				$favoriteProfileId = self::validateUuid($favoriteProfileId);
-			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-
             // create query template
-			$query = "SELECT favoriteTruckId, favoriteProfileId FROM `favorite` WHERE favoriteTruckId = :favoriteTruckId AND favoriteProfileId = :favoriteProfileId";
+			$query = "SELECT favoriteProfileId, favoriteTruckId FROM `favorite` WHERE favoriteProfileId = :favoriteProfileId AND favoriteTruckId = :favoriteTruckId";
 			$statement = $pdo->prepare($query);
 
 			// bind the truck id and the profile id to the place holder in the template
@@ -239,7 +238,7 @@ class favorite implements \JsonSerializable {
 				$statement->setFetchMode(\PDO::FETCH_ASSOC);
 				$row = $statement->fetch();
 				if($row !== false) {
-					$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]) ;
+					$favorite = new Favorite($row["favoriteProfileId"], $row["favoriteTruckId"]) ;
 				}
 			} catch(\Exception $exception) {
 			    // if the row couldn't be converted, rethrow it
@@ -250,8 +249,8 @@ class favorite implements \JsonSerializable {
 
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
-		$fields["favoriteTruckId"] = $this->favoriteTruckId->toString();
-		$fields["favoriteProfileId"];
+		$fields["favoriteProfileId"] = $this->favoriteTruckId->toString();
+		$fields["favoriteTruckId"];
 		return ($fields);
 	}
 }
