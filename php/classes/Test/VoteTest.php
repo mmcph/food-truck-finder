@@ -163,15 +163,19 @@ class VoteTest extends TacoTruckTest {
     public function testGetValidVotesByTruckId () : void {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("vote");
+
         // create a new Vote and insert it into mySQL
         $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
+
         // grab the data from mySQL and enforce the fields match our expectations
         $results = Vote::getVoteByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
         $this->assertCount(1, $results);
+
         // enforce no other objects are bleeding into the test
         $this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Vote", $results);
+
         // grab the result from the array and validate it
         $pdoVote = $results[0];
         $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());

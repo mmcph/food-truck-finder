@@ -113,8 +113,8 @@ class favorite implements \JsonSerializable {
 	    // create a query template
 		$query = "INSERT INTO favorite (favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
 		$statement = $pdo->prepare($query);
-//bind the member variables to the place holders in the template
-		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
+        //bind the member variables to the place holders in the template
+		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes ()];
 		$statement->execute($parameters);
 	}
 
