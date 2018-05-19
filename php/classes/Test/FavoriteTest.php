@@ -75,7 +75,6 @@ class FavoriteTest extends TacoTruckTest {
 		// create a new favorite and insert to into mySQL
 		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertEquals($this->getConnection()->getRowCount("truck"), 1);
-        var_dump($this->truck);
 		$favorite->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
