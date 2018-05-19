@@ -79,13 +79,11 @@ class VoteTest extends TacoTruckTest {
         $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
         $vote->insert($this->getPDO());
 
-        // grab the data from mySQL and enforce the fields match our expectations
-       // $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
+       // grab the data from mySQL and enforce the fields match our expectations
         $pdoVote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
         $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
-       // $this->assertEquals($pdoVote->getVoteValue(), $this->getVoteValue())
     }
     /**
      * test creating a Vote and then deleting it

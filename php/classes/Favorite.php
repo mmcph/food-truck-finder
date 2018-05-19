@@ -57,7 +57,7 @@ class favorite implements \JsonSerializable {
 	 * @return Uuid value of $favoriteTruckId
 	 */
 	public function getFavoriteTruckId(): string {
-		return $this->favoriteTruckId;
+		return ($this->favoriteTruckId);
 	}
 
 	/**
@@ -84,7 +84,7 @@ class favorite implements \JsonSerializable {
 	 * @return Uuid
 	 */
 	public function getFavoriteProfileId(): string {
-		return $this->favoriteProfileId;
+		return ($this->favoriteProfileId);
 	}
 
 	/**
@@ -94,13 +94,14 @@ class favorite implements \JsonSerializable {
 	 * @throws \RangeException if $newFavoriteProfileId is not positive
 	 * @throws \TypeError if $newFavoriteProfileId is not a string
 	 */
-	public function setFavoriteProfileId($newFavoriteProfileId) : void {
+	public function setFavoriteProfileId(string $newFavoriteProfileId) : void {
 		try {
 			$uuid = self::validateUuid($newFavoriteProfileId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw (new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+        // convert and store the profile id
 			$this->favoriteProfileId = $uuid;
 	}
 	/**

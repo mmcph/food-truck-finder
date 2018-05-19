@@ -54,7 +54,7 @@ class FavoriteTest extends TacoTruckTest {
 		//$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 		
 		// create and insert the mocked profile into mySQL
-		$this->profile = new Profile (generateUuidV4(), $this->VALID_ACTIVATION,"php@gmail.com", $this->VALID_HASH,1, "php", "unit", "phpunit");
+		$this->profile = new Profile (generateUuidV4(), $this->VALID_ACTIVATION,"php@gmail.com", $this->VALID_HASH,  1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
 		
 		//create and insert the mocked truck
@@ -74,6 +74,8 @@ class FavoriteTest extends TacoTruckTest {
 
 		// create a new favorite and insert to into mySQL
 		$favorite = new Favorite($this->truck->getTruckId(), $this->profile->getProfileId());
+		$this->assertEquals($this->getConnection()->getRowCount("truck"), 1);
+        var_dump($this->truck);
 		$favorite->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -82,9 +84,11 @@ class FavoriteTest extends TacoTruckTest {
         $this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
         $this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
 
-		//$this->assertEquals($pdoFavorite);
-		//$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 	}
+
+    /**
+     * @throws \Exception
+     */
 
 	public function testDeleteFavorite() : void {
 		
@@ -92,7 +96,7 @@ class FavoriteTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 		
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
+		$favorite = new Favorite($this->truck->getTruckId(), $this->profile->getProfileId());
 		$favorite->insert($this->getPDO());
 
 		// delete the Favorite from mySQL
