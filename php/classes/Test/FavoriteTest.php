@@ -157,13 +157,13 @@ class FavoriteTest extends TacoTruckTest {
 		$this->assertCount(0, $favorite);
 	}
 
-	public function testGetFavoriteByFavoriteProfileId() : void {
+	public function testGetFavoriteByProfileId() : void {
 		
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_ACTIVATION, $this->VALID_HASH);
+		$favorite = new Favorite( $this->truck->getTruckId(), $this->profile->getProfileId());
 		$favorite->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -176,10 +176,8 @@ class FavoriteTest extends TacoTruckTest {
 
 		// grab the result from the array and validate it
 		$pdoFavorite = $results[0];
-		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
-		//$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
-
-
+		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
+        $this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
 	}
 
 	public function testGetInvalidFavoriteByProfileId() : void {
