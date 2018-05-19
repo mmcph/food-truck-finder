@@ -38,8 +38,7 @@ class FavoriteTest extends TacoTruckTest {
 	 * valid activationToken to create the profile object to own the test
 	 * @var string $VALID_ACTIVATION
 	 **/
-	private $VALID_ACTIVATION;
-
+	private $VALID_ACTIVATION = null;
 	/**
 	 *
 	 * create dependent objects before running each test
@@ -52,11 +51,10 @@ class FavoriteTest extends TacoTruckTest {
 		// create a hash for the mocked profile
 		$password = "abc123";
 		$this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
-		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
+		//$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 		
 		// create and insert the mocked profile into mySQL
-		$this->profile = new Profile (generateUuidV4(), "58c29d4ff4514fe087f70840e6a1a396
-", "something@gmail.com", $this->VALID_HASH, 1, 1, "unit", "phpunit");
+		$this->profile = new Profile (generateUuidV4(), $this->VALID_ACTIVATION,"php@gmail.com", $this->VALID_HASH,1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
 		
 		//create and insert the mocked truck
@@ -115,7 +113,7 @@ class FavoriteTest extends TacoTruckTest {
 		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
 	}
 
-	public function testGetInvalidLikeByFavoriteTruckIdandFavoriteProfileId() {
+	public function testGetInvalidFavoriteByFavoriteTruckIdAndFavoriteProfileId() {
 		$favorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), generateUuidV4(), generateUuidV4());
 		$this->assertNull($favorite);
 	}

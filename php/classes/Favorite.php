@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
  * this will make it easy for customers to save the trucks that they would like to remember, thus return to.
  *
  * @author G. Cordova
- * @package Edu\Cnm\food
+ * @package Edu\Cnm\FoodTruck
  */
 class favorite implements \JsonSerializable {
 
@@ -19,27 +19,32 @@ class favorite implements \JsonSerializable {
 
 	/**
 	 * foreign key
-	 * @var Uuid $favoriteTruckId
+	 * @var Uuid|string $favoriteTruckId
 	 */
 	private $favoriteTruckId;
 
 	/**
-	 *foreign key
-	 * @var Uuid $favoriteProfileId
+	 * foreign key
+	 * @var Uuid|string $favoriteProfileId
 	 */
 	private $favoriteProfileId;
 
 
 	/**
 	 * favorite constructor.
-	 * @param $favoriteTruckId
-	 * @param $favoriteProfileId
+	 * @param $newFavoriteProfileId
+	 * @param $newFavoriteTruckId
+     * @throws \InvalidArgumentException if data types are not valid
+     * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+     * @throws \Exception if some other exception is thrown
+     * @throws \TypeError if data types violate type hints
 	 */
-	public function __construct($newFavoriteProfileId, $newFavoriteTruckId ) {
+	public function __construct($newFavoriteProfileId, $newFavoriteTruckId) {
 		try {
-			$this->setFavoriteTruckId($newFavoriteTruckId);
-			$this->setFavoriteProfileId($newFavoriteProfileId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            $this->setFavoriteTruckId($newFavoriteTruckId);
+            $this->setFavoriteProfileId($newFavoriteProfileId);
+
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -99,15 +104,16 @@ class favorite implements \JsonSerializable {
 			$this->favoriteProfileId = $uuid;
 	}
 	/**
-	 * PDO's
-	 *
+	 * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related errors occur
 	 */
 
 
 	public function insert(\PDO $pdo): void {
-		$query = "INSERT INTO favorite(favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
+	    // create a query template
+		$query = "INSERT INTO favorite (favoriteTruckId, favoriteProfileId) VALUES (:favoriteTruckId, :favoriteProfileId)";
 		$statement = $pdo->prepare($query);
-
+//bind the member variables to the place holders in the template
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
 	}
@@ -118,24 +124,37 @@ class favorite implements \JsonSerializable {
 		$parameters = ["favoriteTruckId" => $this->favoriteTruckId->getBytes(), "favoriteProfileId" => $this->favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
 	}
+    /**
+     *
+     * gets the favorite by truck id
+     * @param \PDO $pdo PDO connection object
+     * @param string $favoriteTruckId id to search for
+     * @return \SplFixedArray array of Likes found or null if not found
+     * @throws \PDOException when mySQL related errors occur
+     **/
 
-
-	public static function getFavoriteByFavoriteTruckId (\PDO $pdo, $favoriteTruckId) : \SplFixedArray {
+	public static function getFavoriteByFavoriteTruckId (\PDO $pdo, string $favoriteTruckId) : \SplFixedArray {
 		try {
 			$favoriteTruckId = self::validateUuid($favoriteTruckId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
+
+        // create query template
 		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteTruckId = :favoriteTruckId";
 		$statement = $pdo->prepare($query);
+
+        // bind the member variables to the place holders in the template
 		$parameters = ["favoriteTruckId" => $favoriteTruckId->getBytes()];
 		$statement->execute($parameters);
+
+        // build the array of likes
 		$favorites = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$favorites = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
-				$favorites[$favorites->key()] = $favorites;
+				$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
+				$favorites[$favorites->key()] = $favorite;
 				$favorites->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -145,6 +164,14 @@ class favorite implements \JsonSerializable {
 		return($favorites);
 	}
 
+    /**
+     * @param \PDO $pdo
+     * @param string $favoriteProfileId to search by
+     * @return \SplFixedArray of favorites found
+     * @throws \InvalidArgumentException if data types are not valid
+     * @throws \PDOException when mySQL related errors occur
+     * @throws \TypeError when variables are not the correct data type
+     */
 
 
 	public static function getFavoriteByFavoriteProfileId(\PDO $pdo, string $favoriteProfileId) : \SplFixedArray {
@@ -153,10 +180,16 @@ class favorite implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
+
+		//create query template
 		$query = "SELECT favoriteTruckId, favoriteProfileId FROM favorite WHERE favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
 		$parameters = ["favoriteProfileId" => $favoriteProfileId->getBytes()];
 		$statement->execute($parameters);
+
+		//build an array of favorites
 		$favorites = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {

@@ -27,7 +27,7 @@ class TruckTest extends TacoTruckTest {
 
 	/**
 	 * valid profile hash to create the profile object to own the test
-	 * @var $VALID_HASH
+	 * @var $VALID_PROFILE_HASH
 	 */
 	protected $VALID_PROFILE_HASH;
 
