@@ -204,21 +204,35 @@ class favorite implements \JsonSerializable {
 		return($favorites);
 	}
 
+    /**
+     * @param \PDO $pdo
+     * @param string $favoriteTruckId
+     * @param string $favoriteProfileId
+     * @return favorite|null
+     */
 	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo, string $favoriteTruckId, string $favoriteProfileId) {
 			try {
 				$favoriteTruckId = self::validateUuid($favoriteTruckId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
+
+
 			try {
 				$favoriteProfileId = self::validateUuid($favoriteProfileId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
+
+            // create query template
 			$query = "SELECT favoriteTruckId, favoriteProfileId FROM `favorite` WHERE favoriteTruckId = :favoriteTruckId AND favoriteProfileId = :favoriteProfileId";
 			$statement = $pdo->prepare($query);
+
+			// bind the truck id and the profile id to the place holder in the template
 			$parameters = ["favoriteTruckId" => $favoriteTruckId->getBytes(), "favoriteProfileId" => $favoriteProfileId->getBytes()];
 			$statement->execute($parameters);
+
+			// grab the favorite from mySQL
 			try {
 				$favorite = null;
 				$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -227,6 +241,7 @@ class favorite implements \JsonSerializable {
 					$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]) ;
 				}
 			} catch(\Exception $exception) {
+			    // if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 			return ($favorite);
