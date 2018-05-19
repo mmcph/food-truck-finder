@@ -211,7 +211,7 @@ class favorite implements \JsonSerializable {
      * @param string|Uuid $favoriteProfileId
      * @return favorite|null
      */
-	public static function getFavoriteByFavoriteTruckIdAndFavoriteProfileId(\PDO $pdo,  $favoriteProfileId,  $favoriteTruckId) {
+	public static function getFavoriteByFavoriteProfileIdAndFavoriteTruckId(\PDO $pdo,  $favoriteProfileId,  $favoriteTruckId) {
         try {
             $favoriteProfileId = self::validateUuid($favoriteProfileId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -229,7 +229,7 @@ class favorite implements \JsonSerializable {
 			$statement = $pdo->prepare($query);
 
 			// bind the truck id and the profile id to the place holder in the template
-			$parameters = ["favoriteTruckId" => $favoriteTruckId->getBytes(), "favoriteProfileId" => $favoriteProfileId->getBytes()];
+			$parameters = ["favoriteProfileId" => $favoriteProfileId->getBytes(), "favoriteTruckId" => $favoriteTruckId->getBytes()];
 			$statement->execute($parameters);
 
 			// grab the favorite from mySQL
