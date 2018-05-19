@@ -73,16 +73,17 @@ class FavoriteTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
 		// create a new favorite and insert to into mySQL
-		$favorite = new Favorite($this->truck->getTruckId(), $this->profile->getProfileId());
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertEquals($this->getConnection()->getRowCount("truck"), 1);
         var_dump($this->truck);
 		$favorite->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->truck->getTruckId(), $this->profile->getProfileId());
+		$pdoFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($this->getPDO(),$this->profile->getProfileId() , $this->truck->getTruckId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
-        $this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
         $this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
+        $this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
+
 
 	}
 
@@ -96,7 +97,7 @@ class FavoriteTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 		
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite($this->truck->getTruckId(), $this->profile->getProfileId());
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$favorite->insert($this->getPDO());
 
 		// delete the Favorite from mySQL
@@ -104,13 +105,13 @@ class FavoriteTest extends TacoTruckTest {
 		$favorite->delete($this->getPDO());
 
 		// grab the data from mySQL and enforce the Truck does not exist
-		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
+		$pdoFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertNull($pdoFavorite);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 	}
 
 
-	public function testGetFavoriteByFavoriteTruckIdAndFavoriteProfileId() : void {
+	public function testGetFavoriteByFavoriteProfileIdAndTruckProfileId() : void {
 		
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
@@ -120,14 +121,14 @@ class FavoriteTest extends TacoTruckTest {
 		$favorite->insert($this->getPDO());
 		
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoFavorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
+		$pdoFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
 		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
 	}
 
-	public function testGetInvalidFavoriteByFavoriteTruckIdAndFavoriteProfileId() {
-		$favorite = Favorite::getFavoriteByFavoriteTruckIdAndFavoriteProfileId($this->getPDO(), generateUuidV4(), generateUuidV4());
+	public function testGetInvalidFavoriteByFavoriteProfileIdAndFavoriteTruckId() {
+		$favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($this->getPDO(), generateUuidV4(), generateUuidV4());
 		$this->assertNull($favorite);
 	}
 
@@ -137,7 +138,7 @@ class FavoriteTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 		
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite($this->truck->getTruckId(), $this->profile->getProfileId());
+		$favorite = new Favorite($this->profile->getProfileId(), $this->truck->getTruckId());
 		$favorite->insert($this->getPDO());
 		
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -150,8 +151,8 @@ class FavoriteTest extends TacoTruckTest {
 		
 		// grab the result from the array and validate it
 		$pdoFavorite = $results[0];
-		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->profile->getTruckId());
-		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->truck->getProfileId());
+		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
 	}
 
 	public function testGetInvalidFavoriteByFavoriteTruckId() : void {
@@ -161,13 +162,16 @@ class FavoriteTest extends TacoTruckTest {
 		$this->assertCount(0, $favorite);
 	}
 
+    /**
+     * @throws \Exception
+     */
 	public function testGetFavoriteByProfileId() : void {
 		
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite( $this->truck->getTruckId(), $this->profile->getProfileId());
+		$favorite = new Favorite($this->profile->getProfileId(),$this->truck->getTruckId());
 		$favorite->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -180,10 +184,12 @@ class FavoriteTest extends TacoTruckTest {
 
 		// grab the result from the array and validate it
 		$pdoFavorite = $results[0];
-		$this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
-        $this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->truck->getProfileId());
+        $this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->profile->getTruckId());
 	}
-
+    /**
+     *
+     */
 	public function testGetInvalidFavoriteByProfileId() : void {
 
 		$favorite = Favorite::getFavoriteByFavoriteProfileId($this->getPDO(), generateUuidV4());
