@@ -195,7 +195,7 @@ class favorite implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$favorite = new Favorite($row["favoriteTruckId"], $row["favoriteProfileId"]);
+				$favorite = new Favorite($row["favoriteProfileId"], $row["favoriteTruckId"]);
 				$favorites[$favorites->key()] = $favorite;
 				$favorites->next();
 			} catch(\Exception $exception) {

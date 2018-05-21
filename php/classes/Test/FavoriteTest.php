@@ -183,8 +183,8 @@ class FavoriteTest extends TacoTruckTest {
 
 		// grab the result from the array and validate it
 		$pdoFavorite = $results[0];
-		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->truck->getProfileId());
-        $this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->profile->getTruckId());
+		$this->assertEquals($pdoFavorite->getFavoriteProfileId(), $this->profile->getProfileId());
+        $this->assertEquals($pdoFavorite->getFavoriteTruckId(), $this->truck->getTruckId());
 	}
     /**
      *
