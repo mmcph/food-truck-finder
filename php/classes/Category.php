@@ -150,13 +150,9 @@ class Category implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
-	/** updates this category in mysql
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
 
+	// UNNECESSARY CODE
+	/**
 	public function update(\PDO $pdo): void {
 
 		// create query template
@@ -166,6 +162,9 @@ class Category implements \JsonSerializable {
 		$parameters = ["categoryId" => $this->categoryId, "categoryName" => $this->categoryName];
 		$statement->execute($parameters);
 	}
+**/
+
+
 
 	/**
 	 * gets the Category by categoryId

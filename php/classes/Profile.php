@@ -424,7 +424,7 @@ class Profile implements \JsonSerializable {
 			throw(new \PDOException("user name is invalid"));
 		}
 		$profileUserName = str_replace("_", "\\_", str_replace("%", "\\%", $profileUserName));
-		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileUserName = :profileUserName";
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName FROM profile WHERE profileUserName = :profileUserName";
 		$statement = $pdo->prepare($query);
 		$profileUserName = "%$profileUserName%";
 		$parameters = ["profileUserName" => $profileUserName];
@@ -459,11 +459,10 @@ class Profile implements \JsonSerializable {
 		if(empty($profileEmail) === true) {
 			throw(new \PDOException("email is invalid"));
 		}
-
-		// $profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
+		$profileEmail = str_replace("_", "\\_", str_replace("%", "\\%", $profileEmail));
 
         // create query template
-        $query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
+        $query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName FROM profile WHERE profileEmail = :profileEmail";
 		$statement = $pdo->prepare($query);
 
 		// bind the profile id to the place holder in the template
@@ -516,7 +515,7 @@ class Profile implements \JsonSerializable {
 	 * UNNECESSARY CODE
 	 *
 	public function getAllProfiles(\PDO $pdo) : \SplFixedArray {
-		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUsername FROM profile WHERE profileEmail = :profileEmail";
+		$query = "SELECT profileId, profileActivationToken, profileEmail, profileHash, profileIsOwner, profileFirstName, profileLastName, profileUserName FROM profile WHERE profileEmail = :profileEmail";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 		$profiles = new \SplFixedArray($statement->rowCount());

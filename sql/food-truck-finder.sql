@@ -46,6 +46,7 @@ CREATE TABLE truck (
 );
 
 CREATE TABLE vote (
+	voteCandidate CHAR(6) NOT NULL,
 	voteProfileId BINARY(16) NOT NULL,
 	voteTruckId BINARY(16) NOT NULL,
 	voteValue TINYINT NOT NULL,
