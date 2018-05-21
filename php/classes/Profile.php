@@ -198,13 +198,33 @@ class Profile implements \JsonSerializable {
 	}
 
 	/**
-	 * @param string $profileHash \
+	 * mutator method for profile hash password
+	 *
+	 * @param string $newProfileHash
 	 * @throws \InvalidArgumentException if the hash is not secure
-	 * @throws \RangeException if the hash is not 128 characters
+	 * @throws \RangeException if the hash is not 97 characters
 	 * @throws \TypeError if profile hash is not a string
 	 */
-	public function setProfileHash(string $profileHash) {
-		$this->profileHash = $profileHash;
+	public function setProfileHash(string $newProfileHash): void {
+		//enforce that the hash is properly formatted
+		$newProfileHash = trim($newProfileHash);
+		if(empty($newProfileHash) === true) {
+			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
+		}
+
+		//enforce the hash is really an Argon hash
+		$profileHashInfo = password_get_info($newProfileHash);
+		if($profileHashInfo["algoName"] !== "argon2i") {
+			throw(new \InvalidArgumentException("profile hash is not a valid hash"));
+		}
+
+		//enforce that the hash is exactly 97 characters.
+		if(strlen($newProfileHash) !== 97) {
+			throw(new \RangeException("profile hash must be 97 characters"));
+		}
+
+		//store the hash
+		$this->profileHash = $newProfileHash;
 	}
 
 	/**
@@ -220,7 +240,11 @@ class Profile implements \JsonSerializable {
 	 * @param int $newProfileIsOwner
 	 * @return int value of $newProfileIsOwner
 	 */
-	public function setProfileIsOwner($newProfileIsOwner): void {
+	public function setProfileIsOwner(int $newProfileIsOwner): void {
+		if($newProfileIsOwner !== -1 && $newProfileIsOwner !== 1) {
+			throw(new \RangeException("profileIsOwner value is not -1 or 1"));
+		}
+
 		$this->profileIsOwner = $newProfileIsOwner;
 	}
 
