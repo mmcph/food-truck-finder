@@ -271,7 +271,6 @@ class Vote implements \JsonSerializable {
         }
         return ($votes);
     }
-
     /**
      *
      * @param \PDO $pdo connection object
@@ -317,23 +316,6 @@ class Vote implements \JsonSerializable {
         throw(new \PDOException($exception->getMessage(), 0, $exception));
     }
     return ($vote);
-
-
-
-
-
-//        try {
-//            $vote = null;
-//            $statement->setFetchMode(\PDO::FETCH_ASSOC);
-//            $row = $statement->fetch();
-//            if($row !== false) {
-//                $vote = new vote($row["voteProfileId"], $row["voteTruckId"]);
-//            }
-//        } catch(\Exception $exception) {
-//            // if the row couldn't be converted, rethrow it
-//            throw(new \PDOException($exception->getMessage(),0, $exception));
-//        }
-//        return ($vote);
     }
     /**
      * formats the state variables for JSON serialization

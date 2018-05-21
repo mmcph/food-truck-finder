@@ -116,13 +116,14 @@ class VoteTest extends TacoTruckTest {
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("vote"));
         $this->assertEquals($pdoVote->getVoteProfileId(),$this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
+        $this->assertEquals($pdoVote->getVoteValue(), $this->VALID_VOTEVALUE);
         //todo question - are we testing the vote values anywhere?
     }
     /**
      * test grabbing Vote that does not exist
      **/
     public function testGetInvalidVoteByProfileIdAndTruckId () {
-        // we would expect to get an error when searching for a vote that does not exist such as in this case of a null tweet
+        // we would expect to get an error when searching for a vote that does not exist
         //todo do we need to assert an error?
         $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($this->getPDO(), generateUuidV4(), generateUuidV4());
         $this->assertNull($vote);
@@ -146,6 +147,7 @@ class VoteTest extends TacoTruckTest {
         $pdoVote= $results[0];
         $this->assertEquals($pdoVote->getVoteProfileId(),$this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
+        $this->assertEquals($pdoVote->getVoteValue(), $this->VALID_VOTEVALUE);
     }
     /**
      * test grabbing Votes by a profile that has not made any votes
@@ -178,6 +180,7 @@ class VoteTest extends TacoTruckTest {
         $pdoVote = $results[0];
         $this->assertEquals($pdoVote->getVoteProfileId(), $this->profile->getProfileId());
         $this->assertEquals($pdoVote->getVoteTruckId(), $this->truck->getTruckId());
+        $this->assertEquals($pdoVote->getVoteValue(), $this->VALID_VOTEVALUE);
     }
     /**
      * test grabbing a Vote by truck that has no votes
