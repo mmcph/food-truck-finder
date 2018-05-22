@@ -37,7 +37,7 @@ class VoteTest extends TacoTruckTest {
      * @var string $VALID_ACTIVATION
      **/
     private $VALID_ACTIVATION;
-	/**
+    /**
 	 * valid VoteValue for testing purposes
 	 */
 	protected $VALID_VOTEVALUE = 1;
@@ -197,6 +197,7 @@ class VoteTest extends TacoTruckTest {
 
 		 // create a new Vote and insert it into mySQL
 		 $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
+//		 $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE1);
 		 $vote->insert($this->getPDO());
 
 		 // grab the data from mySQL and enforce the fields match our expectations

@@ -75,7 +75,9 @@ class TruckCategoryTest extends TacoTruckTest {
 		// todo Marlon suggested using null val for categoryId - change made to all instances of new TruckCategory
 		$this->category = new Category(null, "pizza pie");
 		$this->category->insert($this->getPDO());
-	}
+        var_dump($this->category);
+
+    }
 
 
 	public function testInsertValidTruckCategory(): void {
@@ -120,11 +122,11 @@ class TruckCategoryTest extends TacoTruckTest {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory($this->category->getCategoryId(), $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
-		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO());
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($this->getPDO(), $truckCategory->getTruckCategoryCategoryId(), $truckCategory->getTruckCategoryTruckId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
@@ -144,7 +146,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory($this->category->getCategoryId(), $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
@@ -169,11 +171,12 @@ class TruckCategoryTest extends TacoTruckTest {
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
-		$truckCategory = new TruckCategory(null, $this->truck->getTruckId());
+		$truckCategory = new TruckCategory($this->category->getCategoryId(), $this->truck->getTruckId());
 		$truckCategory->insert($this->getPDO());
 
 // grab the data from mySQL and enforce the fields match our expectations
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryTruckId($this->getPDO());
+		var_dump($pdoTruckCategory);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
