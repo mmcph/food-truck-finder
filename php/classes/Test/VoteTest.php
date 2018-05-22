@@ -63,8 +63,8 @@ class VoteTest extends TacoTruckTest {
         $this->truck = new Truck (generateUuidV4(), $this->profile->getProfileId(),"I am a happy little truck.", 1, 35.0772, 106.6614, "LegenDairy", "5058591234", "https://phpunit.de/");
         $this->truck->insert($this->getPDO());
         // create and insert the mocked vote
-       // $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), 1 );
-       // $this->vote->insert($this->getPDO());
+//        $this->vote = new Vote(generateUuidV4(), $this->profile->getProfileId(), $this->VALID_VOTEVALUE);
+//        $this->vote->insert($this->getPDO());
     }
     /**
      *
@@ -187,4 +187,22 @@ class VoteTest extends TacoTruckTest {
         $vote = Vote::getVoteByVoteTruckId($this->getPDO(), generateUuidV4());
         $this->assertCount(0, $vote);
     }
+
+    public function testGetVoteCountByVoteTruckId(): void {
+		 // count the number of rows and save it for later
+		 $numRows = $this->getConnection()->getRowCount("vote");
+
+		 // create a new Vote and insert it into mySQL
+		 $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
+		 $vote->insert($this->getPDO());
+
+		 // grab the data from mySQL and enforce the fields match our expectations
+		 $voteCount = Vote::getVoteCountByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
+
+
+    	$this->assertObjectHasAttribute("upVote", $voteCount);
+    	$this->assertObjectHasAttribute("downVote", $voteCount);
+
+	 }
 }
+

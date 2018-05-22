@@ -158,6 +158,40 @@ class Vote implements \JsonSerializable {
         $parameters = ["voteProfileId" =>$this->voteProfileId->getBytes(), "voteTruckId" => $this->voteTruckId->getBytes()];
         $statement->execute($parameters);
     }
+
+    public static function getVoteCountByVoteTruckId(\PDO $pdo, $voteTruckId): \stdClass {
+		 try {
+			 $voteTruckId = self::validateUuid($voteTruckId);
+		 } catch(\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception){
+			 throw(new \PDOException($exception->getMessage(), 0, $exception));
+		 }
+
+		 // create query template
+		 $query = "SELECT IF(SUM(voteValue) < 0, \"downVote\", \"upVote\") AS voteType, SUM(voteValue) AS voteCount FROM vote WHERE voteTruckId = :voteTruckId GROUP BY voteValue";
+		 $statement = $pdo->prepare($query);
+
+		 // bind the member variables to the place holder in the template
+		 $parameters = ["voteTruckId" => $voteTruckId->getBytes()];
+		 $statement->execute($parameters);
+
+		 // build the array of votes
+		 $voteCount = new \stdClass();
+		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
+			 try {
+			 	$row = $statement->fetch();
+			 	$voteCount->upVote = $row["upVote"] ?? null;
+			 	$voteCount->downVote = $row["downVote"] ?? null;
+			 } catch(\Exception $exception) {
+				 // if the row couldn't be converted, rethrow it
+				 throw(new \PDOException($exception->getMessage(),0, $exception));
+			 }
+
+
+
+
+		 return($voteCount);
+	 }
+
     /**
      *
      * gets the Vote by profile id
