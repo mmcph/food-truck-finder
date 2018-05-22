@@ -159,7 +159,7 @@ class Vote implements \JsonSerializable {
         $statement->execute($parameters);
     }
 
-    public static function getVoteCountByVoteTruckId(\PDO $pdo, $voteTruckId): \stdClass
+    public static function getVoteCountByVoteTruckId(\PDO $pdo, $voteTruckId): array
     {
         try {
             $voteTruckId = self::validateUuid($voteTruckId);
@@ -181,14 +181,22 @@ class Vote implements \JsonSerializable {
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         while (($row = $statement->fetch())!== false) {
             try {
-                var_dump($row);
-                $votes[] = $row;
+                $voteValue = $row["voteCount"] ?? (int) 0;
+
+              $vote = (object) [
+                  "voteType" => $row["voteType"],
+                  "voteCount" => $voteValue
+              ];
+              $votes[] = $vote;
+
+              // $vote($
+
             } catch (\Exception $exception) {
                 // if the row couldn't be converted, rethrow it
                 throw(new \PDOException($exception->getMessage(), 0, $exception));
             }
         }
-		 return((object) $votes);
+		 return($votes);
 	 }
 
     /**
