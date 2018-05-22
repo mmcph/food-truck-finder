@@ -192,17 +192,28 @@ class VoteTest extends TacoTruckTest {
     }
 
     public function testGetVoteCountByVoteTruckId(): void {
-		 // count the number of rows and save it for later
-		 $numRows = $this->getConnection()->getRowCount("vote");
+
 
 		 // create a new Vote and insert it into mySQL
-		 $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE);
-//		 $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), $this->VALID_VOTEVALUE1);
+		 $vote = new Vote($this->profile->getProfileId(), $this->truck->getTruckId(), 1);
 		 $vote->insert($this->getPDO());
+
+        $profile1 = new Profile(generateUuidV4(), null, "me@gmail.com", $this->VALID_HASH, 1, "my is", "slim", "rodger");
+        $profile1->insert($this->getPDO());
+
+        $profile2 = new Profile(generateUuidV4(), null,  "you@gmail.com", $this->VALID_HASH, 1, "name", "shady", "pinky");
+        $profile2->insert($this->getPDO());
+
+        // create a new Vote and insert it into mySQL
+        $vote = new Vote($profile1->getProfileId(), $this->truck->getTruckId(), -1);
+        $vote->insert($this->getPDO());
+
+        // create a new Vote and insert it into mySQL
+        $vote = new Vote($profile2->getProfileId(), $this->truck->getTruckId(), 1);
+        $vote->insert($this->getPDO());
 
 		 // grab the data from mySQL and enforce the fields match our expectations
 		 $voteCount = Vote::getVoteCountByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
-
 
     	$this->assertObjectHasAttribute("upVote", $voteCount);
     	$this->assertObjectHasAttribute("downVote", $voteCount);

@@ -75,8 +75,6 @@ class TruckCategoryTest extends TacoTruckTest {
 		// todo Marlon suggested using null val for categoryId - change made to all instances of new TruckCategory
 		$this->category = new Category(null, "pizza pie");
 		$this->category->insert($this->getPDO());
-        var_dump($this->category);
-
     }
 
 
@@ -176,7 +174,6 @@ class TruckCategoryTest extends TacoTruckTest {
 
 // grab the data from mySQL and enforce the fields match our expectations
 		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryTruckId($this->getPDO());
-		var_dump($pdoTruckCategory);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());
