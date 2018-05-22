@@ -215,15 +215,8 @@ class VoteTest extends TacoTruckTest {
 		 // grab the data from mySQL and enforce the fields match our expectations
 		 $voteCount = Vote::getVoteCountByVoteTruckId($this->getPDO(), $this->truck->getTruckId());
 
-		 //enforce the attributes for downVote match expectations
-		 $downVote = $voteCount[0];
-		 $this->assertObjectHasAttribute("voteType", $downVote );
-         $this->assertObjectHasAttribute("voteCount", $downVote );
+		 var_dump($voteCount);
 
-         //enforce the attributes for upVote match expectations
-        $upVote = $voteCount[1];
-        $this->assertObjectHasAttribute("voteType", $upVote );
-        $this->assertObjectHasAttribute("voteCount", $upVote );
 
 	 }
 }
