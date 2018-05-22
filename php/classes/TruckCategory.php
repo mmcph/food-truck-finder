@@ -49,9 +49,6 @@ class TruckCategory implements \JsonSerializable {
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
     }
-
-
-
     /**
      * accessor method for getting truckCategoryId
      * @return Uuid value of truckCategoryId
