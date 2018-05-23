@@ -54,7 +54,8 @@ class TruckCategory implements \JsonSerializable {
      * @return Uuid value of truckCategoryId
      *
      */
-    public function getTruckCategoryCategoryId(): ?int {
+    //todo getting rid of ?int and changing it to just int
+    public function getTruckCategoryCategoryId(): int {
         return ($this->truckCategoryCategoryId);
     }
 
@@ -182,9 +183,17 @@ class TruckCategory implements \JsonSerializable {
      * @throws \PDOException when mySQL related errors occur
      * @throws \TypeError when a variable are not the correct data type
      **/
-    public static function getTruckCategoryByTruckCategoryCategoryId(\PDO $pdo, int $truckCategoryCategoryId): \SPLFixedArray {
+    public static function getTruckCategoriesByTruckCategoryCategoryId(\PDO $pdo, int $truckCategoryCategoryId): \SPLFixedArray {
 
-        // create query template
+		 //sanitize the inputs
+		 try {
+		 	//todo ask about if this should be category OR Categories
+			 $truckCategoryCategoryId = self::getTruckCategoryCategoryId($truckCategoryCategoryId);
+		 } catch (\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception) {
+			 throw(new \PDOException($exception->getMessage(), 0, $exception));
+		 }
+
+		 // create query template
         $query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId";
         $statement = $pdo->prepare($query);
 
@@ -193,19 +202,19 @@ class TruckCategory implements \JsonSerializable {
         $statement->execute($parameters);
 
 		 //build an array on truckCategory
-		 $truckCategory = new \SPLFixedArray($statement->rowCount());
+		 $truckCategories = new \SPLFixedArray($statement->rowCount());
 		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
 		 while(($row = $statement->fetch()) !== false) {
 			 try {
 				 $truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-				 $truckCategory[$truckCategory->key()] = $truckCategory;
-				 $truckCategory->next();
+				 $truckCategories[$truckCategories->key()] = $truckCategory;
+				 $truckCategories->next();
 			 } catch(\Exception $exception) {
 				 // if the row couldn't be converted, rethrow it
 				 throw(new \PDOException($exception->getMessage(), 0, $exception));
 			 }
 		 }
-		 return ($truckCategory);
+		 return ($truckCategories);
     }
 
 
