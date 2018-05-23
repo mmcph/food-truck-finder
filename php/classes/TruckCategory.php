@@ -67,6 +67,7 @@ class TruckCategory implements \JsonSerializable {
      * @throws \TypeError if $truckCategoryCategoryId is not a int
      *
      */
+    //todo ?int ?
     public function setTruckCategoryCategoryId(?int $newTruckCategoryCategoryId): void {
         if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
             throw new \RangeException("truckCategoryCategoryId is not between 0 and 255");
@@ -186,13 +187,17 @@ class TruckCategory implements \JsonSerializable {
      **/
     public static function getTruckCategoriesByTruckCategoryCategoryId(\PDO $pdo, int $truckCategoryCategoryId): \SPLFixedArray {
 
+		 //todo ask about if this should be category OR Categories
 		 //sanitize the inputs
-		 try {
-		 	//todo ask about if this should be category OR Categories
-			 $truckCategoryCategoryId = self::getTruckCategoryCategoryId($truckCategoryCategoryId);
-		 } catch (\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception) {
-			 throw(new \PDOException($exception->getMessage(), 0, $exception));
+		 $truckCategoryCategoryId = filter_var($truckCategoryCategoryId, FILTER_VALIDATE_INT, FILTER_SANITIZE_NUMBER_INT);
+		 if(empty($truckCategoryCategoryId) === true){
+			 throw(new \PDOException("truck category category ID is invalid"));
 		 }
+//		 try {
+//			 $truckCategoryCategoryId = self::getTruckCategoryCategoryId($truckCategoryCategoryId);
+//		 } catch (\InvalidArgumentException | \RangeException |\Exception |\TypeError $exception) {
+//			 throw(new \PDOException($exception->getMessage(), 0, $exception));
+//		 }
 
 		 // create query template
         $query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId";
