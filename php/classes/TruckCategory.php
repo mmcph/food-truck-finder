@@ -6,7 +6,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
- * Class TruckCategory- Represents the Category of Trucks
+ * Class TruckCategory- Represents the intersection between Trucks and Categories (stores which food categories a particular truck serves)
  * and gets truck category id as well as a truck id
  * @author Manuel Escobar III <mescobar14@cnm.edu>
  *
@@ -69,7 +69,7 @@ class TruckCategory implements \JsonSerializable {
      */
     public function setTruckCategoryCategoryId(?int $newTruckCategoryCategoryId): void {
         if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
-            throw new \RangeException("truckCategoryCategoryId is out of range");
+            throw new \RangeException("truckCategoryCategoryId is not between 0 and 255");
         }
 
         // convert and store the truckCategoryCategoryId
@@ -130,11 +130,12 @@ class TruckCategory implements \JsonSerializable {
 
 
         // create query template
-        $query = "DELETE FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId";
+		 //todo TCCI or TCTI deletion? I think both
+        $query = "DELETE FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId AND truckCategoryTruckId = :truckCategoryTruckId";
         $statement = $pdo->prepare($query);
 
         // bind the member variables to the place holder in the template
-        $parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId];
+        $parameters = ["truckCategoryCategoryId" => $this->truckCategoryCategoryId, "truckCategoryTruckId" => $this->truckCategoryTruckId];
         $statement->execute($parameters);
     }
 
@@ -155,7 +156,7 @@ class TruckCategory implements \JsonSerializable {
         $query = "SELECT truckCategoryCategoryId, truckCategoryTruckId FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId AND truckCategoryTruckId = :truckCategoryTruckId";
         $statement = $pdo->prepare($query);
 
-        $parameters = ["truckCategoryCategoryId" => $truckCategoryCategoryId,"truckCategoryTruckId" => $truckCategoryTruckId->getBytes()];
+        $parameters = ["truckCategoryCategoryId" => $truckCategoryCategoryId, "truckCategoryTruckId" => $truckCategoryTruckId->getBytes()];
         $statement->execute($parameters);
 
         // grab the truckCategory from mySQL
