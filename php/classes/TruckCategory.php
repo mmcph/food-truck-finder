@@ -234,7 +234,7 @@ class TruckCategory implements \JsonSerializable {
      * @throws \PDOException when mySQL related errors occur
      * @throws \TypeError when a variable are not the correct data type
      **/
-    public static function getTruckCategoriesByTruckCategoryTruckId(\PDO $pdo, $truckCategoryTruckId): \SPLFixedArray  {
+    public static function getTruckCategoryByTruckCategoryTruckId(\PDO $pdo, $truckCategoryTruckId): \SPLFixedArray  {
         // sanitize the truckCategoryId before searching
         try {
             $truckCategoryTruckId = self::validateUuid($truckCategoryTruckId);
@@ -256,14 +256,14 @@ class TruckCategory implements \JsonSerializable {
         while(($row = $statement->fetch()) !== false) {
             try {
                 $truckCategory = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-                $truckCategories[$truckCategories->key()] = $truckCategory;
+                $truckCategories[$truckCategory->key()] = $truckCategory;
                 $truckCategories->next();
             } catch(\Exception $exception) {
                 // if the row couldn't be converted, rethrow it
                 throw(new \PDOException($exception->getMessage(), 0, $exception));
             }
         }
-        return($truckCategories);
+        return($truckCategory);
     }
 
 
