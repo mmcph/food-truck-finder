@@ -116,7 +116,7 @@ class TruckCategoryTest extends TacoTruckTest {
 	}
 
 
-	public function getValidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(): void {
+	public function testGetValidTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId(): void {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 		// create a new TruckCategory and insert to into mySQL
@@ -139,7 +139,7 @@ class TruckCategoryTest extends TacoTruckTest {
 	}
 
 
-	public function getValidTruckCategoryByTruckCategoryCategoryId(): void {
+	public function testGetValidTruckCategoryByTruckCategoryCategoryId(): void {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
@@ -164,16 +164,23 @@ class TruckCategoryTest extends TacoTruckTest {
 
 
 
-	public function getValidTruckCategoriesByTruckCategoryTruckId(): void {
+	public function testGetValidTruckCategoryByTruckCategoryTruckId(): void {
 		//counts the number of rows and saves it for later
 		$numRows = $this->getConnection()->getRowCount("truckCategory");
 
 		// create a new TruckCategory and insert to into mySQL
 		$truckCategory = new TruckCategory($this->category->getCategoryId(), $this->truck->getTruckId());
+
+
+		var_dump($truckCategory);
 		$truckCategory->insert($this->getPDO());
 
+
+
 // grab the data from mySQL and enforce the fields match our expectations
-		$pdoTruckCategory = TruckCategory::getTruckCategoriesByTruckCategoryCategoryId($this->getPDO());
+		$pdoTruckCategory = TruckCategory::getTruckCategoryByTruckCategoryTruckId($this->getPDO(), $truckCategory->getTruckCategoryCategoryId());
+
+		var_dump($pdoTruckCategory);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truckCategory"));
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoTruckCategory->getTruckCategoryTruckId(), $this->truck->getTruckId());

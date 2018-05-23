@@ -188,8 +188,7 @@ class TruckCategory implements \JsonSerializable {
     public static function getTruckCategoriesByTruckCategoryCategoryId(\PDO $pdo, int $truckCategoryCategoryId): \SPLFixedArray {
 
 		 //todo ask about if this should be category OR Categories
-		 //sanitize the inputs
-		 $truckCategoryCategoryId = filter_var($truckCategoryCategoryId, FILTER_VALIDATE_INT, FILTER_SANITIZE_NUMBER_INT);
+
 		 if(empty($truckCategoryCategoryId) === true){
 			 throw(new \PDOException("truck category category ID is invalid"));
 		 }
