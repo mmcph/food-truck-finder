@@ -104,21 +104,26 @@ try {
 		//perform the actual put or post
 		if($method === "PUT") {
 
-			// retrieve the tweet to update
-			$tweet = Tweet::getTweetByTweetId($pdo, $id);
-			if($tweet === null) {
-				throw(new RuntimeException("Tweet does not exist", 404));
+			// retrieve the truck to update
+			$truck = Truck::getTruckByTruckId($pdo, $id);
+			if($truck === null) {
+				throw(new RuntimeException("Truck does not exist", 404));
 			}
 
-			//enforce the user is signed in and only trying to edit their own tweet
-			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $tweet->getTweetProfileId()->toString()) {
-				throw(new \InvalidArgumentException("You are not allowed to edit this tweet", 403));
+			//enforce the user is signed in and only trying to edit their own truck
+			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $truck->getTruckProfileId()->toString()) {
+				throw(new \InvalidArgumentException("Truck may only be edited by the truck owner.", 403));
 			}
 
 			// update all attributes
-			$tweet->setTweetDate($requestObject->tweetDate);
-			$tweet->setTweetContent($requestObject->tweetContent);
-			$tweet->update($pdo);
+			$truck->setTruckBio($requestObject->truckBio);
+			$truck->setTruckIsOpen($requestObject->truckIsOpen);
+			$truck->setTruckLatitude($requestObject->truckLatitude);
+			$truck->setTruckLongitude($requestObject->truckLongitude);
+			$truck->setTruckName($requestObject->truckName);
+			$truck->setTruckPhone($requestObject->truckPhone);
+			$truck->setTruckUrl($requestObject->truckUrl);
+			$truck->update($pdo);
 
 			// update reply
 			$reply->message = "Tweet updated OK";
