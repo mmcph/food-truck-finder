@@ -86,16 +86,19 @@ try {
 		// This line then decodes the JSON package and stores that result in $requestObject
 		$requestObject = json_decode($requestContent);
 
+		//make sure truckProfileId is available (required field)
+		if(empty($requestObject->truckProfileId) === true) {
+			throw(new \InvalidArgumentException ("truckProfileId is a required value.", 405));
+		}
+
 		//make sure truckIsOpen is available (required field)
 		if(empty($requestObject->truckIsOpen) === true) {
 			throw(new \InvalidArgumentException ("truckIsOpen is a required value.", 405));
 		}
 
-
-
-		//  make sure profileId is available
-		if(empty($requestObject->tweetProfileId) === true) {
-			throw(new \InvalidArgumentException ("No Profile ID.", 405));
+		//make sure truckName is available (required field)
+		if(empty($requestObject->truckName) === true) {
+			throw(new \InvalidArgumentException ("truckName is a required value.", 405));
 		}
 
 		//perform the actual put or post
