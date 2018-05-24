@@ -234,7 +234,6 @@ class Category implements \JsonSerializable {
 
 	/**
 	 * gets all Categories
-	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @return \SplFixedArray SplFixedArray of Categories found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
