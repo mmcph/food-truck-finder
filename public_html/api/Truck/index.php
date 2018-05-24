@@ -3,11 +3,15 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
+require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\FoodTruck\{
 	Truck,
-	Profile
+	Profile,
+	Favorite,
+	Vote,
+	TruckCategory
 };
 
 
@@ -16,7 +20,7 @@ use Edu\Cnm\FoodTruck\{
  *
  * @author {} <valebmeza@gmail.com>
  * @coauthor Derek Mauldin <derek.e.mauldin@gmail.com>
- * @editor Marlon McPherson
+ * @editor MMCPH
  **/
 
 //verify the session, start if not active
@@ -31,13 +35,12 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/PLACEHOLDER.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
 
 	//determine which HTTP method was used
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	//todo $id seems generic, change to id to reflect state var?
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckProfileId = filter_input(INPUT_GET, "truckProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckBio = filter_input(INPUT_GET, "truckBio", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -63,13 +66,10 @@ try {
 			$reply->data = Truck::getTruckByTruckId($pdo, $id);
 		} else if(empty($truckProfileId) === false) {
 			$reply->data = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
-		} else if(empty($truckIsOpen) === false) { //todo empty or null? is_null() not working here
-			$reply->data = Truck::getTruckByTruckIsOpen($pdo, $truckIsOpen)->toArray();
 		} else if(empty($truckName) === false) {
 			$reply->data = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
 		} else {
-			//todo no such method; no use case AFAIK
-			$reply->data = Truck::getAllTrucks($pdo)->toArray();
+			$reply->data = Truck::getTruckByTruckIsOpen($pdo, $truckIsOpen)->toArray();
 		}
 	}
 
@@ -86,22 +86,12 @@ try {
 		// This line then decodes the JSON package and stores that result in $requestObject
 		$requestObject = json_decode($requestContent);
 
-		//make sure profileIsOpen is available (required field)
-		if(empty($requestObject->tweetContent) === true) {
-			throw(new \InvalidArgumentException ("No content for Tweet.", 405));
+		//make sure truckIsOpen is available (required field)
+		if(empty($requestObject->truckIsOpen) === true) {
+			throw(new \InvalidArgumentException ("truckIsOpen is a required value.", 405));
 		}
 
-		// make sure tweet date is accurate (optional field)
-		if(empty($requestObject->tweetDate) === true) {
-			$requestObject->tweetDate = null;
-		} else {
-			// if the date exists, Angular's milliseconds since the beginning of time MUST be converted
-			$tweetDate = DateTime::createFromFormat("U.u", $requestObject->tweetDate / 1000);
-			if($tweetDate === false) {
-				throw(new RuntimeException("invalid tweet date", 400));
-			}
-			$requestObject->tweetDate = $tweetDate;
-		}
+
 
 		//  make sure profileId is available
 		if(empty($requestObject->tweetProfileId) === true) {
