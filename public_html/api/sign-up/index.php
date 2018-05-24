@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\Foodtruck\Profile;
+use Edu\Cnm\FoodTruck\Profile;
 
 
 /**
@@ -80,7 +80,7 @@ try {
         $profileActivationToken = bin2hex(random_bytes(16));
 
         //create the profile object and prepare to insert into the database
-        $profile = new Profile(generateUuidV4(), $profileActivationToken, $requestObject->profileEmail, $hash, $requestObject->profileIsOwner, $requestObject->profileFirstName, $requestObject->profileLastName. $requestObject->profileUserName);
+        $profile = new Profile(generateUuidV4(), $profileActivationToken, $requestObject->profileEmail, $hash, $requestObject->profileIsOwner, $requestObject->profileFirstName, $requestObject->profileLastName,$requestObject->profileUserName);
 
         //insert the profile into the database
         $profile->insert($pdo);
