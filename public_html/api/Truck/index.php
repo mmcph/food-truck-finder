@@ -41,7 +41,7 @@ try {
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckProfileId = filter_input(INPUT_GET, "truckProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckBio = filter_input(INPUT_GET, "truckBio", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckIsOpen = filter_input(INPUT_GET, "truckIsOpen", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -71,11 +71,10 @@ try {
 		} else {
 			$reply->data = Truck::getTruckByTruckIsOpen($pdo, $truckIsOpen)->toArray();
 		}
-	}
 
-	//PUT and POST if blocks
+		//PUT and POST if blocks
 
-	else if($method === "PUT" || $method === "POST") {
+	} else if($method === "PUT" || $method === "POST") {
 
 		// enforce the user has a XSRF token
 		verifyXsrf();
@@ -107,7 +106,7 @@ try {
 			// retrieve the truck to update
 			$truck = Truck::getTruckByTruckId($pdo, $id);
 			if($truck === null) {
-				throw(new RuntimeException("Truck does not exist", 404));
+				throw(new RuntimeException("This truck does not exist.", 404));
 			}
 
 			//enforce the user is signed in and only trying to edit their own truck
@@ -126,21 +125,55 @@ try {
 			$truck->update($pdo);
 
 			// update reply
-			$reply->message = "Tweet updated OK";
+			$reply->message = "Truck updated successfully.";
 
 		} else if($method === "POST") {
 
 			// enforce the user is signed in
 			if(empty($_SESSION["profile"]) === true) {
-				throw(new \InvalidArgumentException("you must be logged in to post tweets", 403));
+				throw(new \InvalidArgumentException("Only logged in users may add a truck.", 403));
 			}
 
-			// create new tweet and insert into the database
-			$tweet = new Tweet(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->tweetContent, null);
-			$tweet->insert($pdo);
+			// create new truck and insert into the database
+			//todo hard-code truckIsOpen to 0 (closed)? What about Lat/Long?
+			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->truckBio, 0, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
+			$truck->insert($pdo);
 
 			// update reply
-			$reply->message = "Tweet created OK";
+			$reply->message = "Truck created successfully.";
 		}
 
+//		DELETE BLOCK
+
+	} else if($method === "DELETE") {
+
+		//enforce that the end user has a XSRF token.
+		verifyXsrf();
+
+		// retrieve the Truck to be deleted
+		$truck = Truck::getTruckByTruckId($pdo, $id);
+		if($truck === null) {
+			throw(new RuntimeException("This truck does not exist.", 404));
+		}
+
+		//enforce the user is signed in and only trying to edit their own truck
+		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $truck->getTruckProfileId()) {
+			throw(new \InvalidArgumentException("This truck may only be deleted by its owner.", 403));
+		}
+
+		// delete truck
+		$truck->delete($pdo);
+		// update reply
+		$reply->message = "Truck deleted successfully.";
 	}
+
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+}
+
+// encode and return reply to front end caller
+header("Content-type: application/json");
+echo json_encode($reply);
+
+// finally - JSON encodes the $reply object and sends it back to the front end.
