@@ -38,6 +38,7 @@ try {
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	//todo ask George about this, if the intersection table needs id line 40 or not. like does not have this.
 	$truckCategoryCategoryId = filter_input(INPUT_GET, "truckCategoryCategoryId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckCategoryTruckId = filter_input(INPUT_GET, "truckCategoryTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
