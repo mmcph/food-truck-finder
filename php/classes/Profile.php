@@ -133,7 +133,7 @@ class Profile implements \JsonSerializable {
 	 * accessor method
 	 * @return string value of $profileActivationToken
 	 */
-	function getProfileActivationToken(): string {
+	function getProfileActivationToken(): ?string {
 		return $this->profileActivationToken;
 	}
 
