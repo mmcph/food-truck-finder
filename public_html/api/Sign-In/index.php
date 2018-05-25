@@ -11,15 +11,18 @@ use Edu\Cnm\FoodTruck\Profile;
  * @author G Cordova gcordova25@cnm.net
  **/
 //prepare an empty reply
+
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 try {
     //start session
+
     if(session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
     //grab mySQL statement
+
     $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
     //determine which HTTP method is being used
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];

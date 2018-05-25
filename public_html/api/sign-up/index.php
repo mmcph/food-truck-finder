@@ -156,7 +156,7 @@ EOF;
             throw(new RuntimeException("unable to send email", 400));
         }
         // update reply
-        $reply->message = "Thank you for creating a profile with DDC-Twitter";
+        $reply->message = "Thank you for creating a profile with FoodTruck Finder :D";
     } else {
         throw (new InvalidArgumentException("invalid http request"));
     }
