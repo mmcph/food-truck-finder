@@ -50,11 +50,10 @@ class TruckCategory implements \JsonSerializable {
         }
     }
     /**
-     * accessor method for getting truckCategoryId
-     * @return Uuid value of truckCategoryId
+     * accessor method for getting truckCategoryCategoryId
+     * @return int value of truckCategoryCategoryId
      *
      */
-    //todo getting rid of ?int and changing it to just int
     public function getTruckCategoryCategoryId(): int {
         return ($this->truckCategoryCategoryId);
     }
@@ -67,7 +66,6 @@ class TruckCategory implements \JsonSerializable {
      * @throws \TypeError if $truckCategoryCategoryId is not a int
      *
      */
-    //todo ?int ?
     public function setTruckCategoryCategoryId(?int $newTruckCategoryCategoryId): void {
         if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
             throw new \RangeException("truckCategoryCategoryId is not between 0 and 255");
@@ -94,8 +92,7 @@ class TruckCategory implements \JsonSerializable {
     /**
      * mutator method for $truckCategoryCategoryId
      *
-     * @param mixed $newTruckCategoryTruckId
-     * @param string  $newTruckCategoryTruckId new value of truckCategoryTruckId id
+     * @param  Uuid | string  $newTruckCategoryTruckId new value of truckCategoryTruckId id
      * @throws \RangeException if $newTruckCategoryTruckId is not positive
      * @throws \TypeError if $newTruckCategoryTruckId is not an integer
      */
@@ -131,7 +128,6 @@ class TruckCategory implements \JsonSerializable {
 
 
         // create query template
-		 //todo TCCI or TCTI deletion? I think both
         $query = "DELETE FROM truckCategory WHERE truckCategoryCategoryId = :truckCategoryCategoryId AND truckCategoryTruckId = :truckCategoryTruckId";
         $statement = $pdo->prepare($query);
 
@@ -145,8 +141,8 @@ class TruckCategory implements \JsonSerializable {
      * gets the TruckCategory by TruckCategoryCategoryId And TruckCategoryTruckId
      *
      * @param \PDO $pdo PDO connection object
-     * @param int | null $truckCategoryCategoryId
-     * @param Uuid | string $truckCategoryTruckId
+     * @param  int | null $truckCategoryCategoryId
+     * @param  Uuid | string $truckCategoryTruckId
      * @return TruckCategory|null Truck found or null if not found
      * @throws \PDOException when mySQL related errors occur
      * @throws \TypeError when a variable are not the correct data type
@@ -180,14 +176,13 @@ class TruckCategory implements \JsonSerializable {
      * gets the TruckCategory by TruckCategoryCategoryId
      *
      * @param \PDO $pdo PDO connection object
-     * @param Uuid| string $truckCategoryCategoryId TruckCategory id to search for
+     * @param  int | null $truckCategoryCategoryId TruckCategory id to search for
      * @return \SplFixedArray SplFixedArray of truckCategory
      * @throws \PDOException when mySQL related errors occur
      * @throws \TypeError when a variable are not the correct data type
      **/
     public static function getTruckCategoriesByTruckCategoryCategoryId(\PDO $pdo, int $truckCategoryCategoryId): \SPLFixedArray {
 
-		 //todo ask about if this should be category OR Categories
 
 		 if(empty($truckCategoryCategoryId) === true){
 			 throw(new \PDOException("truck category category ID is invalid"));
@@ -223,7 +218,7 @@ class TruckCategory implements \JsonSerializable {
      * gets the TruckCategory by TruckCategoryTruckId
      *
      * @param \PDO $pdo PDO connection object
-     * @param Uuid| string $truckCategoryTruckId TruckCategory id to search for
+     * @param  Uuid| string $truckCategoryTruckId TruckCategory id to search for
      * @return \SplFixedArray SplFixedArray of truckCategory
      * @throws \PDOException when mySQL related errors occur
      * @throws \TypeError when a variable are not the correct data type
@@ -257,15 +252,12 @@ class TruckCategory implements \JsonSerializable {
                 throw(new \PDOException($exception->getMessage(), 0, $exception));
             }
         }
-        //todo changed to return
         return($truckCategories);
     }
-
 
     /**
      * stays at bottom of class page
      * formats the state variables for JSON serialization
-     *
      * @return array resulting state variables to serialize
      **/
     public function jsonSerialize(): array {
