@@ -42,31 +42,31 @@ try {
     $profileUserName = filter_input(INPUT_GET, "profileUserName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
     // make sure the id is valid for methods that require it
-    if(($method === "DELETE" || $method === "PUT") && (empty($id) === true )) {
+    if(($method === "PUT") && (empty($id) === true )) {
         throw(new InvalidArgumentException("id cannot be empty or negative", 405));
     }
     if($method === "GET") {
         //set XSRF cookie
         setXsrfCookie();
-
-        //gets a post by content
-        if(empty($id) === false) {
-            $profile = Profile::getProfileByProfileId($pdo, $id);
-            if($profile !== null) {
-                $reply->data = $profile;
-            }
-        } else if(empty($profileEmail) === false) {
-            $profile = Profile::getProfileByProfileEmail($pdo, $profileAtHandle);
-            if($profile !== null) {
-                $reply->data = $profile;
-            }
-        } else if(empty($profileUserName) === false) {
-
-            $profile = Profile::getProfileByUserName($pdo, $profileEmail);
-            if($profile !== null) {
-                $reply->data = $profile;
-            }
-        }
+// not needed?
+//        //gets a post by content
+//        if(empty($id) === false) {
+//            $profile = Profile::getProfileByProfileId($pdo, $id);
+//            if($profile !== null) {
+//                $reply->data = $profile;
+//            }
+//        } else if(empty($profileEmail) === false) {
+//            $profile = Profile::getProfileByProfileEmail($pdo, $profileAtHandle);
+//            if($profile !== null) {
+//                $reply->data = $profile;
+//            }
+//        } else if(empty($profileUserName) === false) {
+//
+//            $profile = Profile::getProfileByUserName($pdo, $profileEmail);
+//            if($profile !== null) {
+//                $reply->data = $profile;
+//            }
+//        }
         } elseif($method === "PUT") {
 
         //enforce that the XSRF token is present in the header
@@ -94,7 +94,7 @@ try {
 
 
         //profile username
-        if(empty($requestObject->profileUsername) === true) {
+        if(empty($requestObject->profileUserName) === true) {
             throw(new \InvalidArgumentException ("No profile with this username", 405));
         }
 
@@ -104,7 +104,7 @@ try {
         }
 
 
-        $profile->setProfileUsername($requestObject->profileUsername);
+        $profile->setProfileUserName($requestObject->profileUserName);
         $profile->setProfileEmail($requestObject->profileEmail);
         $profile->update($pdo);
 
