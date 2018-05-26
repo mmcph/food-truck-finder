@@ -36,10 +36,9 @@ try {
     $method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
     //sanitize input
-    $id = filter_input(INPUT_GET, "voteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-    //todo this thing id variable name
-    $voteTruckId = filter_input(INPUT_GET, "voteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-    $voteValue = filter_input(INPUT_GET, "voteValue", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $voteProfileId = filter_input(INPUT_GET, "voteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $voteTruckId = filter_input(INPUT_GET, "voteValue", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 //todo is this the best sanitization for voteValue int?
     //make sure the id is valid for methods that require it
     if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
