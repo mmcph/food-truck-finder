@@ -21,7 +21,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 //prepare an empty reply
 $reply = new stdClass();
 $reply->status = 200;
-$reply->data = null
+$reply->data = null;
 
 try {
     $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
@@ -34,40 +34,40 @@ try {
     if($method === "GET") {
         //set XSRF cookie
         setXsrfCookie();
-        //gets  a specific like associated based on its composite key
-        if ($voteProfileId !== null && $voteTruckId !== null) {
-            $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($pdo, $voteProfileId, $voteTruckId);
-            if($vote!== null) {
-                $reply->data = $vote;
-            }
-            //get all of the votes associated with the profile id - this may not be needed for us?
-        } else if(empty($voteProfileId) === false) {
-            $vote = Vote::getVotesByVoteProfileId($pdo, $voteProfileId)->toArray();
-            if($vote !== null) {
-                $reply->data = $vote;
-            }
-            //get all the votes associated with the truck id
-        } else if(empty($voteTruckId) === false) {
-            $vote = Vote::getVotesByVoteTruckId($pdo, $voteTruckId)->toArray();
-            if($vote !== null) {
-                $reply->data = $vote;
-            }
-        } else {
-            throw new InvalidArgumentException("incorrect search parameters ", 404);
-        }
+//        //gets  a specific like associated based on its composite key
+//        if ($voteProfileId !== null && $voteTruckId !== null) {
+//            $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($pdo, $voteProfileId, $voteTruckId);
+//            if($vote!== null) {
+//                $reply->data = $vote;
+//            }
+//            //get all of the votes associated with the profile id - this may not be needed for us?
+//        } else if(empty($voteProfileId) === false) {
+//            $vote = Vote::getVotesByVoteProfileId($pdo, $voteProfileId)->toArray();
+//            if($vote !== null) {
+//                $reply->data = $vote;
+//            }
+//            //get all the votes associated with the truck id
+//        } else if(empty($voteTruckId) === false) {
+//            $vote = Vote::getVoteByVoteTruckId($pdo, $voteTruckId)->toArray();
+//            if($vote !== null) {
+//                $reply->data = $vote;
+//            }
+//        } else {
+//            throw new InvalidArgumentException("incorrect search parameters ", 404);
+//        }
     } else if($method === "POST") {
         //decode the response from the front end
         $requestContent = file_get_contents("php://input");
         $requestObject = json_decode($requestContent);
-        if(empty($requestObject->likeProfileId) === true) {
-            throw (new \InvalidArgumentException("No Profile linked to the Like", 405));
-        }
-        if(empty($requestObject->likeTweetId) === true) {
-            throw (new \InvalidArgumentException("No tweet linked to the Like", 405));
-        }
-        if(empty($requestObject->likeDate) === true) {
-            $requestObject->LikeDate =  date("y-m-d H:i:s");
-        }
+//        if(empty($requestObject->likeProfileId) === true) {
+//            throw (new \InvalidArgumentException("This profile has not voted", 405));
+//        }
+//        if(empty($requestObject->voteTruckId) === true) {
+//            throw (new \InvalidArgumentException("This truck has no votes", 405));
+//        }
+//        if(empty($requestObject->voteValue) === true) {
+//            $requestObject->VoteValue = is_int();
+//        }
         if($method === "POST") {
             //enforce that the end user has a XSRF token.
             verifyXsrf();
@@ -78,9 +78,9 @@ try {
                 throw(new \InvalidArgumentException("You must first log in to vote", 403));
             }
             //validateJwtHeader();
-            $vote = new Vote($_SESSION["profile"]->getProfileId(), $requestObject->voteTruckId);
+            $vote = new Vote($_SESSION["profile"]->getProfileId(), $requestObject->voteTruckId, $requestObject->voteValue);
             $vote->insert($pdo);
-            $reply->message = "foodtruck liked successful";
+            $reply->message = "foodtruck voted on successfully";
         } else if($method === "DELETE") {
             //enforce the end user has a XSRF token.
             verifyXsrf();
