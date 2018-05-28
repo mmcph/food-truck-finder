@@ -8,7 +8,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Faqt\ {Category};
 
 /**
- * API for Category
+ * API for category
  *
  * @author G Cordova gcordovaone@gmail.com
  */
@@ -69,7 +69,7 @@ try {
 			//retrieve the category to be updated
 			$category = Category::getCategoryByCategoryId($pdo, $id);
 			if($category === null) {
-				throw(new RuntimeException("Category does not exist", 404));
+				throw(new RuntimeException("category does not exist", 404));
 			}
 			//category profile id
 			if(empty($requestObject->categoryProfileId) === true) {
@@ -83,7 +83,7 @@ try {
 			$category->setCategoryName($requestObject->categoryName);
 			$category->update($pdo);
 			// update reply
-			$reply->message = "Category information updated";
+			$reply->message = "category information updated";
 		} elseif($method === "POST") {
 			// enforce the user is signed in
 			if(empty($_SESSION["profile"]) === true) {
@@ -93,7 +93,7 @@ try {
 			$category = new Category(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->categoryName);
 			$category->insert($pdo);
 			// update reply
-			$reply->message = "Category created OK";
+			$reply->message = "category created OK";
 		}
 		// delete method
 	} elseif($method === "DELETE") {
@@ -103,7 +103,7 @@ try {
 		//validateJwtHeader();
 		$category = Category::getCategoryByCategoryId($pdo, $id);
 		if($category === null) {
-			throw (new RuntimeException("Category does not exist"));
+			throw (new RuntimeException("category does not exist"));
 		}
 		//enforce the user is signed in and only trying to edit their own category
 		if(empty($_SESSION["category"]) === true || $_SESSION["category"]->getCategoryId()->toString() !== $category->getCategoryId()->toString()) {
@@ -112,7 +112,7 @@ try {
 		validateJwtHeader();
 		//delete the post from the database
 		$category->delete($pdo);
-		$reply->message = "Category Deleted";
+		$reply->message = "category Deleted";
 	} else {
 		throw (new InvalidArgumentException("Invalid HTTP request", 400));
 	}

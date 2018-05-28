@@ -6,7 +6,7 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 /**
- * Class Category
+ * Class category
  * This class represents an enumeration table holding pairs of categoryIds (auto-incrementing) and categoryNames
  * @package Edu\Cnm\FoodTruck
  *
@@ -98,7 +98,7 @@ class Category implements \JsonSerializable {
 		$newCategoryName = trim($newCategoryName);
 		$newCategoryName = filter_var($newCategoryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCategoryName) === true) {
-			throw(new \InvalidArgumentException("Category name value is empty or insecure"));
+			throw(new \InvalidArgumentException("category name value is empty or insecure"));
 		}
 
 		if(strlen($newCategoryName) > 32) {
@@ -167,11 +167,11 @@ class Category implements \JsonSerializable {
 
 
 	/**
-	 * gets the Category by categoryId
+	 * gets the category by categoryId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $categoryId category id to search for
-	 * @return Category|null Category found or null if not found
+	 * @return Category|null category found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
@@ -200,11 +200,11 @@ class Category implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Category by categoryName
+	 * gets the category by categoryName
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $categoryName category name to search for
-	 * @return Category|null Category found or null if not found
+	 * @return Category|null category found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/

@@ -10,9 +10,9 @@ require_once(dirname(__DIR__) . "/autoload.php");
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
- * Full PHPUnit test for the Truck class
+ * Full PHPUnit test for the truck class
  *
- * This is a complete PHPUnit test of the Truck class. It is complete because *ALL* mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the truck class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
  * @see Truck
@@ -20,7 +20,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class TruckTest extends TacoTruckTest {
 	/**
-	 * Profile that created the Truck; this is for foreign key relations
+	 * Profile that created the truck; this is for foreign key relations
 	 * @var Profile profile
 	 **/
 	protected $profile = null;
@@ -132,20 +132,20 @@ class TruckTest extends TacoTruckTest {
 		$password = "abc123";
 		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
-		// create and insert a Profile to own the test Truck
+		// create and insert a Profile to own the test truck
 		$this->profile = new Profile (generateUuidV4(), $this->VALID_ACTIVATIONTOKEN, "test@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
 
 	}
 
 	/**
-	 * test inserting a valid Truck and verify that the actual mySQL data matches
+	 * test inserting a valid truck and verify that the actual mySQL data matches
 	 **/
 	public function testInsertValidTruck() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Truck and insert to into mySQL
+		// create a new truck and insert to into mySQL
 		$truckId = generateUuidV4();
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
@@ -165,18 +165,18 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test inserting a Truck, editing it, and then updating it
+	 * test inserting a truck, editing it, and then updating it
 	 **/
 	public function testUpdateValidTruck() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Truck and insert to into mySQL
+		// create a new truck and insert to into mySQL
 		$truckId = generateUuidV4();
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
 
-		// edit the Truck and update it in mySQL
+		// edit the truck and update it in mySQL
 		$truck->setTruckBio($this->VALID_TRUCKBIO2);
 		$truck->setTruckIsOpen($this->VALID_TRUCKISOPEN2);
 		$truck->setTruckLatitude($this->VALID_TRUCKLATITUDE2);
@@ -201,29 +201,29 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test creating a Truck and then deleting it
+	 * test creating a truck and then deleting it
 	 **/
 	public function testDeleteValidTruck() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Truck and insert to into mySQL
+		// create a new truck and insert to into mySQL
 		$truckId = generateUuidV4();
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
 
-		// delete the Truck from mySQL
+		// delete the truck from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
 		$truck->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Truck does not exist
+		// grab the data from mySQL and enforce the truck does not exist
 		$pdoTruck = Truck::getTruckByTruckId($this->getPDO(), $truck->getTruckId());
 		$this->assertNull($pdoTruck);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("truck"));
 	}
 
 	/**
-	 * test grabbing a Truck that does not exist via truckId
+	 * test grabbing a truck that does not exist via truckId
 	 **/
 	public function testGetInvalidTruckByTruckId() : void {
 		// grab a truck id that exceeds the maximum allowable truck id
@@ -232,13 +232,13 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test inserting a Truck and regrabbing it from mySQL
+	 * test inserting a truck and regrabbing it from mySQL
 	 **/
 	public function testGetValidTruckByTruckProfileId() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Truck and insert to into mySQL
+		// create a new truck and insert to into mySQL
 		$truckId = generateUuidV4();
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
@@ -247,7 +247,7 @@ class TruckTest extends TacoTruckTest {
 		$results = Truck::getTruckByTruckProfileId($this->getPDO(), $truck->getTruckProfileId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("truck"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Truck", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\truck", $results);
 
 		// grab the result from the array and validate it
 		$pdoTruck = $results[0];
@@ -264,7 +264,7 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Truck that does not exist via truckProfileId
+	 * test grabbing a truck that does not exist via truckProfileId
 	 **/
 	public function testGetInvalidTruckByTruckProfileId() : void {
 		// grab a truck profile id that exceeds the maximum allowable truck profile id
@@ -273,13 +273,13 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Truck by truckIsOpen
+	 * test grabbing a truck by truckIsOpen
 	 **/
 	public function testGetValidTruckByTruckIsOpen() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Truck and insert to into mySQL
+		// create a new truck and insert to into mySQL
 		$truckId = generateUuidV4();
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
@@ -290,7 +290,7 @@ class TruckTest extends TacoTruckTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Truck", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\truck", $results);
 
 		// grab the result from the array and validate it
 		$pdoTruck = $results[0];
@@ -307,7 +307,7 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Truck by truckIsOpen that does not exist
+	 * test grabbing a truck by truckIsOpen that does not exist
 	 **/
 	public function testGetInvalidTruckByTruckIsOpen() : void {
 		// grab a truck by truckIsOpen that does not exist
@@ -316,13 +316,13 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Truck by truckName
+	 * test grabbing a truck by truckName
 	 **/
 	public function testGetValidTruckByTruckName() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("truck");
 
-		// create a new Truck and insert to into mySQL
+		// create a new truck and insert to into mySQL
 		$truckId = generateUuidV4();
 		$truck = new Truck($truckId, $this->profile->getProfileId(), $this->VALID_TRUCKBIO, $this->VALID_TRUCKISOPEN, $this->VALID_TRUCKLATITUDE, $this->VALID_TRUCKLONGITUDE, $this->VALID_TRUCKNAME, $this->VALID_TRUCKPHONE, $this->VALID_TRUCKURL);
 		$truck->insert($this->getPDO());
@@ -333,7 +333,7 @@ class TruckTest extends TacoTruckTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\Truck", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FoodTruck\\truck", $results);
 
 		// grab the result from the array and validate it
 		$pdoTruck = $results[0];
@@ -350,7 +350,7 @@ class TruckTest extends TacoTruckTest {
 	}
 
 	/**
-	 * test grabbing a Truck by truckName that does not exist
+	 * test grabbing a truck by truckName that does not exist
 	 **/
 	public function testGetInvalidTruckByTruckName() : void {
 		// grab a truck by truckName that does not exist

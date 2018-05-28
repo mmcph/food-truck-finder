@@ -72,7 +72,7 @@ else if($method === "DELETE") {
 		// retrieve the Tweet to be deleted
 	$TruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $id);
 		if($TruckCategory === null) {
-			throw(new RuntimeException("Truck Category does not exist", 404));
+			throw(new RuntimeException("truck category does not exist", 404));
 		}
 
 		//enforce the user is signed in and only trying to edit their own TruckCategory
@@ -83,5 +83,5 @@ else if($method === "DELETE") {
 		// delete TruckCategory
 	$TruckCategory->delete($pdo);
 		// update reply
-		$reply->message = "Truck Category deleted OK";
+		$reply->message = "truck category deleted OK";
 	}

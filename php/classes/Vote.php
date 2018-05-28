@@ -6,7 +6,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * This is the class for our attribute of Vote where users can up or down vote a food truck.
- * It is an intersection table (composite entity) between Truck and Vote (a 1-to-m relationship)
+ * It is an intersection table (composite entity) between truck and Vote (a 1-to-m relationship)
  * and Profile and Vote (a 1-to-1 relationship)
  *
  * @author Yvette Johnson-Rodgers <itsyvejr@gmail.com>

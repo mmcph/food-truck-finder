@@ -68,7 +68,7 @@ class Truck implements \JsonSerializable {
 	/**
 	 * constructor for truck
 	 *
-	 * @param Uuid $newTruckId id of this Truck or null if a new Truck
+	 * @param Uuid $newTruckId id of this truck or null if a new truck
 	 * @param Uuid $newTruckProfileId
 	 * @param string $newTruckBio
 	 * @param int $newTruckIsOpen
@@ -182,11 +182,11 @@ class Truck implements \JsonSerializable {
 		$newTruckBio = trim($newTruckBio);
 		$newTruckBio = filter_var($newTruckBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newTruckBio) === true) {
-			throw(new \InvalidArgumentException("Truck bio value is empty or insecure"));
+			throw(new \InvalidArgumentException("truck bio value is empty or insecure"));
 		}
 
 		if(strlen($newTruckBio) > 1024) {
-			throw(new \RangeException("Truck bio input too long"));
+			throw(new \RangeException("truck bio input too long"));
 		}
 		// store new truckBio
 		$this->truckBio = $newTruckBio;
@@ -293,11 +293,11 @@ class Truck implements \JsonSerializable {
 		$newTruckName = trim($newTruckName);
 		$newTruckName = filter_var($newTruckName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newTruckName) === true) {
-			throw(new \InvalidArgumentException("Truck name value is empty or insecure"));
+			throw(new \InvalidArgumentException("truck name value is empty or insecure"));
 		}
 
 		if(strlen($newTruckName) > 64) {
-			throw(new \RangeException("Truck name too long"));
+			throw(new \RangeException("truck name too long"));
 		}
 		// store new truckName
 		$this->truckName = $newTruckName;
@@ -326,11 +326,11 @@ class Truck implements \JsonSerializable {
 		$newTruckPhone = trim($newTruckPhone);
 		$newTruckPhone = filter_var($newTruckPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newTruckPhone) === true) {
-			throw(new \InvalidArgumentException("Truck phone number value is empty or insecure"));
+			throw(new \InvalidArgumentException("truck phone number value is empty or insecure"));
 		}
 
 		if(strlen($newTruckPhone) > 24) {
-			throw(new \RangeException("Truck phone number input too long"));
+			throw(new \RangeException("truck phone number input too long"));
 		}
 		// store new truckPhone
 		$this->truckPhone = $newTruckPhone;
@@ -359,11 +359,11 @@ class Truck implements \JsonSerializable {
 		$newTruckUrl = trim($newTruckUrl);
 		$newTruckUrl = filter_var($newTruckUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newTruckUrl) === true) {
-			throw(new \InvalidArgumentException("Truck url value is empty or insecure"));
+			throw(new \InvalidArgumentException("truck url value is empty or insecure"));
 		}
 
 		if(strlen($newTruckUrl) > 24) {
-			throw(new \RangeException("Truck url input too long"));
+			throw(new \RangeException("truck url input too long"));
 		}
 		// store new truckUrl
 		$this->truckUrl = $newTruckUrl;
@@ -426,11 +426,11 @@ class Truck implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Truck by truckId
+	 * gets the truck by truckId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid|string $truckId truck id to search for
-	 * @return Truck|null Truck found or null if not found
+	 * @return Truck|null truck found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
@@ -466,11 +466,11 @@ class Truck implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Truck by truckProfileId
+	 * gets the truck by truckProfileId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid|string $truckProfileId truck profileId to search for
-	 * @return Truck|null Truck found or null if not found
+	 * @return Truck|null truck found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
@@ -510,11 +510,11 @@ class Truck implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Truck by truckIsOpen
+	 * gets the truck by truckIsOpen
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $truckIsOpen truck open/closed status to search for
-	 * @return Truck|null Truck found or null if not found
+	 * @return Truck|null truck found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
@@ -547,11 +547,11 @@ class Truck implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Truck by truckName
+	 * gets the truck by truckName
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $truckName truck name to search for
-	 * @return Truck|null Truck found or null if not found
+	 * @return Truck|null truck found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/

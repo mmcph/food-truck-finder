@@ -25,7 +25,7 @@ class FavoriteTest extends TacoTruckTest {
 	 **/
 	protected $profile;
 	/**
-	 * Truck that is favorited; this is for foreign key relations
+	 * truck that is favorited; this is for foreign key relations
 	 * @var Truck $truck
 	 **/
 	protected $truck;
@@ -103,7 +103,7 @@ class FavoriteTest extends TacoTruckTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$favorite->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Truck does not exist
+		// grab the data from mySQL and enforce the truck does not exist
 		$pdoFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($this->getPDO(), $this->profile->getProfileId(), $this->truck->getTruckId());
 		$this->assertNull($pdoFavorite);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));

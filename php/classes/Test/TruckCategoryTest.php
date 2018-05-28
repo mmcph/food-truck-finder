@@ -71,7 +71,7 @@ class TruckCategoryTest extends TacoTruckTest {
 		$this->truck = new Truck(generateUuidV4(), $this->profile->getProfileId(), "We have eggroll.", 1, 35.07720000, 106.66141111, "EggRoll Dynasty", "5058596496", "https://phpunit.de/");
 		$this->truck->insert($this->getPDO());
 
-		//create and insert the mocked Category
+		//create and insert the mocked category
 		// todo Marlon suggested using null val for categoryId - change made to all instances of new TruckCategory
 		$this->category = new Category(null, "pizza pie");
 		$this->category->insert($this->getPDO());

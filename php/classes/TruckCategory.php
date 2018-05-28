@@ -32,7 +32,7 @@ class TruckCategory implements \JsonSerializable {
      * constructor for this TruckCategory
      *
      * @param int | $newTruckCategoryCategoryId; id of this truck CategoryId
-     * @param string|Uuid $newTruckCategoryTruckId; id of this truck Category Truck Id
+     * @param string|Uuid $newTruckCategoryTruckId; id of this truck category truck Id
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
@@ -143,7 +143,7 @@ class TruckCategory implements \JsonSerializable {
      * @param \PDO $pdo PDO connection object
      * @param  int | null $truckCategoryCategoryId
      * @param  Uuid | string $truckCategoryTruckId
-     * @return TruckCategory|null Truck found or null if not found
+     * @return TruckCategory|null truck found or null if not found
      * @throws \PDOException when mySQL related errors occur
      * @throws \TypeError when a variable are not the correct data type
      **/

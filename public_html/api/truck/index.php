@@ -16,7 +16,7 @@ use Edu\Cnm\FoodTruck\{
 
 
 /**
- * api for the Truck class
+ * api for the truck class
  *
  * @author {} <valebmeza@gmail.com>
  * @coauthor Derek Mauldin <derek.e.mauldin@gmail.com>
@@ -111,7 +111,7 @@ try {
 
 			//enforce the user is signed in and only trying to edit their own truck
 			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $truck->getTruckProfileId()->toString()) {
-				throw(new \InvalidArgumentException("Truck may only be edited by the truck owner.", 403));
+				throw(new \InvalidArgumentException("truck may only be edited by the truck owner.", 403));
 			}
 
 			// update all attributes
@@ -125,7 +125,7 @@ try {
 			$truck->update($pdo);
 
 			// update reply
-			$reply->message = "Truck updated successfully.";
+			$reply->message = "truck updated successfully.";
 
 		} else if($method === "POST") {
 
@@ -140,7 +140,7 @@ try {
 			$truck->insert($pdo);
 
 			// update reply
-			$reply->message = "Truck created successfully.";
+			$reply->message = "truck created successfully.";
 		}
 
 //		DELETE BLOCK
@@ -150,7 +150,7 @@ try {
 		//enforce that the end user has a XSRF token.
 		verifyXsrf();
 
-		// retrieve the Truck to be deleted
+		// retrieve the truck to be deleted
 		$truck = Truck::getTruckByTruckId($pdo, $id);
 		if($truck === null) {
 			throw(new RuntimeException("This truck does not exist.", 404));
@@ -164,7 +164,7 @@ try {
 		// delete truck
 		$truck->delete($pdo);
 		// update reply
-		$reply->message = "Truck deleted successfully.";
+		$reply->message = "truck deleted successfully.";
 	}
 
 } catch(\Exception | \TypeError $exception) {
