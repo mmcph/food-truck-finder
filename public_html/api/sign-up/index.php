@@ -146,7 +146,7 @@ EOF;
         $mailer = new Swift_Mailer($smtp);
         //send the message
         $numSent = $mailer->send($swiftMessage, $failedRecipients);
-        var_dump($numSent);
+
         /**
          * the send method returns the number of recipients that accepted the Email
          * so, if the number attempted is not the number accepted, this is an Exception
