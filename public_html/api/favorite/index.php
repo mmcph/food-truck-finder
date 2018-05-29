@@ -6,9 +6,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\FoodTruck\{
-	TruckCategory,
-	Category,
-	Truck
+	Favorite
 };
 
 
@@ -39,8 +37,7 @@ try {
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
-	$truckCategoryTruckId = filter_input(INPUT_GET, "truckCategoryTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteProfileId = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "POST") && (empty($id) === true)) {
@@ -53,10 +50,7 @@ try {
 
 
 
-
-
 	else if($method === "POST") {
-
 		// enforce the user has a XSRF token
 		verifyXsrf();
 
@@ -71,51 +65,56 @@ try {
 			throw(new \InvalidArgumentException ("No content for TruckCategory.", 405));
 		}
 
-		//  make sure truckId is available
-		if(empty($requestObject->truckId) === true) {
-			throw(new \InvalidArgumentException ("No Truck ID.", 405));
+		//  make sure favoriteTruckId is available
+		if(empty($requestObject->favoriteTruckId) === true) {
+			throw(new \InvalidArgumentException ("No Favorite Truck ID.", 405));
 		}
 
-		} else if($method === "POST") {
+	} else if($method === "POST") {
 
-			// enforce the user is signed in
-			if(empty($_SESSION["profile"]) === true) {
-				throw(new \InvalidArgumentException("You must be logged in to post Truck Category's", 403));
-			}
-
-			// create new Profile and insert into the database
-		$profile = new Profile(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->truckCategory, null);
-		$profile->insert($pdo);
-
-			// update reply
-			$reply->message = "Truck category created OK";
+		// enforce the user is signed in
+		if(empty($_SESSION["profile"]) === true) {
+			throw(new \InvalidArgumentException("you must be logged in to post profile", 403));
 		}
 
+		// create new favorite and insert into the database
+		$favorite = new Favorite(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->favoriteTruckId, null);
+		$favorite->insert($pdo);
+
+		// update reply
+		$reply->message = "Favorite created OK";
+	}
 
 
 
 
 
-else if($method === "DELETE") {
+
+
+
+
+
+	else if($method === "DELETE") {
 
 		//enforce that the end user has a XSRF token.
 		verifyXsrf();
 
 		// retrieve the Truck to be deleted
-	$TruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $id);
-		if($TruckCategory === null) {
-			throw(new RuntimeException("truck category does not exist", 404));
+		$FavoriteProfileId = Favorite::getFavoriteProfileId($pdo, $id);
+		if($FavoriteProfileId === null) {
+			throw(new RuntimeException("Favorite Profile does not exist", 404));
 		}
 
 		//enforce the user is signed in and only trying to edit their own TruckCategory
-		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $TruckCategory->getTruckCategoryId()) {
-			throw(new \InvalidArgumentException("You are not allowed to delete this truck category", 403));
+		if(empty($_SESSION["favorite"]) === true || $_SESSION["favorite"]->getFavoriteProfileId() !== $FavoriteProfileId->getFavoriteProfileId()) {
+			throw(new \InvalidArgumentException("You are not allowed to delete this favorite category", 403));
 		}
 
+
 		// delete TruckCategory
-	$TruckCategory->delete($pdo);
+		$FavoriteProfileId->delete($pdo);
 		// update reply
-		$reply->message = "Truck category deleted OK";
+		$reply->message = "Favorite Profile deleted OK";
 	}
 
 } catch(\Exception | \TypeError $exception) {
