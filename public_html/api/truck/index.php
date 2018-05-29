@@ -4,6 +4,7 @@ require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
+
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\FoodTruck\{
@@ -176,10 +177,10 @@ try {
 			//todo JWT
 			//enforce presence of JWT header
 			//validateJwtHeader();
-
+var_dump($_SESSION);
 			// create new truck and insert into the database
 			//todo hard-code truckIsOpen to 0 (closed)? What about Lat/Long?
-			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->truckBio, 0, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
+			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, 0, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
 			$truck->insert($pdo);
 
 			// update reply
