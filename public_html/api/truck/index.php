@@ -61,15 +61,30 @@ try {
 
 		setXsrfCookie();
 
-		//get a specific truck based on arguments provided or all the trucks and update reply
+//		required gets:
+//		get all trucks
+//			user search
+//		get all open trucks
+//			user search
+//		get trucks by name
+//			user search
+//		get trucks by truck profile ID
+//			for owner
+//		get truck by ID
+//			for vote / favorite / truckcategory
+//			for owner
+
+		//get specific truck(s) based on arguments provided and update reply
 		if(empty($id) === false) {
 			$reply->data = Truck::getTruckByTruckId($pdo, $id);
 		} else if(empty($truckProfileId) === false) {
 			$reply->data = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
 		} else if(empty($truckName) === false) {
 			$reply->data = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
-		} else {
+		} else if(empty($truckIsOpen) === false){
 			$reply->data = Truck::getTruckByTruckIsOpen($pdo, $truckIsOpen)->toArray();
+		} else {
+			$reply->data = Truck::getAllTrucks($pdo)->toArray();
 		}
 
 		//PUT and POST if blocks
