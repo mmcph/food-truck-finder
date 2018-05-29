@@ -83,10 +83,8 @@ try {
 			$reply->data = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
 		} else if(empty($truckName) === false) {
 			$reply->data = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
-		} else if(empty($truckIsOpen) === false){
-			$reply->data = Truck::getTruckByTruckIsOpen($pdo, $truckIsOpen)->toArray();
 		} else {
-			$reply->data = Truck::getAllTrucks($pdo)->toArray();
+			$reply->data = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
 		}
 
 		//PUT and POST if blocks
@@ -103,11 +101,6 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//todo why do this? some requests will update only truckIsOpen instead of the entire truck.
-
-		//make sure truckProfileId is available (required field)
-		if(empty($requestObject->truckId) === true) {
-			throw(new \InvalidArgumentException ("truckId is a required value.", 405));
-		}
 
 		//make sure truckIsOpen is available (required field)
 		if(empty($requestObject->truckIsOpen) === true) {
