@@ -38,6 +38,8 @@ try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
 
 	//todo regarding mock logged in user session for testing
+	//get profile from profile
+	// mock a logged in user by forcing the session. This is only for testing purposes and should not be in the live code.
 
 	//determine which HTTP method was used
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
@@ -145,8 +147,12 @@ try {
 
 			//enforce the user is signed in and only trying to edit their own truck
 			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $truck->getTruckProfileId()->toString()) {
-				throw(new \InvalidArgumentException("A truck may only be edited by the truck owner.", 403));
+				throw(new \InvalidArgumentException("A truck may only be edited by the truck's owner.", 403));
 			}
+
+			//todo JWT
+			//enforce presence of JWT header
+			//validateJwtHeader();
 
 			// update all attributes
 			$truck->setTruckBio($requestObject->truckBio);
@@ -159,7 +165,7 @@ try {
 			$truck->update($pdo);
 
 			// update reply
-			$reply->message = "truck updated successfully.";
+			$reply->message = "Truck updated successfully.";
 
 		} else if($method === "POST") {
 
@@ -167,6 +173,10 @@ try {
 			if(empty($_SESSION["profile"]) === true) {
 				throw(new \InvalidArgumentException("Only logged in users may add a truck.", 403));
 			}
+
+			//todo JWT
+			//enforce presence of JWT header
+			//validateJwtHeader();
 
 			// create new truck and insert into the database
 			//todo hard-code truckIsOpen to 0 (closed)? What about Lat/Long?
@@ -208,6 +218,11 @@ try {
 
 // encode and return reply to front end caller
 header("Content-type: application/json");
+
+if($reply->data === null) {
+	unset($reply->data);
+}
+
 echo json_encode($reply);
 
 // finally - JSON encodes the $reply object and sends it back to the front end.

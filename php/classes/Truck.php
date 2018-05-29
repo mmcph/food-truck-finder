@@ -84,7 +84,7 @@ class Truck implements \JsonSerializable {
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
 	// todo check with bridge regarding UUID type declarations and consequences of removing them
-	public function __construct($newTruckId, $newTruckProfileId, string $newTruckBio, int $newTruckIsOpen, float $newTruckLatitude, float $newTruckLongitude, string $newTruckName, int $newTruckPhone, string $newTruckUrl) {
+	public function __construct($newTruckId, $newTruckProfileId, ?string $newTruckBio, int $newTruckIsOpen, ?float $newTruckLatitude, ?float $newTruckLongitude, string $newTruckName, ?int $newTruckPhone, ?string $newTruckUrl) {
 		try {
 			$this->setTruckId($newTruckId);
 			$this->setTruckProfileId($newTruckProfileId);
@@ -177,7 +177,10 @@ class Truck implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if input is empty
 	 * @throws \RangeException if $newTruckBio > 1024 chars
 	 **/
-	public function setTruckBio(string $newTruckBio): void {
+	public function setTruckBio(?string $newTruckBio): void {
+		if($newTruckBio === null) {
+			$this->truckBio = null;
+		}
 		// verify the token is secure
 		$newTruckBio = trim($newTruckBio);
 		$newTruckBio = filter_var($newTruckBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
