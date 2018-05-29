@@ -168,19 +168,18 @@ try {
 			$reply->message = "Truck updated successfully.";
 
 		} else if($method === "POST") {
-
+var_dump($_SESSION["profile"]->getProfileId()->toString());
 			// enforce the user is signed in
-			if(empty($_SESSION["profile"]) === true) {
+			if(empty($_SESSION["profile"]->getProfileId()->toString()) === true) {
 				throw(new \InvalidArgumentException("Only logged in users may add a truck.", 403));
 			}
 
 			//todo JWT
 			//enforce presence of JWT header
 			//validateJwtHeader();
-var_dump($_SESSION);
 			// create new truck and insert into the database
 			//todo hard-code truckIsOpen to 0 (closed)? What about Lat/Long?
-			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, 0, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
+			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, -1, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
 			$truck->insert($pdo);
 
 			// update reply

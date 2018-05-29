@@ -387,6 +387,8 @@ class Truck implements \JsonSerializable {
 		$query = "INSERT INTO truck(truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl) VALUES(:truckId, :truckProfileId, :truckBio, :truckIsOpen, :truckLatitude, :truckLongitude, :truckName, :truckPhone, :truckUrl)";
 		$statement = $pdo->prepare($query);
 
+		var_dump($this->truckProfileId);
+
 		// bind the member variables to the placeholders in the template
 		$parameters = ["truckId" => $this->truckId->getBytes(), "truckProfileId" => $this->truckProfileId->getBytes(), "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
 		$statement->execute($parameters);
