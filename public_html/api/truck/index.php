@@ -37,6 +37,8 @@ try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
 
+	//todo regarding mock logged in user session for testing
+
 	//determine which HTTP method was used
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
@@ -94,10 +96,10 @@ try {
 		// enforce the user has a XSRF token
 		verifyXsrf();
 
-		//  Retrieves the JSON package that the front end sent and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument provided here for the function is "php://input". This is a read only stream that allows raw data to be read from the front end request, which is, in this case, a JSON package.
+		//Retrieve the JSON package that the front end sent and store it in $requestContent.
 		$requestContent = file_get_contents("php://input");
 
-		// This line then decodes the JSON package and stores that result in $requestObject
+		//decode the JSON package and store the result in $requestObject
 		$requestObject = json_decode($requestContent);
 
 		//todo why do this? some requests will update only truckIsOpen instead of the entire truck.
@@ -117,6 +119,28 @@ try {
 			throw(new \InvalidArgumentException ("truckName is a required value.", 405));
 		}
 
+		//todo added from beer proj, necessary?
+		//check optional params, if empty set to null
+		if(empty($requestObject->truckBio) === true) {
+			$requestObject->truckBio = null;
+		}
+
+		if(empty($requestObject->truckLatitude) === true) {
+			$requestObject->truckLatitude = null;
+		}
+
+		if(empty($requestObject->truckLongitude) === true) {
+			$requestObject->truckLongitude = null;
+		}
+
+		if(empty($requestObject->truckPhone) === true) {
+			$requestObject->truckPhone = null;
+		}
+
+		if(empty($requestObject->truckUrl) === true) {
+			$requestObject->truckUrl = null;
+		}
+
 		//perform the actual put or post
 		if($method === "PUT") {
 
@@ -128,7 +152,7 @@ try {
 
 			//enforce the user is signed in and only trying to edit their own truck
 			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $truck->getTruckProfileId()->toString()) {
-				throw(new \InvalidArgumentException("truck may only be edited by the truck owner.", 403));
+				throw(new \InvalidArgumentException("A truck may only be edited by the truck owner.", 403));
 			}
 
 			// update all attributes
