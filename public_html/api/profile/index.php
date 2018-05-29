@@ -54,22 +54,30 @@ try {
 //            if($profile !== null) {
 //                $reply->data = $profile;
 //            }
-//        } else if(empty($profileEmail) === false) {
-//            $profile = Profile::getProfileByProfileEmail($pdo, $profileAtHandle);
-//            if($profile !== null) {
-//                $reply->data = $profile;
-//            }
+        if(empty($profileEmail) === false) {
+            $profile = Profile::getProfileByProfileEmail($pdo, $profileEmail);
+            if($profile !== null) {
+                $reply->data = $profile;
+            }
 //        } else if(empty($profileUserName) === false) {
 //
 //            $profile = Profile::getProfileByUserName($pdo, $profileEmail);
 //            if($profile !== null) {
 //                $reply->data = $profile;
 //            }
-//        }
+        }
         } elseif($method === "PUT") {
+
+
 
         //enforce that the XSRF token is present in the header
         verifyXsrf();
+
+        //retrieve the profile to be updated
+        $profile = Profile::getProfileByProfileId($pdo, $id);
+        if($profile === null) {
+            throw(new RuntimeException("Profile does not exist", 404));
+        }
 
         //enforce the end user has a JWT token
         //validateJwtHeader();
@@ -85,17 +93,12 @@ try {
         $requestContent = file_get_contents("php://input");
         $requestObject = json_decode($requestContent);
 
-        //retrieve the profile to be updated
-        $profile = Profile::getProfileByProfileId($pdo, $id);
-        if($profile === null) {
-            throw(new RuntimeException("Profile does not exist", 404));
-        }
 
 
-        //profile username
-        if(empty($requestObject->profileUserName) === true) {
-            throw(new \InvalidArgumentException ("No profile with this username", 405));
-        }
+//        //profile username
+//        if(empty($requestObject->profileUserName) === true) {
+//            throw(new \InvalidArgumentException ("No profile with this username", 405));
+//        }
 
         //profile email is a required field
         if(empty($requestObject->profileEmail) === true) {
@@ -103,7 +106,7 @@ try {
         }
 
 
-        $profile->setProfileUserName($requestObject->profileUserName);
+//        $profile->setProfileUserName($requestObject->profileUserName);
         $profile->setProfileEmail($requestObject->profileEmail);
         $profile->update($pdo);
 

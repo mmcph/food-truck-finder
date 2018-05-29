@@ -61,7 +61,7 @@ function validateJwtHeader () : \Lcobucci\JWT\Token   {
     }
     //enforce the session has needed content
     if(empty( $_SESSION["signature"]) === true ) {
-        throw new InvalidArgumentException("not logged in", 401);
+        throw new InvalidArgumentException("not logged in", 400);
     }
     //grab the string representation of the Token from the header then parse it into an object
     $headerJwt = $headers["X-JWT-TOKEN"];
@@ -84,11 +84,11 @@ function verifiedAndValidatedSignature ( \Lcobucci\JWT\Token  $headerJwt) : void
     $validator = new ValidationData();
     $validator->setId(session_id());
     if($headerJwt->validate($validator) !== true) {
-        throw (new InvalidArgumentException("not authorized to perform task", 402));
+        throw (new InvalidArgumentException("not authorized to perform task", 400));
     }
     //verify that the JWT was signed by the server
     $signer = new Sha512();
     if($headerJwt->verify($signer, $_SESSION["signature"]) !== true) {
-        throw (new InvalidArgumentException("not authorized to perform task", 403));
+        throw (new InvalidArgumentException("not authorized to perform task", 400));
     }
 }
