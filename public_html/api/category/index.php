@@ -27,7 +27,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	// sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$categoryProfileId = filter_input(INPUT_GET, "categoryProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$categoryTruckId = filter_input(INPUT_GET, "categoryTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$categoryName = filter_input(INPUT_GET, "categoryName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	// make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true )) {
@@ -42,10 +42,10 @@ try {
 			if($category !== null) {
 				$reply->data = $category;
 			}
-		} else if(empty($categoryProfileId) === false) {
-			$categoryProfileId = Category::getCategoryByCategoryProfileId($pdo, $categoryProfileId)->toArray();
-			if($categoryProfileId !== null) {
-				$reply->data = $categoryProfileId;
+		} else if(empty($categoryTruckId) === false) {
+			$categoryTruckId = Category::getCategoryByCategoryTruckId($pdo, $categoryTruckId)->toArray();
+			if($categoryTruckId !== null) {
+				$reply->data = $categoryTruckId;
 			}
 		} else if(empty($categoryName) === false) {
 			$categoryName = Category::getCategoryByCategoryName($pdo, $categoryName);
@@ -72,14 +72,14 @@ try {
 				throw(new RuntimeException("category does not exist", 404));
 			}
 			//category profile id
-			if(empty($requestObject->categoryProfileId) === true) {
+			if(empty($requestObject->categoryTruckId) === true) {
 				throw(new \InvalidArgumentException ("No category profile", 405));
 			}
 			//category name is a required field
 			if(empty($requestObject->categoryName) === true) {
 				throw(new \InvalidArgumentException ("No category name present", 405));
 			}
-			$category->setCategoryProfileId($requestObject->categoryProfileId);
+			$category->setCategoryTruckId($requestObject->categoryTruckId);
 			$category->setCategoryName($requestObject->categoryName);
 			$category->update($pdo);
 			// update reply
