@@ -100,9 +100,11 @@ try {
 		// This line then decodes the JSON package and stores that result in $requestObject
 		$requestObject = json_decode($requestContent);
 
+		//todo why do this? some requests will update only truckIsOpen instead of the entire truck.
+
 		//make sure truckProfileId is available (required field)
-		if(empty($requestObject->truckProfileId) === true) {
-			throw(new \InvalidArgumentException ("truckProfileId is a required value.", 405));
+		if(empty($requestObject->truckId) === true) {
+			throw(new \InvalidArgumentException ("truckId is a required value.", 405));
 		}
 
 		//make sure truckIsOpen is available (required field)
