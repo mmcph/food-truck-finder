@@ -114,7 +114,6 @@ try {
 			throw(new \InvalidArgumentException ("truckName is a required value.", 405));
 		}
 
-		//todo added from beer proj, necessary?
 		//check optional params, if empty set to null
 		if(empty($requestObject->truckBio) === true) {
 			$requestObject->truckBio = null;
