@@ -10,7 +10,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\FoodTruck\{
 	Truck,
 	Profile,
-	Favorite,
 	Vote,
 	TruckCategory
 };
@@ -66,19 +65,6 @@ try {
 
 		setXsrfCookie();
 
-//		required gets:
-//		get all trucks
-//			user search
-//		get all open trucks
-//			user search
-//		get trucks by name
-//			user search
-//		get trucks by truck profile ID
-//			for owner
-//		get truck by ID
-//			for vote / favorite / truckcategory
-//			for owner
-
 		//get specific truck(s) based on arguments provided and update reply
 		if(empty($id) === false) {
 			$reply->data = Truck::getTruckByTruckId($pdo, $id);
@@ -86,7 +72,15 @@ try {
 			$reply->data = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
 		} else if(empty($truckName) === false) {
 			$reply->data = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
+
+			$truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->getTruckId());
+			$reply->data->offsetSet('votes', $truckVotes);
+
+			$truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->getTruckId());
+			$reply->data->offsetSet('truckCategories', $truckCategories);
+
 		} else {
+
 			$reply->data = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
 		}
 
@@ -158,7 +152,6 @@ try {
 			$reply->message = "Truck updated successfully.";
 
 		} else if($method === "POST") {
-var_dump($_SESSION["profile"]->getProfileId()->toString());
 			// enforce the user is signed in
 			if(empty($_SESSION["profile"]->getProfileId()->toString()) === true) {
 				throw(new \InvalidArgumentException("Only logged in users may add a truck.", 403));
