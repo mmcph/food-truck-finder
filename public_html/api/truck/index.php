@@ -103,17 +103,7 @@ try {
 		//decode the JSON package and store the result in $requestObject
 		$requestObject = json_decode($requestContent);
 
-		//todo why do this? some requests will update only truckIsOpen instead of the entire truck.
-
-		//make sure truckIsOpen is available (required field)
-		if(empty($requestObject->truckIsOpen) === true) {
-			throw(new \InvalidArgumentException ("truckIsOpen is a required value.", 405));
-		}
-
-		//make sure truckName is available (required field)
-		if(empty($requestObject->truckName) === true) {
-			throw(new \InvalidArgumentException ("truckName is a required value.", 405));
-		}
+//todo ripped out "required params", there's not one that's required for every get.
 
 		//check optional params, if empty set to null
 		if(empty($requestObject->truckBio) === true) {

@@ -212,7 +212,6 @@ class Truck implements \JsonSerializable {
 	 * @throws \RangeException if $newTruckIsOpen too small OR too large OR empty string
 	 **/
 	public function setTruckIsOpen(int $newTruckIsOpen): void {
-//todo ask about this if block
 		if($newTruckIsOpen !== -1 && $newTruckIsOpen !== 1) {
 			throw(new \RangeException("TruckIsOpen is not -1 or 1"));
 		}
