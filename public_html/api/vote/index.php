@@ -87,7 +87,7 @@ try {
             //enforce the end user has a JWT token
             //validateJwtHeader();
             //grab the like by its composite key
-            $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($pdo, $requestObject->voteProfileId, $requestObject->voteTruckd);
+            $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($pdo, $requestObject->voteProfileId, $requestObject->voteTruckId);
             if($vote === null) {
                 throw (new RuntimeException("Vote does not exist"));
             }
