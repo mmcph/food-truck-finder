@@ -71,9 +71,8 @@ try {
         } else {
             throw new InvalidArgumentException("incorrect search parameters", 404);
         }
-///////////////////////////////////////////
-    }
-    if ($method === "POST") {
+
+    } else if ($method === "POST") {
         // enforce the user has a XSRF token
         verifyXsrf();
 
