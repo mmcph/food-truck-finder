@@ -64,9 +64,9 @@ try {
         if ($vote === null) {
             throw (new RuntimeException("Vote does not exist"));
         }
-        var_dump($_SESSION);
+
         //enforce the user is signed in and only trying to delete their own vote
-        if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $vote->getVoteProfileId()) {
+        if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() ->toString() !== $vote->getVoteProfileId()->toString()) {
             throw(new \InvalidArgumentException("You are not allowed to delete this vote", 403));
         }
 
