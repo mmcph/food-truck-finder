@@ -249,8 +249,6 @@ class favorite implements \JsonSerializable {
 
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
-		$fields["favoriteProfileId"] = $this->favoriteTruckId->toString();
-		$fields["favoriteTruckId"];
 		return ($fields);
 	}
 }

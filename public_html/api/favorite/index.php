@@ -36,47 +36,46 @@ try {
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize search parameters
-	$favoriteProfileId = $id = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$favoriteTruckId = $id = filter_input(INPUT_GET, "favoriteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	//$favoriteTruckId = filter_input(INPUT_GET, $favoriteTruckId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteProfileId  = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteTruckId  = filter_input(INPUT_GET, "favoriteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-    // make sure the id is valid for methods that require it
-    if(($method === "DELETE") && (empty($id) === true )) {
-        throw(new InvalidArgumentException("id cannot be empty or negative", 405));
-    }
 
-    if($method==="GET"){
+var_dump($favoriteProfileId);
+
+    if($method ==="GET") {
         //set XSRF cookie
         setXsrfCookie();
+        var_dump($favoriteTruckId);
 
-        // gets a favorite by
-        //gets a specific favorite associated based on its composite key
+        //gets a specific favorite based on its composite key
         if ($favoriteProfileId !== null && $favoriteTruckId !==null) {
             $favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $favoriteProfileId, $favoriteTruckId);
 
             if($favorite!==null) {
                 $reply->data = $favorite;
             }
-            //if none of the search parameters are met, throw an exception
         } else if(empty($favoriteProfileId) === false) {
     $favorite = Favorite::getFavoriteByFavoriteProfileId($pdo,$favoriteProfileId)->toArray();
     if($favorite !== null) {
             $reply->data =$favorite;
     }
     // get the favorites associated with the truckId
-        } else if (empty($favoriteTruckId)=== false){
+        } else if (empty($favoriteTruckId) === false) {
+            var_dump($favoriteTruckId);
             $favorite = Favorite::getFavoriteByFavoriteTruckId($pdo, $favoriteTruckId)->toArray();
+            var_dump($favorite);
 
             if($favorite !== null) {
                 $reply->data = $favorite;
             }
         } else {
+            //if none of the search parameters are met, throw an exception
             throw new InvalidArgumentException("No favorites here", 404);
         }
 
     } else if ($method === "POST") {
         $requestContent=file_get_contents("php://input");
-        $requestContent= json_decode($requestContent);
+        $requestObject= json_decode($requestContent);
 
         // enforce the user has a XSRF token
         verifyXsrf();
@@ -92,6 +91,8 @@ try {
         $favorite = new Favorite($_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
         $favorite->insert($pdo);
         $reply->message = "Favorited successfully";
+
+
 
     } else if($method === "DELETE") {
 
