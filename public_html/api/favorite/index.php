@@ -35,12 +35,16 @@ try {
 	//determine which HTTP method was used
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	//sanitize input
+	//sanitize search parameters
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$favoriteProfileId = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//
-    if(method==="GET"){
+    // make sure the id is valid for methods that require it
+    if(($method === "DELETE") && (empty($id) === true )) {
+        throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+    }
+
+    if($method==="GET"){
         //set XSRF cookie
         setXsrfCookie();
 
@@ -67,89 +71,55 @@ try {
         } else {
             throw new InvalidArgumentException("incorrect search parameters", 404);
         }
-
+///////////////////////////////////////////
     }
-    //elseif ()
+    if ($method === "POST") {
+        // enforce the user has a XSRF token
+        verifyXsrf();
+
+//enforce the user is signed in and only trying to edit their own profile
+        if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $id) {
+            throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+        }
+        validateJwtHeader();
+
+        $favorite = new Favorite($_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
+        $favorite->insert($pdo);
+        $reply->message = "Favorited successfully";
+
+    } else if($method === "DELETE") {
+
+        //decode the response from the front end
+        $requestContent = file_get_contents("php://input");
+        $requestObject = json_decode($requestContent);
 
 
+        //enforce that the end user has a XSRF token.
+        verifyXsrf();
 
-	 t require it
-	if(($method === "DELETE" || $method === "POST") && (empty($id) === true)) {
-		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
-	}
+        // retrieve the favorite by composite key
+        $favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $requestObject->favoriteProfileId, $requestObject->favoriteTruckId);
+        if ($favorite === null) {
+            throw(new RuntimeException("Favorite does not exist", 404));
+        }
 
+        //enforce the user is signed in and only trying to edit their own TruckCategory
+        if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $favorite->getFavoriteProfileId()->toString()) {
+            throw(new \InvalidArgumentException("You are not allowed to delete this favorite category", 403));
+        }
 
+        //validateJwtHeader();
+        //perform the actual delete
 
+        $favorite->delete($pdo);
+        //update the message
+        $reply->message = "Favorite deleted successfully";
 
+        // if any other HTTP request is sent throw an exception
 
-
-
-	else if($method === "POST") {
-		// enforce the user has a XSRF token
-		verifyXsrf();
-
-		//  Retrieves the JSON package that the front end sent, and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
-		$requestContent = file_get_contents("php://input");
-
-		// This Line Then decodes the JSON package and stores that result in $requestObject
-		$requestObject = json_decode($requestContent);
-
-		//make sure Truck Category is available (required field)
-		if(empty($requestObject->profileId) === true) {
-			throw(new \InvalidArgumentException ("No content for TruckCategory.", 405));
-		}
-
-		//  make sure favoriteTruckId is available
-		if(empty($requestObject->truckId) === true) {
-			throw(new \InvalidArgumentException ("No Favorite Truck ID.", 405));
-		}
-
-	} else if($method === "POST") {
-
-		// enforce the user is signed in
-		if(empty($_SESSION["profile"]) === true) {
-			throw(new \InvalidArgumentException("You must be logged in to save a favorite", 403));
-		}
-
-		// create new favorite and insert into the database
-		$favorite = new Favorite(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->favoriteTruckId, null);
-		$favorite->insert($pdo);
-
-		// update reply
-		$reply->message = "Favorite created OK";
-	}
-
-
-
-
-
-
-
-
-
-
-	else if($method === "DELETE") {
-
-		//enforce that the end user has a XSRF token.
-		verifyXsrf();
-
-		// retrieve the Truck to be deleted
-		$FavoriteProfileId = Favorite::getFavoriteProfileId($pdo, $id);
-		if($FavoriteProfileId === null) {
-			throw(new RuntimeException("Favorite Profile does not exist", 404));
-		}
-
-		//enforce the user is signed in and only trying to edit their own TruckCategory
-		if(empty($_SESSION["favorite"]) === true || $_SESSION["favorite"]->getFavoriteProfileId() !== $FavoriteProfileId->getFavoriteProfileId()) {
-			throw(new \InvalidArgumentException("You are not allowed to delete this favorite category", 403));
-		}
-
-
-		// delete TruckCategory
-		$FavoriteProfileId->delete($pdo);
-		// update reply
-		$reply->message = "Favorite Profile deleted OK";
-	}
+    } else {
+        throw new \InvalidArgumentException("invalid http request", 400);
+    }
 
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
@@ -158,6 +128,10 @@ try {
 
 // encode and return reply to front end caller
 header("Content-type: application/json");
+if($reply->data === null) {
+    unset($reply->data);
+}
+// encode and return reply to front end caller
 echo json_encode($reply);
 
 // finally - JSON encodes the $reply object and sends it back to the front end.
