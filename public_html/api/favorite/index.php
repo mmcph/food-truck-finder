@@ -33,13 +33,47 @@ try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
 
 	//determine which HTTP method was used
-	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
+    $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$favoriteProfileId = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//make sure the id is valid for methods that require it
+	//
+    if(method==="GET"){
+        //set XSRF cookie
+        setXsrfCookie();
+
+        //gets a specific favorite associated based on its composite key
+        if ($favoriteProfileId !== null && $favoriteTruckId !==null) {
+            $favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $favoriteProfileId, $favoriteTruckId);
+
+            if($favorite!==null) {
+                $reply->data = $favorite;
+            }
+            //if none of the search parameters are met, throw an exception
+        } else if(empty($favoriteProfileId) === false) {
+    $favorite = Favorite::getFavoriteByFavoriteProfileId($pdo,$favoriteProfileId)->toArray();
+    if($favorite !== null) {
+            $reply->data =$favorite;
+    }
+    // get the favorites associated with the truckId
+        } else if (empty($favoriteTruckId)=== false){
+            $favorite = Favorite::getFavoriteByFavoriteTruckId($pdo, $favoriteTruckId)->toArray();
+
+            if($favorite !== null) {
+                $reply->data = $favorite;
+            }
+        } else {
+            throw new InvalidArgumentException("incorrect search parameters", 404);
+        }
+
+    }
+    //elseif ()
+
+
+
+	 t require it
 	if(($method === "DELETE" || $method === "POST") && (empty($id) === true)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
@@ -61,12 +95,12 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//make sure Truck Category is available (required field)
-		if(empty($requestObject->TruckCategory) === true) {
+		if(empty($requestObject->profileId) === true) {
 			throw(new \InvalidArgumentException ("No content for TruckCategory.", 405));
 		}
 
 		//  make sure favoriteTruckId is available
-		if(empty($requestObject->favoriteTruckId) === true) {
+		if(empty($requestObject->truckId) === true) {
 			throw(new \InvalidArgumentException ("No Favorite Truck ID.", 405));
 		}
 
@@ -74,7 +108,7 @@ try {
 
 		// enforce the user is signed in
 		if(empty($_SESSION["profile"]) === true) {
-			throw(new \InvalidArgumentException("you must be logged in to post profile", 403));
+			throw(new \InvalidArgumentException("You must be logged in to save a favorite", 403));
 		}
 
 		// create new favorite and insert into the database

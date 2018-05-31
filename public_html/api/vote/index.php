@@ -24,7 +24,9 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
+    //grab the mySQL connection
     $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
+
     //determine which HTTP method was used
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
