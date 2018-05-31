@@ -69,18 +69,23 @@ try {
                 $reply->data = $favorite;
             }
         } else {
-            throw new InvalidArgumentException("incorrect search parameters", 404);
+            throw new InvalidArgumentException("No favorites here", 404);
         }
 
     } else if ($method === "POST") {
+        $requestContent=file_get_contents("php://input");
+        $requestContent= json_decode($requestContent);
+
         // enforce the user has a XSRF token
         verifyXsrf();
 
-//enforce the user is signed in and only trying to edit their own profile
-        if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $id) {
-            throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+//enforce the user is signed in
+        if (empty($_SESSION["profile"]) === true) {
+
+            //|| $_SESSION["profile"]->getProfileId()->toString() !== $favorite->getFavoriteProfileId()->toString()) {
+            throw(new \InvalidArgumentException("You must be signed in to favorite a food truck", 403));
         }
-        validateJwtHeader();
+        //validateJwtHeader();
 
         $favorite = new Favorite($_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
         $favorite->insert($pdo);
