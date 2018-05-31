@@ -64,15 +64,18 @@ try {
         if ($vote === null) {
             throw (new RuntimeException("Vote does not exist"));
         }
+        var_dump($_SESSION);
         //enforce the user is signed in and only trying to delete their own vote
         if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $vote->getVoteProfileId()) {
             throw(new \InvalidArgumentException("You are not allowed to delete this vote", 403));
         }
+
         //validateJwtHeader();
         //perform the actual delete
         $vote->delete($pdo);
         //update the message
         $reply->message = "Vote successfully deleted";
+
         // if any other HTTP request is sent throw an exception
     } else {
         throw new \InvalidArgumentException("invalid http request", 400);
