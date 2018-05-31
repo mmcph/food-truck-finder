@@ -191,7 +191,7 @@ try {
 		}
 
 		//enforce the user is signed in and only trying to edit their own truck
-		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $truck->getTruckProfileId()) {
+		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $truck->getTruckProfileId()->toString()) {
 			throw(new \InvalidArgumentException("This truck may only be deleted by its owner.", 403));
 		}
 
