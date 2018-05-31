@@ -67,21 +67,29 @@ try {
 
 		//get specific truck(s) based on arguments provided and update reply
 		if(empty($id) === false) {
-			$reply->data = Truck::getTruckByTruckId($pdo, $id);
+			$reply->data->truck = Truck::getTruckByTruckId($pdo, $id);
+			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $id);
+			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $id);
+
+			var_dump($reply->data);
+
 		} else if(empty($truckProfileId) === false) {
-			$reply->data = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
+			$reply->data->truck = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
+//			foreach($reply->data->truck) {
+//				$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->truck->truckId);
+//				$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->truck->truckId);
+//			}
+
 		} else if(empty($truckName) === false) {
-			$reply->data = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
+			$reply->data->truck = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
+//			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->truck->truckId);
+//			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->truck->truckId);
 
-			$truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->getTruckId());
-			$reply->data->offsetSet('votes', $truckVotes);
-
-			$truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->getTruckId());
-			$reply->data->offsetSet('truckCategories', $truckCategories);
 
 		} else {
-
-			$reply->data = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
+			$reply->data->truck = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
+//			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->truck->truckId);
+//			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->truck->truckId);
 		}
 
 		//PUT and POST if blocks
