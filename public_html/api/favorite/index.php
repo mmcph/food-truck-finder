@@ -36,8 +36,9 @@ try {
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize search parameters
-	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$favoriteProfileId = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteProfileId = $id = filter_input(INPUT_GET, "favoriteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteTruckId = $id = filter_input(INPUT_GET, "favoriteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	//$favoriteTruckId = filter_input(INPUT_GET, $favoriteTruckId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
     // make sure the id is valid for methods that require it
     if(($method === "DELETE") && (empty($id) === true )) {
@@ -48,6 +49,7 @@ try {
         //set XSRF cookie
         setXsrfCookie();
 
+        // gets a favorite by
         //gets a specific favorite associated based on its composite key
         if ($favoriteProfileId !== null && $favoriteTruckId !==null) {
             $favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $favoriteProfileId, $favoriteTruckId);
