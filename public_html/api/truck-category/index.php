@@ -29,9 +29,14 @@ $reply->data = null;
 try {
 //	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
-//
-//	//determine which HTTP method was used
+
+//	determine which HTTP method was used
+//todo does not look right
+
+
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
+//todo add in the set up of the search parameters
+
 
 //make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "POST") && (empty($id) === true)) {
@@ -82,6 +87,7 @@ else if($method === "DELETE") {
 		verifyXsrf();
 
 		// retrieve the Truck to be deleted
+    //todo add in the parameters for the pdo to get ($pdo, $___ etc)
 	$TruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $id);
 		if($TruckCategory === null) {
 			throw(new RuntimeException("truck category does not exist", 404));
@@ -105,6 +111,8 @@ else if($method === "DELETE") {
 
 // encode and return reply to front end caller
 header("Content-type: application/json");
+//todo missing a header function here
+
 echo json_encode($reply);
 
 // finally - JSON encodes the $reply object and sends it back to the front end.
