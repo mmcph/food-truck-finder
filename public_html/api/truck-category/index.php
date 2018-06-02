@@ -29,12 +29,20 @@ $reply->data = null;
 try {
 //	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
+	//todo ask what may be implemented in this?
 
-//	determine which HTTP method was used
+	//determine which HTTP method was used
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ?
+		$_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+
+
+	//sanitize the search parameters
+	$truckCategoryCategoryId = $id = filter_input(INPUT_GET, "truckCategoryCategoryId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$truckCategoryTruckId = $id = filter_input(INPUT_GET, "truckCategoryTruckId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+
 //todo does not look right
 
-
-	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
+//	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 //todo add in the set up of the search parameters
 
 
@@ -88,7 +96,8 @@ else if($method === "DELETE") {
 
 		// retrieve the Truck to be deleted
     //todo add in the parameters for the pdo to get ($pdo, $___ etc)
-	$TruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $id);
+	//ADDED variables in the Param's! 
+	$TruckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $truckCategoryCategoryId, $truckCategoryTruckId);
 		if($TruckCategory === null) {
 			throw(new RuntimeException("truck category does not exist", 404));
 		}
@@ -111,8 +120,13 @@ else if($method === "DELETE") {
 
 // encode and return reply to front end caller
 header("Content-type: application/json");
+// ADDED missing function.......................<----<<<
+if($reply->data === null) {
+	unset($reply->data);
+}
 //todo missing a header function here
 
-echo json_encode($reply);
 
+// encode and return reply to front end caller
+echo json_encode($reply);
 // finally - JSON encodes the $reply object and sends it back to the front end.
