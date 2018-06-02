@@ -1,4 +1,4 @@
-ALTER DATABASE foodtruck CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+	ALTER DATABASE foodtruck CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS truckCategory;
@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS vote;
 DROP TABLE IF EXISTS truck;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS profile;
+
 
 CREATE TABLE profile (
 	profileId BINARY(16) NOT NULL,

@@ -8,7 +8,7 @@ use Edu\Cnm\FoodTruck\Profile;
 /**
  * api for handling sign-in
  *
- * @author G Cordova gcordova25@cnm.net
+ * @author G Cordova gcordova25@cnm.edu
  **/
 //prepare an empty reply
 
