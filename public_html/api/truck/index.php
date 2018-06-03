@@ -68,28 +68,28 @@ try {
 		//get specific truck(s) based on arguments provided and update reply
 		if(empty($id) === false) {
 			$reply->data->truck = Truck::getTruckByTruckId($pdo, $id);
-			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $id);
+			//todo Is this needed? We'll need category IDs to grab category names from Angular storage
+			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $id)->toArray();
 			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $id);
 
-			var_dump($reply->data);
 
-		} else if(empty($truckProfileId) === false) {
+
+//todo added this && ... probably not necessary since this action will only be available from owner profile.
+		} else if(empty($truckProfileId) === false && $_SESSION["profile"]->getProfileIsOwner() === 1) {
 			$reply->data->truck = Truck::getTruckByTruckProfileId($pdo, $truckProfileId)->toArray();
-//			foreach($reply->data->truck) {
-//				$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->truck->truckId);
-//				$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->truck->truckId);
-//			}
 
-		} else if(empty($truckName) === false) {
-			$reply->data->truck = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
-//			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->truck->truckId);
-//			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->truck->truckId);
+
+
+		} else if(empty($categoryName) === false) {
+			//todo use fancy method with JOIN
+
 
 
 		} else {
 			$reply->data->truck = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
-//			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $reply->data->truck->truckId);
-//			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $reply->data->truck->truckId);
+
+
+
 		}
 
 		//PUT and POST if blocks
@@ -142,9 +142,8 @@ try {
 				throw(new \InvalidArgumentException("A truck may only be edited by the truck's owner.", 403));
 			}
 
-			//todo JWT
-			//enforce presence of JWT header
-			//validateJwtHeader();
+
+			validateJwtHeader();
 
 			// update all attributes
 			$truck->setTruckBio($requestObject->truckBio);
@@ -165,9 +164,8 @@ try {
 				throw(new \InvalidArgumentException("Only logged in users may add a truck.", 403));
 			}
 
-			//todo JWT
-			//enforce presence of JWT header
-			//validateJwtHeader();
+			validateJwtHeader();
+
 			// create new truck and insert into the database
 			//todo hard-code truckIsOpen to 0 (closed)? What about Lat/Long?
 			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, -1, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
