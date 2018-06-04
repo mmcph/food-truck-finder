@@ -5,7 +5,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-use Edu\Cnm\FoodTruck\TruckCategory;
+use Edu\Cnm\FoodTruck\{TruckCategory,Category,Truck};
 
 
 /**
@@ -60,30 +60,29 @@ try {
         $truckCategory = new TruckCategory($_SESSION["profile"]->getProfileId(), $requestObject->truckCagtegoryCategoryId, $requestObject->truckCategoryTruckId);
         $truckCategory->insert($pdo);
         $reply->message = "Truck category successfully added.";
+
     }
-else if($method === "DELETE") {
-
-		//enforce that the end user has a XSRF token.
-		verifyXsrf();
-
-		// retrieve the Truck to be deleted
-    //todo add in the parameters for the pdo to get ($pdo, $___ etc)
-	//ADDED variables in the Param's!
-	$truckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $requestObject->truckCategoryCategoryId, $requestObject->truckCategoryTruckId);
-		if($truckCategory === null) {
-			throw(new RuntimeException("truck category does not exist", 404));
-		}
-
-		//enforce the user is signed in and only trying to edit their own TruckCategory
-		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() ->toString() !== $truckCategory->getTruckCategoryId()) {
-			throw(new \InvalidArgumentException("You are not allowed to delete this truck category", 403));
-		}
-
-		// delete TruckCategory
-	$truckCategory->delete($pdo);
-		// update reply
-		$reply->message = "Truck category deleted OK";
-	}
+//    else if($method === "DELETE") {
+//
+//		//enforce that the end user has a XSRF token.
+//		verifyXsrf();
+//
+//		// retrieve the Truck to be deleted
+//	$truckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $requestObject->truckCategoryCategoryId, $requestObject->truckCategoryTruckId);
+//		if($truckCategory === null) {
+//			throw(new RuntimeException("truck category does not exist", 404));
+//		}
+//
+//		//enforce the user is signed in and only trying to edit their own TruckCategory
+//		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() ->toString() !== $truckCategory->getTruckCategoryId()) {
+//			throw(new \InvalidArgumentException("You are not allowed to delete this truck category", 403));
+//		}
+//
+//		// delete TruckCategory
+//	$truckCategory->delete($pdo);
+//		// update reply
+//		$reply->message = "Truck category deleted OK";
+//	}
 
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
