@@ -637,25 +637,7 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		$statement->execute($parameters);
 
 
-		//build array of trucks
-		//$trucks = array($statement->rowCount());
-//		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-//
-//		while(($row = $statement->fetch()) !== false) {
-//			try {
-//				var_dump($row);
-//				$trucks = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
-//				$truckArray[$truckArray->key()] = $trucks;
-//				$truckArray->next();
-//
-//			} catch(\Exception $exception) {
-//				// if the row couldn't be converted, rethrow it
-//				throw(new \PDOException($exception->getMessage(), 0, $exception));
-//			}
-//		}
 
-//		build array of truckCategories
-		//$categories = array($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$result = $statement->fetchAll();
 
@@ -676,18 +658,6 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		var_dump($categories);
 		var_dump($trucks);
 
-//		while(($row = $statement->fetch()) !== false) {
-//			var_dump($row);
-//			try {
-//				$categories = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-//				$categoriesArray[$categoriesArray->key()] = $categories;
-//				$categoriesArray->next();
-//
-//			} catch(\Exception $exception) {
-//				// if the row couldn't be converted, rethrow it
-//				throw(new \PDOException($exception->getMessage(), 0, $exception));
-//			}
-//		}
 
 
 	}
