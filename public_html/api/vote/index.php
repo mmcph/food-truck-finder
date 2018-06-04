@@ -44,7 +44,6 @@ try {
         //enforce that the end user has a XSRF token.
         verifyXsrf();
         //enforce the end user has a JWT token
-        //validateJwtHeader();
         // enforce the user is signed in
         if (empty($_SESSION["profile"]) === true) {
             throw(new \InvalidArgumentException("You must first log in to vote", 403));
