@@ -66,7 +66,7 @@ class TruckCategory implements \JsonSerializable {
      * @throws \TypeError if $truckCategoryCategoryId is not a int
      *
      */
-    public function setTruckCategoryCategoryId(?int $newTruckCategoryCategoryId): void {
+    public function setTruckCategoryCategoryId(int $newTruckCategoryCategoryId): void {
         if ($newTruckCategoryCategoryId < 0 || $newTruckCategoryCategoryId >255){
             throw new \RangeException("truckCategoryCategoryId is not between 0 and 255");
         }

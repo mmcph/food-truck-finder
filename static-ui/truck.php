@@ -11,7 +11,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
     <!-- Custom CS link -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/truck.css">
 
     <!-- jQuery, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,7 +25,9 @@
 </head>
 <body>
 <!-- Header -->
-    <h1><i class="far fa-star"></i> Mario's Super Truck</h1>
+    <div class="container text-center">
+        <h1 class="my-2"><i class="far fa-star"></i> Mario's Super Truck</h1>
+    </div>
 <!--Bio-->
     <div class="container">
         <div class="row">
@@ -36,12 +38,20 @@
                 <p>We serve the best pizza in Albuquerque, and also the best cannolis!</p>
             </div>
         </div>
+
+
+
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col m-5">
                 <button type="button" class="btn btn-primary">Menu</button>
             </div>
-            <div class="col-sm-6">
-                <p>Categories</p>
+            <div class="col m-5">
+                <h2>Food Types</h2>
+                <ul>
+                    <li>Pizza</li>
+                    <li>Desserts</li>
+                    <li>Italian</li>
+                </ul>
             </div>
         </div>
     </div>

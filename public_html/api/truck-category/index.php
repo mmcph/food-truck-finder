@@ -57,7 +57,7 @@ try {
             throw(new \InvalidArgumentException("You must first log in to add a category", 403));
         }
         //validateJwtHeader();
-        $truckCategory = new TruckCategory($_SESSION["profile"]->getProfileId(), $requestObject->truckCagtegoryCategoryId, $requestObject->truckCategoryTruckId);
+        $truckCategory = new TruckCategory( $requestObject->truckCagtegoryCategoryId, $requestObject->truckCategoryTruckId);
         $truckCategory->insert($pdo);
         $reply->message = "Truck category successfully added.";
 
