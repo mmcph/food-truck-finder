@@ -654,9 +654,6 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		$truckCategories = array_unique($truckCategories, SORT_REGULAR);
 		$categories = array_unique($categories, SORT_REGULAR);
 		$trucks = array_unique($trucks, SORT_REGULAR);
-		var_dump($truckCategories);
-		var_dump($categories);
-		var_dump($trucks);
 
 		$map = new \Ds\Map();
 
@@ -664,12 +661,18 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 			$map[$truck] = [];
 		}
 
-		foreach($categories as $category) {
-			$searchSet = $map->keys()->filter(self::findTruck($category->truckId));
+		foreach($truckCategories as $truckCategory) {
+			$searchSet = $map->keys()->filter(self::findTruck($truckCategory->getTruckCategoryTruckId()));
 			if(count($searchSet) !== 1) {
-				throw(new \RangeException("Truck not found."));
+				throw(new \RangeException("Truck not found. Call AAA."));
 			}
-			$map[$searchSet[0]][] = $category;
+			$categorySearch = array_filter($categories, function($currentCategory) use ($truckCategory) {
+				return($currentCategory->getCategoryId() === $truckCategory->getTruckCategoryCategoryId());
+			});
+			if(count($categorySearch) !== 1) {
+				throw(new \RangeException("Mr. Alex Trebek, how could you be so mean!?"));
+			}
+			$map[$searchSet[0]][] = $categorySearch[0];
 		}
 
 		$jsonReturn = [];
@@ -678,10 +681,9 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 			$returnItem->truck = $truck;
 			$returnItem->category = $categories;
 			$jsonReturn[] = $returnItem;
-
-			return (json_encode($jsonReturn));
 		}
-
+		var_dump(json_encode($jsonReturn));
+		return (json_encode($jsonReturn));
 	}
 
 		/**  function findTruck(int $id) {
