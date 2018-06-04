@@ -25,33 +25,36 @@
 </head>
 <body>
 <!-- Header -->
-    <div class="row bg-primary py-4">
+    <div class="row bg-primary py-4 m-2">
         <div class="col text-center">
         <h1 class="my-2"><i class="far fa-star"></i> Mario's Super Truck</h1>
         </div>
     </div>
 <!--Bio-->
-    <div class="row bg-danger">
-        <div class="col-sm-6">
+    <div class="row bg-danger m-2">
+        <div class="col-sm-6 p-5">
             <img src="images/mario2.jpg" class="img-fluid">
         </div>
         <div class="col-sm-6 p-5">
-            <p class="py-5">We serve the best pizza in Albuquerque, and also the best cannolis! </p>
-        </div>
-    </div>
-
-        <div class="row bg-success">
-            <div class="col m-5">
+            <p class="py-5">We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! </p>
+            <div class="m-5">
                 <button type="button" class="btn btn-primary">Menu</button>
             </div>
+        </div>
+    </div>
+    <div class="row bg-success m-2">
             <div class="col m-5">
-                <h2>Food Types</h2>
+                <h3 class="p-2">Votes</h3>
+                <i class="fas fa-arrow-alt-circle-up fa-3x"></i>
+                <i class="far fa-arrow-alt-circle-down fa-3x"></i>
+            </div>
+            <div class="col m-5">
+                <h2>Food Types Served</h2>
                 <ul>
                     <li>Pizza</li>
                     <li>Desserts</li>
                     <li>Italian</li>
                 </ul>
             </div>
-        </div>
     </div>
 </body>
