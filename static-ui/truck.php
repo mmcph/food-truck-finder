@@ -25,23 +25,22 @@
 </head>
 <body>
 <!-- Header -->
-    <div class="container text-center">
+    <div class="row bg-primary py-4">
+        <div class="col text-center">
         <h1 class="my-2"><i class="far fa-star"></i> Mario's Super Truck</h1>
+        </div>
     </div>
 <!--Bio-->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <img src="images/mario_thumbnail.png" class="img-fluid">
-            </div>
-            <div class="col-sm-6">
-                <p>We serve the best pizza in Albuquerque, and also the best cannolis!</p>
-            </div>
+    <div class="row bg-danger">
+        <div class="col-sm-6">
+            <img src="images/mario2.jpg" class="img-fluid">
         </div>
+        <div class="col-sm-6 p-5">
+            <p class="py-5">We serve the best pizza in Albuquerque, and also the best cannolis! </p>
+        </div>
+    </div>
 
-
-
-        <div class="row">
+        <div class="row bg-success">
             <div class="col m-5">
                 <button type="button" class="btn btn-primary">Menu</button>
             </div>
