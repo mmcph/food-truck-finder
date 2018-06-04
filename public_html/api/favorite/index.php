@@ -40,12 +40,9 @@ try {
 	$favoriteTruckId  = filter_input(INPUT_GET, "favoriteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 
-var_dump($favoriteProfileId);
-
     if($method ==="GET") {
         //set XSRF cookie
         setXsrfCookie();
-        var_dump($favoriteTruckId);
 
         //gets a specific favorite based on its composite key
         if ($favoriteProfileId !== null && $favoriteTruckId !==null) {
@@ -61,9 +58,7 @@ var_dump($favoriteProfileId);
     }
     // get the favorites associated with the truckId
         } else if (empty($favoriteTruckId) === false) {
-            var_dump($favoriteTruckId);
             $favorite = Favorite::getFavoriteByFavoriteTruckId($pdo, $favoriteTruckId)->toArray();
-            var_dump($favorite);
 
             if($favorite !== null) {
                 $reply->data = $favorite;
@@ -86,7 +81,7 @@ var_dump($favoriteProfileId);
             //|| $_SESSION["profile"]->getProfileId()->toString() !== $favorite->getFavoriteProfileId()->toString()) {
             throw(new \InvalidArgumentException("You must be signed in to favorite a food truck", 403));
         }
-        //validateJwtHeader();
+        validateJwtHeader();
 
         $favorite = new Favorite($_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
         $favorite->insert($pdo);
@@ -94,7 +89,7 @@ var_dump($favoriteProfileId);
 
 
 
-    } else if($method === "DELETE") {
+    } else if($method === "PUT") {
 
         //decode the response from the front end
         $requestContent = file_get_contents("php://input");
@@ -109,6 +104,8 @@ var_dump($favoriteProfileId);
         if ($favorite === null) {
             throw(new RuntimeException("Favorite does not exist", 404));
         }
+
+        validateJwtHeader();
 
         //enforce the user is signed in and only trying to edit their own TruckCategory
         if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $favorite->getFavoriteProfileId()->toString()) {
