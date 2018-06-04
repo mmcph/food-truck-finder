@@ -129,6 +129,39 @@ class TruckTest extends TacoTruckTest {
 	protected $VALID_ACTIVATIONTOKEN = null;
 
 	protected $category;
+	protected $category0;
+	protected $category1;
+	protected $category2;
+	protected $category3;
+	protected $category4;
+	protected $category5;
+	protected $category6;
+	protected $category7;
+	protected $category8;
+	protected $category9;
+
+	protected $truck0;
+	protected $truck1;
+	protected $truck2;
+	protected $truck3;
+	protected $truck4;
+	protected $truck5;
+	protected $truck6;
+	protected $truck7;
+	protected $truck8;
+	protected $truck9;
+
+	protected $truckCategory0;
+	protected $truckCategory1;
+	protected $truckCategory2;
+	protected $truckCategory3;
+	protected $truckCategory4;
+	protected $truckCategory5;
+	protected $truckCategory6;
+	protected $truckCategory7;
+	protected $truckCategory8;
+	protected $truckCategory9;
+
 
 	public final function setUp()  : void {
 		// run the default setUp() method first
@@ -144,7 +177,65 @@ class TruckTest extends TacoTruckTest {
 		$this->category = new Category(null, "cruddy Froyo");
 		$this->category->insert($this->getPDO());
 
+		$this->truck0 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Uno”, “5055550001”, “www.truckuno.com”);
 
+$this->truck1 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Dos”, “5055550002”, “www.truckdos.com”);
+
+$this->truck2 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Tres”, “5055550003”, “www.trucktres.com”);
+
+$this->truck3 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Cuatro”, “5055550004”, “www.truckcuatro.com”);
+
+$this->truck4 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Cinco”, “5055550005”, “www.truckcinco.com”);
+
+$this->truck5 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Seis”, “5055550006”, “www.truckseis.com”);
+
+$this->truck6 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Siete”, “5055550007”, “www.trucksiete.com”);
+
+$this->truck7 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Ocho”, “5055550008”, “www.truckocho.com”);
+
+$this->truck8 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Nueve”, “5055550009”, “www.trucknueve.com”);
+
+$this->truck9 = new Truck(generateUuidV4(), generateUuidV4(), “bio”, -1, null, null, “Truck Diez”, “5055550010”, “www.truckdiez.com”);
+
+$this->category0 = new Category(null, “New Mexican”);
+
+$this->category1 = new Category(null, “Mexican”);
+
+$this->category2 = new Category(null, “Chinese”);
+
+$this->category3 = new Category(null, “Burritos”);
+
+$this->category4 = new Category(null, “Tacos”);
+
+$this->category5 = new Category(null, “Chicharrones”);
+
+$this->category6 = new Category(null, “Vegan”);
+
+$this->category7 = new Category(null, “Vegetarian”);
+
+$this->category8 = new Category(null, “Pescetarian”);
+
+$this->category9 = new Category(null, “Breatharian”);
+
+$this->truckCategory0 = new TruckCategory(generateUuidV4(), 1);
+
+$this->truckCategory1 = new TruckCategory(generateUuidV4(), 2);
+
+$this->truckCategory2 = new TruckCategory(generateUuidV4(), 3);
+
+$this->truckCategory3 = new TruckCategory(generateUuidV4(), 4);
+
+$this->truckCategory4 = new TruckCategory(generateUuidV4(), 5);
+
+$this->truckCategory5= new TruckCategory(generateUuidV4(), 6);
+
+$this->truckCategory6 = new TruckCategory(generateUuidV4(), 7);
+
+$this->truckCategory7 = new TruckCategory(generateUuidV4(), 8);
+
+$this->truckCategory8 = new TruckCategory(generateUuidV4(), 9);
+
+$this->truckCategory9 = new TruckCategory(generateUuidV4(), 10);
 
 	}
 
