@@ -595,7 +595,7 @@ class Truck implements \JsonSerializable {
 	}
 
 	/**
-	 * gets truckCategoryCategoryId, truckCategoryTruckId, categoryName, and truckName using truckCategoryCategoryIds sent from front end in array.
+	 * gets truckCategories, categories, and trucks using categoryIds sent from front end in array.
 	 * this mainly exists to get categoryNames for front-end display.
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -604,7 +604,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getTrucksAndCategoryNamesByTruckCategoryCategoryId(\PDO $pdo, array $truckCategories) {
+	public static function getTruckCategoriesAndCategoriesAndTrucksByCategoryId(\PDO $pdo, array $truckCategories) {
 		// verify the token is secure
 		$filteredCategories = [];
 		foreach($truckCategories as $truckCategory) {
@@ -658,7 +658,29 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		var_dump($categories);
 		var_dump($trucks);
 
+		$map = new \Ds\Map();
 
+		foreach($trucks as $truck) {
+			$map[$truck] = [];
+		}
+
+		foreach($categories as $category) {
+			$searchSet = $map->keys()->filter(self::findTruck($category->truckId));
+			if(count($searchSet) !== 1) {
+				throw(new \RangeException("Truck not found."));
+			}
+			$map[$searchSet[0]][] = $category;
+		}
+
+		$jsonReturn = [];
+		foreach($map as $truck => $categories) {
+			$returnItem = new \stdClass();
+			$returnItem->truck = $truck;
+			$returnItem->category = $categories;
+			$jsonReturn[] = $returnItem;
+
+			return (json_encode($jsonReturn));
+		}
 
 	}
 
@@ -691,6 +713,12 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 
 			return (json_encode($jsonReturn));
 		}
+	} */
+
+	private static function findTruck(string $id) {
+		return (function ($truck) use ($id) {
+			return ($truck->getTruckId()->toString() === $id);
+		});
 	}
 
 	/**
