@@ -237,7 +237,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError if $newTruckLatitude is not a float
 	 * @throws \RangeException if $newTruckLatitude too small OR too large OR empty string
 	 **/
-	public function setTruckLatitude(float $newTruckLatitude): void {
+	public function setTruckLatitude(?float $newTruckLatitude): void {
 
 		if($newTruckLatitude < -90 || $newTruckLatitude > 90 || empty($newTruckLatitude) === true) {
 			throw(new \RangeException("Invalid latitude value: must be in range [-90,90]"));
@@ -263,7 +263,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError if $newTruckLongitude is not a float
 	 * @throws \RangeException if $newTruckLongitude too small OR too large OR empty string
 	 **/
-	public function setTruckLongitude(float $newTruckLongitude): void {
+	public function setTruckLongitude(?float $newTruckLongitude): void {
 
 		if($newTruckLongitude < -180 || $newTruckLongitude > 180) {
 			throw(new \RangeException("Invalid longitude value: must be in range [-180,180]"));
