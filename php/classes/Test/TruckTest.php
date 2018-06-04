@@ -1,7 +1,9 @@
 <?php
 namespace Edu\Cnm\FoodTruck\Test;
 
-use Edu\Cnm\FoodTruck\{Profile, Truck};
+use Edu\Cnm\FoodTruck\{
+	Profile, Truck, Category, TruckCategory
+};
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -126,6 +128,8 @@ class TruckTest extends TacoTruckTest {
 	 **/
 	protected $VALID_ACTIVATIONTOKEN = null;
 
+	protected $category;
+
 	public final function setUp()  : void {
 		// run the default setUp() method first
 		parent::setUp();
@@ -135,6 +139,12 @@ class TruckTest extends TacoTruckTest {
 		// create and insert a Profile to own the test truck
 		$this->profile = new Profile (generateUuidV4(), $this->VALID_ACTIVATIONTOKEN, "test@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit");
 		$this->profile->insert($this->getPDO());
+
+
+		$this->category = new Category(null, "cruddy Froyo");
+		$this->category->insert($this->getPDO());
+
+
 
 	}
 
@@ -347,6 +357,12 @@ class TruckTest extends TacoTruckTest {
 		$this->assertEquals($pdoTruck->getTruckPhone(), $this->VALID_TRUCKPHONE);
 		$this->assertEquals($pdoTruck->getTruckUrl(), $this->VALID_TRUCKURL);
 
+
+		$truckCategory = new TruckCategory($this->category->getCategoryId(), $truck->getTruckId());
+		$truckCategory->insert($this->getPDO());
+
+		$tempTruck =  Truck::getTrucksAndCategoryNamesByTruckCategoryCategoryId($this->getPDO(), [$this->category->getCategoryId()]);
+
 	}
 
 	/**
@@ -356,6 +372,8 @@ class TruckTest extends TacoTruckTest {
 		// grab a truck by truckName that does not exist
 		$truck = Truck::getTruckByTruckName($this->getPDO(), "Vegan Dirt Burgers");
 		$this->assertCount(0, $truck);
+
+
 	}
 
 }

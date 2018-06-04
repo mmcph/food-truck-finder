@@ -6,6 +6,7 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
+use Ds\Map;
 
 /**
  * Class truck - represents each individual food truck. Weak entity; one profile may have many food trucks.
@@ -386,7 +387,7 @@ class Truck implements \JsonSerializable {
 		$query = "INSERT INTO truck(truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl) VALUES(:truckId, :truckProfileId, :truckBio, :truckIsOpen, :truckLatitude, :truckLongitude, :truckName, :truckPhone, :truckUrl)";
 		$statement = $pdo->prepare($query);
 
-		var_dump($this->truckProfileId);
+
 
 		// bind the member variables to the placeholders in the template
 		$parameters = ["truckId" => $this->truckId->getBytes(), "truckProfileId" => $this->truckProfileId->getBytes(), "truckBio" => $this->truckBio, "truckIsOpen" => $this->truckIsOpen, "truckLatitude" => $this->truckLatitude, "truckLongitude" => $this->truckLongitude, "truckName" => $this->truckName, "truckPhone" => $this->truckPhone, "truckUrl" => $this->truckUrl];
@@ -603,7 +604,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getTrucksAndCategoryNamesByTruckCategoryCategoryId(\PDO $pdo, array $truckCategories) : \SPLFixedArray {
+	public static function getTrucksAndCategoryNamesByTruckCategoryCategoryId(\PDO $pdo, array $truckCategories) {
 		// verify the token is secure
 		$filteredCategories = [];
 		foreach($truckCategories as $truckCategory) {
@@ -621,8 +622,9 @@ class Truck implements \JsonSerializable {
 		//converts array of categories into a comma-separated string
 		$truckCategories = implode($filteredCategories, ",");
 
+
 		// create query template
-		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId, categoryName, truckName
+		$query = "SELECT truckCategoryCategoryId, truckCategoryTruckId, categoryId, categoryName, truckId, truckProfileId, truckBio, truckIsOpen, truckLatitude, truckLongitude, truckName, truckPhone, truckUrl
 FROM truckCategory
 INNER JOIN category ON truckCategory.truckCategoryCategoryId = category.categoryId
 INNER JOIN truck ON truckCategory.truckCategoryTruckId = truck.truckId
@@ -630,42 +632,67 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		$statement = $pdo->prepare($query);
 
 		// bind to the place holder in the template
-		$statement->execute();
+		$parameters = ["truckCategories" => $truckCategories];
+
+		$statement->execute($parameters);
 
 
-			//build array of trucks
-		$trucks = array($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$trucks = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
-				$truckArray[$truckArray->key()] = $trucks;
-				$truckArray->next();
-
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
+		//build array of trucks
+		//$trucks = array($statement->rowCount());
+//		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+//
+//		while(($row = $statement->fetch()) !== false) {
+//			try {
+//				var_dump($row);
+//				$trucks = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
+//				$truckArray[$truckArray->key()] = $trucks;
+//				$truckArray->next();
+//
+//			} catch(\Exception $exception) {
+//				// if the row couldn't be converted, rethrow it
+//				throw(new \PDOException($exception->getMessage(), 0, $exception));
+//			}
+//		}
 
 //		build array of truckCategories
-		$categories = array($statement->rowCount());
+		//$categories = array($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		$result = $statement->fetchAll();
 
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$categories = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
-				$categoriesArray[$categoriesArray->key()] = $categories;
-				$categoriesArray->next();
 
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
+		$truckCategories = [];
+		$categories = [];
+		$trucks = [];
+		foreach($result as $row) {
+			$truckCategories[] = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
+			$categories[] = new Category($row["categoryId"], $row["categoryName"]);
+			$trucks[] = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
 		}
 
-		function findTruck(int $id) {
+		$truckCategories = array_unique($truckCategories, SORT_REGULAR);
+		$categories = array_unique($categories, SORT_REGULAR);
+		$trucks = array_unique($trucks, SORT_REGULAR);
+		var_dump($truckCategories);
+		var_dump($categories);
+		var_dump($trucks);
+
+//		while(($row = $statement->fetch()) !== false) {
+//			var_dump($row);
+//			try {
+//				$categories = new TruckCategory($row["truckCategoryCategoryId"], $row["truckCategoryTruckId"]);
+//				$categoriesArray[$categoriesArray->key()] = $categories;
+//				$categoriesArray->next();
+//
+//			} catch(\Exception $exception) {
+//				// if the row couldn't be converted, rethrow it
+//				throw(new \PDOException($exception->getMessage(), 0, $exception));
+//			}
+//		}
+
+
+	}
+
+		/**  function findTruck(int $id) {
 			return (function ($truck) use ($id) {
 				return ($truck->id === $id);
 			});
