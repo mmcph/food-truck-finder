@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,7 +29,7 @@
     <div class="body">
         <div class="container contact">
             <h1> Mario's Super Truck</h1>
-            <p id="phone">505-800-9999</p>
+            <p id="phone"> 505-800-9999</p>
             <p id="url">www.mario-eats.com</p>
             <p id="open"><i class="fas fa-check fa-lg"></i> Open Now</p>
 <!--            <p id="closed"><i class="fas fa-times fa-lg"></i> Currently Closed</p>-->
@@ -49,6 +49,9 @@
                     <button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i> Favorite</button>
                     <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-up fa-lg"></i> 18</button>
                     <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-down fa-lg"></i> 1</button>
+        <!--Alt. font-awesome icons for votes-->
+<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-up fa-lg"></i></i> 18</button>-->
+<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-down fa-lg"></i> 1</button>-->
                 </div>
             </div>
         </div>
