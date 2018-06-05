@@ -25,15 +25,18 @@
 </head>
 <body>
 <!-- Header -->
-    <div class="row bg-primary py-4 m-2">
-        <div class="col text-center">
-        <h1 class="my-2"><i class="far fa-star"></i> Mario's Super Truck</h1>
+    <div class="row py-4 m-2">
+        <div class="col">
+            <button type="button" class="btn btn-outline-primary"><i class="fas fa-star fa-2x"></i></button>
+        </div>
+        <div class="col">
+            <h1>Mario's Super Truck</h1>
         </div>
     </div>
 <!--Bio-->
     <div class="row bg-danger m-2">
         <div class="col-sm-6 p-5">
-            <img src="images/mario2.jpg" class="img-fluid">
+            <p>Stuff</p>
         </div>
         <div class="col-sm-6 p-5">
             <p class="py-5">We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! </p>
@@ -42,11 +45,11 @@
             </div>
         </div>
     </div>
-    <div class="row bg-success m-2">
+    <div class="row m-2">
             <div class="col m-5">
                 <h3 class="p-2">Votes</h3>
-                <i class="fas fa-arrow-alt-circle-up fa-3x"></i>
-                <i class="far fa-arrow-alt-circle-down fa-3x"></i>
+                <button type="button" class="btn btn-outline-success"><i class="fas fa-arrow-alt-circle-up fa-3x"></i></button>
+                <button type="button" class="btn btn-outline-danger"><i class="fas fa-arrow-alt-circle-down fa-3x"></i></button>
             </div>
             <div class="col m-5">
                 <h2>Food Types Served</h2>
