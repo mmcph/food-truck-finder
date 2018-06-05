@@ -19,37 +19,40 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Contrail+One" rel="stylesheet">
 
     <!--Actual page begins-->
     <title>Truck Details</title>
 </head>
 <body>
-<div class="container name">
-    <div class="row">
-        <div class="col">
-            <h1><button type="button" class="btn btn-outline-primary"><i class="fas fa-star fa-2x"></i></button> Mario's Super Truck</h1>
+
+    <div class="body">
+        <div class="container name">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1><button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i></button> Mario's Super Truck</h1>
+                    <p id="phone">505-800-9999</p>
+                </div>
+                <div class="col-sm-6">
+                        <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-up fa-lg"></i> 18</button>
+                        <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-down fa-lg"></i> 1</button>
+                </div>
+            </div>
         </div>
-        <div class="col">
-                <button type="button" class="btn btn-outline-success"><i class="fas fa-arrow-alt-circle-up fa-2x"></i> 18</button>
-                <button type="button" class="btn btn-outline-primary"><i class="fas fa-arrow-alt-circle-down fa-2x"></i> 1</button>
+        <div class="container bio">
+            <div class="Aligner">
+                <div class="Aligner-item">
+                    <p>We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink.</p>
+                    <p>We also do special events! Contact us for more info.</p>
+            <!--This is one option for displaying categories-->
+<!--                    <p><i class="fas fa-hashtag"></i>Desserts <i class="fas fa-hashtag"></i>Italian <i class="fas fa-hashtag"></i>Pizza <i class="fas fa-hashtag"></i>Desserts <i class="fas fa-hashtag"></i>Italian <i class="fas fa-hashtag"></i>Pizza <i class="fas fa-hashtag"></i>Desserts <i class="fas fa-hashtag"></i>Italian <i class="fas fa-hashtag"></i>Pizza<p>-->
+            <!-- This is a second option for displaying categories-->
+                    <p><strong>#</strong>Dessert <strong>#</strong>Italian <strong>#</strong>Pizza</p>
+                </div>
+                <button type="button" class="btn btn-primary">Menu</button>
+            </div>
         </div>
-    </div>
-</div>
-    <div class="container bio">
-<!--        <div class="col">-->
-            <p>We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm. Our current special is $5 pizza slices with an ice-cold drink.
-            </p>
-            <button type="button" class="btn btn-primary">Menu</button>
-<!--        </div>-->
-    </div>
-    <div class="container tags">
-<!--        <div class="col">-->
-            <ul class="list-unstyled">
-                <li><i class="fas fa-hashtag"></i> Desserts</li>
-                <li><i class="fas fa-hashtag"></i> Italian</li>
-                <li><i class="fas fa-hashtag"></i> Pizza</li>
-            </ul>
-<!--        </div>-->
     </div>
 </body>
 

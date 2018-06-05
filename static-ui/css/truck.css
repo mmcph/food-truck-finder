@@ -1,8 +1,49 @@
+h1 {
+    font-family: 'Contrail One', cursive;
+    color: #FFD042;
+}
+.body {
+    background-color: #51b2c9;
+}
+/*.tags {*/
+    /*background-color: #FFD042;*/
+/*}*/
+
+/*Aligner*/
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Aligner-item {
+    max-width: 50%;
+}
+
+.Aligner-item--top {
+    align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+    align-self: flex-end;
+}
 
 
-.bio {
-    background-color: greenyellow;
-}
-.tags {
-    background-color: red;
-}
+/*List*/
+/*.container-tags {*/
+    /*!*width: 857px;*!*/
+    /*display:flex;*/
+    /*align-content: center;*/
+    /*justify-content: center;*/
+    /*background-color: #FFD042;*/
+/*}*/
+/*.container-tags ul {*/
+    /*margin: 5px;*/
+    /*padding: 5px;*/
+    /*list-style: none;*/
+/*}*/
+/*.container-tags ul li {*/
+    /*display: inline-block;*/
+    /*margin-right: -4px;*/
+    /*width: 20%;*/
+/*}*/
