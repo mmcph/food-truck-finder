@@ -4,6 +4,7 @@ h1 {
 }
 .body {
     background-color: #51b2c9;
+    font-family: 'Roboto', sans-serif;
 }
 /*.tags {*/
     /*background-color: #FFD042;*/
@@ -13,11 +14,11 @@ h1 {
 .Aligner {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .Aligner-item {
-    max-width: 50%;
+    max-width: 80%;
 }
 
 .Aligner-item--top {
@@ -47,3 +48,12 @@ h1 {
     /*margin-right: -4px;*/
     /*width: 20%;*/
 /*}*/
+
+
+
+/*font-family: 'Roboto', sans-serif;*/
+
+/*font-family: 'Lato', sans-serif;*/
+
+/*font-family: 'Contrail One', cursive;*/
+
