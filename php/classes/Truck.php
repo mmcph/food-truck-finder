@@ -672,6 +672,7 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 			if(count($categorySearch) !== 1) {
 				throw(new \RangeException("Mr. Alex Trebek, how could you be so mean!?"));
 			}
+			//todo undefined offset 0
 			$map[$searchSet[0]][] = $categorySearch[0];
 		}
 
