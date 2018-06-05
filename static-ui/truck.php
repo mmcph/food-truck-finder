@@ -24,40 +24,30 @@
     <title>Truck Details</title>
 </head>
 <body>
-<!-- Header -->
-    <div class="row py-4 m-2">
-        <div class="col">
-            <button type="button" class="btn btn-outline-primary"><i class="fas fa-star fa-2x"></i></button>
-        </div>
-        <div class="col">
-            <h1>Mario's Super Truck</h1>
-        </div>
+<div class="row bg-danger">
+    <div class="col">
+        <h1><button type="button" class="btn btn-outline-primary"><i class="fas fa-star fa-2x"></i></button> Mario's Super Truck</h1>
     </div>
-<!--Bio-->
-    <div class="row bg-danger m-2">
-        <div class="col-sm-6 p-5">
-            <p>Stuff</p>
-        </div>
-        <div class="col-sm-6 p-5">
-            <p class="py-5">We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! </p>
-            <div class="m-5">
-                <button type="button" class="btn btn-primary">Menu</button>
-            </div>
-        </div>
+    <div class="col">
+            <button type="button" class="btn btn-outline-success"><i class="fas fa-arrow-alt-circle-up fa-2x"></i></button>
+            <button type="button" class="btn btn-outline-primary"><i class="fas fa-arrow-alt-circle-down fa-2x"></i></button>
     </div>
-    <div class="row m-2">
-            <div class="col m-5">
-                <h3 class="p-2">Votes</h3>
-                <button type="button" class="btn btn-outline-success"><i class="fas fa-arrow-alt-circle-up fa-3x"></i></button>
-                <button type="button" class="btn btn-outline-danger"><i class="fas fa-arrow-alt-circle-down fa-3x"></i></button>
-            </div>
-            <div class="col m-5">
-                <h2>Food Types Served</h2>
-                <ul>
-                    <li>Pizza</li>
-                    <li>Desserts</li>
-                    <li>Italian</li>
-                </ul>
-            </div>
+</div>
+<div class="row bg-light">
+    <div class="col">
+        <p>We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm. Our current special is $5 pizza slices with an ice-cold drink.
+        </p>
+        <button type="button" class="btn btn-primary">Menu</button>
+    </div>
+</div>
+    <div class="row bg-success">
+        <div class="col">
+            <ul class="list-unstyled">
+                <li><i class="fas fa-hashtag"></i> Desserts</li>
+                <li><i class="fas fa-hashtag"></i> Italian</li>
+                <li><i class="fas fa-hashtag"></i> Pizza</li>
+            </ul>
+        </div>
     </div>
 </body>
+
