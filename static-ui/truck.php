@@ -24,30 +24,32 @@
     <title>Truck Details</title>
 </head>
 <body>
-<div class="row bg-danger">
-    <div class="col">
-        <h1><button type="button" class="btn btn-outline-primary"><i class="fas fa-star fa-2x"></i></button> Mario's Super Truck</h1>
-    </div>
-    <div class="col">
-            <button type="button" class="btn btn-outline-success"><i class="fas fa-arrow-alt-circle-up fa-2x"></i></button>
-            <button type="button" class="btn btn-outline-primary"><i class="fas fa-arrow-alt-circle-down fa-2x"></i></button>
-    </div>
-</div>
-<div class="row bg-light">
-    <div class="col">
-        <p>We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm. Our current special is $5 pizza slices with an ice-cold drink.
-        </p>
-        <button type="button" class="btn btn-primary">Menu</button>
-    </div>
-</div>
-    <div class="row bg-success">
+<div class="container name">
+    <div class="row">
         <div class="col">
+            <h1><button type="button" class="btn btn-outline-primary"><i class="fas fa-star fa-2x"></i></button> Mario's Super Truck</h1>
+        </div>
+        <div class="col">
+                <button type="button" class="btn btn-outline-success"><i class="fas fa-arrow-alt-circle-up fa-2x"></i> 18</button>
+                <button type="button" class="btn btn-outline-primary"><i class="fas fa-arrow-alt-circle-down fa-2x"></i> 1</button>
+        </div>
+    </div>
+</div>
+    <div class="container bio">
+<!--        <div class="col">-->
+            <p>We serve the best pizza in Albuquerque, and also the best cannolis! We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm. Our current special is $5 pizza slices with an ice-cold drink.
+            </p>
+            <button type="button" class="btn btn-primary">Menu</button>
+<!--        </div>-->
+    </div>
+    <div class="container tags">
+<!--        <div class="col">-->
             <ul class="list-unstyled">
                 <li><i class="fas fa-hashtag"></i> Desserts</li>
                 <li><i class="fas fa-hashtag"></i> Italian</li>
                 <li><i class="fas fa-hashtag"></i> Pizza</li>
             </ul>
-        </div>
+<!--        </div>-->
     </div>
 </body>
 
