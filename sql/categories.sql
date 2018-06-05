@@ -1,4 +1,3 @@
-	ALTER DATABASE foodtruck CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 	INSERT INTO category(categoryId, categoryName) VALUES(:null , "newMexican")
 
@@ -16,7 +15,7 @@
 
 	INSERT INTO category(categoryId, categoryName) VALUES(:null , "indian")
 
-	INSERT INTO category(categoryId, categoryName) VALUES(:null , "nativeAmerican")
+	INSERT INTO category(categoryId, categoryName) VALUES(null , "nativeAmerican")
 
 	INSERT INTO category(categoryId, categoryName) VALUES(:null , "asian")
 
