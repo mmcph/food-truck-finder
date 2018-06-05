@@ -28,13 +28,11 @@
 
     <div class="body">
         <div class="container contact">
-<!--            <div class="row">-->
-<!--                <div class="col-sm-6">-->
-                    <h1> Mario's Super Truck</h1>
-                    <p id="phone">505-800-9999</p>
-                    <p id="url">www.mario-eats.com</p>
-<!--                </div>-->
-<!--            </div>-->
+            <h1> Mario's Super Truck</h1>
+            <p id="phone">505-800-9999</p>
+            <p id="url">www.mario-eats.com</p>
+            <p id="open"><i class="fas fa-check fa-lg"></i> Open Now</p>
+<!--            <p id="closed"><i class="fas fa-times fa-lg"></i> Currently Closed</p>-->
         </div>
         <div class="container bio">
             <div class="Aligner">
