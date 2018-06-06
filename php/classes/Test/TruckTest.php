@@ -510,12 +510,12 @@ class TruckTest extends TacoTruckTest {
 	 *
 	 */
 
-	public function testGetTruckCategoriesAndCategoriesAndTrucksByCategoryId() : void {
-		$tempTruck =  Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category9->getCategoryId()]);
+	public function testGetCategoriesAndTrucksByCategoryId() : void {
+		$tempTruck =  Truck::getCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category9->getCategoryId()]);
 		$pdoChunk = $tempTruck[0];
 		var_dump($tempTruck);
 
-		$tempTruck1 =  Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category2->getCategoryId(), $this->category7->getCategoryId()]);
+		$tempTruck1 =  Truck::getCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category2->getCategoryId(), $this->category7->getCategoryId()]);
 		$pdoChunk1 = $tempTruck1;
 		var_dump($pdoChunk1);
 

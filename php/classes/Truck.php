@@ -605,7 +605,7 @@ class Truck implements \JsonSerializable {
 	 * @throws \TypeError when variables are not the correct data type
 	 * @throws \InvalidArgumentException when empty array is passed in
 	 **/
-	public static function getTruckCategoriesAndCategoriesAndTrucksByCategoryId(\PDO $pdo, array $truckCategories): array {
+	public static function getCategoriesAndTrucksByCategoryId(\PDO $pdo, array $truckCategories): array {
 		// verify the token is secure
 		$filteredCategories = [];
 		foreach($truckCategories as $truckCategory) {
