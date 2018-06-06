@@ -1,7 +1,7 @@
 export class Truck {
 	constructor(
-		public truckId: number,
-		public truckProfileId: number,
+		public truckId: string,
+		public truckProfileId: string,
 		public truckBio: string,
 		public truckIsOpen: string,
 		public truckLatitude: number,
