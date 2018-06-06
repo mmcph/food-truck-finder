@@ -2,11 +2,11 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
 import {Status} from "../classes/status";
-import {Profile} from "..classes/truck";
+import {Profile} from "../classes/truck";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class ProfileService {
+export class TruckService {
 
     constructor(protected http: HttpClient) {
 
@@ -31,18 +31,17 @@ export class ProfileService {
         return(this.http.delete<Status>(this.truckUrl + id));
     }
 
-    // call to the Truck API and get a truck object by its truckId (GET)
+    // call to the Truck API and get a truck object by its truckId (GET specific truck)
     getTruck(id : string) : Observable<Truck> {
         return(this.http.get<Truck>(this.truckUrl + id));
     }
 
-    // call to the Truck API to ----
+    // call to the Truck API and grab the corresponding truck by its _____? (GET array)
+
 
 
     // call to the Truck API and grab the corresponding truck by its _____? (GET array)
 
-
-    //  (GET array)
 
 
 
