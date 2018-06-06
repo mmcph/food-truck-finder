@@ -32,11 +32,11 @@
 		<form action="">
 			<div class="form-group">
 				Enter Your Profile Email Address<br>
-				<input type="text" name="enteremail">
+				<input type="text" name="enteremail" placeholder="your-email-address@domain.com">
 			</div>
 			<div class="form-group">
 				Password<br>
-				<input type="text" name="enterpassword">
+				<input type="text" name="enterpassword" placeholder="your-password">
 			</div>
 		</form>
 

@@ -46,15 +46,15 @@
 			</div>
 			<div class="form-group">
 				Your Website URL Address<br>
-				<input type="text" name="url" placeholder="optional">
+				<input type="text" name="url" placeholder="(optional)">
 			</div>
 			<div class="form-group">
 				Email Address <br>
 				<input type="text" name="email" placeholder="your-email-address@domain.com">
 			</div>
 			<div class="form-group">
-				Password <br>
-				<input type="text" name="password">
+				Description of your business/truck <br>
+				<input type="text" name="truckbio" placeholder="An adventurous story about mushrooms and princesses in Mario World.">
 			</div>
 			<div class="form-group">
 				Confirm Password <br>

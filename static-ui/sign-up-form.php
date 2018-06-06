@@ -30,19 +30,19 @@
 		<form action="">
 			<div class="form-group">
 				First Name <br>
-				<input type="text" name="firstname">
+				<input type="text" name="firstname" placeholder="Juan">
 			</div>
 			<div class="form-group">
 				Last Name <br>
-				<input type="text" name="lastname">
+				<input type="text" name="lastname" placeholder="Smith">
 			</div>
 			<div class="form-group">
 				Username <br>
-				<input type="text" name="username">
+				<input type="text" name="username" placeholder="jsmith01">
 			</div>
 			<div class="form-group">
 				Email Address <br>
-				<input type="text" name="email">
+				<input type="text" name="email" placeholder="your-email-address@domain.com">
 			</div>
 			<div class="form-group">
 				Password <br>
