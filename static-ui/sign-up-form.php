@@ -21,15 +21,16 @@
 		<!--Google Fonts-->
 		<link href="https://fonts.googleapis.com/css?family=Contrail+One|Roboto" rel="stylesheet">
 
-
 		<title>sign-up</title>
 	</head>
+
 	<body>
 		<h1>Sign-up with us!</h1>
+
 		<form action="">
 			<div class="form-group">
-			First Name <br>
-			<input type="text" name="firstname">
+				First Name <br>
+				<input type="text" name="firstname">
 			</div>
 			<div class="form-group">
 				Last Name <br>
@@ -54,4 +55,5 @@
 		</form>
 
 	</body>
+
 </html>

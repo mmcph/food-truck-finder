@@ -21,23 +21,47 @@
 		<!--Google Fonts-->
 		<link href="https://fonts.googleapis.com/css?family=Contrail+One|Roboto" rel="stylesheet">
 
-
-		<title>sign-in</title>
+		<title>newtruck</title>
 	</head>
 
 	<body>
-
-		<h1>Sign-In</h1>
+		<h1>Application for New Truck Owners</h1>
 
 		<form action="">
 			<div class="form-group">
-				Enter Your Profile Email Address<br>
-				<input type="text" name="enteremail">
+				Business Name <br>
+				<input type="text" name="businessname" placeholder="Super Mario's Truck">
 			</div>
 			<div class="form-group">
-				Password<br>
-				<input type="text" name="enterpassword">
+				Business Contact Phone Number <br>
+				<input type="text" name="phonenumber" placeholder="(xxx)xxx-xxxx">
+			</div>
+			<div class="form-group">
+				First Name <br>
+				<input type="text" name="truckfirstname" placeholder="Juan">
+			</div>
+			<div class="form-group">
+				Last Name <br>
+				<input type="text" name="trucklastname" placeholder="Smith">
+			</div>
+			<div class="form-group">
+				Your Website URL Address<br>
+				<input type="text" name="url" placeholder="optional">
+			</div>
+			<div class="form-group">
+				Email Address <br>
+				<input type="text" name="email" placeholder="your-email-address@domain.com">
+			</div>
+			<div class="form-group">
+				Password <br>
+				<input type="text" name="password">
+			</div>
+			<div class="form-group">
+				Confirm Password <br>
+				<input type="text" name="confirmpassword">
 			</div>
 		</form>
 
 	</body>
+
+</html>
