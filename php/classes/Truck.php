@@ -632,10 +632,7 @@ INNER JOIN truck ON truckCategory.truckCategoryTruckId = truck.truckId
 WHERE truckCategoryCategoryId IN ($truckCategories)";
 		$statement = $pdo->prepare($query);
 
-		// bind to the place holder in the template
-		$parameters = ["truckCategories" => $truckCategories];
-
-		$statement->execute($parameters);
+		$statement->execute();
 
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$result = $statement->fetchAll();
@@ -653,7 +650,7 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		$categories = array_values(array_unique($categories, SORT_REGULAR));
 		$trucks = array_values(array_unique($trucks, SORT_REGULAR));
 
-		$map = new \Ds\Map();
+		$map = new Map();
 
 		foreach($trucks as $truck) {
 			$map[$truck] = [];
