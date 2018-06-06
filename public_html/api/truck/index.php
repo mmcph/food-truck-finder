@@ -46,6 +46,7 @@ try {
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$truckCategories = filter_input(INPUT_GET, "truckCategories", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckProfileId = filter_input(INPUT_GET, "truckProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckBio = filter_input(INPUT_GET, "truckBio", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$truckIsOpen = filter_input(INPUT_GET, "truckIsOpen", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -80,11 +81,12 @@ try {
 
 
 
-		} else if(empty($categoryName) === false) {
-			//todo use fancy method with JOIN
-
-
-
+		} else if(empty($truckCategories) === false) {
+			$truckCategories = @json_decode($truckCategories);
+			if(empty($truckCategories) === true || is_array($truckCategories) === false) {
+				throw(new \InvalidArgumentException("CODE 18: truck selections are subject to operator error"));
+			}
+			$reply->data = Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($pdo, $truckCategories);
 		} else {
 			$reply->data->truck = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
 

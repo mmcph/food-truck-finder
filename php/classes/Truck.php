@@ -595,16 +595,17 @@ class Truck implements \JsonSerializable {
 	}
 
 	/**
-	 * gets truckCategories, categories, and trucks using categoryIds sent from front end in array.
+	 * gets categories and trucks using categoryIds sent from front end in array.
 	 * this mainly exists to get categoryNames for front-end display.
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param $truckCategories array of category IDs sent from front end search
-	 * @return \SplFixedArray SplFixedArray of Truck info found or null if not found
+	 * @return array array with trucks and categories
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
+	 * @throws \InvalidArgumentException when empty array is passed in
 	 **/
-	public static function getTruckCategoriesAndCategoriesAndTrucksByCategoryId(\PDO $pdo, array $truckCategories) {
+	public static function getTruckCategoriesAndCategoriesAndTrucksByCategoryId(\PDO $pdo, array $truckCategories): array {
 		// verify the token is secure
 		$filteredCategories = [];
 		foreach($truckCategories as $truckCategory) {
@@ -636,11 +637,8 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 
 		$statement->execute($parameters);
 
-
-
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$result = $statement->fetchAll();
-
 
 		$truckCategories = [];
 		$categories = [];
@@ -651,9 +649,9 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 			$trucks[] = new Truck($row["truckId"], $row["truckProfileId"], $row["truckBio"], $row["truckIsOpen"], $row["truckLatitude"], $row["truckLongitude"], $row["truckName"], $row["truckPhone"], $row["truckUrl"]);
 		}
 
-		$truckCategories = array_unique($truckCategories, SORT_REGULAR);
-		$categories = array_unique($categories, SORT_REGULAR);
-		$trucks = array_unique($trucks, SORT_REGULAR);
+		$truckCategories = array_values(array_unique($truckCategories, SORT_REGULAR));
+		$categories = array_values(array_unique($categories, SORT_REGULAR));
+		$trucks = array_values(array_unique($trucks, SORT_REGULAR));
 
 		$map = new \Ds\Map();
 
@@ -664,15 +662,15 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 		foreach($truckCategories as $truckCategory) {
 			$searchSet = $map->keys()->filter(self::findTruck($truckCategory->getTruckCategoryTruckId()));
 			if(count($searchSet) !== 1) {
-				throw(new \RangeException("Truck not found. Call AAA."));
+				throw(new \RangeException("Truck not found."));
 			}
-			$categorySearch = array_filter($categories, function($currentCategory) use ($truckCategory) {
+			$categorySearch = array_values(array_filter($categories, function($currentCategory) use ($truckCategory) {
 				return($currentCategory->getCategoryId() === $truckCategory->getTruckCategoryCategoryId());
-			});
+			}));
 			if(count($categorySearch) !== 1) {
 				throw(new \RangeException("Mr. Alex Trebek, how could you be so mean!?"));
 			}
-			//todo undefined offset 0
+
 			$map[$searchSet[0]][] = $categorySearch[0];
 		}
 
@@ -683,40 +681,8 @@ WHERE truckCategoryCategoryId IN ($truckCategories)";
 			$returnItem->category = $categories;
 			$jsonReturn[] = $returnItem;
 		}
-		var_dump(json_encode($jsonReturn));
-		return (json_encode($jsonReturn));
+		return($jsonReturn);
 	}
-
-		/**  function findTruck(int $id) {
-			return (function ($truck) use ($id) {
-				return ($truck->id === $id);
-			});
-		}
-//todo add to namespace? Installation/requirement?
-		$map = new Ds\Map();
-
-		foreach($trucks as $truck) {
-			$map[$truck] = [];
-		}
-
-		foreach($categories as $category) {
-			$searchSet = $map->keys()->filter(findTruck($category->truckId));
-			if(count($searchSet) !== 1) {
-				throw(new \RangeException("Truck not found."));
-			}
-			$map[$searchSet[0]][] = $category;
-		}
-
-		$jsonReturn = [];
-		foreach($map as $truck => $categories) {
-			$returnItem = new \stdClass();
-			$returnItem->truck = $truck;
-			$returnItem->category = $categories;
-			$jsonReturn[] = $returnItem;
-
-			return (json_encode($jsonReturn));
-		}
-	} */
 
 	private static function findTruck(string $id) {
 		return (function ($truck) use ($id) {

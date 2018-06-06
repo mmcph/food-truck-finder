@@ -151,6 +151,7 @@ class TruckTest extends TacoTruckTest {
 	protected $category8;
 	protected $category9;
 
+//	protected $truck;
 	protected $truck0;
 	protected $truck1;
 	protected $truck2;
@@ -190,28 +191,6 @@ class TruckTest extends TacoTruckTest {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		$this->profile0 = new Profile ("b4ed51ad-2e55-41ea-8527-5cae31821619", $this->VALID_ACTIVATIONTOKEN, "test0@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit0");
 		$this->profile0->insert($this->getPDO());
 		$this->profile1 = new Profile ("d31622e9-6fad-4746-aee5-f1d61b082c2d", $this->VALID_ACTIVATIONTOKEN, "test1@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit1");
@@ -233,6 +212,7 @@ class TruckTest extends TacoTruckTest {
 		$this->profile9 = new Profile ("bcc4900c-54e5-44ed-b5b0-29df5b540ce6", $this->VALID_ACTIVATIONTOKEN, "test9@phpunit.de", $this->VALID_PROFILE_HASH, 1, "php", "unit", "phpunit9");
 		$this->profile9->insert($this->getPDO());
 
+//		$this->truck = new Truck("c92a03de-69b8-4faa-9722-fd111f3d73a2", "b4ed51ad-2e55-41ea-8527-5cae31821619", "bio", -1, 77.77777777, 77.77777777, "Truck Cero", "5055550000", "www.truckcero.com");
 		$this->truck0 = new Truck("c2bb6895-2ec1-4c8e-b8ed-81919df84181", "b4ed51ad-2e55-41ea-8527-5cae31821619", "bio", -1, 77.77777777, 77.77777777, "Truck Uno", "5055550001", "www.truckuno.com");
 		$this->truck0->insert($this->getPDO());
 		$this->truck1 = new Truck("09fb8d82-dcc4-48e0-b0d2-fb89945b3332", "d31622e9-6fad-4746-aee5-f1d61b082c2d", "bio", -1, 77.77777777, 77.77777777, "Truck Dos", "5055550002", "www.truckdos.com");
@@ -505,10 +485,10 @@ class TruckTest extends TacoTruckTest {
 		$this->assertEquals($pdoTruck->getTruckUrl(), $this->VALID_TRUCKURL);
 
 
-		$truckCategory = new TruckCategory($this->category->getCategoryId(), $truck->getTruckId());
-		$truckCategory->insert($this->getPDO());
-
-		$tempTruck =  Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category->getCategoryId(), $this->category9->getCategoryId()]);
+//		$truckCategory = new TruckCategory($this->category->getCategoryId(), $truck->getTruckId());
+//		$truckCategory->insert($this->getPDO());
+//
+//		$tempTruck =  Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category->getCategoryId(), $this->category9->getCategoryId()]);
 
 	}
 
@@ -519,6 +499,28 @@ class TruckTest extends TacoTruckTest {
 		// grab a truck by truckName that does not exist
 		$truck = Truck::getTruckByTruckName($this->getPDO(), "Vegan Dirt Burgers");
 		$this->assertCount(0, $truck);
+
+
+	}
+
+	/**
+	 * test getting a mapped array of objects (trucks with corresponding truckCategories and categories) by array of category IDs
+	 *
+	 * $this->category0->getCategoryId(),
+	 *
+	 */
+
+	public function testGetTruckCategoriesAndCategoriesAndTrucksByCategoryId() : void {
+		$tempTruck =  Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category9->getCategoryId()]);
+		$pdoChunk = $tempTruck[0];
+		var_dump($tempTruck);
+
+		$tempTruck1 =  Truck::getTruckCategoriesAndCategoriesAndTrucksByCategoryId($this->getPDO(), [$this->category2->getCategoryId(), $this->category7->getCategoryId()]);
+		$pdoChunk1 = $tempTruck1;
+		var_dump($pdoChunk1);
+
+//		$this->assertEquals();
+
 
 
 	}
