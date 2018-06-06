@@ -10,7 +10,6 @@ export class ProfileService {
 
 	constructor(protected http : HttpClient) {
 
-
 	}
 
 	private profileUrl = "api/profile/";
