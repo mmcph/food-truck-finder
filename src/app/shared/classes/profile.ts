@@ -1,12 +1,11 @@
 export class Profile {
 	constructor(
 		public profileId: string,
-		public profileActivationToken: string,
 		public profileEmail: string,
 		public profileHash: string,
-		public profileIsOwner: string,
+		public profileIsOwner: number,
 		public profileFirstName: string,
 		public profileLastName: string,
-		public profileUserName: string,
+		public profileUserName: string
 	) {}
 }

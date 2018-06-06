@@ -4,3 +4,4 @@ export class Favorite {
 		public  favoriteTruckId: string
 	) {}
 }
+
