@@ -25,7 +25,7 @@ export class FavoriteService {
 		return (this.http.get<Favorite>(this.favoriteUrl+ "?favoriteProfileId=" + favoriteProfileId +"&favoriteTruckId=" + favoriteTruckId))
 	}
 
-	getFavoriteBytruckId (likeTruckId : string) : Observable <Favorite[]> {
+	getFavoriteByTruckId ( favoriteTruckId : string) : Observable <Favorite[]> {
 		return(this.http.get<Favorite[]>(this.favoriteUrl + favoriteTruckId))
 	}
 

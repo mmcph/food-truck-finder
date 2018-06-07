@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
-import {Status} from "../classes/status";
-import {Profile} from "../classes/truck";
+import {Status} from "../shared/classes/status";
+import {Truck} from "../shared/classes/truck";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
@@ -28,7 +28,7 @@ export class TruckService {
 
     //reach out to the Truck API and delete the truck in question (DELETE)
     deleteTruck(truckId : string) : Observable<Status> {
-        return(this.http.delete<Status>(this.truckUrl + id));
+        return(this.http.delete<Status>(this.truckUrl + truckId));
     }
 
     // call to the Truck API and get a truck object by its truckId (GET specific truck)

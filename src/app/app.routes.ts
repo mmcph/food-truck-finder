@@ -11,7 +11,7 @@ export const routes: Routes = [
 
 export const appRoutingProviders: any[] = [
     {provide: APP_BASE_HREF, useValue: window["_base_href"]},
-    UserService
+    HomeComponent
 ];
 
 export const routing = RouterModule.forRoot(routes);
