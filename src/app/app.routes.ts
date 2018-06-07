@@ -1,14 +1,12 @@
 import {RouterModule, Routes} from "@angular/router";
-import {SplashComponent} from "./splash/splash.component";
-//todo this will be customized to our project
-import {UserService} from "./shared/services/user.services";
+import {HomeComponent} from "./home/home.component";
 import {APP_BASE_HREF} from "@angular/common";
 
 
-export const allAppComponents = [SplashComponent];
+export const allAppComponents = [HomeComponent];
 
 export const routes: Routes = [
-    {path: "", component: SplashComponent}
+    {path: "", component: HomeComponent}
 ];
 
 export const appRoutingProviders: any[] = [
