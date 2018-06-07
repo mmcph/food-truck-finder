@@ -2,13 +2,12 @@ nav {
 	background-color: #A00400;
 }
 
-.navbar-brand {
-	/*font-family: 'Rock Salt', cursive;*/
-	font-family: 'Contrail One', cursive;
+#navLogo {
+	width: 30vw;
+}
 
-	font-size: 30px;
-	color: #FFD042;
-	text-shadow: black 0 0 7px;
+a#fullSizeTitle {
+	margin-right: 0;
 }
 
 .navbar-brand:hover, .navbar-brand:focus, .navbar-brand:active {
@@ -22,15 +21,15 @@ nav {
 .nav-link {
 	color: #FFD042;
 	font-size: 25px;
-	/*font-family: 'Rock Salt', cursive;*/
 	font-family: 'Contrail One', cursive;
-	transition: text-shadow .5s, color .5s;
+	text-shadow: black 0 0 5px;
+	transition: color .5s;
 	transition-timing-function: ease-out;
 }
 
 .nav-link:hover, .nav-link:active, .nav-link:focus {
 	color: #FFD042;
-	text-shadow: black 0 0 5px;
+
 }
 
 .fa-user {
@@ -38,6 +37,7 @@ nav {
 	padding: 4px 6px;
 	border: 2px solid #FFD042;
 	border-radius: 4px;
+	margin-right: .5vw;
 }
 
 .fa-search {
@@ -51,7 +51,6 @@ nav {
 .userSearch {
 	background-color: #FFD042;
 	color: #800400;
-	/*font-family: 'Rock Salt', cursive;*/
 	font-family: 'Contrail One', cursive;
 
 	outline-style: none;

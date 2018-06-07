@@ -169,7 +169,6 @@ try {
 			validateJwtHeader();
 
 			// create new truck and insert into the database
-			//todo hard-code truckIsOpen to 0 (closed)? What about Lat/Long?
 			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, -1, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
 			$truck->insert($pdo);
 

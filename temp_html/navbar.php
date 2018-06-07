@@ -19,20 +19,30 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 		<!-- Google Font-->
-		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Contrail+One" rel="stylesheet">
 
 	</head>
 	<body>
 
 		<nav class="navbar navbar-expand-lg">
-			<a class="navbar-brand" id="fullSizeTitle" href="#">FoodTruckFound</a>
+			<a class="navbar-brand" id="fullSizeTitle" href="#"><img id="navLogo" src="https://i.imgur.com/Kqlj3Q7.png"></a>
 <!--			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
 <!--				<span class="navbar-toggler-icon"></span>-->
 <!--			</button>-->
 
 <!--			<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+			<div class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Food Types</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<button class="btn btn-outline-success" type="submit">Find Trucks</button>
 
+					<!--							todo Angular insert categories into list of checkboxes-->
+					<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" id="PLACEHOLDER" name="PLACEHOLDER">PLACEHOLDER</div>
+
+					<!--								todo divider between letters in alphabetical ordering?-->
+					<div class="dropdown-divider"></div>
+				</div>
+			</div>
 
 <!--			USERS-->
 				<ul class="navbar-nav ml-auto">
@@ -49,43 +59,13 @@
 <!--			</div>-->
 		</nav>
 
-		<nav class="navbar navbar-expand-lg">
-			<div class="searchContain">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-
-					</li>
-				</ul>
-			</div>
-
-		</nav>
-
-<div class="row">
-	<div class="col-xs-6">
-		<form class="form-inline my-2 my-lg-0">
-			<input class="userSearch form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="submitSearch" type="submit"><i class="fas fa-search"></i></button>
-		</form>
-	</div>
-
 		<!--					DROPDOWN categories-->
 	<div class="col-xs-6">
 
-			<diva class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Food Types</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<button class="btn btn-outline-success" type="submit">Find Trucks</button>
-
-					<!--							todo Angular insert categories into list of checkboxes-->
-					<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" id="PLACEHOLDER" name="PLACEHOLDER">PLACEHOLDER</div>
-
-					<!--								todo divider between letters in alphabetical ordering?-->
-					<div class="dropdown-divider"></div>
-				</div>
-			</diva>
-		</div>
 
 		</div>
+
+
 
 
 
