@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
-import {Status} from "../shared/classes/status";
-import {Truck} from "../shared/classes/truck";
+import {Status} from "../classes/status";
+import {Truck} from "../classes/truck";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
