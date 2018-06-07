@@ -1,20 +1,51 @@
+
+
 nav {
 	background-color: #A00400;
+	border-bottom: 5px solid #600400;
 }
 
 #navLogo {
-	width: 30vw;
+	width: 8vw;
+	margin: 0 0 0 10px;
 }
 
 a#fullSizeTitle {
 	margin-right: 0;
 }
 
-.navbar-brand:hover, .navbar-brand:focus, .navbar-brand:active {
+.brandText {
 	color: #FFD042;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 5px;
+	transition: color .5s;
+	transition-timing-function: ease-out;
+}
+
+.brandText:hover, .brandText:focus, .brandText:active {
+	color: #ffe577;
 }
 
 .dropdown-toggle {
+	color: #FFD042;
+}
+
+.dropdown-menu {
+	margin-right: 20px;
+	background-color: #A00400;
+	border-radius: 0;
+}
+
+.categoryButton {
+	border: 1px solid #600400;
+	border-radius: 0;
+	background-color: #FFD042;
+	color: #A00400;
+	margin: 0 auto;
+}
+
+.categorySearch {
 	color: #FFD042;
 }
 
@@ -40,36 +71,28 @@ a#fullSizeTitle {
 	margin-right: .5vw;
 }
 
-.fa-search {
-	font-size: 25px;
+.sessionHide {
+	display: none;
 }
 
-.searchContain {
-	display: inline-block;
+@media screen and (min-width: 850px) /* Desktop */ {
+	img#navLogo {
+		width: 67px;
+	}
+	body{
+		background-color: #A00400;
+	}
 }
 
-.userSearch {
-	background-color: #FFD042;
-	color: #800400;
-	font-family: 'Contrail One', cursive;
-
-	outline-style: none;
-	transition: background-color .5s;
-	transition-timing-function: ease-out;
-	display: inline-block;
+@media screen and (max-width: 700px) /* Tablet */ {
+	img#navLogo {
+		width: 50px;
+	}
 }
 
-.userSearch:active, .userSearch:focus {
-	background-color: #FFDC75;
-	color: #800400;
-	outline-style: none;
-}
+/*@media screen and (max-width: 500px) !* Mobile *! {*/
+	/*.navLogo {*/
+	/*}*/
+/*}*/
 
-.submitSearch {
-	color: #FFD042;
-	background-color: #800400;
-	border: 2px solid #FFD042;
-	border-radius: 4px;
-	padding: 3px 5px;
-}
 
