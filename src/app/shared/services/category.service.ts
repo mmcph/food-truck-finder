@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Status} from "../classes/status";
-import {Category} from "..classes/category";
 import {Observable} from "rxjs/Observable";
+import {Category} from "../classes/category";
 
 @Injectable ()
 export class CategoryService {
@@ -16,7 +16,7 @@ export class CategoryService {
 
 
     // call the category API and create a new Category
-    createCategory(category : Category) : Observable<Status> {
+    private createCategory(category: Category) : Observable<Status> {
         return (this.http.post<Status>(this.categoryUrl, category));
 
     }

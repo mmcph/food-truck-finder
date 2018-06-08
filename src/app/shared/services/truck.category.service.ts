@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Status} from "../classes/status";
-import {TruckCategory} from "../classes/truckCategory";
 import {Observable} from "rxjs/Observable";
+import {TruckCategory} from "../classes/truck.category";
 
 @Injectable ()
 export class TruckCategoryService {
@@ -19,11 +19,11 @@ export class TruckCategoryService {
 	}
 
 	//grabs a  Truck Category based on its composite key
-	getTruckCategoryByCompositeKey(truckCategoryTruckId : string, truckCategoryCategoryId : string) : Observable <truckCategory> {
+	getTruckCategoryByCompositeKey(truckCategoryTruckId : string, truckCategoryCategoryId : string) : Observable <TruckCategory> {
 		return (this.http.get<TruckCategory>(this.truckCategoryUrl+ "?truckCategoryTruckId=" + truckCategoryTruckId +"&truckCategoryCategoryId=" + truckCategoryCategoryId))
 	}
 
-	getTruckCategoryByTruckd (truckCategoryTruckId : string) : Observable<TruckCategory[]> {
+	getTruckCategoryByTruckId (truckCategoryTruckId : string) : Observable<TruckCategory[]> {
 		return(this.http.get<TruckCategory[]>(this.truckCategoryUrl + truckCategoryTruckId))
 	}
 
