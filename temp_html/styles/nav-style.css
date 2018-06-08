@@ -1,4 +1,4 @@
-
+/*BEGIN NAVBAR STYLE*/
 
 nav {
 	background-color: #A00400;
@@ -79,6 +79,8 @@ a#fullSizeTitle {
 	margin-right: .5vw;
 }
 
+/*NAVBAR MEDIA QUERIES*/
+
 @media screen and (min-width: 850px) {
 	img#navLogo {
 		width: 67px;
@@ -127,12 +129,10 @@ a#fullSizeTitle {
 		padding: 0 0 0 5px;
 	}
 
-	a.pushDown {
-		padding-right: 0;
-	}
-
 	span.spaceToggle {
 		display: none;
 	}
 }
+
+/*END NAVBAR STYLE*/
 
