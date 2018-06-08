@@ -35,7 +35,7 @@
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<button class="btn categoryButton" type="submit">Find Trucks</button>
 								<!--							todo Angular insert categories into list of checkboxes-->
-							<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" *ngFor="let category of categories" id="category{{category.categoryId}}" name="category{{category.categoryId}}"><span class="categoryTerm" *ngFor="let category of categories">{{category.categoryName}}</span></div>
+							<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" *ngFor="let category of categories" id="category{{category.categoryId}}" name="category{{category.categoryId}}"><span class="categoryTerm" *ngFor="let category of categories">&nbsp;{{category.categoryName}}</span></div>
 						</div>
 					</li>
 					<!--USERS-->

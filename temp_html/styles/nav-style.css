@@ -17,7 +17,7 @@ a#fullSizeTitle {
 
 .brandText {
 	color: #FFD042;
-	font-size: 25px;
+	font-size: 37px;
 	font-family: 'Contrail One', cursive;
 	text-shadow: black 0 0 5px;
 	transition: color .5s;
@@ -39,7 +39,7 @@ a#fullSizeTitle {
 .dropdown-menu {
 	margin-top: 15px;
 	background-color: #A00400;
-	border-radius: 0;
+	border-radius: 1px;
 	border-top: none;
 	border-left: 3px solid #600400;
 	border-bottom: 3px solid #600400;
@@ -47,15 +47,25 @@ a#fullSizeTitle {
 
 }
 
+.dropdown-item {
+	color: #FFD042;
+}
+
+.dropdown-item:hover, .dropdown-item:active, .dropdown-item:focus {
+	background-color: #B00400;
+	color: #ffe577;
+}
+
 .categoryButton {
-	border: 1px solid #600400;
-	border-radius: 0;
+	border: 2px solid #600400;
+	border-radius: 1px;
 	background-color: #FFD042;
 	color: #A00400;
-	margin-left: 22%;
+	margin-left: 23%;
 	padding-bottom: 3px;
 	font-size: 25px;
 	font-family: 'Contrail One', cursive;
+	text-shadow: 0 0 1px black;
 }
 
 .categorySearch {
@@ -63,6 +73,7 @@ a#fullSizeTitle {
 }
 
 .categoryTerm {
+	font-family: 'Contrail One', cursive;
 
 }
 
@@ -95,6 +106,11 @@ a#fullSizeTitle {
 	text-shadow: black 0 0 5px;
 }
 
+.userText:hover, .userText:active, .userText:focus {
+	text-underline: none;
+	color: #ffe577;
+}
+
 /*NAVBAR MEDIA QUERIES*/
 
 @media screen and (min-width: 850px) {
@@ -108,6 +124,10 @@ a#fullSizeTitle {
 		width: 50px;
 	}
 
+	.brandText {
+		font-size: 18px;
+	}
+
 	.dropdown-menu {
 		margin-top: 8px;
 	}
@@ -116,6 +136,10 @@ a#fullSizeTitle {
 @media screen and (max-width: 540px) {
 	.navTopLevel {
 		font-size: 18px;
+	}
+
+	.userText {
+		font-size: 20px;
 	}
 
 	.brandText {
@@ -131,7 +155,7 @@ a#fullSizeTitle {
 	}
 
 	.dropdown-menu {
-		margin-top: 8px;
+		margin-top: 9px;
 	}
 }
 
@@ -167,6 +191,7 @@ a#fullSizeTitle {
 	}
 }
 
-body{background-color: darkred}
+body{
+	background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed}
 /*END NAVBAR STYLE*/
 
