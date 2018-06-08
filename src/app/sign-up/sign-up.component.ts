@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit {
             profileUserName : ["",[Validators.maxLength(32),Validators.required]],
             profileEmail : ["",[Validators.email, Validators.required]],
             profilePassword: ["",[Validators.required]],
-            profilePasswordConfirm : ["",[Validators.maxLength(97),Validators.required]],
+            profilePasswordConfirm: ["",[Validators.maxLength(97),Validators.required]],
 
         });
 

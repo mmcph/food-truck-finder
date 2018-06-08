@@ -3,7 +3,7 @@
 		<form [formGroup]="signUpForm" (ngSubmit)="createProfile()" novalidate >
     			<div class="form-group">
     				First Name <br>
-    				<input type="text" name="firstname" placeholder="Juan">
+    				<input type="text" name="firstname" placeholder="Juan" formControlName="profileFirstName">
     			</div>
     			<div class="form-group">
     				Last Name <br>
