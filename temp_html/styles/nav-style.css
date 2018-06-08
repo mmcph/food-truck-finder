@@ -37,8 +37,14 @@ a#fullSizeTitle {
 }
 
 .dropdown-menu {
-	background-color: #B00400;
+	margin-top: 14px;
+	background-color: #A00400;
 	border-radius: 0;
+	border-top: none;
+	border-left: 3px solid #600400;
+	border-bottom: 3px solid #600400;
+	border-right: 3px solid #600400;
+
 }
 
 .categoryButton {
@@ -46,7 +52,10 @@ a#fullSizeTitle {
 	border-radius: 0;
 	background-color: #FFD042;
 	color: #A00400;
-	margin: 0 auto;
+	margin-left: 22%;
+	padding-bottom: 3px;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
 }
 
 .categorySearch {
@@ -98,6 +107,10 @@ a#fullSizeTitle {
 	img#navLogo {
 		width: 50px;
 	}
+
+	.dropdown-menu {
+		margin-top: 8px;
+	}
 }
 
 @media screen and (max-width: 540px) {
@@ -115,6 +128,10 @@ a#fullSizeTitle {
 
 	.pushDown {
 		margin-top: 6px;
+	}
+
+	.dropdown-menu {
+		margin-top: 8px;
 	}
 }
 
@@ -143,6 +160,10 @@ a#fullSizeTitle {
 
 	.pushDown {
 		margin-top: 3px;
+	}
+
+	.dropdown-menu {
+		margin-top: 0;
 	}
 }
 
