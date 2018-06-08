@@ -96,7 +96,7 @@ try {
 
 		//PUT and POST if blocks
 
-	} else if($method === "PUT" || $method === "POST") {
+	} else if(($method === "PUT" || $method === "POST") && $_SESSION["profile"]->getProfileIsOwner() === 1) {
 
 		// enforce the user has a XSRF token
 		verifyXsrf();
