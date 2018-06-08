@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 
 import {Status} from "../classes/status";
 import {Truck} from "../classes/truck";
+import {Category} from "../classes/category";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
@@ -14,6 +15,7 @@ export class TruckService {
 
     //define the API endpoint
     private truckUrl = "api/truck/";
+    private categoryUrl = "api/category/";
 
 
     //reach out to the Truck API and create the truck (POST)
@@ -54,7 +56,10 @@ export class TruckService {
 
     // call to the Truck API and grab the corresponding trucks and categories by categoryId (GET array)
     getCategoriesAndTrucksByCategoryId(categoriesAndTrucks : string) : Observable<Truck[]> {
-        return(this.http.get<Truck[]>(this.truckUrl + "?categoryId=" + categoryId));
+        return(
+
+            (this.http.get<Truck[]> (this.truckUrl + "?categoryId=" + categoryId)),
+            (this.http.get<Category[]> (this.categoryUrl + "?categoryId=" + categoryId)));
 
     }
 
