@@ -1,29 +1,29 @@
 <h1>Sign-up with us!</h1>
--
--		<form>
-    -			<div class="form-group">
-    -				First Name <br>
-    -				<input type="text" name="firstname" placeholder="Juan">
-    -			</div>
-    -			<div class="form-group">
-    -				Last Name <br>
-    -				<input type="text" name="lastname" placeholder="Smith">
-    -			</div>
-    -			<div class="form-group">
-    -				Username <br>
-    -				<input type="text" name="username" placeholder="jsmith01">
-    -			</div>
-    -			<div class="form-group">
-    -				Email Address <br>
-    -				<input type="text" name="email" placeholder="your-email-address@domain.com">
-    -			</div>
-    -			<div class="form-group">
-    -				Password <br>
-    -				<input type="text" name="password">
-    -			</div>
-    -			<div class="form-group">
-    -				Confirm Password <br>
-    -				<input type="text" name="confirmpassword">
-    -			</div>
-    -		</form>
--
+
+		<form [formGroup]="signUpForm" (ngSubmit)="createProfile()" novalidate >
+    			<div class="form-group">
+    				First Name <br>
+    				<input type="text" name="firstname" placeholder="Juan">
+    			</div>
+    			<div class="form-group">
+    				Last Name <br>
+    				<input type="text" name="lastname" placeholder="Smith" formControlName="profileLastName">
+    			</div>
+    			<div class="form-group">
+    				Username <br>
+    				<input type="text" name="username" placeholder="jsmith01" formControlName="profileUserName">
+    			</div>
+    			<div class="form-group">
+    				Email Address <br>
+    				<input type="text" name="email" placeholder="your-email-address@domain.com" formControlName="profileEmail">
+    			</div>
+    			<div class="form-group">
+    				Password <br>
+    				<input type="text" name="password" formControlName="profilePassword">
+    			</div>
+    			<div class="form-group">
+    				Confirm Password <br>
+    				<input type="text" name="confirmpassword" formControlName="profilePasswordConfirm">
+    			</div>
+				<button type="submit" class="btn btn-block btn-warning mb-3">Submit</button>
+        </form>
