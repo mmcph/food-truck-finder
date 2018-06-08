@@ -49,17 +49,15 @@ export class TruckService {
     }
 
     // call to the Truck API and get truck objects by isOpen (GET array of trucks)
-    getTruckByTruckIsOpen(truckIsOpen : number) : Observable<Truck[]> {
-        return(this.http.get<Truck[]>(this.truckUrl + "?truckIsOpen=" + truckIsOpen));
+    getTruckByTruckIsOpen() : Observable<Truck[]> {
+        return(this.http.get<Truck[]>(this.truckUrl));
 
     }
 
     // call to the Truck API and grab the corresponding trucks and categories by categoryId (GET array)
-    getCategoriesAndTrucksByCategoryId(categoriesAndTrucks : string) : Observable<Truck[]> {
-        return(
-
-            (this.http.get<Truck[]> (this.truckUrl + "?categoryId=" + categoryId)),
-            (this.http.get<Category[]> (this.categoryUrl + "?categoryId=" + categoryId)));
+    getCategoriesAndTrucksByCategoryId(truckCategories: number[]) : Observable<Truck[]> {
+        return((this.http.get<any> (this.truckUrl + "?truckCategories=" + truckCategories)));
+            // (this.http.get<Category[]> (this.categoryUrl + "?categoryId=" + categoryId)));
 
     }
 
