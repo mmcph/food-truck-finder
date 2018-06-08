@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
 
 		<!--Custom Style-->
-		<link rel="stylesheet" href="./styles/nav-style.css">
+		<link rel="stylesheet" href="css/nav-style.css">
 
 		<!-- FontAwesome -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
@@ -22,7 +22,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Contrail+One" rel="stylesheet">
 
 		<!--Custom JS-->
-		<script src="./js/script.js"></script>
+		<script src="../temp_html/js/script.js"></script>
 
 	</head>
 	<body>
