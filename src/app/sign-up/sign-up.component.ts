@@ -1,4 +1,4 @@
-import {Component, } from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 
 
 //declare $ for good old jquery
@@ -10,7 +10,6 @@ declare let $: any;
 
 })
 export class SignUpComponent {
-
 
 
 	constructor() {}

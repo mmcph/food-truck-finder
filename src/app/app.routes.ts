@@ -6,11 +6,11 @@ import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 
 
-export const allAppComponents = [HomeComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent];
 
 export const routes: Routes = [
-    {path: "sign-up", component: SignUpComponent},
-    {path: "", component: HomeComponent}
+	{path: "", component: HomeComponent},
+	{path: "sign-up", component: SignUpComponent}
 ];
 
 export const appRoutingProviders: any[] = [
@@ -20,3 +20,4 @@ export const appRoutingProviders: any[] = [
 ];
 
 export const routing = RouterModule.forRoot(routes);
+
