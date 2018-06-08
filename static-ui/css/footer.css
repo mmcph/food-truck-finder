@@ -1,0 +1,39 @@
+
+.container {
+	position: relative;
+	text-align: center;
+	color: black;
+	text-shadow: black 0 0 13px;
+}
+
+.text-footer {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+	font-size: 5vw;
+}
+
+.text-footer:hover {
+	color: #ffff66
+}
+
+.fixed-bottom {
+	background-color: #A00400;
+}
+
+.pipe {
+	font-family: 'Contrail One', cursive;
+	color: #FFDC75;
+	font-size: 24px;
+}
+
+@media screen and (max-width: 350px) {
+	.font-scale {
+		font-size: 18px;
+	}
+}
+
+@media screen and (min-width: 460px) {
+	.font-scale {
+		font-size: 26px;
+	}
+}

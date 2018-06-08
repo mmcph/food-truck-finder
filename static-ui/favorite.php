@@ -11,7 +11,7 @@
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
 		<!-- Custom CS link -->
-		<link rel="stylesheet" href="css/map.css">
+		<link rel="stylesheet" href="css/favorite.css">
 
 		<!-- jQuery, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -22,16 +22,21 @@
 		<link href="https://fonts.googleapis.com/css?family=Contrail+One|Roboto" rel="stylesheet">
 
 		<!--Actual page begins-->
-		<title>Map</title>
+		<title>Favorite</title>
 	</head>
 	<body>
-		<div class="row">
-		<nav class="navbar">
-			<form class="form-inline my-2 my-lg-0">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			</form>
-		</nav>
-	</div>
+<div class="centered">
+	<h1 class="text-favorite2">My Favorites</h1>
+	<div class="alignLeft">
+	<ul id="bullets">
+<!---------------------------WORKING LINK--------------------------->
+<!----<li><i class="fas fa-star"></i><a href="#">Marios</a></li>---->
+		<!--todo PUT IN HREF #-->
+		<li><a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a><a class="text-favorite" href="#"> Marios</a></li>
+		<li><a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a><a class="text-favorite" href="#"> Pablos</a></li>
+		<li><a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a><a class="text-favorite" href="#"> Mikes</a></li>
+		</ul>
+</div>
+</div>
 	</body>
 </html>

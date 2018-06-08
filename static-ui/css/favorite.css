@@ -1,0 +1,57 @@
+#bullets {
+	list-style: none;
+	padding-left: 0;
+	text-align: left;
+}
+body {
+	background-color: #800400;
+}
+
+.text-favorite {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+	font-size: 24px;
+	text-shadow: black 0 0 10px;
+
+}
+
+.text-favorite2 {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+	font-size: 31px;
+	text-shadow: black 0 0 10px;
+
+}
+
+.text-favorite:hover {
+	color: #ffff66
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/*text-shadow: black 0 0 13px;*/
+}
+
+
+
+
+.alignLeft {
+	text-align: left;
+}
+
+
+
+/*@media screen and (max-width: 350px) {*/
+	/*.font-scale {*/
+		/*font-size: 18px;*/
+	/*}*/
+/*}*/
+
+/*@media screen and (min-width: 460px) {*/
+	/*.font-scale {*/
+		/*font-size: 26px;*/
+	/*}*/
+/*}*/

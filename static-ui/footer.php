@@ -11,7 +11,7 @@
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
 		<!-- Custom CS link -->
-		<link rel="stylesheet" href="css/map.css">
+		<link rel="stylesheet" href="css/footer.css">
 
 		<!-- jQuery, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -22,16 +22,18 @@
 		<link href="https://fonts.googleapis.com/css?family=Contrail+One|Roboto" rel="stylesheet">
 
 		<!--Actual page begins-->
-		<title>Map</title>
+		<title>footer</title>
 	</head>
-	<body>
-		<div class="row">
-		<nav class="navbar">
-			<form class="form-inline my-2 my-lg-0">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			</form>
-		</nav>
+<!--	todo NEED TO ADD HREFS#-->
+	<body class="back">
+		<div class="fixed-bottom">
+		<div class="container">
+			<div class="container">
+				<a class="text-footer font-scale" href="#" >List Your Food Truck&nbsp;</a><span class="pipe font-scale">|</span><a class="text-footer font-scale" href="#">&nbsp;About</a>
+			</div>
+		</div>
 	</div>
+
+
 	</body>
 </html>
