@@ -156,7 +156,7 @@ EOF;
             throw(new RuntimeException("unable to send email", 400));
         }
         // update reply
-        $reply->message = "Thank you for signing up for Food Truck Found :D";
+        $reply->message = "Thank you for signing up for Food Truck Found. :D Please check your email to validate your new account.";
     } else {
         throw (new InvalidArgumentException("invalid http request"));
     }
