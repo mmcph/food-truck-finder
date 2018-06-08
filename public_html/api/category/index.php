@@ -44,7 +44,7 @@ try {
 				$reply->data = $category;
 			}
 		} else if(empty($categoryTruckId) === false) {
-			$categoryTruckId = Category::getCategoryByCategoryTruckId($pdo, $categoryTruckId)->toArray();
+			$categoryTruckId = Category::getCategoryByCategoryId($pdo, $categoryTruckId)->toArray();
 			if($categoryTruckId !== null) {
 				$reply->data = $categoryTruckId;
 			}
