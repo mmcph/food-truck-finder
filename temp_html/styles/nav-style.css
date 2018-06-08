@@ -32,16 +32,12 @@ a#fullSizeTitle {
 	color: #FFD042;
 }
 
-.pushDown {
-	margin-top: 6px;
-}
-
 .nav-item {
 	display: inline-block;
 }
 
 .dropdown-menu {
-	background-color: #C00400;
+	background-color: #B00400;
 	border-radius: 0;
 }
 
@@ -55,6 +51,10 @@ a#fullSizeTitle {
 
 .categorySearch {
 	color: #FFD042;
+}
+
+.categoryTerm {
+
 }
 
 .nav-link {
@@ -79,14 +79,18 @@ a#fullSizeTitle {
 	margin-right: .5vw;
 }
 
+.userText {
+	color: #FFD042;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 5px;
+}
+
 /*NAVBAR MEDIA QUERIES*/
 
 @media screen and (min-width: 850px) {
 	img#navLogo {
 		width: 67px;
-	}
-	body{
-		background-color: #A00400;
 	}
 }
 
@@ -107,6 +111,10 @@ a#fullSizeTitle {
 
 	img#navLogo {
 		width: 50px;
+	}
+
+	.pushDown {
+		margin-top: 6px;
 	}
 }
 
@@ -132,7 +140,12 @@ a#fullSizeTitle {
 	span.spaceToggle {
 		display: none;
 	}
+
+	.pushDown {
+		margin-top: 3px;
+	}
 }
 
+body{background-color: darkred}
 /*END NAVBAR STYLE*/
 

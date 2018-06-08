@@ -28,14 +28,14 @@
 			<a class="navbar-brand" id="fullSizeTitle" href="#"><span class="brandText">Food<span class="spaceToggle">&nbsp;</span>Truck<span class="spaceToggle">&nbsp;</span>Found</span></a>
 			<img id="navLogo" src="https://i.imgur.com/ETGr3aA.png">
 			<div class="ml-auto" id="navbarSupportedContent">
-			<!--CATEGORY SEARCH-->
 			<ul class="navbar-nav ml-auto">
+				<!--CATEGORY SEARCH-->
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle navTopLevel pushDown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Food Types</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 						<button class="btn categoryButton" type="submit">Find Trucks</button>
 							<!--							todo Angular insert categories into list of checkboxes-->
-						<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" *ngFor="let category of categories" id="{{category.categoryName}}" name="{{category.categoryName}}">{{category.categoryName}}</div>
+						<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" *ngFor="let category of categories" id="category{{category.categoryId}}" name="category{{category.categoryId}}"><span class="categoryTerm" *ngFor="let category of categories">{{category.categoryName}}</span></div>
 					</div>
 				</li>
 				<!--USERS-->
