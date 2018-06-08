@@ -21,8 +21,11 @@ export class CategoryService {
 
     }
 
-    // grabs a category based on its composite key
-    get
+    // grabs a category and deletes it -- commented out because API *should* only have GET per ASANA ticket, but it seems like we want delete. API needs to be cleaned up and tested.
+    // deleteCategory(categoryId : string) : Observable<Status> {
+    //     return (this.http.delete<Status>(this.categoryUrl + categoryId));
+    //
+    // }
 
 
 
