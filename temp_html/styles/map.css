@@ -1,4 +1,26 @@
+div.mapPlaceholder {
+	width: 100%;
+	height: 700px;
+	background: #A00400;
+}
 
-.searchbtn {
+div.searchContain {
+	width: 30vw;
+	margin: 10px;
+
+}
+
+input.userSearch {
+	margin-right: 10px;
+}
+
+
+button.submitSearch {
+	color: red;
 	background-color: #A00400;
+	border: 1px solid #FFD042;
+}
+
+input.userSearch:active, input.userSearch:focus {
+	background-color: #ffe577;
 }

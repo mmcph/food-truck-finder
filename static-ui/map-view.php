@@ -15,9 +15,15 @@
 				// The map, centered at Albuquerque
 				var map = new google.maps.Map(
 					document.getElementById('map'), {zoom: 12, center: abq});
-				// The marker, positioned at Albuquerque
-				// var marker = new google.maps.Marker({position: abq, map: map});
-			}
+
+				map.addListener('click', function(e) {
+					var marker = new google.maps.Marker({
+						position: latLng,
+						map: map
+					});
+				}
+
+
 		</script>
 		<!--Load the API from the specified URL
 		* The async attribute allows the browser to render the page while the API loads
