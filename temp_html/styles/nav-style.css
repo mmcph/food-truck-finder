@@ -61,7 +61,8 @@ a#fullSizeTitle {
 	border-radius: 1px;
 	background-color: #FFD042;
 	color: #A00400;
-	margin-left: 23%;
+	margin-left: 22%;
+	margin-bottom: 7px;
 	padding-bottom: 3px;
 	font-size: 25px;
 	font-family: 'Contrail One', cursive;
@@ -74,7 +75,8 @@ a#fullSizeTitle {
 
 .categoryTerm {
 	font-family: 'Contrail One', cursive;
-
+	margin-bottom: 0;
+	text-shadow: 0 0 2px black;
 }
 
 .nav-link {
