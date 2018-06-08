@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-
+import {EmailValidator} from '@angular/forms';
 
 //declare $ for good old jquery
 declare let $: any;
