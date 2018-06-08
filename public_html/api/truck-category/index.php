@@ -62,27 +62,6 @@ try {
         $reply->message = "Truck category successfully added.";
 
     }
-//    else if($method === "DELETE") {
-//
-//		//enforce that the end user has a XSRF token.
-//		verifyXsrf();
-//
-//		// retrieve the Truck to be deleted
-//	$truckCategory = TruckCategory::getTruckCategoryByTruckCategoryCategoryIdAndTruckCategoryTruckId($pdo, $requestObject->truckCategoryCategoryId, $requestObject->truckCategoryTruckId);
-//		if($truckCategory === null) {
-//			throw(new RuntimeException("truck category does not exist", 404));
-//		}
-//
-//		//enforce the user is signed in and only trying to edit their own TruckCategory
-//		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() ->toString() !== $truckCategory->getTruckCategoryId()) {
-//			throw(new \InvalidArgumentException("You are not allowed to delete this truck category", 403));
-//		}
-//
-//		// delete TruckCategory
-//	$truckCategory->delete($pdo);
-//		// update reply
-//		$reply->message = "Truck category deleted OK";
-//	}
 
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
