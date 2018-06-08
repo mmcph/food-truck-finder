@@ -2,7 +2,8 @@
 
 nav {
 	background-color: #A00400;
-	border-bottom: 5px solid #600400;
+	border-bottom: 3px solid #600400;
+	margin-bottom: 0;
 }
 
 #navLogo {
@@ -27,13 +28,20 @@ a#fullSizeTitle {
 	color: #ffe577;
 }
 
-.dropdown-toggle {
+.navTopLevel {
 	color: #FFD042;
 }
 
+.pushDown {
+	margin-top: 6px;
+}
+
+.nav-item {
+	display: inline-block;
+}
+
 .dropdown-menu {
-	margin-right: 20px;
-	background-color: #A00400;
+	background-color: #C00400;
 	border-radius: 0;
 }
 
@@ -71,11 +79,7 @@ a#fullSizeTitle {
 	margin-right: .5vw;
 }
 
-.sessionHide {
-	display: none;
-}
-
-@media screen and (min-width: 850px) /* Desktop */ {
+@media screen and (min-width: 850px) {
 	img#navLogo {
 		width: 67px;
 	}
@@ -84,15 +88,51 @@ a#fullSizeTitle {
 	}
 }
 
-@media screen and (max-width: 700px) /* Tablet */ {
+@media screen and (max-width: 700px) {
 	img#navLogo {
 		width: 50px;
 	}
 }
 
-/*@media screen and (max-width: 500px) !* Mobile *! {*/
-	/*.navLogo {*/
-	/*}*/
-/*}*/
+@media screen and (max-width: 540px) {
+	.navTopLevel {
+		font-size: 18px;
+	}
 
+	.brandText {
+		font-size: 18px;
+	}
+
+	img#navLogo {
+		width: 50px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	img#navLogo {
+		width: 35px;
+	}
+
+	i.fa-user {
+		margin-top: 5px;
+		width: 22px;
+		height: 25px;
+		font-size: 14px;
+		margin-right: 0;
+		padding-left: 3px;
+		padding-top: 3px;
+	}
+
+	.navbar {
+		padding: 0 0 0 5px;
+	}
+
+	a.pushDown {
+		padding-right: 0;
+	}
+
+	span.spaceToggle {
+		display: none;
+	}
+}
 

@@ -5,6 +5,7 @@
 	</head>
 	<body>
 		<!--The div element for the map -->
+
 		<div id="map"></div>
 		<script>
 			// Initialize and add the map

@@ -24,54 +24,31 @@
 	</head>
 	<body>
 
-		<nav class="navbar navbar-expand-lg">
-			<a class="navbar-brand" id="fullSizeTitle" href="#"><span class="brandText">Food Truck Found</span></a>
+		<nav class="navbar navbar-expand">
+			<a class="navbar-brand" id="fullSizeTitle" href="#"><span class="brandText">Food<span class="spaceToggle">&nbsp;</span>Truck<span class="spaceToggle">&nbsp;</span>Found</span></a>
 			<img id="navLogo" src="https://i.imgur.com/ETGr3aA.png">
-<!--			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--				<span class="navbar-toggler-icon"></span>-->
-<!--			</button>-->
-
-<!--			<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-			<div class="nav-item dropdown ml-auto">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Food Types</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<button class="btn categoryButton" type="submit">Find Trucks</button>
-
-					<!--							todo Angular insert categories into list of checkboxes-->
-					<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" *ngFor="let category of categories" id="{{category.categoryName}}" name="{{category.categoryName}}">{{category.categoryName}}</div>
-
-				</div>
-			</div>
+			<div class="ml-auto" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle navTopLevel pushDown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Food Types</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						<button class="btn categoryButton" type="submit">Find Trucks</button>
+							<!--							todo Angular insert categories into list of checkboxes-->
+						<div class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" *ngFor="let category of categories" id="{{category.categoryName}}" name="{{category.categoryName}}">{{category.categoryName}}</div>
+					</div>
+				</li>
 				<!--			USERS-->
-
-			<div class="nav-item dropdown ml-auto">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<div class="dropdown-item"><a href="FAVORITES" class="userText">Favorites</a></div>
-					<div class="dropdown-item"><a href="SIGNUP" class="userText">Sign Up</a></div>
-					<div class="dropdown-item"><a href="SIGNIN" class="userText">Sign In</a></div>
-					<div class="dropdown-item"><a href="SIGNOUT" class="userText">Sign Out</a></div>
-
-				</div>
+				<li class="nav-item dropdown">
+					<a class="nav-link navTopLevel" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						<div class="dropdown-item"><a href="FAVORITES" class="userText">Favorites</a></div>
+						<div class="dropdown-item"><a href="SIGNUP" class="userText">Sign Up</a></div>
+						<div class="dropdown-item"><a href="SIGNIN" class="userText">Sign In</a></div>
+						<div class="dropdown-item"><a href="SIGNOUT" class="userText">Sign Out</a></div>
+					</div>
+				</li>
+			</ul>
 			</div>
-
-
-
-
-
-<!--			</div>-->
 		</nav>
-
-		<!--					DROPDOWN categories-->
-	<div class="col-xs-6">
-
-
-		</div>
-
-
-
-
-
-
 	</body>
 </html>
