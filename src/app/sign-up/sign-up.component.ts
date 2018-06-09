@@ -9,6 +9,7 @@ import {SignUp} from "../shared/classes/sign-up";
 // set the template url and the selector for the ng powered html tag
 @Component({
     template: require("./sign-up.component.html"),
+    selector: ""
 
 })
 export class SignUpComponent implements OnInit {
@@ -36,7 +37,7 @@ export class SignUpComponent implements OnInit {
             profilePasswordConfirm: ["",[Validators.maxLength(97),Validators.required]],
 
         });
-
+console.log(this.signUpForm)
     }
 
     createSignUp() : void {

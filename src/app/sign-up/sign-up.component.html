@@ -1,29 +1,54 @@
 <h1>Sign-up with us!</h1>
 
 		<form [formGroup]="signUpForm" (ngSubmit)="createSignUp();" novalidate >
+
+
+<!--First name-->
     			<div class="form-group">
     				First Name <br>
     				<input type="text" name="firstname" placeholder="Juan" formControlName="profileFirstName">
     			</div>
+			<div *ngIf="signUpForm.controls.signUp?.invalid && signUpForm.controls.signUp?.touched" class="alert alert-danger" role="alert">
+				<p *ngIf="signUpForm.controls.signUp?.errors.required">Email is required.</p>
+				<p *ngIf="signUpForm.controls.signUp?.errors.maxlength">Email is too long</p>
+			</div>
+
+<!--Last name-->
     			<div class="form-group">
     				Last Name <br>
     				<input type="text" name="lastname" placeholder="Smith" formControlName="profileLastName">
     			</div>
+			
+
+
+<!--Username-->
     			<div class="form-group">
     				Username <br>
     				<input type="text" name="username" placeholder="jsmith01" formControlName="profileUserName">
     			</div>
+
+
+<!--Email address-->
     			<div class="form-group">
     				Email Address <br>
     				<input type="text" name="email" placeholder="your-email-address@domain.com" formControlName="profileEmail">
     			</div>
+
+
+
+<!--Password-->
     			<div class="form-group">
     				Password <br>
     				<input type="password" name="password" placeholder="password" formControlName="profilePassword">
     			</div>
+
+
+<!--Confirm password-->
     			<div class="form-group">
     				Confirm Password <br>
     				<input type="password" name="confirmpassword" placeholder="password" formControlName="profilePasswordConfirm">
     			</div>
+
+<!--button-->
 				<button type="submit" class="btn btn-block btn-warning mb-3">Submit</button>
         </form>
