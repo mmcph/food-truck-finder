@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup,Validators} from "@angular/forms";
 import {Status} from "../shared/classes/status";
-import {SignUpService} from "../shared/services/sign.up.service";
+import {SignUpService} from "../shared/services/sign-up.service";
 import {Router} from "@angular/router";
 import {SignUp} from "../shared/classes/sign.up";
 
@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
             profileLastName : ["",[Validators.maxLength(64),Validators.required]],
             profileUserName : ["",[Validators.maxLength(32),Validators.required]],
             profileEmail : ["",[Validators.email, Validators.required]],
-            profilePassword: ["",[Validators.required]],
+            profilePassword: ["",[Validators.maxLength(97), Validators.required]],
             profilePasswordConfirm: ["",[Validators.maxLength(97),Validators.required]],
 
         });

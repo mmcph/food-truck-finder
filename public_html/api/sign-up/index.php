@@ -104,7 +104,7 @@ try {
         //compose message to send with email
         $message = <<< EOF
 <h2>Welcome to FoodTruck Finder.</h2>
-<p>In order to complete registration, you must confirm your account </p>
+<p>In order to complete registration, you must confirm your account. </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
         //create swift email
@@ -156,7 +156,7 @@ EOF;
             throw(new RuntimeException("unable to send email", 400));
         }
         // update reply
-        $reply->message = "Thank you for signing up for Food Truck Found. :D Please check your email to validate your new account.";
+        $reply->message = "Thank you for signing up for Food Truck Found. :D";
     } else {
         throw (new InvalidArgumentException("invalid http request"));
     }
