@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./home/home.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {SignInComponent} from "./shared/components/navbar/sign-in.component";
+import {TruckComponent} from "./truck/truck.component";
 
 
 // import all needed services
@@ -26,6 +27,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {APP_BASE_HREF} from "@angular/common";
 import {NavbarComponent} from "./shared/components/navbar/navbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
+import {Truck} from "./shared/classes/truck";
 
 
 
@@ -33,9 +35,13 @@ import {FooterComponent} from "./shared/components/footer/footer.component";
 export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent];
 
 export const routes: Routes = [
-	{path: "", component: HomeComponent},
+
+
+    {path: "truck/:truckId", component: Truck},
 	{path: "sign-up", component: SignUpComponent},
-    {path: "sign-in", component: SignInComponent}
+    {path: "sign-in", component: SignInComponent},
+    {path: "", component: HomeComponent},
+    {path: "**"}
 ];
 
 
