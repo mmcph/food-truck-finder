@@ -1,52 +1,53 @@
-import {Component, ViewChild, EventEmitter, Output } from "@angular/core";
-
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormGroup,Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import {Status} from "../../classes/status";
+
 import {SignInService} from "../../services/sign-in.service";
 import {SignIn} from "../../classes/sign-in";
-import {CookieService} from "ng2-cookies";
+import {Status} from "../../classes/status";
 
-// import sign-in svc
-
-// what?
-declare var $: any;
-
+// set the template url and the selector for the ng powered html tag
 @Component({
-    template: require("./sign-in.html"),
-    selector: "signin"
+    template: require("./sign-in.component.html"),
+
 })
+export class SignInComponent implements OnInit {
 
-export class SignInComponent {
-    @ViewChild("signInForm") signInForm: any;
 
-    signin: SignIn = new SignIn(null, null);
-    status: Status = null;
+    //  sign-in state variable
 
-    constructor(private SignInService: SignInService, private router: Router, private cookieService: CookieService) {
+    // status variable needed for interacting with the API
+    status : Status = null;
+    signInForm : FormGroup;
+
+    constructor(private formBuilder : FormBuilder, private router: Router, private signInService: SignInService) {
 
     }
 
-    signIn() : void {
-        localStorage.removeItem("jwt-token");
-        this.SignInService.postSignIn(this.signin).subscribe(status => {
-            this.status = status;
+    ngOnInit() : void {
 
+        this.signInForm = this.formBuilder.group({
 
-
-            if(status.status === 200) {
-
-                this.router.navigate(["profile-page"]);
-                this.signInForm.reset();
-                setTimeout(function () {
-                    $("#sign-in.modal").modal('hide');
-                }, 1000);
-            } else {
-                console.log("failed login")
-
-            }
+            profileEmail : ["",[Validators.email, Validators.required]],
+            profilePassword: ["",[Validators.maxLength(97),Validators.required]],
 
         });
+
     }
 
+    createSignIn() : void {
+
+        let signIn = new SignIn(this.signInForm.value.profileEmail, this.signInForm.value.profilePassword);
+
+        this.signInService.postSignIn(signIn)
+            .subscribe(status=>{
+                this.status = status;
+                if(status.status === 200) {
+                    alert(status.message);
+                }
+            });
+
+
+    }
 }
+

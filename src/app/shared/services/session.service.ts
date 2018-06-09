@@ -1,3 +1,4 @@
+
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Status} from "../classes/status";
@@ -8,13 +9,13 @@ import {Status} from "../classes/status";
 export class SessionService {
 
 
-	constructor(protected http:HttpClient) {}
+    constructor(protected http:HttpClient) {}
 
-	private sessionUrl = "api/TOBEDETERMINED/";
+    private sessionUrl = "api/earl-grey/";
 
-	setSession() {
-		return (this.http.get<Status>(this.sessionUrl, {}));
+    setSession() {
+        return (this.http.get<Status>(this.sessionUrl, {}));
 
-	}
+    }
 
 }
