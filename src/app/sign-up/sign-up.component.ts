@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup,Validators} from "@angular/forms";
 import {Status} from "../shared/classes/status";
 import {SignUpService} from "../shared/services/sign-up.service";
 import {Router} from "@angular/router";
-import {SignUp} from "../shared/classes/sign.up";
+import {SignUp} from "../shared/classes/sign-up";
 
 
 // set the template url and the selector for the ng powered html tag
@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    ngOnInit() : void {
 
         this.signUpForm = this.formBuilder.group({
 
@@ -32,16 +32,16 @@ export class SignUpComponent implements OnInit {
             profileLastName : ["",[Validators.maxLength(64),Validators.required]],
             profileUserName : ["",[Validators.maxLength(32),Validators.required]],
             profileEmail : ["",[Validators.email, Validators.required]],
-            profilePassword: ["",[Validators.maxLength(97), Validators.required]],
+            profilePassword: ["",[Validators.maxLength(97),Validators.required]],
             profilePasswordConfirm: ["",[Validators.maxLength(97),Validators.required]],
 
         });
 
     }
 
-    createProfile() : void {
+    createSignUp() : void {
 
-        let signUp = new SignUp(this.signUpForm.value.profileFirstName, this.signUpForm.value.profileLastName, this.signUpForm.value.profileUserName, this.signUpForm.value.profileEmail, this.signUpForm.value.profilePassword, this.signUpForm.value.profilePasswordConfirm);
+        let signUp = new SignUp(this.signUpForm.value.profileEmail, this.signUpForm.value.profileFirstName, this.signUpForm.value.profileLastName, this.signUpForm.value.profilePassword, this.signUpForm.value.profileUserName);
 
         this.signUpService.createProfile(signUp)
             .subscribe(status=>{

@@ -1,6 +1,6 @@
 <h1>Sign-up with us!</h1>
 
-		<form [formGroup]="signUpForm" (ngSubmit)="createProfile();" novalidate >
+		<form [formGroup]="signUpForm" (ngSubmit)="createSignUp();" novalidate >
     			<div class="form-group">
     				First Name <br>
     				<input type="text" name="firstname" placeholder="Juan" formControlName="profileFirstName">
@@ -19,11 +19,11 @@
     			</div>
     			<div class="form-group">
     				Password <br>
-    				<input type="password" name="password" placeholder="secure" formControlName="profilePassword">
+    				<input type="password" name="password" placeholder="password" formControlName="profilePassword">
     			</div>
     			<div class="form-group">
     				Confirm Password <br>
-    				<input type="password" name="confirmpassword" placeholder="secure" formControlName="profilePasswordConfirm">
+    				<input type="password" name="confirmpassword" placeholder="password" formControlName="profilePasswordConfirm">
     			</div>
 				<button type="submit" class="btn btn-block btn-warning mb-3">Submit</button>
         </form>
