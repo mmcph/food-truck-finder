@@ -8,9 +8,9 @@
     				First Name <br>
     				<input type="text" name="firstname" placeholder="Juan" formControlName="profileFirstName">
     			</div>
-			<div *ngIf="signUpForm.controls.signUp?.invalid && signUpForm.controls.signUp?.touched" class="alert alert-danger" role="alert">
-				<p *ngIf="signUpForm.controls.signUp?.errors.required">Email is required.</p>
-				<p *ngIf="signUpForm.controls.signUp?.errors.maxlength">Email is too long</p>
+			<div *ngIf="signUpForm.controls.profileFirstName?.invalid && signUpForm.controls.profileFirstName?.touched" class="alert alert-danger" role="alert">
+				<p *ngIf="signUpForm.controls.profileFirstName?.errors.required">Name is required.</p>
+				<p *ngIf="signUpForm.controls.profileFirstName?.errors.maxlength">Name is too long</p>
 			</div>
 
 <!--Last name-->

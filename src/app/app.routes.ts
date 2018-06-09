@@ -24,11 +24,13 @@ import {VoteService} from "./shared/services/vote.service";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {APP_BASE_HREF} from "@angular/common";
+import {NavbarComponent} from "./shared/components/navbar/navbar.component";
+import {FooterComponent} from "./shared/components/footer/footer.component";
 
 
 
 
-export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent];
 
 export const routes: Routes = [
 	{path: "", component: HomeComponent},
