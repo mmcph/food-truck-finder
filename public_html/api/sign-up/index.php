@@ -32,6 +32,8 @@ try {
 
     if($method === "POST") {
 
+        verifyXsrf();
+
         //decode the json and turn it into a php object
         $requestContent = file_get_contents("php://input");
         $requestObject = json_decode($requestContent);
