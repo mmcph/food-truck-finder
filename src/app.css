@@ -237,3 +237,43 @@ body{
         font-size: 26px;
     }
 }
+
+div.mapPlaceholder {
+    width: 100%;
+    height: 700px;
+    background: #A00400;
+}
+
+div.searchContain {
+    margin: 10px;
+    /*background-color: #800400;*/
+}
+
+input.userSearch {
+    margin-right: 0px;
+    background-color: #FFD042;
+    border: 2px solid #800400;
+    height: 45px;
+    border-radius: 0;
+    width: 200px;
+    font-family: 'Contrail One', cursive;
+}
+
+button.submitSearch {
+    color: red;
+    background-color: #FFD042;
+    border-top: 2px solid #800400;
+    border-right: 2px solid #800400;
+    border-bottom: 2px solid #800400;
+    border-left: none;
+    border-radius: 0;
+    height: 45px;
+    width: 48px;
+}
+
+input.userSearch:active, input.userSearch:focus {
+    background-color: #ffe577;
+    outline-width: 0;
+    color: #A00400;
+    /*outline: none;*/
+}
