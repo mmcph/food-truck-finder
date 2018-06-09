@@ -1,18 +1,26 @@
 import {Injectable} from "@angular/core";
 import {Status} from "../classes/status";
 import {Observable} from "rxjs/Observable";
-import {SignUp} from "../classes/sign-up";
+import {SignIn} from "../classes/sign-in";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable()
-export class SignUpService {
+export class SignInService {
 	constructor(protected http: HttpClient) {
 
 	}
 
-	private signUpUrl = "api/sign-up/";
+	private signInUrl = "api/sign-in/";
+	private signOutUrl = "api/sign-out";
 
-	createProfile(signUp: SignUp) : Observable<Status> {
-		return(this.http.post<Status>(this.signUpUrl, signUp));
+
+
+	postSignIn(signIn:SignIn) : Observable<Status> {
+		return(this.http.post<Status>(this.signInUrl, signIn));
 	}
+
+	signOut():Observable<Status> {
+		return(this.http.get<Status>(this.signOutUrl));
+	}
+
 }

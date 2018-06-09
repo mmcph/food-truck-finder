@@ -3,7 +3,7 @@ import {Component, ViewChild, EventEmitter, Output } from "@angular/core";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Status} from "../../classes/status";
-
+import {SignInService} from "../../services/sign-in.service";
 import {SignIn} from "../../classes/sign-in";
 import {CookieService} from "ng2-cookies";
 
@@ -13,7 +13,7 @@ import {CookieService} from "ng2-cookies";
 declare var $: any;
 
 @Component({
-    template: require("./signin.html"),
+    template: require("./sign-in.html"),
     selector: "signin"
 })
 
@@ -36,7 +36,7 @@ export class SignInComponent {
 
             if(status.status === 200) {
 
-                this.router.navigate([profile - page]);
+                this.router.navigate(["profile-page"]);
                 this.signInForm.reset();
                 setTimeout(function () {
                     $("#sign-in.modal").modal('hide');
