@@ -13,7 +13,7 @@ CREATE TABLE profile (
 	profileActivationToken CHAR(32),
 	profileEmail VARCHAR(128) NOT NULL,
 	profileHash CHAR(97) NOT NULL,
-	profileIsOwner TINYINT UNSIGNED NOT NULL,
+	profileIsOwner TINYINT NOT NULL,
  	profileFirstName VARCHAR(64) NOT NULL,
 	profileLastName VARCHAR(64) NOT NULL,
 	profileUserName VARCHAR(32) NOT NULL,

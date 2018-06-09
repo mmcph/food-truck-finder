@@ -5,6 +5,7 @@ export class SignUp {
 		public profileFirstName: string,
 		public profileLastName: string,
 		public profilePassword: string,
+		public profilePasswordConfirm: string,
 		public profileUserName: string,
 	) {}
 }

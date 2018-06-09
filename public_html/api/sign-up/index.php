@@ -36,11 +36,6 @@ try {
         $requestContent = file_get_contents("php://input");
         $requestObject = json_decode($requestContent);
 
-        // isOwner is a required field
-        if(empty($requestObject->profileIsOwner) === true){
-            throw(new \InvalidArgumentException("'Is owner' is a required field", 405));
-        }
-
         // first name is a required field
         if(empty($requestObject->profileFirstName) === true) {
             throw(new \InvalidArgumentException ("Must input first name", 405));
@@ -80,7 +75,7 @@ try {
         $profileActivationToken = bin2hex(random_bytes(16));
 
         //create the profile object and prepare to insert into the database
-        $profile = new Profile(generateUuidV4(), $profileActivationToken, $requestObject->profileEmail, $hash, $requestObject->profileIsOwner, $requestObject->profileFirstName, $requestObject->profileLastName,$requestObject->profileUserName);
+        $profile = new Profile(generateUuidV4(), $profileActivationToken, $requestObject->profileEmail, $hash, -1, $requestObject->profileFirstName, $requestObject->profileLastName,$requestObject->profileUserName);
 
         //insert the profile into the database
         $profile->insert($pdo);
