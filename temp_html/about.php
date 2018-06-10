@@ -27,92 +27,71 @@
 
 	</head>
 
-	<body class="body-about">
-<div class="centered">
-<h1 class="about-title">ABOUT US</h1>
-		<section class="py-2">
+	<body>
+	<div class="container">
+		<h1 class="about-title">ABOUT US</h1>
+		<br>
+		<div class="row">
+			<div class="col-lg-4 col-sm-6 col-xs-12">
+				<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+			</div>
+			<div class="card mb-4 col-lg-8 col-sm-6 col-xs-12 background-card card-container">
+				<h3 class="card-title">Marlon McFartSon!!!</h3>
+				<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+				<a href="https://github.com/manuel-kraken-code" class="about-link" target="_blank">GitHub</a>
+				<p class="card-text"><a href="https://escobar505.com" class="about-link" target="_blank">PERSONAL SITE</a></p>
+			</div>
+		</div>
+	</div>
+
+		<div class="about-spacer"></div>
+
 		<div class="container">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-3 col-sm-6 ">
-						<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
-					</div>
-					<div>
-						<div class="card mb-4 col-sm-6 background-card fixed">
-							<div class="card-container">
-								<h3 class="card-title">Manuel Escobar</h3>
-								<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
-								<p class="card-text">GitHub: <a href="#" class="button">https://github.com/manuel-kraken-code</a></p>
-								<p class="card-text">Personal Site: <a href="#" class="button">https://escobar505.com/</a></p>
-							</div>
-						</div>
-					</div>
+			<div class="row">
+				<div class="col-lg-4 col-sm-6 col-xs-12">
+					<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+				</div>
+				<div class="card mb-4 col-lg-8 col-sm-6 col-xs-12 background-card card-container">
+					<h3 class="card-title">Yvette</h3>
+					<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+					<a href="https://github.com/manuel-kraken-code" class="about-link" target="_blank">GitHub</a>
+					<p class="card-text"><a href="https://escobar505.com" class="about-link" target="_blank">PERSONAL SITE</a></p>
 				</div>
 			</div>
 		</div>
 
-			<div class="container">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-lg-3 col-sm-6 ">
-							<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
-						</div>
-						<div>
-							<div class="card mb-4 col-sm-6 background-card fixed">
-								<div class="card-container">
-									<h3 class="card-title">Yvette Johnson-Rodgers</h3>
-									<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
-									<p class="card-text">GitHub: <a href="#" class="button">https://github.com/yvejr</a></p>
-									<p class="card-text">Personal Site: <a href="#" class="button">https://yvette.io/</a></p>
-								</div>
-							</div>
-						</div>
-					</div>
+		<div class="about-spacer"></div>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-sm-6 col-xs-12">
+					<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+				</div>
+				<div class="card mb-4 col-lg-8 col-sm-6 col-xs-12 background-card card-container">
+					<h3 class="card-title">G Cordova</h3>
+					<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+					<a href="https://github.com/manuel-kraken-code" class="about-link" target="_blank">GitHub</a>
+					<p class="card-text"><a href="https://escobar505.com" class="about-link" target="_blank">PERSONAL SITE</a></p>
 				</div>
 			</div>
+		</div>
 
-			<div class="container">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-lg-3 col-sm-6 ">
-							<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
-						</div>
-						<div>
-							<div class="card mb-4 col-sm-6 background-card fixed">
-								<div class="card-container">
-									<h3 class="card-title">Marlon McPherson</h3>
-									<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
-									<p class="card-text">GitHub: <a href="#" class="button">https://github.com/mmcph</a></p>
-									<p class="card-text">Personal Site: <a href="#" class="button">https://codingchronicle.com/</a></p>
-								</div>
-							</div>
-						</div>
-					</div>
+		<div class="about-spacer"></div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-sm-6 col-xs-12">
+					<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+				</div>
+				<div class="card mb-4 col-lg-8 col-sm-6 col-xs-12 background-card card-container">
+					<h3 class="card-title">Manuel Escobar III</h3>
+					<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+					<a href="https://github.com/manuel-kraken-code" class="about-link" target="_blank">GitHub</a>
+					<p class="card-text"><a href="https://escobar505.com" class="about-link" target="_blank">PERSONAL SITE</a></p>
 				</div>
 			</div>
+		</div>
 
-			<div class="container">
-<!--				<div class="card-body">-->
-					<div class="row">
-						<div class="col-lg-3 col-sm-6">
-							<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
-						</div>
-
-							<div class="card mb-4 col-sm-6 background-card card-container">
-<!--								<div class="">-->
-									<h3 class="card-title">G Cordova</h3>
-									<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
-									<p class="card-text">GitHub: <a href="#" class="button">https://github.com/G-Cordova</a></p>
-									<p class="card-text">Personal Site: <a href="#" class="button">www.damnitfeelsgoodtobeagangsta.com</a></p>
-<!--								</div>-->
-							</div>
-
-					</div>
-<!--				</div>-->
-			</div>
-
-		</section>
-	<!--This Div closes for the site to stay CENTERED!!!-->
-</div>
 	</body>
 </html>
