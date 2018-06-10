@@ -29,7 +29,7 @@
 
 	<body>
 	<div class="container">
-		<h1 class="about-title">ABOUT US</h1>
+		<h1 class="about-title">About Us</h1>
 		<br>
 		<div class="row">
 			<div class="col-lg-4 col-sm-6 col-xs-12">
