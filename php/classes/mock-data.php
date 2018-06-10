@@ -37,9 +37,11 @@ $profile3->insert($pdo);
 echo "third profile";
 var_dump($profile3->getProfileId()->toString());
 
+$truck1 = new Truck(generateUuidV4(), generateUuidV4(), "stuff about this truck", 1, 4.4,1.7, "taco tuesday truck", "505-987-6547", "tacotruck.com");
 
+$truck2 = new Truck(generateUuidV4(), generateUuidV4(), "more stuff about this truck", 1, 7.4,7.7, "marios pizza truck", "505-987-5447", "pizzatruck.com");
 
-
+$truck3 = new Truck(generateUuidV4(), generateUuidV4(), " random stuff about this truck", 1, 6.4,9.7, "dereks pizza truck", "505-987-5227", "derekspizzatruck.com");
 
 
 
