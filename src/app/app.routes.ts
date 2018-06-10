@@ -32,12 +32,12 @@ import {Truck} from "./shared/classes/truck";
 
 
 
-export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent];
 
 export const routes: Routes = [
 
 
-    {path: "truck/:truckId", component: Truck},
+    {path: "truck/:truckId", component: TruckComponent},
 	{path: "sign-up", component: SignUpComponent},
     {path: "sign-in", component: SignInComponent},
     {path: "", component: HomeComponent},
@@ -45,7 +45,7 @@ export const routes: Routes = [
 ];
 
 
-const services : any[] = [SessionService, SignUpService, SignInService];
+const services : any[] = [SessionService, SignUpService, SignInService, TruckService];
 
 const providers : any[] = [
     {provide: APP_BASE_HREF, useValue: window["_base_href"]},

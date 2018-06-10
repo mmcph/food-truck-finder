@@ -5,6 +5,7 @@ import {Status} from "../classes/status";
 import {Truck} from "../classes/truck";
 import {Category} from "../classes/category";
 import {Observable} from "rxjs/Observable";
+import {TruckReply} from "../classes/truck.reply";
 
 @Injectable()
 export class TruckService {
@@ -37,8 +38,8 @@ export class TruckService {
     }
 
     // call to the Truck API and get a truck object by its truck id (GET specific truck)
-    getTruck(id : string) : Observable<Truck> {
-        return(this.http.get<Truck>(this.truckUrl + id));
+    getTruck(id : string) : Observable<TruckReply> {
+        return(this.http.get<TruckReply>(this.truckUrl + id));
 
     }
 

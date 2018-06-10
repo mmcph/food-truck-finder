@@ -1,18 +1,16 @@
 <navbar></navbar>
 <div class="body">
     <div class="container contact">
-        <h1> Mario's Super Truck</h1>
-        <p id="phone"> 505-800-9999</p>
-        <p id="url">www.mario-eats.com</p>
-        <p id="open"><i class="fas fa-check fa-lg"></i> Open Now</p>
-        <!--            <p id="closed"><i class="fas fa-times fa-lg"></i> Currently Closed</p>-->
+        <h1>{{truck.truckName}}</h1>
+        <p id="phone">{{truck.truckPhone}}</p>
+        <p id="url">{{truck.truckUrl}}</p>
+        <p id="open"><i class="fas fa-check fa-lg"></i>{{truck.truckIsOpen}}</p>
     </div>
     <div class="container bio">
         <div class="Aligner">
             <div class="Aligner-item">
-                <p>We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink. We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink. We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink.</p>
-                <p>We also do special events! Contact us for more info.</p>
-                <p><strong>#</strong>Dessert <strong>#</strong>Italian <strong>#</strong>Pizza</p>
+                <p>{{truck.truckBio}}</p>
+                <!--<p><strong>#</strong>{{truck}}<strong></p>-->
             </div>
         </div>
     </div>
@@ -23,8 +21,8 @@
                 <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-up fa-lg"></i> 18</button>
                 <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-down fa-lg"></i> 1</button>
                 <!--Alt. font-awesome icons for votes-->
-                <!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-up fa-lg"></i></i> 18</button>-->
-                <!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-down fa-lg"></i> 1</button>-->
+                <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-up fa-lg"></i>18</button>
+                <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-down fa-lg"></i> 1</button>
             </div>
         </div>
     </div>

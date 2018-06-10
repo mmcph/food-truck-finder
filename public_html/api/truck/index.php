@@ -68,10 +68,12 @@ try {
 
 		//get specific truck(s) based on arguments provided and update reply
 		if(empty($id) === false) {
-			$reply->data->truck = Truck::getTruckByTruckId($pdo, $id);
+		    $truckData = new stdClass();
+			$truckData->truck = Truck::getTruckByTruckId($pdo, $id);
 			//todo Is this needed? We'll need category IDs to grab category names from Angular storage
-			$reply->data->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $id)->toArray();
-			$reply->data->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $id);
+			$truckData->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $id)->toArray();
+			$truckData->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $id);
+			$reply->data = $truckData;
 
 
 
