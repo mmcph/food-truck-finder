@@ -6,12 +6,14 @@ use Edu\Cnm\FoodTruck\{
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/classes/autoload.php");
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-require_once("uuid.php");
+require_once (dirname(__DIR__, 1) . "/lib/uuid.php");
+
 
 
 //create profile objects and insert them into the data base
+
 
 //profile 1
 $password = "abc123";
