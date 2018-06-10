@@ -4,10 +4,11 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppComponent} from "./app.component";
 import {allAppComponents, appRoutingProviders, routing} from "./app.routes";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {OpenPipe} from "./shared/classes/open.pipe";
 // import {NguiMapModule} from "@ngui/map";
 
 
-const moduleDeclarations = [AppComponent];
+const moduleDeclarations = [AppComponent, OpenPipe];
 
 @NgModule({
     imports:      [BrowserModule, HttpClientModule, routing, FormsModule, ReactiveFormsModule,

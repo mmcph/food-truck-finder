@@ -277,3 +277,38 @@ input.userSearch:active, input.userSearch:focus {
     color: #A00400;
     /*outline: none;*/
 }
+/*truck css*/
+h1 {
+    font-family: 'Contrail One', cursive;
+    color: #FFD042;
+}
+.body {
+    background-color: #51b2c9;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Aligner*/
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.Aligner-item {
+    max-width: 80%;
+}
+
+.Aligner-item--top {
+    align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+    align-self: flex-end;
+}
+
+
+/*font-family: 'Roboto', sans-serif;*/
+
+/*font-family: 'Contrail One', cursive;*/
+
+

@@ -72,7 +72,7 @@ try {
 			$truckData->truck = Truck::getTruckByTruckId($pdo, $id);
 			//todo Is this needed? We'll need category IDs to grab category names from Angular storage
 			$truckData->truckCategories = TruckCategory::getTruckCategoriesByTruckCategoryTruckId($pdo, $id)->toArray();
-			$truckData->truckVotes = Vote::getVoteCountByVoteTruckId($pdo, $id);
+			$truckData->truckVote = Vote::getVoteCountByVoteTruckId($pdo, $id);
 			$reply->data = $truckData;
 
 

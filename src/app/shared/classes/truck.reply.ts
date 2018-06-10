@@ -1,5 +1,5 @@
 import {Truck} from "./truck";
-import {TruckCategory} from "./truck.category";
+import {TruckCategory} from "./truckcategory";
 import {TruckVote} from "./truck.vote";
 
 export class TruckReply {

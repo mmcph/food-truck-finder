@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Status} from "../classes/status";
 import {Observable} from "rxjs/Observable";
-import {TruckCategory} from "../classes/truck.category";
+import {TruckCategory} from "../classes/truckcategory";
 
 @Injectable ()
 export class TruckCategoryService {
