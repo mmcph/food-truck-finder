@@ -1,8 +1,12 @@
+.body-about {
+	background-color: #A00400;
+}
+
 .centered {
 	/*position: absolute;*/
 	top: 50%;
 	left: 50%;
-	transform: translate(20%, 20%);
+	transform: translate(10%, 10%);
 }
 
 .fixed {
@@ -25,10 +29,11 @@
 }
 
 .background-card-img {
-	border-top: 2px solid #000000;
-	border-right: 2px solid #000000;
-	border-bottom: 2px solid #000000;
-	border-left: 2px solid #000000;
+	border: 2px solid #000000;
+	/*border-top: 2px solid #000000;*/
+	/*border-right: 2px solid #000000;*/
+	/*border-bottom: 2px solid #000000;*/
+	/*border-left: 2px solid #000000;*/
 }
 
 .card-body2 {
@@ -40,7 +45,37 @@ h1 {
 	font-family: 'Contrail One', cursive;
 }
 
-
 .row{
 	height: 62%;
+}
+
+.card-title {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+}
+
+.card-title2 {
+	font-family: 'Contrail One', cursive;
+	color: #A00400;
+	font-size: 20px;
+	text-shadow: #FFD042 0 0 10px;
+	/*text-shadow: black 0 0 10px;*/
+}
+
+.card-text {
+	font-family: 'Contrail One', cursive;
+	color: #A00400;
+	font-size: 20px;
+	/*text-shadow: black 0 0 10px;*/
+}
+
+.button {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+	font-size: 19px;
+	text-shadow: black 0 0 10px;
+}
+
+.button:hover {
+
 }

@@ -27,10 +27,10 @@
 
 	</head>
 
-	<body>
+	<body class="body-about">
 <div class="centered">
-<h1>ABOUT US</h1>
-		<section class="py-3">
+<h1 class="card-title">ABOUT US</h1>
+		<section class="py-2">
 		<div class="container">
 			<div class="card-body">
 				<div class="row">
@@ -40,9 +40,9 @@
 					<div>
 						<div class="card mb-4 col-sm-6 background-card fixed">
 							<div class="card-body2">
-								<h5 class="card-title">NAME</h5>
+								<h5 class="card-title2">NAME</h5>
 								<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
-								<p class="card-text">Personal Web Page<a href="#" role="button"> www.webwhatever.com</a></p>
+								<p class="card-text">Personal Web Page:<a href="#" class="button"> www.webwhatever.com</a></p>
 <!--								<p><a class="text-favorite" href="#"></a><a class="text-favorite" href="#">www.whatever.com</a></p>-->
 							</div>
 						</div>
@@ -50,6 +50,66 @@
 				</div>
 			</div>
 		</div>
+
+			<div class="container">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-3 col-sm-6 ">
+							<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+						</div>
+						<div>
+							<div class="card mb-4 col-sm-6 background-card fixed">
+								<div class="card-body2">
+									<h5 class="card-title2">NAME</h5>
+									<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+									<p class="card-text">Personal Web Page:<a href="#" class="button"> www.webwhatever.com</a></p>
+									<!--								<p><a class="text-favorite" href="#"></a><a class="text-favorite" href="#">www.whatever.com</a></p>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-3 col-sm-6 ">
+							<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+						</div>
+						<div>
+							<div class="card mb-4 col-sm-6 background-card fixed">
+								<div class="card-body2">
+									<h5 class="card-title2">NAME</h5>
+									<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+									<p class="card-text">Personal Web Page:<a href="#" class="button"> www.webwhatever.com</a></p>
+									<!--								<p><a class="text-favorite" href="#"></a><a class="text-favorite" href="#">www.whatever.com</a></p>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-3 col-sm-6 ">
+							<img class="img-fluid d-block mx-auto mb-4 background-card-img" src="https://www.fillmurray.com/300/300" alt="bill murray">
+						</div>
+						<div>
+							<div class="card mb-4 col-sm-6 background-card fixed">
+								<div class="card-body2">
+									<h5 class="card-title2">NAME</h5>
+									<p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indust</p>
+									<p class="card-text">Personal Web Page:<a href="#" class="button"> www.webwhatever.com</a></p>
+									<!--								<p><a class="text-favorite" href="#"></a><a class="text-favorite" href="#">www.whatever.com</a></p>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</section>
 	<!--This Div closes for the site to stay CENTERED!!!-->
