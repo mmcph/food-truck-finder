@@ -1,23 +1,39 @@
 <?php
-use Edu\Cnm\CrowdVibe\{Profile, Event, EventAttendance, Rating};
+use Edu\Cnm\FoodTruck\{Category, Favorite, Profile,Truck,TruckCategory,Vote};
+
+
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/classes/autoload.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once("uuid.php");
-// grab the uuid generator
-require_once( "uuid.php");
-$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/crowdvibe.ini");
-$password = "fucking work";
-$SALT = bin2hex(random_bytes(32));
-$HASH = hash_pbkdf2("sha512", $password, $SALT, 262144);
+
+
+
+//public function __construct($newProfileId, ?string $newProfileActivationToken, string $newProfileEmail, string $newProfileHash, int $newProfileIsOwner, string $newProfileFirstName, string $newProfileLastName, string $newProfileUserName) {
+
+
+
+$profile = new Profile(generateUuidV4(),bin2hex(random_bytes(16)),"g@yahoo.com", "cows", 1, G, Cordova, Gcordova);
+
+$profile2 = new Profile(generateUuidV4(), bin2hex(random_bytes(16)), "yvette@yahoo.com", "cats",1, Johnson);
+
+
+
 $profile = new Profile(generateUuidV4(),bin2hex(random_bytes(16)), "hope to figure this out3", "willy1@buller.com", "Willy", $HASH, "imageofimages3", "William", $SALT, "willster");
 $profile->insert($pdo);
 echo "first profile";
 var_dump($profile->getProfileId()->toString());
-$password2 = "woo shit";
-$SALT = bin2hex(random_bytes(32));
-$HASH = hash_pbkdf2("sha512", $password, $SALT, 262144);
-$profile2 = new Profile(generateUuidV4(),bin2hex(random_bytes(16)), "I'm a big nancy boy", "cantstopme@hotstuff.com", "Chauncy", $HASH, "afullmoon", "lostashell", $SALT, "thelovedoctor");
+
+
+
+
+
+
+
+
+
+
+
+
 $profile2->insert($pdo);
 echo "second profile";
 var_dump($profile2->getProfileId()->toString());
