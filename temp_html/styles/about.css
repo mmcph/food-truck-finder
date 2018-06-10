@@ -9,9 +9,9 @@
 	transform: translate(10%, 10%);
 }
 
-.fixed {
-	position: fixed;
-}
+/*.fixed {*/
+	/*position: fixed;*/
+/*}*/
 
 .container {
 	display: inline-block;
@@ -36,13 +36,10 @@
 	/*border-left: 2px solid #000000;*/
 }
 
-.card-body2 {
-
-}
-
-h1 {
-	color: #A00400;
+h1.about-title {
+	color: #FFD042;
 	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 3px;
 }
 
 .row{
@@ -51,29 +48,32 @@ h1 {
 
 .card-title {
 	font-family: 'Contrail One', cursive;
-	color: #FFD042;
+	color: #A00400;
+	text-shadow: 0 0 1px #000;
 }
 
 .card-title2 {
 	font-family: 'Contrail One', cursive;
-	color: #A00400;
+	color: #800400;
 	font-size: 20px;
-	text-shadow: #FFD042 0 0 10px;
+	text-shadow: #FFD042 0 0 3px;
 	/*text-shadow: black 0 0 10px;*/
 }
 
 .card-text {
 	font-family: 'Contrail One', cursive;
-	color: #A00400;
+	color: #800400;
 	font-size: 20px;
 	/*text-shadow: black 0 0 10px;*/
 }
 
 .button {
 	font-family: 'Contrail One', cursive;
-	color: #FFD042;
+	color: #A00400;
 	font-size: 19px;
-	text-shadow: black 0 0 10px;
+	text-decoration: underline;
+	transition: text-shadow .5s, color .5s, letter-spacing .5s;
+	transition-timing-function: ease-out;
 }
 
 .button:hover {
