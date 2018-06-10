@@ -37,7 +37,7 @@ h1.about-title {
 	font-size: 18px;
 }
 
-.about-link {
+.about-link-text {
 	font-family: 'Contrail One', cursive;
 	color: #A00400;
 	font-size: 18px;
@@ -46,7 +46,7 @@ h1.about-title {
 	transition-timing-function: ease-out;
 }
 
-.about-link:hover {
+.about-link-text:hover {
 	color: #ffff66;
 	text-shadow: black 0 0 10px;
 }
