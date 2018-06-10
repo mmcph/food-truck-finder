@@ -41,7 +41,7 @@ export const routes: Routes = [
 	{path: "sign-up", component: SignUpComponent},
     {path: "sign-in", component: SignInComponent},
     {path: "", component: HomeComponent},
-    {path: "**"}
+
 ];
 
 
