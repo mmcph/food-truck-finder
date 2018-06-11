@@ -11,6 +11,7 @@ import {FavoriteService} from "../shared/services/favorite.service";
 import {Favorite} from "../shared/classes/favorite";
 import {Vote} from "../shared/classes/vote";
 import {VoteService} from "../shared/services/vote.service";
+import {AuthService} from "../shared/services/auth.service";
 
 @Component({
 
@@ -25,20 +26,17 @@ export class TruckComponent implements OnInit {
     truckVote: TruckVote = new TruckVote(0, 0);
     truckId = this.router.snapshot.params["truckId"];
     favorite: Favorite = new Favorite("", "");
+    token : any = null;
 
-    constructor(private router: ActivatedRoute, private truckService: TruckService, private favoriteService: FavoriteService, private voteService: VoteService) {
+    constructor(private router: ActivatedRoute, private truckService: TruckService, private favoriteService: FavoriteService, private voteService: VoteService, private authService: AuthService) {
 
     }
 
     ngOnInit() : void {
+    this.token = this.authService.decodeJwt();
     this.loadTruck();
-
-    // check if favorite exists
-    if (Favorite) this.favoriteService.getFavoriteByCompositeKey("", "").subscribe(reply => {
-
-
-
-    })
+    this.loadFavorite();
+    console.log(this.token);
 
     }
 
@@ -52,8 +50,11 @@ export class TruckComponent implements OnInit {
 
     }
 
-// grab favorite to see if already favorites or not
+// grab favorite if it exists
     loadFavorite() : void {
+        this.favoriteService.getFavoriteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
+            this.favorite = reply;
+        })
 
     }
 
