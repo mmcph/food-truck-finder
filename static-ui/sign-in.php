@@ -11,7 +11,7 @@
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
 		<!-- Custom CS link -->
-		<link rel="stylesheet" href="css/sign-up.css">
+		<link rel="stylesheet" href="css/sign-in.css">
 
 		<!-- jQuery, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -27,17 +27,39 @@
 
 	<body>
 
-		<h1>Sign-In</h1>
+		<h1 class="sign-in-title">Sign-In</h1>
 
 		<form action="">
 			<div class="form-group">
-				Enter Your Profile Email Address<br>
-				<input type="text" name="enteremail" placeholder="your-email-address@domain.com">
+				<label for="sign-in-email">Email Address</label>
+				<br>
+				<input id="sign-in-email" class="sign-in-input" type="text" name="enteremail">
 			</div>
 			<div class="form-group">
-				Password<br>
-				<input type="text" name="enterpassword" placeholder="your-password">
+				<label for="sign-in-password">Password</label>
+				<br>
+				<input id="sign-in-password" class="sign-in-input" type="text" name="enterpassword">
 			</div>
 		</form>
 
+		<div class="container">
+		<h1 class="sign-in-title">Sign-In</h1>
+		<form [formGroup]="signInForm" (ngSubmit)= "createSignIn();" novalidate >
+			<div class="form-group">
+				<label for="sign-in-email">Email Address</label>
+				<br>
+				<input id="sign-in-email" class="sign-in-input" type="text" name="enteremail" formControlName="profileEmail">
+			</div>
+			<div class="form-group">
+				<label for="sign-in-password">Password</label>
+				<br>
+				<input id="sign-in-password" class="sign-in-input" type="password" name="enterpassword" formControlName="profilePassword">
+			</div>
+			<button type="submit" class="btn btn-block btn-warning mb-3">Sign In</button>
+		</form>
+		</div>
+
+
+
 	</body>
+</html>

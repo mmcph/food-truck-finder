@@ -1,0 +1,316 @@
+/*BODY STYLE (BACKGROUND)*/
+
+body {
+	background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed;
+
+}
+
+/*BEGIN NAVBAR STYLE*/
+
+nav {
+	background-color: #A00400;
+	border-bottom: 3px solid #600400;
+	margin-bottom: 0;
+}
+
+#navLogo {
+	width: 8vw;
+	margin: 0 0 0 10px;
+}
+
+a#fullSizeTitle {
+	margin-right: 0;
+}
+
+.brandText {
+	color: #FFD042;
+	font-size: 37px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 5px;
+	transition: color .5s;
+	transition-timing-function: ease-out;
+}
+
+.brandText:hover, .brandText:focus, .brandText:active {
+	color: #ffe577;
+}
+
+.navTopLevel {
+	color: #FFD042;
+}
+
+.nav-item {
+	display: inline-block;
+}
+
+.dropdown-menu {
+	margin-top: 15px;
+	background-color: #A00400;
+	border-radius: 1px;
+	border-top: none;
+	border-left: 3px solid #600400;
+	border-bottom: 3px solid #600400;
+	border-right: 3px solid #600400;
+
+}
+
+.dropdown-item {
+	color: #FFD042;
+}
+
+.dropdown-item:hover, .dropdown-item:active, .dropdown-item:focus {
+	background-color: #B00400;
+	color: #ffe577;
+}
+
+.categoryButton {
+	border: 2px solid #600400;
+	border-radius: 1px;
+	background-color: #FFD042;
+	color: #A00400;
+	margin-left: 22%;
+	margin-bottom: 7px;
+	padding-bottom: 3px;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: 0 0 1px black;
+}
+
+.categorySearch {
+	color: #FFD042;
+}
+
+.categoryTerm {
+	font-family: 'Contrail One', cursive;
+	margin-bottom: 0;
+	text-shadow: 0 0 2px black;
+}
+
+.nav-link {
+	color: #FFD042;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 5px;
+	transition: color .5s;
+	transition-timing-function: ease-out;
+}
+
+.nav-link:hover, .nav-link:active, .nav-link:focus {
+	color: #FFD042;
+
+}
+
+.fa-user {
+	font-size: 25px;
+	padding: 4px 6px;
+	border: 2px solid #FFD042;
+	border-radius: 4px;
+	margin-right: .5vw;
+}
+
+.userText {
+	color: #FFD042;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 5px;
+}
+
+.userText:hover, .userText:active, .userText:focus {
+	text-underline: none;
+	color: #ffe577;
+}
+
+/*NAVBAR MEDIA QUERIES*/
+
+@media screen and (min-width: 850px) {
+	img#navLogo {
+		width: 67px;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	img#navLogo {
+		width: 50px;
+	}
+
+	.brandText {
+		font-size: 18px;
+	}
+
+	.dropdown-menu {
+		margin-top: 8px;
+	}
+}
+
+@media screen and (max-width: 540px) {
+	.navTopLevel {
+		font-size: 18px;
+	}
+
+	.userText {
+		font-size: 20px;
+	}
+
+	.brandText {
+		font-size: 18px;
+	}
+
+	img#navLogo {
+		width: 50px;
+	}
+
+	.pushDown {
+		margin-top: 6px;
+	}
+
+	.dropdown-menu {
+		margin-top: 9px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	img#navLogo {
+		width: 35px;
+	}
+
+	i.fa-user {
+		margin-top: 5px;
+		width: 22px;
+		height: 25px;
+		font-size: 14px;
+		margin-right: 0;
+		padding-left: 3px;
+		padding-top: 3px;
+	}
+
+	.navbar {
+		padding: 0 0 0 5px;
+	}
+
+	span.spaceToggle {
+		display: none;
+	}
+
+	.pushDown {
+		margin-top: 3px;
+	}
+
+	.dropdown-menu {
+		margin-top: 0;
+	}
+}
+
+/*END NAVBAR STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN FOOTER STYLE*/
+
+.footer-container {
+	position: relative;
+	text-align: center;
+	color: black;
+	text-shadow: black 0 0 13px;
+}
+
+.text-footer {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+	font-size: 5vw;
+}
+
+.text-footer:hover {
+	color: #ffff66
+}
+
+.fixed-bottom {
+	background-color: #A00400;
+	border-top: 3px solid #600400;
+	margin-top: 0;
+}
+
+.pipe {
+	font-family: 'Contrail One', cursive;
+	color: #FFDC75;
+	font-size: 24px;
+}
+
+@media screen and (max-width: 350px) {
+	.font-scale {
+		font-size: 18px;
+	}
+}
+
+@media screen and (min-width: 460px) {
+	.font-scale {
+		font-size: 26px;
+	}
+}
+
+/*END FOOTER STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN ABOUT STYLE*/
+
+.card-container {
+	border-radius: 0;
+}
+
+.background-card {
+	background-color: #FFD042;
+	border: 2px solid #600400;
+}
+
+.background-card-img {
+	border: 2px solid #600400;
+	/*border-top: 2px solid #000000;*/
+	/*border-right: 2px solid #000000;*/
+	/*border-bottom: 2px solid #000000;*/
+	/*border-left: 2px solid #000000;*/
+}
+
+h1.about-title {
+	color: #FFD042;
+	font-family: 'Contrail One', cursive;
+	text-shadow: black 0 0 3px;
+	margin-top: 15px;
+}
+
+.card-title {
+	font-family: 'Contrail One', cursive;
+	color: #A00400;
+	text-shadow: 0 0 1px #000;
+	margin-top: 11px;
+}
+
+.card-text {
+	font-family: 'Contrail One', cursive;
+	color: #800400;
+	font-size: 18px;
+}
+
+.about-link-text {
+	font-family: 'Contrail One', cursive;
+	color: #A00400;
+	font-size: 18px;
+	text-decoration: underline;
+	transition: text-shadow .35s, color .35s;
+	transition-timing-function: ease-out;
+}
+
+.about-link-text:hover {
+	color: #ffff66;
+	text-shadow: black 0 0 10px;
+}
+
+.about-spacer {
+	height: 50px;
+}
+
+/*END ABOUT STYLES*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN TRUCK VIEW CSS*/
+

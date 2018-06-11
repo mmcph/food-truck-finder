@@ -1,0 +1,40 @@
+body {
+	background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed;
+}
+
+h1.sign-up-title {
+	color: #A00400;
+	font-family: 'Contrail One', cursive;
+	text-shadow: #D00400 0 0 2px;
+	margin-top: 15px;
+}
+
+label.sign-up-text {
+	color: #000;
+	font-family: 'Contrail One', cursive;
+	text-shadow: #FFD042 0 0 1px;
+}
+
+input.sign-up-input {
+	background-color: #FFD042;
+	color: #800400;
+	font-family: 'Contrail One', cursive;
+	border: 2px solid #600400;
+	border-radius: 0;
+	width: 30%;
+	min-width: 220px;
+}
+
+.signUpAlert {
+	width: 30%;
+	min-width: 220px;
+	border-radius: 0;
+	font-family: 'Contrail One', cursive;
+}
+
+.signUpSubmit {
+	width: 30%;
+	min-width: 220px;
+	border-radius: 0;
+	font-family: 'Contrail One', cursive;
+}

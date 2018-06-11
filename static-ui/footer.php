@@ -27,13 +27,9 @@
 <!--	todo NEED TO ADD HREFS#-->
 	<body class="back">
 		<div class="fixed-bottom">
-		<div class="container">
-			<div class="container">
+			<div class="container footer-container">
 				<a class="text-footer font-scale" href="#" >List Your Food Truck&nbsp;</a><span class="pipe font-scale">|</span><a class="text-footer font-scale" href="#">&nbsp;About</a>
 			</div>
 		</div>
-	</div>
-
-
 	</body>
 </html>
