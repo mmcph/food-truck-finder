@@ -28,8 +28,7 @@ import {APP_BASE_HREF} from "@angular/common";
 import {NavbarComponent} from "./shared/components/navbar/navbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
 import {Truck} from "./shared/classes/truck";
-import {CreateFavoriteComponent} from "./shared/components/favorite/create-favorite.component";
-
+// import {CreateFavoriteComponent} from "./shared/components/favorite/create-favorite.component";
 
 
 
@@ -42,7 +41,6 @@ export const routes: Routes = [
 	{path: "sign-up", component: SignUpComponent},
     {path: "sign-in", component: SignInComponent},
     {path: "", component: HomeComponent},
-    {path:"create-favorite", component: CreateFavoriteComponent},
 
 ];
 
