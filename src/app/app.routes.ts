@@ -32,7 +32,7 @@ import {Truck} from "./shared/classes/truck";
 
 
 
-export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent, CreateFavoriteComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent];
 
 export const routes: Routes = [
 
