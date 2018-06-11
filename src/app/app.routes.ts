@@ -27,12 +27,13 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {APP_BASE_HREF} from "@angular/common";
 import {NavbarComponent} from "./shared/components/navbar/navbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
-import {Truck} from "./shared/classes/truck";
+import {NewTruckFormComponent} from "./new-truck-form/new-truck-form.component";
+
 // import {CreateFavoriteComponent} from "./shared/components/favorite/create-favorite.component";
 
 
 
-export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent, NewTruckFormComponent];
 
 export const routes: Routes = [
 
@@ -40,8 +41,8 @@ export const routes: Routes = [
     {path: "truck/:truckId", component: TruckComponent},
 	{path: "sign-up", component: SignUpComponent},
     {path: "sign-in", component: SignInComponent},
+   {path: "new-truck", component: NewTruckFormComponent}
     {path: "", component: HomeComponent},
-
 ];
 
 

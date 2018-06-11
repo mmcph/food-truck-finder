@@ -35,7 +35,7 @@ export class NewTruckFormComponent  implements OnInit{
 
 	createNewTruckForm() : void {
 
-		let newTruck = new Truck(null, null, this.newTruckForm.value.truckBio, null,null, null, this.newTruckForm.value.truckName, this.newTruckForm.value.truckPhone, this.newTruckForm.value.truckUrl);
+		let newTruck = new Truck(null, null, this.newTruckForm.value.truckBio, null,35, -106, this.newTruckForm.value.truckName, this.newTruckForm.value.truckPhone, this.newTruckForm.value.truckUrl);
 
 		this.truckService.createTruck(newTruck)
 			.subscribe(status=>{
