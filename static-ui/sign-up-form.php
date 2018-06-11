@@ -50,8 +50,8 @@
 					<div
 						*ngIf="signUpForm.controls.profileFirstName?.invalid && signUpForm.controls.profileFirstName?.touched"
 						class="alert alert-danger signUpAlert" role="alert">
-						<p *ngIf="signUpForm.controls.profileFirstName?.errors.required">Name is required.</p>
-						<p *ngIf="signUpForm.controls.profileFirstName?.errors.maxlength">Name is too long</p>
+						<p *ngIf="signUpForm.controls.profileFirstName?.errors.required">First name is required.</p>
+						<p *ngIf="signUpForm.controls.profileFirstName?.errors.maxlength">First name is too long</p>
 					</div>
 
 					<!--Last name-->
@@ -60,6 +60,12 @@
 						<br>
 						<input id="sign-up-last-name" class="sign-up-input" type="text" name="lastname"
 								 formControlName="profileLastName">
+					</div>
+					<div
+						*ngIf="signUpForm.controls.profileLastName?.invalid && signUpForm.controls.profileLastName?.touched"
+						class="alert alert-danger signUpAlert" role="alert">
+						<p *ngIf="signUpForm.controls.profileLastName?.errors.required">Last name is required.</p>
+						<p *ngIf="signUpForm.controls.profileLastName?.errors.maxlength">Last name is too long</p>
 					</div>
 
 
@@ -70,6 +76,12 @@
 						<input id="sign-up-username" class="sign-up-input" type="text" name="username"
 								 formControlName="profileUserName">
 					</div>
+					<div
+						*ngIf="signUpForm.controls.profileUserName?.invalid && signUpForm.controls.profileUserName?.touched"
+						class="alert alert-danger signUpAlert" role="alert">
+						<p *ngIf="signUpForm.controls.profileUserName?.errors.required">Profile username is required.</p>
+						<p *ngIf="signUpForm.controls.profileUserName?.errors.maxlength">Profile username is too long</p>
+					</div>
 
 
 					<!--Email address-->
@@ -78,6 +90,12 @@
 						<br>
 						<input id="sign-up-email" class="sign-up-input" type="text" name="email"
 								 formControlName="profileEmail">
+					</div>
+					<div
+						*ngIf="signUpForm.controls.profileEmail?.invalid && signUpForm.controls.profileEmail?.touched"
+						class="alert alert-danger signUpAlert" role="alert">
+						<p *ngIf="signUpForm.controls.profileEmail?.errors.required">Email is required.</p>
+						<p *ngIf="signUpForm.controls.profileEmail?.errors.email">Email username is too long</p>
 					</div>
 
 
@@ -88,6 +106,12 @@
 						<input id="sign-up-password" class="sign-up-input" type="password" name="password"
 								 formControlName="profilePassword">
 					</div>
+					<div
+						*ngIf="signUpForm.controls.profilePassword?.invalid && signUpForm.controls.profilePassword?.touched"
+						class="alert alert-danger signUpAlert" role="alert">
+						<p *ngIf="signUpForm.controls.profilePassword?.errors.required">Password is required.</p>
+						<p *ngIf="signUpForm.controls.profilePassword?.errors.maxlength">Password username is too long</p>
+					</div>
 
 
 					<!--Confirm password-->
@@ -96,6 +120,12 @@
 						<br>
 						<input id="sign-up-confirm-password" class="sign-up-input" type="password" name="confirmpassword"
 								 formControlName="profilePasswordConfirm">
+					</div>
+					<div
+						*ngIf="signUpForm.controls.profilePasswordConfirm?.invalid && signUpForm.controls.profilePasswordConfirm?.touched"
+						class="alert alert-danger signUpAlert" role="alert">
+						<p *ngIf="signUpForm.controls.profilePasswordConfirm?.errors.required">Password is required.</p>
+						<p *ngIf="signUpForm.controls.profilePasswordConfirm?.errors.maxlength">Password username is too long</p>
 					</div>
 
 					<!--button-->
