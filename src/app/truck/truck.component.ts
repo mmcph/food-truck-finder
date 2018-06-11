@@ -9,7 +9,8 @@ import {TruckCategory} from "../shared/classes/truckcategory";
 import {IsOpen} from "../shared/classes/is-open";
 import {FavoriteService} from "../shared/services/favorite.service";
 import {Favorite} from "../shared/classes/favorite";
-
+import {Vote} from "../shared/classes/vote";
+import {VoteService} from "../shared/services/vote.service";
 
 @Component({
 
@@ -25,7 +26,7 @@ export class TruckComponent implements OnInit {
     truckId = this.router.snapshot.params["truckId"];
     favorite: Favorite = new Favorite("", "");
 
-    constructor(private router: ActivatedRoute, private truckService: TruckService, private favoriteService: FavoriteService) {
+    constructor(private router: ActivatedRoute, private truckService: TruckService, private favoriteService: FavoriteService, private voteService: VoteService) {
 
     }
 
@@ -68,6 +69,15 @@ export class TruckComponent implements OnInit {
         )
     }
 
+    createVote(voteValue : number) : void {
+        let vote = new Vote(null, this.truckId, voteValue);
+        this.voteService.createVote(vote).subscribe(status => this.status = status
+
+        )
+    }
+
 }
+
+
 
 
