@@ -53,21 +53,19 @@ export class TruckComponent implements OnInit {
 
 // grab favorite to see if already favorites or not
     loadFavorite() : void {
-        this.favoriteService.createFavorite($event).subscribe(reply => {
-            this.favorite = reply.favorite;
 
-        })
     }
 
 
-    handleClick(){
 
-        this.onClick.createFavorite()
-    }
 
 // allow user to create or delete this favorite
     createFavorite() : void {
 
+        let favorite = new Favorite(null, this.truckId);
+        this.favoriteService.createFavorite(favorite).subscribe(status => this.status = status
+
+        )
     }
 
 }

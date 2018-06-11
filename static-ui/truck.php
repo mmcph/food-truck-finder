@@ -46,12 +46,13 @@
         <div class="container actions">
             <div class="Aligner">
                 <div class="Aligner-item--bottom">
-                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i> Favorite</button>
-                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-up fa-lg"></i> 18</button>
-                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-down fa-lg"></i> 1</button>
-        <!--Alt. font-awesome icons for votes-->
-<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-up fa-lg"></i></i> 18</button>-->
-<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-angle-down fa-lg"></i> 1</button>-->
+                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i>Existing Favorite</button>
+                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i>Create Favorite</button>
+
+<!--                    votes-->
+<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-up fa-lg"></i> 18</button>-->
+<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-down fa-lg"></i> 1</button>-->
+
                 </div>
             </div>
         </div>
