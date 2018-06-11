@@ -27,35 +27,24 @@
 
 	<body>
 
-		<h1 class="sign-in-title">Sign-In</h1>
-
-		<form action="">
-			<div class="form-group">
-				<label for="sign-in-email">Email Address</label>
-				<br>
-				<input id="sign-in-email" class="sign-in-input" type="text" name="enteremail">
-			</div>
-			<div class="form-group">
-				<label for="sign-in-password">Password</label>
-				<br>
-				<input id="sign-in-password" class="sign-in-input" type="text" name="enterpassword">
-			</div>
-		</form>
-
 		<div class="container">
 		<h1 class="sign-in-title">Sign-In</h1>
 		<form [formGroup]="signInForm" (ngSubmit)= "createSignIn();" novalidate >
+
 			<div class="form-group">
-				<label for="sign-in-email">Email Address</label>
+				<label for="sign-in-email" class="sign-in-text">Email Address</label>
 				<br>
 				<input id="sign-in-email" class="sign-in-input" type="text" name="enteremail" formControlName="profileEmail">
 			</div>
+
 			<div class="form-group">
-				<label for="sign-in-password">Password</label>
+				<label for="sign-in-password" class="sign-in-text">Password</label>
 				<br>
 				<input id="sign-in-password" class="sign-in-input" type="password" name="enterpassword" formControlName="profilePassword">
 			</div>
-			<button type="submit" class="btn btn-block btn-warning mb-3">Sign In</button>
+
+			<button type="submit" class="btn btn-block btn-warning signInSubmit mb-3">Sign In</button>
+
 		</form>
 		</div>
 

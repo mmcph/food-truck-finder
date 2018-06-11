@@ -1,5 +1,5 @@
 body {
-	background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed;
+	background: url("https://i.imgur.com/cdV6wjj.png") no-repeat center center fixed;
 }
 
 h1.sign-up-title {
@@ -12,6 +12,7 @@ h1.sign-up-title {
 label.sign-up-text {
 	color: #000;
 	font-family: 'Contrail One', cursive;
+	font-size: 20px;
 	text-shadow: #FFD042 0 0 1px;
 }
 
@@ -37,4 +38,6 @@ input.sign-up-input {
 	min-width: 220px;
 	border-radius: 0;
 	font-family: 'Contrail One', cursive;
+	border: 2px solid #600400;
+	margin-top: 15px;
 }
