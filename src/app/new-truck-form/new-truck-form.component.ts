@@ -6,7 +6,7 @@ import {TruckService} from "../shared/services/truck.service";
 import {Truck} from "../shared/classes/truck";
 
 @Component({
-	template: require("new-truck-form.component.html"),
+	template: require("./new-truck-form.component.html"),
 })
 export class NewTruckFormComponent  implements OnInit{
 

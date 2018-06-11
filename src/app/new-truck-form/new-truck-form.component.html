@@ -1,26 +1,21 @@
-<form action="">
+<form [formGroup]="newTruckForm" (ngSubmit)="createNewTruckForm();">
 	<div class="form-group">
-		First Name <br>
-		<input type="text" name="firstname" placeholder="Juan">
+		(TruckBio)<br>
+		<input type="text" name="truckbio" placeholder="A brief description of your business/foodtruck" formControlName="truckBio">
 	</div>
 	<div class="form-group">
-		Last Name <br>
-		<input type="text" name="lastname" placeholder="Smith">
+		(TruckName)<br>
+		<input type="text" name="truckname" placeholder="Name of your business/foodtruck" formControlName="truckName">
 	</div>
 	<div class="form-group">
-		Username <br>
-		<input type="text" name="username" placeholder="jsmith01">
+		(TruckPhone)<br>
+		<input type="text" name="truckphone" placeholder="xxx-xxx-xxxx" formControlName="truckPhone">
 	</div>
 	<div class="form-group">
-		Email Address <br>
-		<input type="text" name="email" placeholder="your-email-address@domain.com">
+		(TruckUrl)<br>
+		<input type="text" name="truckurl" placeholder="your-email-address@domain.com" formControlName="truckUrl">
 	</div>
-	<div class="form-group">
-		Password <br>
-		<input type="text" name="password">
-	</div>
-	<div class="form-group">
-		Confirm Password <br>
-		<input type="text" name="confirmpassword">
+	<div>
+		<button class="btn btn-block btn-warning mb-3" type="submit">Register your Truck!</button>
 	</div>
 </form>
