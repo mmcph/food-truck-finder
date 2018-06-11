@@ -3,6 +3,7 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
+require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\FoodTruck\{
@@ -85,7 +86,7 @@ try {
 		validateJwtHeader();
 
 //todo this is new tests on post ideally will test on get request first
-		$testFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $requestObject->favoriteProfileId, $requestObject->favoriteTruckId);
+		$testFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
 		if($testFavorite !== null){
 			throw(new \InvalidArgumentException("You have already favorited this truck!", 403));
 		}
@@ -114,7 +115,7 @@ try {
 
 		validateJwtHeader();
 
-		//enforce the user is signed in and only trying to edit their own TruckCategory
+		//enforce the user is signed in and only trying to edit their own favorite
 		if (empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $favorite->getFavoriteProfileId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this favorite category", 403));
 		}

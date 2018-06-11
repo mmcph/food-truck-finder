@@ -61,7 +61,7 @@ export class TruckComponent implements OnInit {
 
 
 
-// allow user to create or delete this favorite
+// allow user to favorite this truck; create a favorite
     createFavorite() : void {
 
         let favorite = new Favorite(null, this.truckId);
@@ -70,6 +70,12 @@ export class TruckComponent implements OnInit {
         )
     }
 
+
+// allow user to delete favorite
+
+
+
+// allow user to vote
     createVote(voteValue : number) : void {
         let vote = new Vote(null, this.truckId, voteValue);
         this.voteService.createVote(vote).subscribe(status => this.status = status

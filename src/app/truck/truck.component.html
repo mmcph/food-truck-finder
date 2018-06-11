@@ -17,20 +17,17 @@
 
 <!--favorite-->
     <div class="Aligner-item--bottom">
-        <button type="button" class="btn btn-outline-warning" (click)="createFavorite()"> <i class="fas fa-star fa-lg"></i> </button>
+<!--create a favorite if it does not exist-->
+        <button *ngIf="favorite !== null " type="button" class="btn btn-outline-warning" (click)="createFavorite()"><i class="far fa-star fa-lg"></i> <i></i></button>
 
-
-
-
-
-            <!--<i class="far fa-star fa-lg"></i>-->
-
-
-
+<!--delete favorite if it exists-->
+        <!--<button *ngIf="favorite === null" type="button" class="btn btn-outline-warning" (click)="deleteFavorite()">-->
+            <!--<i  class="far fa-star fa-lg"></i>-->
+        <!--</button>-->
 
 <!--votes-->
-        <button type="button" class="btn btn-outline-warning" (click)="createVote(1)"><i class="fas fa-arrow-alt-circle-up fa-lg"></i>{{ truckVote.upVote }}</button>-->
-        <button type="button" class="btn btn-outline-warning" (click)="createVote(-1)"><i class="fas fa-arrow-alt-circle-down fa-lg"></i>{{ truckVote.downVote }} </button>-->
+        <button type="button" class="btn btn-outline-warning" (click)="createVote(1)"><i class="fas fa-arrow-alt-circle-up fa-lg"></i>{{ truckVote.upVote }}</button>
+        <button type="button" class="btn btn-outline-warning" (click)="createVote(-1)"><i class="fas fa-arrow-alt-circle-down fa-lg"></i>{{ truckVote.downVote }} </button>
     </div>
 </div>
 <footer></footer>

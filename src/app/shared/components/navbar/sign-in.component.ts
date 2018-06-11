@@ -37,6 +37,8 @@ export class SignInComponent implements OnInit {
 
     createSignIn() : void {
 
+        window.localStorage.removeItem("jwt-token");
+
         let signIn = new SignIn(this.signInForm.value.profileEmail, this.signInForm.value.profilePassword);
 
         this.signInService.postSignIn(signIn)
