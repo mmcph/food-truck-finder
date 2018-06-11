@@ -49,7 +49,8 @@ try {
 		if ($favoriteProfileId !== null && $favoriteTruckId !==null) {
 			$favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $favoriteProfileId, $favoriteTruckId);
 
-			if($favorite!==null) {
+
+			if($favorite !== null) {
 				$reply->data = $favorite;
 			}
 		} else if(empty($favoriteProfileId) === false) {
@@ -75,6 +76,9 @@ try {
 
 		// enforce the user has a XSRF token
 		verifyXsrf();
+
+
+
 
 //enforce the user is signed in
 		if (empty($_SESSION["profile"]) === true) {
@@ -108,7 +112,7 @@ try {
 		verifyXsrf();
 
 		// retrieve the favorite by composite key
-		$favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $requestObject->favoriteProfileId, $requestObject->favoriteTruckId);
+		$favorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
 		if ($favorite === null) {
 			throw(new RuntimeException("Favorite does not exist", 404));
 		}
@@ -122,8 +126,8 @@ try {
 
 		//validateJwtHeader();
 		//perform the actual delete
+        $favorite->delete($pdo);
 
-		$favorite->delete($pdo);
 		//update the message
 		$reply->message = "Favorite deleted successfully";
 

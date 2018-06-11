@@ -17,13 +17,14 @@
 
 <!--favorite-->
     <div class="Aligner-item--bottom">
+
 <!--create a favorite if it does not exist-->
-        <button *ngIf="favorite !== null " type="button" class="btn btn-outline-warning" (click)="createFavorite()"><i class="far fa-star fa-lg"></i> <i></i></button>
+        <button *ngIf="favorite === null " type="button" class="btn btn-outline-warning" (click)="createFavorite()">
+            <i class="fas fa-star fa-lg"></i></button>
 
 <!--delete favorite if it exists-->
-        <!--<button *ngIf="favorite === null" type="button" class="btn btn-outline-warning" (click)="deleteFavorite()">-->
-            <!--<i  class="far fa-star fa-lg"></i>-->
-        <!--</button>-->
+        <button *ngIf="favorite !== null" type="button" class="btn btn-outline-warning" (click)="deleteFavorite()">
+            <i class="far fa-star fa-lg"></i></button>
 
 <!--votes-->
         <button type="button" class="btn btn-outline-warning" (click)="createVote(1)"><i class="fas fa-arrow-alt-circle-up fa-lg"></i>{{ truckVote.upVote }}</button>

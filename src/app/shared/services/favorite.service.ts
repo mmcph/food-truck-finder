@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Status} from "../classes/status";
 import {Favorite} from "../classes/favorite";
 import {Observable} from "rxjs/Observable";
@@ -28,6 +28,12 @@ export class FavoriteService {
 	getFavoriteByTruckId ( favoriteTruckId : string) : Observable <Favorite[]> {
 		return(this.http.get<Favorite[]>(this.favoriteUrl + favoriteTruckId))
 	}
+
+
+// allow user to delete favorite
+    deleteFavorite(favorite : Favorite) : Observable<Status> {
+        return(this.http.put<Status>(this.favoriteUrl, favorite) );
+    }
 
 
 }

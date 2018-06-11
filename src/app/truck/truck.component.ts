@@ -51,28 +51,44 @@ export class TruckComponent implements OnInit {
     }
 
 // grab favorite if it exists
-    loadFavorite() : void {
-        this.favoriteService.getFavoriteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
+    loadFavorite() : void {this.favoriteService.getFavoriteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
+
+        if(!reply.favoriteTruckId ) {
+            this.favorite = null;
+        }else {
             this.favorite = reply;
+        }
         })
 
     }
 
 
-
-
 // allow user to favorite this truck; create a favorite
     createFavorite() : void {
+        console.log("blame Marty");
 
         let favorite = new Favorite(null, this.truckId);
-        this.favoriteService.createFavorite(favorite).subscribe(status => this.status = status
+        this.favoriteService.createFavorite(favorite).subscribe(status => {this.status = status}
 
         )
     }
 
 
 // allow user to delete favorite
+    deleteFavorite() : void  {
 
+        this.favoriteService.deleteFavorite(this.favorite).subscribe(status => {
+            this.status = status;
+
+            if(status.status === 200) {
+                this.loadFavorite();
+            }
+
+
+
+        })
+
+    }
 
 
 // allow user to vote
