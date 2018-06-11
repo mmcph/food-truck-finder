@@ -81,14 +81,9 @@ try {
             //|| $_SESSION["profile"]->getProfileId()->toString() !== $favorite->getFavoriteProfileId()->toString()) {
             throw(new \InvalidArgumentException("You must be signed in to favorite a food truck", 403));
         }
-
         validateJwtHeader();
 
-//todo this is new tests on post ideally will test on get first
-        $testFavorite = Favorite::getFavoriteByFavoriteProfileIdAndFavoriteTruckId($pdo, $requestObject->favoriteProfileId, $requestObject->favoriteTruckId);
-        if($testFavorite !== null){
-            throw(new \InvalidArgumentException("You have already favorited this truck!", 403));
-        }
+
 
         $favorite = new Favorite($_SESSION["profile"]->getProfileId(), $requestObject->favoriteTruckId);
         $favorite->insert($pdo);
