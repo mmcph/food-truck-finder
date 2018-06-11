@@ -41,8 +41,8 @@ export const routes: Routes = [
     {path: "truck/:truckId", component: TruckComponent},
 	{path: "sign-up", component: SignUpComponent},
     {path: "sign-in", component: SignInComponent},
-   {path: "new-truck", component: NewTruckFormComponent}
-    {path: "", component: HomeComponent},
+    {path: "new-truck", component: NewTruckFormComponent},
+    {path: "", component: HomeComponent}
 ];
 
 
