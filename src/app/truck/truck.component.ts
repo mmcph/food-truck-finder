@@ -36,7 +36,7 @@ export class TruckComponent implements OnInit {
     this.token = this.authService.decodeJwt();
     this.loadTruck();
     this.loadFavorite();
-    console.log(this.token);
+    // this.loadVote();
 
     }
 
@@ -62,15 +62,15 @@ export class TruckComponent implements OnInit {
 
     }
 
-
 // allow user to favorite this truck; create a favorite
     createFavorite() : void {
-        console.log("blame Marty");
 
         let favorite = new Favorite(null, this.truckId);
-        this.favoriteService.createFavorite(favorite).subscribe(status => {this.status = status}
+        this.favoriteService.createFavorite(favorite).subscribe(status => {
+            this.status = status;
+            this.loadFavorite();
 
-        )
+        })
     }
 
 
@@ -80,24 +80,48 @@ export class TruckComponent implements OnInit {
         this.favoriteService.deleteFavorite(this.favorite).subscribe(status => {
             this.status = status;
 
+            this.loadFavorite();
+
+
             if(status.status === 200) {
                 this.loadFavorite();
             }
-
-
 
         })
 
     }
 
 
+    // grab votes if they exist
+    // loadVote() : void {this.voteService.getVoteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
+    // }
+    // })
+
+
+
+    getVoteTruckId() : void {
+
+        this.voteService.getTruckVote(this.truckId).subscribe(reply => {
+            this.truckVote = reply;
+        }
+        )
+    }
+
+
 // allow user to vote
     createVote(voteValue : number) : void {
         let vote = new Vote(null, this.truckId, voteValue);
-        this.voteService.createVote(vote).subscribe(status => this.status = status
+        this.voteService.createVote(vote).subscribe(status => {
+            this.status = status;
+            if (status.status === 200){
+                this.getVoteTruckId()
+            }
+            }
 
-        )
-    }
+        )};
+
+
+
 
 }
 

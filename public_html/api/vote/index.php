@@ -32,7 +32,9 @@ try {
     $voteProfileId = filter_input(INPUT_GET, "voteProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $voteTruckId = filter_input(INPUT_GET, "voteTruckId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     if ($method === "GET") {
-        //set XSRF cookie
+        if($voteTruckId !== null){
+            $reply->data = Vote::getVoteCountByVoteTruckId($pdo, $voteTruckId);
+        }
         setXsrfCookie();
     } else if ($method === "POST") {
         //decode the response from the front end
@@ -46,6 +48,18 @@ try {
         if (empty($_SESSION["profile"]) === true) {
             throw(new \InvalidArgumentException("You must first log in to vote", 403));
         }
+
+        validateJwtHeader();
+
+        $vote = Vote::getVoteByVoteProfileIdAndVoteTruckId($pdo, $_SESSION["profile"]->getProfileId(), $requestObject->voteTruckId);
+
+        if ($vote !== null) {
+            //delete the vote
+            $vote->delete($pdo);
+            //update the message
+            $reply->message = "Vote successfully deleted";
+        }
+
         //validateJwtHeader();
         $vote = new Vote($_SESSION["profile"]->getProfileId(), $requestObject->voteTruckId, $requestObject->voteValue);
         $vote->insert($pdo);
