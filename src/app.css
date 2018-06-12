@@ -1,4 +1,10 @@
-/*navbar*/
+/*BODY STYLE (BACKGROUND)*/
+
+body {
+    background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed;
+
+}
+
 /*BEGIN NAVBAR STYLE*/
 
 nav {
@@ -194,12 +200,263 @@ a#fullSizeTitle {
     }
 }
 
-body{
-    background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed}
 /*END NAVBAR STYLE*/
 
+/*--------------------------------------------------------------------------------------------------------*/
 
-.container {
+/*BEGIN ABOUT STYLE*/
+
+.card-container {
+    border-radius: 0;
+}
+
+.background-card {
+    background-color: #FFD042;
+    border: 2px solid #600400;
+}
+
+.background-card-img {
+    border: 2px solid #600400;
+}
+
+h1.about-title {
+    color: #FFD042;
+    font-family: 'Contrail One', cursive;
+    text-shadow: black 0 0 3px;
+    margin-top: 15px;
+}
+
+.card-title {
+    font-family: 'Contrail One', cursive;
+    color: #A00400;
+    text-shadow: 0 0 1px #000;
+    margin-top: 11px;
+}
+
+.card-text {
+    font-family: 'Contrail One', cursive;
+    color: #800400;
+    font-size: 18px;
+}
+
+.about-link-text {
+    font-family: 'Contrail One', cursive;
+    color: #A00400;
+    font-size: 18px;
+    text-decoration: underline;
+    transition: text-shadow .35s, color .35s;
+    transition-timing-function: ease-out;
+}
+
+.about-link-text:hover {
+    color: #ffff66;
+    text-shadow: black 0 0 10px;
+}
+
+.about-spacer {
+    height: 50px;
+}
+
+/*END ABOUT STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN SIGN UP STYLE*/
+
+h1.sign-up-title {
+    color: #A00400;
+    font-family: 'Contrail One', cursive;
+    text-shadow: #D00400 0 0 2px;
+    margin-top: 15px;
+}
+
+label.sign-up-text {
+    color: #000;
+    font-family: 'Contrail One', cursive;
+    font-size: 20px;
+    text-shadow: #FFD042 0 0 1px;
+}
+
+input.sign-up-input {
+    background-color: #FFD042;
+    color: #800400;
+    font-family: 'Contrail One', cursive;
+    border: 2px solid #600400;
+    border-radius: 0;
+    width: 30%;
+    min-width: 220px;
+}
+
+.signUpAlert {
+    width: 30%;
+    min-width: 220px;
+    border-radius: 0;
+    font-family: 'Contrail One', cursive;
+}
+
+.signUpSubmit {
+    width: 30%;
+    min-width: 220px;
+    border-radius: 0;
+    font-family: 'Contrail One', cursive;
+    border: 2px solid #600400;
+    margin-top: 15px;
+}
+
+/*END SIGN UP STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN SIGN IN STYLE*/
+
+.sign-in-title {
+    color: #A00400;
+    font-family: 'Contrail One', cursive;
+    text-shadow: #D00400 0 0 2px;
+    margin-top: 15px;
+}
+
+.sign-in-text {
+    color: #000;
+    font-family: 'Contrail One', cursive;
+    font-size: 20px;
+    text-shadow: #FFD042 0 0 1px;
+}
+
+.sign-in-input {
+    background-color: #FFD042;
+    color: #800400;
+    font-family: 'Contrail One', cursive;
+    border: 2px solid #600400;
+    border-radius: 0;
+    width: 30%;
+    min-width: 220px;
+}
+
+.signInSubmit {
+    width: 30%;
+    min-width: 220px;
+    border-radius: 0;
+    font-family: 'Contrail One', cursive;
+    border: 2px solid #800400;
+    margin-top: 10px;
+}
+
+/*END SIGN IN STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN TRUCK STYLE*/
+
+h1.truck-title {
+    font-family: 'Contrail One', cursive;
+    color: #FFD042;
+    text-shadow: #FFD042 0 0 1px;
+    padding: 15px 0;
+}
+
+.truck-display {
+    background: linear-gradient(to top, #600400, #800400);
+    font-family: 'Roboto', sans-serif;
+}
+
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.Aligner-item {
+    max-width: 80%;
+}
+
+.Aligner-item--top {
+    align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+    align-self: flex-end;
+    padding-bottom: 15px;
+}
+
+.truck-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #FFD042;
+}
+
+.truck-url-link {
+    text-decoration: underline;
+    margin-bottom: 1rem;
+    color: #FFD042;
+    transition: color .5s, text-shadow .5s;
+}
+
+.truck-url-link:hover {
+    text-decoration: underline;
+    color: #ffe577;
+    text-shadow: #FFD042 0 0 2px;
+}
+
+/*END TRUCK STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN NEW TRUCK STYLE*/
+
+h1.new-truck-title {
+    color: #A00400;
+    font-family: 'Contrail One', cursive;
+    text-shadow: #D00400 0 0 2px;
+    margin: 15px 0;
+}
+
+@media screen and (max-width: 400px) {
+    h1.new-truck-title {
+        font-size: 25px;
+    }
+}
+
+label.new-truck-text {
+    color: #000;
+    font-family: 'Contrail One', cursive;
+    font-size: 20px;
+    text-shadow: #FFD042 0 0 1px;
+    display: block;
+    margin-bottom: 0;
+}
+
+textarea.new-truck-input, input.new-truck-input {
+    background-color: #FFD042;
+    color: #800400;
+    font-family: 'Contrail One', cursive;
+    border: 2px solid #600400;
+    border-radius: 0;
+    width: 30%;
+    min-width: 220px;
+    transition: background-color .5s;
+}
+
+textarea.new-truck-input:focus, input.new-truck-input:focus {
+    background-color: #ffe577;
+}
+
+.newTruckSubmit {
+    width: 30%;
+    min-width: 220px;
+    border-radius: 0;
+    font-family: 'Contrail One', cursive;
+    border: 2px solid #600400;
+    margin-top: 15px;
+}
+
+/*END NEW TRUCK STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN FOOTER STYLE*/
+
+.footer-container {
     position: relative;
     text-align: center;
     color: black;
@@ -218,6 +475,8 @@ body{
 
 .fixed-bottom {
     background-color: #A00400;
+    border-top: 3px solid #600400;
+    margin-top: 0;
 }
 
 .pipe {
@@ -238,77 +497,6 @@ body{
     }
 }
 
-div.mapPlaceholder {
-    width: 100%;
-    height: 700px;
-    background: #A00400;
-}
+/*END FOOTER STYLE*/
 
-div.searchContain {
-    margin: 10px;
-    /*background-color: #800400;*/
-}
-
-input.userSearch {
-    margin-right: 0px;
-    background-color: #FFD042;
-    border: 2px solid #800400;
-    height: 45px;
-    border-radius: 0;
-    width: 200px;
-    font-family: 'Contrail One', cursive;
-}
-
-button.submitSearch {
-    color: red;
-    background-color: #FFD042;
-    border-top: 2px solid #800400;
-    border-right: 2px solid #800400;
-    border-bottom: 2px solid #800400;
-    border-left: none;
-    border-radius: 0;
-    height: 45px;
-    width: 48px;
-}
-
-input.userSearch:active, input.userSearch:focus {
-    background-color: #ffe577;
-    outline-width: 0;
-    color: #A00400;
-    /*outline: none;*/
-}
-/*truck css*/
-h1 {
-    font-family: 'Contrail One', cursive;
-    color: #FFD042;
-}
-.body {
-    background-color: #51b2c9;
-    font-family: 'Roboto', sans-serif;
-}
-
-/*Aligner*/
-.Aligner {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
-.Aligner-item {
-    max-width: 80%;
-}
-
-.Aligner-item--top {
-    align-self: flex-start;
-}
-
-.Aligner-item--bottom {
-    align-self: flex-end;
-}
-
-
-/*font-family: 'Roboto', sans-serif;*/
-
-/*font-family: 'Contrail One', cursive;*/
-
-
+/*--------------------------------------------------------------------------------------------------------*/
