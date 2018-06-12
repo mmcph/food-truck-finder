@@ -4,21 +4,21 @@
 	<div class="ml-auto" id="navbarSupportedContent">
 		<ul class="navbar-nav ml-auto">
 			<!--CATEGORY SEARCH-->
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle navTopLevel pushDown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Food Types</a>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<button class="btn categoryButton" type="submit">Find Trucks</button>
-					<div *ngFor="let category of categories" class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" id="category{{category.categoryId}}"><label for="category{{category.categoryId}}" class="categoryTerm">&nbsp;{{category.categoryName}}</label></div>
-				</div>
+			<li class="nav-item">
+				<a class="nav-link navTopLevel pushDown" routerLink="/categories" role="button">Food Types</a>
+				<!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">-->
+					<!--<button class="btn categoryButton" type="submit">Find Trucks</button>-->
+					<!--<div *ngFor="let category of categories" class="dropdown-item"><input type="checkbox" title="categorySearchTerm" class="categorySearch" id="category{{category.categoryId}}"><label for="category{{category.categoryId}}" class="categoryTerm">&nbsp;{{category.categoryName}}</label></div>-->
+				<!--</div>-->
 			</li>
 			<!--USERS-->
 			<li class="nav-item dropdown">
 				<a class="nav-link navTopLevel" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user navUserIcon fa-lg"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 					<div class="dropdown-item" *ngIf=""><a href="FAVORITES" class="userText"><i class="far fa-star"></i>&nbsp;Favorites</a></div>
-					<div class="dropdown-item"><a routerLink="/sign-up" class="userText"><i class="fas fa-user-plus"></i>&nbsp;Sign Up</a></div>
-					<div class="dropdown-item"><a routerLink="/sign-in" class="userText"><i class="fas fa-sign-in-alt"></i>&nbsp;Sign In</a></div>
-					<div class="dropdown-item"><a href="SIGNOUT" class="userText"><i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out</a></div>
+					<div class="dropdown-item" *ngIf=""><a routerLink="/sign-up" class="userText"><i class="fas fa-user-plus"></i>&nbsp;Sign Up</a></div>
+					<div class="dropdown-item" *ngIf=""><a routerLink="/sign-in" class="userText"><i class="fas fa-sign-in-alt"></i>&nbsp;Sign In</a></div>
+					<div class="dropdown-item" *ngIf=""><a href="SIGNOUT" class="userText"><i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out</a></div>
 				</div>
 			</li>
 		</ul>

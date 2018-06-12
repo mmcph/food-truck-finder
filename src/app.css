@@ -94,19 +94,6 @@ a#fullSizeTitle {
     color: #ffe577;
 }
 
-.categoryButton {
-    border: 2px solid #600400;
-    border-radius: 1px;
-    background-color: #FFD042;
-    color: #A00400;
-    margin-left: 22%;
-    margin-bottom: 7px;
-    padding-bottom: 3px;
-    font-size: 25px;
-    font-family: 'Contrail One', cursive;
-    text-shadow: 0 0 1px black;
-}
-
 .categorySearch {
     color: #FFD042;
 }
@@ -132,7 +119,7 @@ a#fullSizeTitle {
 }
 
 .navUserIcon {
-    font-size: 40px;
+    font-size: 32px;
     padding: 4px 6px;
     border: 2px solid #FFD042;
     border-radius: 4px;
@@ -547,12 +534,6 @@ textarea.new-truck-input:focus, input.new-truck-input:focus {
 
 /*BEGIN MAP VIEW STYLE*/
 
-/*div.mapPlaceholder {*/
-    /*width: 100%;*/
-    /*height: 700px;*/
-    /*background: #A00400;*/
-/*}*/
-
 div.searchContain {
     margin: 10px;
     /*background-color: #800400;*/
@@ -619,3 +600,29 @@ input.userSearch:active, input.userSearch:focus {
 }
 
 /*END MAP VIEW STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN CATEGORY STYLE*/
+
+.categoryButton {
+	border: 2px solid #600400;
+	border-radius: 1px;
+	background-color: #FFD042;
+	color: #A00400;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	padding-bottom: 3px;
+	font-size: 25px;
+	font-family: 'Contrail One', cursive;
+	text-shadow: 0 0 1px black;
+}
+
+.category-title {
+	color: #A00400;
+	font-family: 'Contrail One', cursive;
+	text-shadow: #D00400 0 0 2px;
+	margin-top: 27px;
+	margin-left: 15px;
+	display: inline-block;
+}
