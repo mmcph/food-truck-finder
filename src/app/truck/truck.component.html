@@ -2,6 +2,11 @@
 <div class="body">
     <div class="container contact">
         <h1>{{truck.truckName}}</h1>
+<!--edit truck name-->
+        <button *ngIf="isOwner === 1" type="button" class="btn btn-outline-warning" (click)="edit()"></button>
+            <i class="fas fa-pencil-alt"></i>Edit
+
+
         <p id="phone">{{truck.truckPhone}}</p>
         <p id="url">{{truck.truckUrl}}</p>
         <p id="open"><i class="fas fa-check fa-lg"></i>{{truck.truckIsOpen | open }}</p>

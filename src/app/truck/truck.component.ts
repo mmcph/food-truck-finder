@@ -120,7 +120,16 @@ export class TruckComponent implements OnInit {
 
         )};
 
+//allow truck owner to edit (PUT) fields if logged in
 
+    // editTruck() : void {
+    //     this.truckId.editTruck(truck).subscribe(status => {
+    //         this.status = status;
+    //         if (status.status === 200){
+    //             this.getTruck()
+    //         }
+    //     })
+    // }
 
 
 }
