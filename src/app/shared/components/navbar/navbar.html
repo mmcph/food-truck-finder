@@ -15,7 +15,7 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link navTopLevel" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user navUserIcon fa-lg"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<div class="dropdown-item"><a href="FAVORITES" class="userText"><i class="far fa-star"></i>&nbsp;Favorites</a></div>
+					<div class="dropdown-item" *ngIf=""><a href="FAVORITES" class="userText"><i class="far fa-star"></i>&nbsp;Favorites</a></div>
 					<div class="dropdown-item"><a routerLink="/sign-up" class="userText"><i class="fas fa-user-plus"></i>&nbsp;Sign Up</a></div>
 					<div class="dropdown-item"><a routerLink="/sign-in" class="userText"><i class="fas fa-sign-in-alt"></i>&nbsp;Sign In</a></div>
 					<div class="dropdown-item"><a href="SIGNOUT" class="userText"><i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out</a></div>

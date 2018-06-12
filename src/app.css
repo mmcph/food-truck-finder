@@ -132,7 +132,7 @@ a#fullSizeTitle {
 }
 
 .navUserIcon {
-    font-size: 25px;
+    font-size: 40px;
     padding: 4px 6px;
     border: 2px solid #FFD042;
     border-radius: 4px;
@@ -204,14 +204,20 @@ a#fullSizeTitle {
         width: 35px;
     }
 
-    i.navUserIcon {
+    .navUserIcon {
         margin-top: 5px;
         width: 22px;
         height: 25px;
-        font-size: 14px;
+        font-size: 24px;
         margin-right: 0;
         padding-left: 3px;
         padding-top: 3px;
+        border: none;
+    }
+
+    .navTopLevel {
+        margin-left: 0;
+        padding-left: 0;
     }
 
     .navbar {
@@ -265,7 +271,7 @@ h1.about-title {
 }
 
 .card-text {
-    font-family: 'Contrail One', cursive;
+    font-family: 'Roboto', sans-serif;
     color: #800400;
     font-size: 18px;
 }
