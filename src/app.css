@@ -541,11 +541,11 @@ textarea.new-truck-input:focus, input.new-truck-input:focus {
 
 /*BEGIN MAP VIEW STYLE*/
 
-div.mapPlaceholder {
-    width: 100%;
-    height: 700px;
-    background: #A00400;
-}
+/*div.mapPlaceholder {*/
+    /*width: 100%;*/
+    /*height: 700px;*/
+    /*background: #A00400;*/
+/*}*/
 
 div.searchContain {
     margin: 10px;
@@ -582,9 +582,28 @@ input.userSearch:active, input.userSearch:focus {
 }
 
 .map-scale {
-    height: 80vh;
+    height: 82vh;
     border-top: 3px solid #800400;
     border-bottom: 3px solid #800400;
+}
+
+.info-caption {
+    font-family: 'Contrail One', cursive;
+    color: #B00400;
+    text-shadow: 0 0 1px #F00;
+    font-size: 28px;
+    float: right;
+    margin-bottom: 0;
+    padding-top: 13px;
+    margin-right: 10px;
+}
+
+.info-caption-icon {
+    color: #B00400;
+}
+
+.rightAlign {
+    float: right;
 }
 
 /*END MAP VIEW STYLE*/
