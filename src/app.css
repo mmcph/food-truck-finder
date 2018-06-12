@@ -1,8 +1,13 @@
 /*BODY STYLE (BACKGROUND)*/
 
-body {
-    background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed;
+/*body {*/
+    /*background: linear-gradient(0deg, rgb(128,4,0), rgb(255,208,66)) no-repeat center center fixed;*/
 
+/*}*/
+
+body {
+    background: url("https://i.imgur.com/cdV6wjj.png") no-repeat center center fixed;
+    padding-top: 75px;
 }
 
 /*BEGIN NAVBAR STYLE*/
@@ -275,6 +280,7 @@ label.sign-up-text {
     font-family: 'Contrail One', cursive;
     font-size: 20px;
     text-shadow: #FFD042 0 0 1px;
+    display: block;
 }
 
 input.sign-up-input {
@@ -301,6 +307,11 @@ input.sign-up-input {
     font-family: 'Contrail One', cursive;
     border: 2px solid #600400;
     margin-top: 15px;
+    margin-bottom: 500px;
+}
+
+.formSpacer {
+    height: 200px;
 }
 
 /*END SIGN UP STYLE*/
