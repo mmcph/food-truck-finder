@@ -98,7 +98,11 @@ try {
 
 		//PUT and POST if blocks
 
-	} else if(($method === "PUT" || $method === "POST") && $_SESSION["profile"]->getProfileIsOwner() === 1) {
+	} else if($method === "PUT" || $method === "POST") {
+
+		if (empty( $_SESSION["profile"]) || $_SESSION["profile"]->getProfileIsOwner() === 1) {
+			throw new InvalidArgumentException("Please sign in.", 400);
+		}
 
 		// enforce the user has a XSRF token
 		verifyXsrf();
