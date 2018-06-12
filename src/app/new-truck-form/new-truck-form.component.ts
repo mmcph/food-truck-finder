@@ -36,7 +36,7 @@ export class NewTruckFormComponent  implements OnInit{
 			truckUrl: ["",[Validators.maxLength(128),Validators.required]],
 
 		});
-		this.getAllCategories();
+		// this.getAllCategories();
 	}
 
 	createNewTruckForm() : void {
@@ -52,7 +52,7 @@ export class NewTruckFormComponent  implements OnInit{
 			});
 	}
 
-	getAllCategories() : void {
-		this.categoryService.getAllCategories().subscribe(reply => this.Categories = reply)
-	}
+	// getAllCategories() : void {
+	// 	this.categoryService.getAllCategories().subscribe(reply => this.Categories = reply)
+	// }
 }
