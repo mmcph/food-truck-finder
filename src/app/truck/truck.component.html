@@ -3,9 +3,7 @@
     <div class="container contact">
         <h1>{{truck.truckName}}</h1>
 <!--edit truck name-->
-        <button *ngIf="isOwner === 1" type="button" class="btn btn-outline-warning" (click)="edit()"></button>
-            <i class="fas fa-pencil-alt"></i>Edit
-
+        <a class="btn btn-primary btn-sm" data-target="#edit-modal" data-toggle="modal">Edit</a>
 
         <p id="phone">{{truck.truckPhone}}</p>
         <p id="url">{{truck.truckUrl}}</p>
@@ -36,4 +34,51 @@
         <button type="button" class="btn btn-outline-warning" (click)="createVote(-1)"><i class="fas fa-arrow-alt-circle-down fa-lg"></i>{{ truckVote.downVote }} </button>
     </div>
 </div>
+
+<!--form-->
+<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Edit Your Truck's Profile</h4>
+            </div>
+            <div class="modal-body">
+
+
+
+                <form class="form-horizontal" role="form" id="contact-me" method="post" action="">
+
+                    <div class="form-group">
+                        <label for="editPhone" class="col-sm-2 control-label">Edit Phone Number</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="editphone" id="editPhone" placeholder="New Phone Number">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editUrl" class="col-sm-2 control-label">Edit Your Business' Website URL</label>
+                        <div class="col-sm-10">
+                            <input type="url" name="editUrl" id="editUrl" placeholder="example@domain.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBio" class="col-sm-2 control-label">Edit the description of your business/foodtruck</label>
+                        <div class="col-sm-10">
+                            <textarea name="" id="editBio" placeholder="A story about princesses and mushrooms in the Mario World..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="g-recaptcha" data-sitekey="6LdEaVwUAAAAAIc5peS7onDxa1W8zSZhrSr0x9PH"></div>
+                    <button class="btn btn-info" type="submit">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </form>
+
+                <div id="output-area"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer></footer>
