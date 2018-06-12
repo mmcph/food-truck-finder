@@ -23,7 +23,7 @@ export class TruckCategoryService {
 		return (this.http.get<TruckCategory>(this.truckCategoryUrl+ "?truckCategoryTruckId=" + truckCategoryTruckId +"&truckCategoryCategoryId=" + truckCategoryCategoryId))
 	}
 
-	getTruckCategoryByTruckId (truckCategoryTruckId : string) : Observable<TruckCategory[]> {
+	getTruckCategoriesByTruckId (truckCategoryTruckId : string) : Observable<TruckCategory[]> {
 		return(this.http.get<TruckCategory[]>(this.truckCategoryUrl + truckCategoryTruckId))
 	}
 

@@ -14,9 +14,9 @@ export class CategoryService {
 	// define the API endpoint
 	private categoryUrl = "/api/category/";
 
-	getAllCategories(): Observable<Category> {
+	getAllCategories(): Observable<Category[]> {
 		return (
-			this.http.get<Category>(this.categoryUrl)
+			this.http.get<Category[]>(this.categoryUrl)
 		)
 	}
 }

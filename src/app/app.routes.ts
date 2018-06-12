@@ -48,7 +48,7 @@ export const routes: Routes = [
 ];
 
 
-const services : any[] = [AuthService, SessionService, SignUpService, SignInService, TruckService, FavoriteService, VoteService, CategoryService];
+const services : any[] = [AuthService, SessionService, SignUpService, SignInService, TruckService, TruckCategoryService, FavoriteService, ProfileService, VoteService, CategoryService];
 
 const providers : any[] = [
     {provide: APP_BASE_HREF, useValue: window["_base_href"]},

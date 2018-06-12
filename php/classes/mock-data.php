@@ -94,13 +94,13 @@ $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/foodtruck.ini");
 //$favorite3->insert($pdo);
 //echo "3rd favorite";
 //
-
+//
 //$truckCategory1 = new TruckCategory(6, "c688b8ea-c895-42d5-a6b7-407aba249cd4");
 //$truckCategory1->insert($pdo);
 //echo "truck category";
-//
-//$truckCategory2 = new TruckCategory(5, "c688b8ea-c895-42d5-a6b7-407aba249cd4");
+
+//$truckCategory2 = new TruckCategory(5,"c688b8ea-c895-42d5-a6b7-407aba249cd4");
 //$truckCategory2->insert($pdo);
 //echo "truck category";
-
+//
 
