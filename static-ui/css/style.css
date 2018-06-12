@@ -348,7 +348,55 @@ input.sign-up-input {
 
 /*BEGIN TRUCK STYLE*/
 
+h1.truck-title {
+	font-family: 'Contrail One', cursive;
+	color: #FFD042;
+	text-shadow: #FFD042 0 0 1px;
+	padding: 15px 0;
+}
 
+.truck-display {
+	background: linear-gradient(to top, #600400, #800400);
+	font-family: 'Roboto', sans-serif;
+}
+
+.Aligner {
+	display: flex;
+	align-items: center;
+	justify-content: left;
+}
+
+.Aligner-item {
+	max-width: 80%;
+}
+
+.Aligner-item--top {
+	align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+	align-self: flex-end;
+	padding-bottom: 15px;
+}
+
+.truck-text {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	color: #FFD042;
+}
+
+.truck-url-link {
+	text-decoration: underline;
+	margin-bottom: 1rem;
+	color: #FFD042;
+	transition: color .5s, text-shadow .5s;
+}
+
+.truck-url-link:hover {
+	text-decoration: underline;
+	color: #ffe577;
+	text-shadow: #FFD042 0 0 2px;
+}
 
 /*END TRUCK STYLE*/
 
