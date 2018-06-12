@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css?family=Contrail+One');
 
 body {
-    background: url("https://i.imgur.com/cdV6wjj.png") no-repeat center center fixed;
+    background: url("./images/background.png") no-repeat center center fixed;
     padding-top: 75px;
 }
 
