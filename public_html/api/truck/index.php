@@ -90,7 +90,7 @@ try {
 			}
 			$reply->data = Truck::getCategoriesAndTrucksByCategoryId($pdo, $truckCategories);
 		} else {
-			$reply->data->truck = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
+			$reply->data = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
 
 
 
