@@ -598,12 +598,18 @@ input.userSearch:active, input.userSearch:focus {
     margin-right: 10px;
 }
 
-.info-caption-icon {
-    color: #B00400;
-}
-
 .rightAlign {
     float: right;
+}
+
+@media screen and (max-width: 460px) {
+    .info-caption {
+        font-size: 20px;
+        float: left;
+        margin-left: 10px;
+        margin-top: 0;
+        padding-top: 0;
+    }
 }
 
 /*END MAP VIEW STYLE*/
