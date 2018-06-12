@@ -36,7 +36,7 @@ export class NewTruckFormComponent  implements OnInit{
 			truckUrl: ["",[Validators.maxLength(128),Validators.required]],
 
 		});
-		console.log(this.newTruckForm)
+		this.getAllCategories();
 	}
 
 	createNewTruckForm() : void {
@@ -53,6 +53,6 @@ export class NewTruckFormComponent  implements OnInit{
 	}
 
 	getAllCategories() : void {
-		this.categoryService.getAllCategories()
+		this.categoryService.getAllCategories().subscribe(reply => this.Categories = reply)
 	}
 }

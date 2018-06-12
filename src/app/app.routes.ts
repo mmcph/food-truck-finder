@@ -21,6 +21,7 @@ import {TruckService} from "./shared/services/truck.service";
 import {VoteService} from "./shared/services/vote.service";
 
 
+
 // import all needed interceptors
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
@@ -46,7 +47,7 @@ export const routes: Routes = [
 ];
 
 
-const services : any[] = [AuthService, SessionService, SignUpService, SignInService, TruckService, FavoriteService, VoteService];
+const services : any[] = [AuthService, SessionService, SignUpService, SignInService, TruckService, FavoriteService, VoteService, CategoryService];
 
 const providers : any[] = [
     {provide: APP_BASE_HREF, useValue: window["_base_href"]},
