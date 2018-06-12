@@ -332,6 +332,7 @@ input.sign-up-input {
     font-family: 'Contrail One', cursive;
     font-size: 20px;
     text-shadow: #FFD042 0 0 1px;
+    display: block;
 }
 
 .sign-in-input {
