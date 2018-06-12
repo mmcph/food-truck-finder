@@ -1,7 +1,11 @@
 import {Component} from "@angular/core";
 
-@Component({
-	template: require("./about.html")
-})
 
-export class AboutComponent {}
+@Component ({
+
+	template: require ("./about.component.html"),
+})
+export class AboutComponent {
+
+
+}
