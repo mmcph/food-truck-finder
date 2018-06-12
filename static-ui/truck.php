@@ -25,37 +25,39 @@
     <title>Truck Details</title>
 </head>
 <body>
+	<div class="truck-display">
+		<div class="container contact">
+			<h1 class="truck-title">{{truck.truckName}}</h1>
+			<p class="truck-text"><i class="fas fa-check fa-lg"></i>{{truck.truckIsOpen | open }}</p>
+			<p class="truck-text">{{truck.truckPhone}}</p>
+			<p class="truck-text"><a href="{{truck.truckUrl}}" class="truck-url-link">{{truck.truckUrl}}</a></p>
+		</div>
+		<div class="container bio">
+			<div class="Aligner">
+				<div class="Aligner-item">
+					<p class="truck-text">{{truck.truckBio}}</p>
+					<!--<p><strong>#</strong>{{truck}}<strong></p>-->
+				</div>
+			</div>
+		</div>
 
-    <div class="body">
-        <div class="container contact">
-            <h1> Mario's Super Truck</h1>
-            <p id="phone"> 505-800-9999</p>
-            <p id="url">www.mario-eats.com</p>
-            <p id="open"><i class="fas fa-check fa-lg"></i> Open Now</p>
-<!--            <p id="closed"><i class="fas fa-times fa-lg"></i> Currently Closed</p>-->
-        </div>
-        <div class="container bio">
-            <div class="Aligner">
-                <div class="Aligner-item">
-                    <p>We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink. We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink. We serve the best pizza in Albuquerque, and also the best cannolis! We are open daily from 6pm-10pm, usually at the Old Town Plaza. We update our location daily. Our current special is $5 pizza slices with an ice-cold drink.</p>
-                    <p>We also do special events! Contact us for more info.</p>
-                    <p><strong>#</strong>Dessert <strong>#</strong>Italian <strong>#</strong>Pizza</p>
-                </div>
-            </div>
-        </div>
-        <div class="container actions">
-            <div class="Aligner">
-                <div class="Aligner-item--bottom">
-                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i>Existing Favorite</button>
-                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-star fa-lg"></i>Create Favorite</button>
+		<!--favorite-->
+		<div class="container">
+		<div class="Aligner-item--bottom">
 
-<!--                    votes-->
-<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-up fa-lg"></i> 18</button>-->
-<!--                    <button type="button" class="btn btn-outline-warning"><i class="fas fa-arrow-alt-circle-down fa-lg"></i> 1</button>-->
+			<!--create a favorite if it does not exist-->
+			<button *ngIf="favorite === null " type="button" class="btn btn-outline-warning" (click)="createFavorite()">
+				<i class="fas fa-star fa-lg"></i></button>
 
-                </div>
-            </div>
-        </div>
-    </div>
+			<!--delete favorite if it exists-->
+			<button *ngIf="favorite !== null" type="button" class="btn btn-outline-warning" (click)="deleteFavorite()">
+				<i class="far fa-star fa-lg"></i></button>
+
+			<!--votes-->
+			<button type="button" class="btn btn-outline-warning" (click)="createVote(1)"><i class="fas fa-arrow-alt-circle-up fa-lg"></i>{{ truckVote.upVote }}</button>
+			<button type="button" class="btn btn-outline-warning" (click)="createVote(-1)"><i class="fas fa-arrow-alt-circle-down fa-lg"></i>{{ truckVote.downVote }} </button>
+		</div>
+		</div>
+	</div>
 </body>
 

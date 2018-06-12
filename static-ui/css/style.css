@@ -204,53 +204,6 @@ a#fullSizeTitle {
 
 /*--------------------------------------------------------------------------------------------------------*/
 
-/*BEGIN FOOTER STYLE*/
-
-.footer-container {
-	position: relative;
-	text-align: center;
-	color: black;
-	text-shadow: black 0 0 13px;
-}
-
-.text-footer {
-	font-family: 'Contrail One', cursive;
-	color: #FFD042;
-	font-size: 5vw;
-}
-
-.text-footer:hover {
-	color: #ffff66
-}
-
-.fixed-bottom {
-	background-color: #A00400;
-	border-top: 3px solid #600400;
-	margin-top: 0;
-}
-
-.pipe {
-	font-family: 'Contrail One', cursive;
-	color: #FFDC75;
-	font-size: 24px;
-}
-
-@media screen and (max-width: 350px) {
-	.font-scale {
-		font-size: 18px;
-	}
-}
-
-@media screen and (min-width: 460px) {
-	.font-scale {
-		font-size: 26px;
-	}
-}
-
-/*END FOOTER STYLE*/
-
-/*--------------------------------------------------------------------------------------------------------*/
-
 /*BEGIN ABOUT STYLE*/
 
 .card-container {
@@ -398,6 +351,58 @@ input.sign-up-input {
 
 
 /*END TRUCK STYLE*/
+
+/*--------------------------------------------------------------------------------------------------------*/
+
+/*BEGIN NEW TRUCK STYLE*/
+
+h1.new-truck-title {
+	color: #A00400;
+	font-family: 'Contrail One', cursive;
+	text-shadow: #D00400 0 0 2px;
+	margin: 15px 0;
+}
+
+@media screen and (max-width: 400px) {
+	h1.new-truck-title {
+		font-size: 25px;
+	}
+}
+
+label.new-truck-text {
+	color: #000;
+	font-family: 'Contrail One', cursive;
+	font-size: 20px;
+	text-shadow: #FFD042 0 0 1px;
+	display: block;
+	margin-bottom: 0;
+}
+
+textarea.new-truck-input, input.new-truck-input {
+	background-color: #FFD042;
+	color: #800400;
+	font-family: 'Contrail One', cursive;
+	border: 2px solid #600400;
+	border-radius: 0;
+	width: 30%;
+	min-width: 220px;
+	transition: background-color .5s;
+}
+
+textarea.new-truck-input:focus, input.new-truck-input:focus {
+	background-color: #ffe577;
+}
+
+.newTruckSubmit {
+	width: 30%;
+	min-width: 220px;
+	border-radius: 0;
+	font-family: 'Contrail One', cursive;
+	border: 2px solid #600400;
+	margin-top: 15px;
+}
+
+/*END NEW TRUCK STYLE*/
 
 /*--------------------------------------------------------------------------------------------------------*/
 
