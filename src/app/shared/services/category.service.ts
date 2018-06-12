@@ -14,18 +14,19 @@ export class CategoryService {
     // define the API endpoint
     private categoryUrl = "/api/category";
 
+    getAllCategories() : Observable <Category[]>  {
+        return (
+           this.http.get<Category[]>(this.categoryUrl)
+        )
 
-    // call the category API and create a new Category
-    private createCategory(category: Category) : Observable<Status> {
-        return (this.http.post<Status>(this.categoryUrl, category));
-
-    }
 
     // grabs a category and deletes it -- commented out because API *should* only have GET per ASANA ticket, but it seems like we want delete. API needs to be cleaned up and tested.
     // deleteCategory(categoryId : string) : Observable<Status> {
     //     return (this.http.delete<Status>(this.categoryUrl + categoryId));
     //
     // }
+
+
 
 
 

@@ -4,6 +4,8 @@ import {Status} from "../shared/classes/status";
 import {Router} from "@angular/router";
 import {TruckService} from "../shared/services/truck.service";
 import {Truck} from "../shared/classes/truck";
+import {CategoryService} from "../shared/services/category.service";
+import {Category} from "../shared/classes/category";
 
 @Component({
 	template: require("./new-truck-form.component.html"),
@@ -16,7 +18,11 @@ export class NewTruckFormComponent  implements OnInit{
 	status : Status = null;
 	newTruckForm : FormGroup;
 
-	constructor(private formBuilder : FormBuilder, private router: Router, private truckService: TruckService) {
+	Categories : Category[] = [];
+
+
+
+	constructor(private formBuilder : FormBuilder, private router: Router, private truckService: TruckService, private categoryService: CategoryService) {
 
 	}
 
@@ -44,5 +50,9 @@ export class NewTruckFormComponent  implements OnInit{
 					alert(status.message);
 				}
 			});
+	}
+
+	getAllCategories() : void {
+		this.categoryService.getAllCategories()
 	}
 }

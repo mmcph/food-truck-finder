@@ -22,5 +22,4 @@ export class SignInService {
 	signOut():Observable<Status> {
 		return(this.http.get<Status>(this.signOutUrl));
 	}
-
 }

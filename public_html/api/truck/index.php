@@ -100,7 +100,7 @@ try {
 
 	} else if($method === "PUT" || $method === "POST") {
 
-		if (empty( $_SESSION["profile"]) || $_SESSION["profile"]->getProfileIsOwner() === 1) {
+		if (empty( $_SESSION["profile"]) || $_SESSION["profile"]->getProfileIsOwner() !== 1) {
 			throw new InvalidArgumentException("Please sign in.", 400);
 		}
 
