@@ -1,37 +1,36 @@
 <navbar></navbar>
-<div class="body">
+<div class="truck-display">
     <div class="container contact">
-        <h1>{{truck.truckName}}</h1>
-<!--edit truck name-->
-        <a class="btn btn-primary btn-sm" data-target="#edit-modal" data-toggle="modal">Edit</a>
-
-        <p id="phone">{{truck.truckPhone}}</p>
-        <p id="url">{{truck.truckUrl}}</p>
-        <p id="open"><i class="fas fa-check fa-lg"></i>{{truck.truckIsOpen | open }}</p>
+        <h1 class="truck-title">{{truck.truckName}}</h1>
+        <p class="truck-text"><i class="fas fa-check fa-lg"></i>{{truck.truckIsOpen | open }}</p>
+        <p class="truck-text">{{truck.truckPhone}}</p>
+        <p class="truck-text"><a href="{{truck.truckUrl}}" class="truck-url-link">{{truck.truckUrl}}</a></p>
     </div>
     <div class="container bio">
         <div class="Aligner">
             <div class="Aligner-item">
-                <p>{{truck.truckBio}}</p>
+                <p class="truck-text">{{truck.truckBio}}</p>
                 <!--<p><strong>#</strong>{{truck}}<strong></p>-->
             </div>
         </div>
     </div>
 
-<!--favorite-->
-    <div class="Aligner-item--bottom">
+    <!--favorite-->
+    <div class="container">
+        <div class="Aligner-item--bottom">
 
-<!--create a favorite if it does not exist-->
-        <button *ngIf="favorite === null " type="button" class="btn btn-outline-warning" (click)="createFavorite()">
-            <i class="fas fa-star fa-lg"></i></button>
+            <!--create a favorite if it does not exist-->
+            <button *ngIf="favorite === null " type="button" class="btn btn-outline-warning" (click)="createFavorite()">
+                <i class="fas fa-star fa-lg"></i></button>
 
-<!--delete favorite if it exists-->
-        <button *ngIf="favorite !== null" type="button" class="btn btn-outline-warning" (click)="deleteFavorite()">
-            <i class="far fa-star fa-lg"></i></button>
+            <!--delete favorite if it exists-->
+            <button *ngIf="favorite !== null" type="button" class="btn btn-outline-warning" (click)="deleteFavorite()">
+                <i class="far fa-star fa-lg"></i></button>
 
-<!--votes-->
-        <button type="button" class="btn btn-outline-warning" (click)="createVote(1)"><i class="fas fa-arrow-alt-circle-up fa-lg"></i>{{ truckVote.upVote }}</button>
-        <button type="button" class="btn btn-outline-warning" (click)="createVote(-1)"><i class="fas fa-arrow-alt-circle-down fa-lg"></i>{{ truckVote.downVote }} </button>
+            <!--votes-->
+            <button type="button" class="btn btn-outline-warning" (click)="createVote(1)"><i class="fas fa-arrow-alt-circle-up fa-lg"></i>{{ truckVote.upVote }}</button>
+            <button type="button" class="btn btn-outline-warning" (click)="createVote(-1)"><i class="fas fa-arrow-alt-circle-down fa-lg"></i>{{ truckVote.downVote }} </button>
+        </div>
     </div>
 </div>
 

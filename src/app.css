@@ -227,9 +227,9 @@ a#fullSizeTitle {
 }
 
 h1.about-title {
-    color: #FFD042;
+    color: #A00400;
     font-family: 'Contrail One', cursive;
-    text-shadow: black 0 0 3px;
+    text-shadow: black 0 0 1px;
     margin-top: 15px;
 }
 
