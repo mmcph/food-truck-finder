@@ -1,0 +1,49 @@
+body {
+	background: url("https://i.imgur.com/cdV6wjj.png") no-repeat center center fixed;
+}
+
+h1.new-truck-title {
+	color: #A00400;
+	font-family: 'Contrail One', cursive;
+	text-shadow: #D00400 0 0 2px;
+	margin: 15px 0;
+}
+
+@media screen and (max-width: 400px) {
+	h1.new-truck-title {
+		font-size: 25px;
+	}
+}
+
+label.new-truck-text {
+	color: #000;
+	font-family: 'Contrail One', cursive;
+	font-size: 20px;
+	text-shadow: #FFD042 0 0 1px;
+	display: block;
+	margin-bottom: 0;
+}
+
+textarea.new-truck-input, input.new-truck-input {
+	background-color: #FFD042;
+	color: #800400;
+	font-family: 'Contrail One', cursive;
+	border: 2px solid #600400;
+	border-radius: 0;
+	width: 30%;
+	min-width: 220px;
+	transition: background-color .5s;
+}
+
+textarea.new-truck-input:focus, input.new-truck-input:focus {
+	background-color: #ffe577;
+}
+
+.newTruckSubmit {
+	width: 30%;
+	min-width: 220px;
+	border-radius: 0;
+	font-family: 'Contrail One', cursive;
+	border: 2px solid #600400;
+	margin-top: 15px;
+}

@@ -11,7 +11,7 @@
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
 		<!-- Custom CS link -->
-		<link rel="stylesheet" href="css/sign-up.css">
+		<link rel="stylesheet" href="css/newtruck.css">
 
 		<!-- jQuery, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,43 +25,31 @@
 	</head>
 
 	<body>
-		<h1>Application for New Truck Owners</h1>
+		<div class="container">
+		<h1 class="new-truck-title">Enter your truck into our system</h1>
 
-		<form action="">
+		<form [formGroup]="newTruckForm" (ngSubmit)="createNewTruckForm();">
 			<div class="form-group">
-				Business Name <br>
-				<input type="text" name="businessname" placeholder="Super Mario's Truck">
+				<label for="truck-name" class="new-truck-text">Name of your truck</label>
+				<input id="truck-name" class="new-truck-input" type="text" name="truckname" formControlName="truckName">
 			</div>
 			<div class="form-group">
-				Business Contact Phone Number <br>
-				<input type="text" name="phonenumber" placeholder="(xxx)xxx-xxxx">
+				<label for="truck-bio" class="new-truck-text">Tell us about your truck</label>
+				<textarea id="truck-bio" class="new-truck-input" rows="6" type="text" name="truckbio" placeholder="Briefly describe your business..." formControlName="truckBio"></textarea>
 			</div>
 			<div class="form-group">
-				First Name <br>
-				<input type="text" name="truckfirstname" placeholder="Juan">
+				<label for="truck-phone" class="new-truck-text">Phone number for your truck</label>
+				<input id="truck-phone" class="new-truck-input" type="text" name="truckphone" formControlName="truckPhone">
 			</div>
 			<div class="form-group">
-				Last Name <br>
-				<input type="text" name="trucklastname" placeholder="Smith">
+				<label for="truck-url" class="new-truck-text">Your truck's website</label>
+				<input id="truck-url" class="new-truck-input" type="text" name="truckurl" placeholder="Business site, YELP page, etc..." formControlName="truckUrl">
 			</div>
-			<div class="form-group">
-				Your Website URL Address<br>
-				<input type="text" name="url" placeholder="(optional)">
-			</div>
-			<div class="form-group">
-				Email Address <br>
-				<input type="text" name="email" placeholder="your-email-address@domain.com">
-			</div>
-			<div class="form-group">
-				Description of your business/truck <br>
-				<input type="text" name="truckbio" placeholder="An adventurous story about mushrooms and princesses in Mario World.">
-			</div>
-			<div class="form-group">
-				Confirm Password <br>
-				<input type="text" name="confirmpassword">
+			<div>
+				<button class="btn btn-block btn-warning newTruckSubmit mb-3" type="submit">Register Your Truck!</button>
 			</div>
 		</form>
-
+		</div>
 	</body>
 
 </html>

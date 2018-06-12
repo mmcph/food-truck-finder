@@ -43,7 +43,6 @@
 					<!--First name-->
 					<div class="form-group">
 						<label for="sign-up-first-name" class="sign-up-text">First Name</label>
-						<br>
 						<input id="sign-up-first-name" class="sign-up-input" type="text" name="firstname"
 								 formControlName="profileFirstName">
 					</div>
@@ -57,7 +56,6 @@
 					<!--Last name-->
 					<div class="form-group">
 						<label for="sign-up-last-name" class="sign-up-text">Last Name</label>
-						<br>
 						<input id="sign-up-last-name" class="sign-up-input" type="text" name="lastname"
 								 formControlName="profileLastName">
 					</div>
@@ -72,7 +70,6 @@
 					<!--Username-->
 					<div class="form-group">
 						<label for="sign-up-username" class="sign-up-text">Username</label>
-						<br>
 						<input id="sign-up-username" class="sign-up-input" type="text" name="username"
 								 formControlName="profileUserName">
 					</div>
@@ -87,7 +84,6 @@
 					<!--Email address-->
 					<div class="form-group">
 						<label for="sign-up-email" class="sign-up-text">Email Address</label>
-						<br>
 						<input id="sign-up-email" class="sign-up-input" type="text" name="email"
 								 formControlName="profileEmail">
 					</div>
@@ -102,7 +98,6 @@
 					<!--Password-->
 					<div class="form-group">
 						<label for="sign-up-password" class="sign-up-text">Password</label>
-						<br>
 						<input id="sign-up-password" class="sign-up-input" type="password" name="password"
 								 formControlName="profilePassword">
 					</div>
@@ -117,7 +112,6 @@
 					<!--Confirm password-->
 					<div class="form-group">
 						<label for="sign-up-confirm-password" class="sign-up-text">Confirm Password</label>
-						<br>
 						<input id="sign-up-confirm-password" class="sign-up-input" type="password" name="confirmpassword"
 								 formControlName="profilePasswordConfirm">
 					</div>

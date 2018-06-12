@@ -6,7 +6,7 @@ body {
 	color: #A00400;
 	font-family: 'Contrail One', cursive;
 	text-shadow: #D00400 0 0 2px;
-	margin-top: 15px;
+	margin: 15px 0;
 }
 
 .sign-in-text {
@@ -14,6 +14,8 @@ body {
 	font-family: 'Contrail One', cursive;
 	font-size: 20px;
 	text-shadow: #FFD042 0 0 1px;
+	display: block;
+	margin-bottom: 0;
 }
 
 .sign-in-input {
@@ -24,6 +26,11 @@ body {
 	border-radius: 0;
 	width: 30%;
 	min-width: 220px;
+	transition: background-color .5s;
+}
+
+.sign-in-input:focus {
+	background-color: #ffe577;
 }
 
 .signInSubmit {
