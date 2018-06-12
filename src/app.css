@@ -581,4 +581,10 @@ input.userSearch:active, input.userSearch:focus {
     /*outline: none;*/
 }
 
+.map-scale {
+    height: 80vh;
+    border-top: 3px solid #800400;
+    border-bottom: 3px solid #800400;
+}
+
 /*END MAP VIEW STYLE*/
