@@ -5,7 +5,6 @@ import {OnInit} from "@angular/core";
 import {Status} from "../shared/classes/status";
 import {Truck} from "../shared/classes/truck";
 import {TruckVote} from "../shared/classes/truck.vote";
-import {TruckCategoryService} from "../shared/services/truck.category.service";
 import {TruckCategory} from "../shared/classes/truckcategory";
 import {IsOpen} from "../shared/classes/is-open";
 import {FavoriteService} from "../shared/services/favorite.service";
@@ -13,9 +12,6 @@ import {Favorite} from "../shared/classes/favorite";
 import {Vote} from "../shared/classes/vote";
 import {VoteService} from "../shared/services/vote.service";
 import {AuthService} from "../shared/services/auth.service";
-import {literalArr} from "@angular/compiler/src/output/output_ast";
-import {CategoryService} from "../shared/services/category.service";
-import {Category} from "../shared/classes/category";
 
 @Component({
 
@@ -24,8 +20,7 @@ import {Category} from "../shared/classes/category";
 
 export class TruckComponent implements OnInit {
 
-    categories : Category[] = [];
-    truckCategories: TruckCategory[] = [];
+    categories: TruckCategory[] = [];
     status : Status = null;
     truck: Truck = new Truck("", "", "", IsOpen.Closed, 0, 0, "", "", "");
     truckVote: TruckVote = new TruckVote(0, 0);
@@ -33,7 +28,7 @@ export class TruckComponent implements OnInit {
     favorite: Favorite = new Favorite("", "");
     token : any = null;
 
-    constructor(private router: ActivatedRoute, private truckService: TruckService, private favoriteService: FavoriteService, private voteService: VoteService, private authService: AuthService, private truckCategoryService: TruckCategoryService, private categoryService: CategoryService) {
+    constructor(private router: ActivatedRoute, private truckService: TruckService, private favoriteService: FavoriteService, private voteService: VoteService, private authService: AuthService) {
 
     }
 
@@ -41,34 +36,30 @@ export class TruckComponent implements OnInit {
     this.token = this.authService.decodeJwt();
     this.loadTruck();
     this.loadFavorite();
-    this.getTruckCategory();
+    // this.loadVote();
+
+
     }
 
 // grabs the truck object & assoc. votes & categories with it
     loadTruck() : void {
         this.truckService.getTruck(this.truckId).subscribe(reply => {
             this.truck = reply.truck;
-            this.truckCategories = reply.truckCategories;
+            this.categories = reply.truckCategories;
             this.truckVote =  reply.truckVote;
         });
 
     }
 
 // grab favorite if it exists
+    loadFavorite() : void {this.favoriteService.getFavoriteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
 
-
-    loadFavorite() : void {
-
-        if(this.token) {
-            this.favoriteService.getFavoriteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
-
-                if (!reply.favoriteTruckId) {
-                    this.favorite = null;
-                } else {
-                    this.favorite = reply;
-                }
-            })
+        if(!reply.favoriteTruckId ) {
+            this.favorite = null;
+        }else {
+            this.favorite = reply;
         }
+        })
 
     }
 
@@ -102,6 +93,13 @@ export class TruckComponent implements OnInit {
     }
 
 
+    // grab votes if they exist
+    // loadVote() : void {this.voteService.getVoteByCompositeKey(this.token.auth.profileId, this.truckId).subscribe(reply => {
+    // }
+    // })
+
+
+
     getVoteTruckId() : void {
 
         this.voteService.getTruckVote(this.truckId).subscribe(reply => {
@@ -123,49 +121,29 @@ export class TruckComponent implements OnInit {
 
         )};
 
-    // display categories of food that the truck serves; get an array of category objects
+
+// allow truck owner to edit (PUT) fields if logged in
 
 
-    getTruckCategory() : void {
+   truckEditForm() : void {
 
+        //create truck object from updated form values
+	let truck = new Truck(null, null, null, null, null, null, null, null, null);
+this.truckService.createTruck(truck).subscribe(status => {
+	this.status = status;
+	this.loadTruck();
+});
 
-        this.categoryService.getAllCategories().subscribe(reply => { this.categories = reply;});
-
-        console.log(this.categories);
-
-       this. truckCategories.forEach(function (element) {
-            console.log(element);
-
-
-        });
-
-       }
+        this.truckService.editTruck(truck).subscribe(status => {
+            this.status = status;
+            if (status.status === 200){
+                this.loadTruck()
+            }
+        })
+    }
 
 
 }
-
-
-//allow truck owner to edit (PUT) fields if logged in
-
-    // editTruck() : void {
-    //     this.truckId.editTruck(truck).subscribe(status => {
-    //         this.status = status;
-    //         if (status.status === 200){
-    //             this.getTruck()
-    //         }
-    //     })
-    // }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
