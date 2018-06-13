@@ -94,16 +94,6 @@ a#fullSizeTitle {
     color: #ffe577;
 }
 
-.categorySearch {
-    color: #FFD042;
-}
-
-.categoryTerm {
-    font-family: 'Contrail One', cursive;
-    margin-bottom: 0;
-    text-shadow: 0 0 2px black;
-}
-
 .nav-link {
     color: #FFD042;
     font-size: 25px;
@@ -627,6 +617,22 @@ input.userSearch:active, input.userSearch:focus {
 	display: inline-block;
 }
 
+.categoryTerm {
+	font-family: 'Contrail One', cursive;
+	margin-bottom: 0;
+	text-shadow: 0 0 1px black;
+	font-size: 22px;
+}
+
+.categoryBG {
+	background-color: rgba(0,0,0,.2);
+}
+
+@media screen and (max-width: 460px) {
+	.category-title {
+		font-size: 30px;
+	}
+}
 
 /* END CATEGORY STYLE*/
 
