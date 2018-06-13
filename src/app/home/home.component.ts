@@ -3,7 +3,6 @@ import {Component, OnInit} from "@angular/core";
 import {Truck} from "../shared/classes/truck";
 import {TruckService} from "../shared/services/truck.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs/Observable";
 
 @Component({
 	template: require("./home.html")

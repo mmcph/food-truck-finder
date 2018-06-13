@@ -21,11 +21,12 @@
 		<info-window id="detailedTruck">
 			<div>
 				{{detailedTruck.truckName}}
+				<a [routerLink]="'/truck/' + detailedTruck.truckId">Check out this truck</a>
 			</div>
 
 		</info-window>
 </ngui-map>
-View Truck Page
+
 
 <!--<div *ngIf="detailedTruck.truckId !== null" >-->
 
