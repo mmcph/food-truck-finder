@@ -18,14 +18,36 @@ export class CategoriesComponent {
 
 }
 
-export class CategorySearchFormComponent  implements OnInit{
+export class CategorySearchFormComponent  implements OnInit {
 
 	// status variable needed for interacting with the API
-	status : Status = null;
-	categorySearchForm : FormGroup;
+	status: Status = null;
+	categorySearchForm: FormGroup;
 
-	constructor(private formBuilder : FormBuilder, private router: Router, private truckService: TruckService, private categoryService: CategoryService) {
+
+
+	constructor(private formBuilder: FormBuilder, private router: Router, private truckService: TruckService, private categoryService: CategoryService) {
 
 	}
 
+	ngOnInit(): void {
+
+		this.categorySearchForm = this.formBuilder.group({
+
+			// NEED TO BUILD ARRAY OF CATEGORY IDs SENT FROM FRONT END SEARCH.
+
+		});
+
+	}
+
+	getTrucksByCategories(): void {
+
+		let searchArray = [];
+
+		for(i=0; i<=searchTerms.length; i++){
+			searchArray.push(searchTerms[i]);
+		}
+
+		this.truckService.getCategoriesAndTrucksByCategoryId(searchArray)
+	}
 }
