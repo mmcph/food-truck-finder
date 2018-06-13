@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Status} from "../classes/status";
 import {Favorite} from "../classes/favorite";
 import {Observable} from "rxjs/Observable";
+import {FavoriteTruckName} from "../classes/favoriteTruckName";
 
 @Injectable ()
 export class FavoriteService {
@@ -25,8 +26,8 @@ export class FavoriteService {
 		return (this.http.get<Favorite>(this.favoriteUrl+ "?favoriteProfileId=" + favoriteProfileId +"&favoriteTruckId=" + favoriteTruckId))
 	}
 
-	getFavoriteByProfileId ( favoriteTruckId : string) : Observable <Favorite[]> {
-		return(this.http.get<Favorite[]>(this.favoriteUrl + favoriteTruckId))
+	getFavoriteByProfileId ( favoriteProfileId : string) : Observable <FavoriteTruckName[]> {
+		return(this.http.get<FavoriteTruckName[]>(this.favoriteUrl + "?favoriteProfileId=" +favoriteProfileId))
 	}
 
 

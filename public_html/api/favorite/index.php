@@ -7,7 +7,8 @@ require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\FoodTruck\{
-	Favorite
+	Favorite,
+    Truck
 };
 
 
@@ -54,17 +55,23 @@ try {
 				$reply->data = $favorite;
 			}
 		} else if(empty($favoriteProfileId) === false) {
-			$favorite = Favorite::getFavoriteByFavoriteProfileId($pdo,$favoriteProfileId)->toArray();
-			if($favorite !== null) {
-				$reply->data =$favorite;
-			}
+			$favorites = Favorite::getFavoriteByFavoriteProfileId($pdo,$favoriteProfileId)->toArray();
+            $favoriteTruckNamesArray = [];
+            foreach ($favorites as $favorite) {
+
+                $favoriteName = Truck::getTruckByTruckId($pdo, $favorite->getFavoriteTruckId());
+
+                $favoriteTruckNamesArray[] =   $favoriteTruckNameObject = (object) [
+                    "favoriteProfileId" => $favorite->getFavoriteProfileId(),
+                    "favoriteTruckId" => $favoriteName->getTruckId(),
+                    "favoriteTruckName" => $favoriteName->getTruckName()
+                ];
+            }
+            $reply->data = $favoriteTruckNamesArray;
 			// get the favorites associated with the truckId
 		} else if (empty($favoriteTruckId) === false) {
-			$favorite = Favorite::getFavoriteByFavoriteTruckId($pdo, $favoriteTruckId)->toArray();
+			$reply->data =$favorites = Favorite::getFavoriteByFavoriteTruckId($pdo, $favoriteTruckId)->toArray();
 
-			if($favorite !== null) {
-				$reply->data = $favorite;
-			}
 		}
 
 	} else if ($method === "POST") {

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Favorite} from "../shared/classes/favorite";
 import {FavoriteService} from "../shared/services/favorite.service";
 import {AuthService} from "../shared/services/auth.service";
+import {FavoriteTruckName} from "../shared/classes/favoriteTruckName";
 
 
 
@@ -14,10 +15,10 @@ import {AuthService} from "../shared/services/auth.service";
 export class FavoritesListComponent  {
 
     favorite : string = "";
-    favorites : Favorite[] = [];
+    favorites : FavoriteTruckName[] = [];
     authToken  = this.jwt.decodeJwt();
 
-    favoritesList : Favorite= new Favorite (null, null);
+    favoriteList : Favorite= new Favorite (null, null);
 
 
     constructor(private favoriteService: FavoriteService, private jwt : AuthService){
