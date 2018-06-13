@@ -1,4 +1,6 @@
 <h1 class="category-title">Search by food type</h1>
+
+<form [formGroup]="categorySearchForm" (ngSubmit)="createNewTruckForm();">
 <button class="btn categoryButton" type="submit">Find Trucks</button>
 <div class="container">
 	<div class="row">
@@ -81,3 +83,4 @@
 		</div>
 	</div>
 </div>
+</form>

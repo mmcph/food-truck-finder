@@ -1,4 +1,13 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormGroup,Validators} from "@angular/forms";
+import {Status} from "../shared/classes/status";
+import {Router} from "@angular/router";
+import {TruckService} from "../shared/services/truck.service";
+import {Truck} from "../shared/classes/truck";
+import {CategoryService} from "../shared/services/category.service";
+import {Category} from "../shared/classes/category";
+import {TruckCategoryService} from "../shared/services/truck.category.service";
+import {TruckCategory} from "../shared/classes/truckcategory";
 
 
 @Component ({
@@ -7,5 +16,16 @@ import {Component} from "@angular/core";
 })
 export class CategoriesComponent {
 
+}
+
+export class CategorySearchFormComponent  implements OnInit{
+
+	// status variable needed for interacting with the API
+	status : Status = null;
+	categorySearchForm : FormGroup;
+
+	constructor(private formBuilder : FormBuilder, private router: Router, private truckService: TruckService, private categoryService: CategoryService) {
+
+	}
 
 }
