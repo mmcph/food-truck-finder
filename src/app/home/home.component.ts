@@ -46,8 +46,12 @@ export class HomeComponent implements OnInit{
 		marker.nguiMapComponent.openInfoWindow('detailedTruck', marker);
 	}
 
-	getTrucksByTruckName() : void{
-		this.truckService.getTruckByTruckName(this.truckSearchForm.value.truckSearchName).subscribe(reply=>this.trucks=reply)
+	getTrucksByTruckName() : void {
+
+		this.truckService.getTruckByTruckName(this.truckSearchForm.value.truckSearchName).subscribe(reply =>{
+			this.trucks=reply;
+			this.truckSearchForm.reset();
+		});
 	}
 
 }

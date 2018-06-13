@@ -6,7 +6,7 @@
 		<form class="form-inline" [formGroup]="truckSearchForm" (submit)="getTrucksByTruckName()">
 			<input class="form-control userSearch" type="search" placeholder="Search by name" formControlName="truckSearchName" aria-label="Search">
 			<button class="submitSearch" type="submit"><i class="fas fa-search"></i></button>
-			<button class="submitSearch2" type="submit">RESET</button>
+			<button class="submitSearch2" type="button" (click)="showTrucks()">RESET</button>
 		</form>
 	</div>
 	<div class="col-md-5 no-gutters">
