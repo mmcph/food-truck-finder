@@ -320,7 +320,7 @@ input.sign-up-input {
 }
 
 .formSpacer {
-    height: 200px;
+    height: 150px;
 }
 
 /*END SIGN UP STYLE*/
@@ -606,6 +606,7 @@ input.userSearch:active, input.userSearch:focus {
 	font-size: 25px;
 	font-family: 'Contrail One', cursive;
 	text-shadow: 0 0 1px black;
+	display: inline-block;
 }
 
 .category-title {
@@ -622,6 +623,10 @@ input.userSearch:active, input.userSearch:focus {
 	margin-bottom: 0;
 	text-shadow: 0 0 1px black;
 	font-size: 22px;
+}
+
+.categoryDiv {
+	margin-left: 10px;
 }
 
 .categoryBG {

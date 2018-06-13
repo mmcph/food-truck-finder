@@ -48,7 +48,7 @@ try {
 			}
 
 		} else {
-		    $reply->data = Category::getAllCategories($pdo);
+		    $reply->data = Category::getAllCategories($pdo)->toArray();
 		}
 
 	} else {
