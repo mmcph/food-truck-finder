@@ -31,7 +31,6 @@ import {APP_BASE_HREF} from "@angular/common";
 import {NavbarComponent} from "./shared/components/navbar/navbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
 import {NewTruckFormComponent} from "./new-truck-form/new-truck-form.component";
-// import {CategoriesComponent} from "./categories/categories.component";
 
 // import {CreateFavoriteComponent} from "./shared/components/favorite/create-favorite.component";
 
