@@ -1,29 +1,27 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup,Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {Status} from "../shared/classes/status";
 import {Router} from "@angular/router";
 import {TruckService} from "../shared/services/truck.service";
 import {Truck} from "../shared/classes/truck";
 import {CategoryService} from "../shared/services/category.service";
 import {Category} from "../shared/classes/category";
-import {TruckCategoryService} from "../shared/services/truck.category.service";
-import {TruckCategory} from "../shared/classes/truckcategory";
+
 
 
 @Component ({
 
 	template: require ("./categories.component.html"),
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit {
 
-}
-
-export class CategorySearchFormComponent  implements OnInit {
-
-	// status variable needed for interacting with the API
 	status: Status = null;
 	categorySearchForm: FormGroup;
-
+	category: string = "";
+	categories: Category[] = [];
+	allCategories: any[] = [];
+	categorySearchArray: number[] = [];
+	truckResults : any[] = [];
 
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private truckService: TruckService, private categoryService: CategoryService) {
@@ -34,20 +32,41 @@ export class CategorySearchFormComponent  implements OnInit {
 
 		this.categorySearchForm = this.formBuilder.group({
 
-			// NEED TO BUILD ARRAY OF CATEGORY IDs SENT FROM FRONT END SEARCH.
-
 		});
 
+		this.loadCategories();
+
 	}
-	//
-	// getTrucksByCategories(): void {
-	//
-	// 	let searchArray = [];
-	//
-	// 	for(i=0; i<=searchTerms.length; i++){
-	// 		searchArray.push(searchTerms[i]);
-	// 	}
-	//
-	// 	this.truckService.getCategoriesAndTrucksByCategoryId(searchArray)
-	// }
+
+	loadCategories() {
+		this.categoryService.getAllCategories().subscribe(reply => {
+
+			// console.log(reply);
+			this.allCategories = reply;
+		});
+		// console.log(this.allCategories);
+	}
+
+	setTacoTruckCategory(event: any) {
+		let checked = event.target.checked;
+		let categoryId = +event.target.value;
+
+		if(checked === true) {
+			this.categorySearchArray.push(categoryId);
+		} else {
+			this.categorySearchArray = this.categorySearchArray.filter(category => category !== categoryId);
+		}
+		return (this.categorySearchArray);
+	}
+
+
+	getMatchingTrucks() {
+
+		let truckResults = this.truckService.getCategoriesAndTrucksByCategoryId(this.categorySearchArray);
+
+
+		console.log(truckResults);
+		return truckResults;
+
+	}
 }
