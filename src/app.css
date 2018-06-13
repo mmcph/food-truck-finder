@@ -563,6 +563,25 @@ button.submitSearch {
     width: 48px;
 }
 
+button.submitSearch2 {
+    color: red;
+    font-family: 'Contrail One', cursive;
+    background-color: #FFD042;
+    border-top: 2px solid #800400;
+    border-right: 2px solid #800400;
+    border-bottom: 2px solid #800400;
+    border-left: none;
+    border-radius: 0;
+    height: 45px;
+    width: 59px;
+}
+.submitSearch:hover {
+    color: #ffff66
+}
+.submitSearch2:hover {
+    color: #ffff66
+}
+
 input.userSearch:active, input.userSearch:focus {
     background-color: #ffe577;
     outline-width: 0;
@@ -598,6 +617,10 @@ input.userSearch:active, input.userSearch:focus {
         margin-left: 10px;
         margin-top: 0;
         padding-top: 0;
+    }
+
+    input.userSearch {
+        width: 150px;
     }
 }
 

@@ -89,7 +89,10 @@ try {
 			if(empty($truckCategories) === true || is_array($truckCategories) === false) {
 				throw(new \InvalidArgumentException("CODE 18: truck selections are subject to operator error"));
 			}
+
 			$reply->data = Truck::getCategoriesAndTrucksByCategoryId($pdo, $truckCategories);
+		}elseIf(empty($truckName) === false) {
+			$reply->data = Truck::getTruckByTruckName($pdo, $truckName)->toArray();
 		} else {
 			$reply->data = Truck::getTruckByTruckIsOpen($pdo, 1)->toArray();
 
