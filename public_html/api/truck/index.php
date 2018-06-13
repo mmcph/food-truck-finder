@@ -20,6 +20,7 @@ use Edu\Cnm\FoodTruck\{
  *
  * @author {} <valebmeza@gmail.com>
  * @coauthor Derek Mauldin <derek.e.mauldin@gmail.com>
+ * @editor G Cordova
  * @editor MMCPH
  **/
 
@@ -100,8 +101,8 @@ try {
 
 	} else if($method === "PUT" || $method === "POST") {
 
-		if (empty( $_SESSION["profile"]) || $_SESSION["profile"]->getProfileIsOwner() !== 1) {
-			throw new InvalidArgumentException("Please sign in.", 400);
+		if (empty( $_SESSION["profile"]) || $_SESSION["profile"]->getProfileIsOwner() === 1) {
+			throw new InvalidArgumentException("nananananana Batman", 400);
 		}
 
 		// enforce the user has a XSRF token
@@ -145,6 +146,28 @@ try {
 				throw(new RuntimeException("This truck does not exist.", 404));
 			}
 
+
+			//check optional params, if empty set to null
+			if(empty($requestObject->truckBio) === true) {
+				$requestObject->truckBio = $truck->getTruckBio();
+			}
+
+			if(empty($requestObject->truckLatitude) === true) {
+				$requestObject->truckLatitude = null;
+			}
+
+			if(empty($requestObject->truckLongitude) === true) {
+				$requestObject->truckLongitude = null;
+			}
+
+			if(empty($requestObject->truckPhone) === true) {
+				$requestObject->truckPhone = null;
+			}
+
+			if(empty($requestObject->truckUrl) === true) {
+				$requestObject->truckUrl = null;
+			}
+
 			//enforce the user is signed in and only trying to edit their own truck
 			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $truck->getTruckProfileId()->toString()) {
 				throw(new \InvalidArgumentException("A truck may only be edited by the truck's owner.", 403));
@@ -156,7 +179,7 @@ try {
 			// update all attributes
 			$truck->setTruckBio($requestObject->truckBio);
 			$truck->setTruckIsOpen($requestObject->truckIsOpen);
-			$truck->setTruckLatitude($requestObject->truckLatitude);
+		$truck->setTruckLatitude($requestObject->truckLatitude);
 			$truck->setTruckLongitude($requestObject->truckLongitude);
 			$truck->setTruckName($requestObject->truckName);
 			$truck->setTruckPhone($requestObject->truckPhone);
@@ -175,7 +198,7 @@ try {
 			validateJwtHeader();
 
 			// create new truck and insert into the database
-			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, -1, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
+			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, 1, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
 			$truck->insert($pdo);
 
 			// update reply
@@ -189,7 +212,7 @@ try {
 		//enforce that the end user has a XSRF token.
 		verifyXsrf();
 
-		// retrieve the truck to be deleted
+		// retrieve the truck to be deleted //
 		$truck = Truck::getTruckByTruckId($pdo, $id);
 		if($truck === null) {
 			throw(new RuntimeException("This truck does not exist.", 404));

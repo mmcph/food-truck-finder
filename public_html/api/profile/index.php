@@ -47,6 +47,8 @@ try {
     if($method === "GET") {
         //set XSRF cookie
         setXsrfCookie();
+
+        $reply->data = Profile::getProfileByProfileId($pdo, $id);
 // not needed?
 //        //gets a post by content
 //        if(empty($id) === false) {

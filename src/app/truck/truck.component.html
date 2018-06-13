@@ -44,50 +44,47 @@
             </div>
             <div class="modal-body">
 
-
-
-                <form class="form-horizontal" role="form" id="truckEditForm"  [formGroup]="truckEditForm()" (ngSubmit)="createTruckEditForm();" novalidate>
+                <form class="form-horizontal" role="form" id="truckEdit"  [formGroup]="truckEdit" (ngSubmit)="truckEditMethod();" novalidate>
 
                     <div class="form-group" >
-                        <label for="truckPhone" class="col-sm-2 control-label">Edit Phone Number</label>
+                        <!--<label for="truckPhone" class="col-sm-2 control-label">Edit Phone Number</label>-->
                         <div class="col-sm-10">
                             <input type="text" name="truckPhone" id="truckPhone" placeholder="New Phone Number" formControlName="truckPhone">
                         </div>
                     </div>
-                    <div *ngIf="truckEditForm.controls.truckPhone?.invalid && signUpForm.controls.truckPhone?.touched"
-                       class="alert alert-danger signUpAlert" role="alert">
-                        <p *ngIf="truckEditForm.controls.truckPhone?.errors.required">Truck Phone Number is required.</p>
-                        <p *ngIf="truckEditForm.controls.truckPhone?.errors.maxlength">Truck Phone Number is too long</p>
-                    </div>
+                    <!--<div *ngIf="truckEdit.controls.truckPhone?.invalid && signUpForm.controls.truckPhone?.touched"-->
+                       <!--class="alert alert-danger signUpAlert" role="alert">-->
+                        <!--<p *ngIf="truckEdit.controls.truckPhone?.errors.required">Truck Phone Number is required.</p>-->
+                        <!--<p *ngIf="truckEdit.controls.truckPhone?.errors.maxlength">Truck Phone Number is too long</p>-->
+                    <!--</div>-->
 
                     <div class="form-group">
-                        <label for="truckUrl" class="col-sm-2 control-label">Edit Your Business' Website URL</label>
+                        <!--<label for="truckUrl" class="col-sm-2 control-label">Edit Your Business' Website URL</label>-->
                         <div class="col-sm-10">
-                            <input type="url" name="truckUrl" id="truckUrl" placeholder="example@domain.com" formControlName="truckUrl">
+                            <input type="text" name="truckUrl" id="truckUrl" placeholder="example@domain.com" formControlName="truckUrl">
                         </div>
                     </div>
-                    <div *ngIf="truckEditForm.controls.truckUrl?.invalid && signUpForm.controls.truckUrl?.touched"
-                         class="alert alert-danger signUpAlert" role="alert">
-                        <p *ngIf="truckEditForm.controls.truckUrl?.errors.maxlength">Website URL is too long</p>
-                    </div>
+                    <!--<div *ngIf="truckEdit.controls.truckUrl?.invalid && signUpForm.controls.truckUrl?.touched"-->
+                         <!--class="alert alert-danger signUpAlert" role="alert">-->
+                        <!--<p *ngIf="truckEdit.controls.truckUrl?.errors.maxlength">Website URL is too long</p>-->
+                    <!--</div>-->
 
                     <div class="form-group">
-                        <label for="truckBio" class="col-sm-2 control-label">Edit the description of your business/foodtruck</label>
+                        <!--<label for="truckBio" class="col-sm-2 control-label">Edit the description of your business/foodtruck</label>-->
                         <div class="col-sm-10">
-                            <textarea name="" id="truckBio" placeholder="A story about princesses and mushrooms in the Mario World..."></textarea>
+                            <textarea name="" id="truckBio" formControlName="truckBio" placeholder="A story about princesses and mushrooms in the Mario World..."></textarea>
                         </div>
                     </div>
-                    <div *ngIf="truckEditForm.controls.truckBio?.invalid && signUpForm.controls.truckBio?.touched"
-                         class="alert alert-danger signUpAlert" role="alert">
-                        <p *ngIf="truckEditForm.controls.truckBio?.errors.required">Business/Truck Bio is required.</p>
-                        <p *ngIf="truckEditForm.controls.truckBio?.errors.maxlength">Business/Truck Bio is too long</p>
-                    </div>
+                    <!--<div *ngIf="truckEdit.controls.truckBio?.invalid && signUpForm.controls.truckBio?.touched"-->
+                         <!--class="alert alert-danger signUpAlert" role="alert">-->
+                        <!--<p *ngIf="truckEdit.controls.truckBio?.errors.required">Business/Truck Bio is required.</p>-->
+                        <!--<p *ngIf="truckEdit.controls.truckBio?.errors.maxlength">Business/Truck Bio is too long</p>-->
+                    <!--</div>-->
 
 
                     <button class="btn btn-info" type="submit">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </form>
-
 
 
             </div>
