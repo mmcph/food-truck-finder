@@ -3,6 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {Truck} from "../shared/classes/truck";
 import {TruckService} from "../shared/services/truck.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
 
 @Component({
 	template: require("./home.html")
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit{
 	trucks : Truck[] = [];
 
 	detailedTruck : Truck = new Truck(null, null, null, null, null, null,null, null, null);
+
 
 
 	constructor(private truckService: TruckService, public router: Router){
@@ -33,5 +35,11 @@ export class HomeComponent implements OnInit{
 
 	}
 
+    clicked({target: marker} : any, truck : Truck) {
+
+		this.detailedTruck = truck;
+
+		marker.nguiMapComponent.openInfoWindow('detailedTruck', marker);
+	}
 
 }

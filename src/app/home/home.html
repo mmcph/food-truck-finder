@@ -1,3 +1,5 @@
+
+<!--Search-->
 <div class="row no-gutters">
 	<div class="searchContain col-md-6 no-gutters">
 
@@ -11,16 +13,28 @@
 	</div>
 </div>
 
-
+<!--Map-->
 <ngui-map class="map-scale" zoom="14">
-	<marker *ngFor="let truck of trucks" [position]="[truck.truckLatitude, truck.truckLongitude]" (click)="showSidePanel(truck)"></marker>
+
+	<marker *ngFor="let truck of trucks" [position]="[truck.truckLatitude, truck.truckLongitude]" (click)="clicked($event, truck)"></marker>
+
+		<info-window id="detailedTruck">
+			<div>
+				{{detailedTruck.truckName}}
+			</div>
+
+		</info-window>
 </ngui-map>
+View Truck Page
 
-<div *ngIf="detailedTruck.truckId !== null" >
+<!--<div *ngIf="detailedTruck.truckId !== null" >-->
 
-	<h1 class="rounded-top">{{detailedTruck.truckName}}</h1>
+	<!--<h1 class="rounded-top">{{detailedTruck.truckName}}</h1>-->
 
-	<button class="btn btn-block" (click)="goToTruck(detailedTruck.truckId)">Go to Page</button>
+	<!--<button class="btn btn-block" (clicked)="goToTruck()">Go to Page</button>-->
 
-</div>
+<!--</div>-->
+
+
+
 
