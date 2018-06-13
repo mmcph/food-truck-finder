@@ -419,6 +419,18 @@ h1.truck-title {
     text-shadow: #FFD042 0 0 2px;
 }
 
+.editTruckButton {
+    height: 38px;
+    width: 56px;
+    font-family: 'Contrail One', cursive;
+    background-color: #FFD042;
+    border: 1px solid #FFD042;
+}
+
+.editTruckButton:hover {
+    background-color: #F00;
+}
+
 /*END TRUCK STYLE*/
 
 /*--------------------------------------------------------------------------------------------------------*/
