@@ -25,9 +25,9 @@ export class FavoriteService {
 		return (this.http.get<Favorite>(this.favoriteUrl+ "?favoriteProfileId=" + favoriteProfileId +"&favoriteTruckId=" + favoriteTruckId))
 	}
 
-	// getFavoriteByProfileId ( favoriteTruckId : string) : Observable <Favorite[]> {
-	// 	return(this.http.get<Favorite[]>(this.favoriteUrl + favoriteTruckId))
-	// }
+	getFavoriteByProfileId ( favoriteTruckId : string) : Observable <Favorite[]> {
+		return(this.http.get<Favorite[]>(this.favoriteUrl + favoriteTruckId))
+	}
 
 
 // allow user to delete favorite

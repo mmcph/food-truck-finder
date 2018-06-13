@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit{
 	trucks : Truck[] = [];
 
 	detailedTruck : Truck = new Truck(null, null, null, null, null, null,null, null, null);
+
+
 	constructor(private truckService: TruckService, public router: Router){
 
 	}

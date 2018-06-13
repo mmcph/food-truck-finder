@@ -7,7 +7,6 @@ import {SignUpComponent} from "./sign-up/sign-up.component";
 import {SignInComponent} from "./shared/components/navbar/sign-in.component";
 import {TruckComponent} from "./truck/truck.component";
 import {AboutComponent} from "./about/about.component";
-import {CategoriesComponent} from "./categories/categories.component";
 
 
 // import all needed services
@@ -36,7 +35,7 @@ import {NewTruckFormComponent} from "./new-truck-form/new-truck-form.component";
 
 
 
-export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent, NewTruckFormComponent, AboutComponent, CategoriesComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent, NewTruckFormComponent, AboutComponent];
 
 export const routes: Routes = [
 
@@ -45,8 +44,7 @@ export const routes: Routes = [
 	{path: "sign-up", component: SignUpComponent},
     {path: "sign-in", component: SignInComponent},
     {path: "new-truck", component: NewTruckFormComponent},
-    {path: "", component: HomeComponent},
-	{path: "categories", component: CategoriesComponent}
+    {path: "", component: HomeComponent}
 ];
 
 
