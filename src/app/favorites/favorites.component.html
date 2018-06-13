@@ -5,9 +5,15 @@
 			<!---------------------------WORKING LINK--------------------------->
 			<!----<li><i class="fas fa-star"></i><a href="#">Marios</a></li>---->
 			<!--todo PUT IN HREF #-->
-			<li><a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a><a class="text-favorite" href="#"> Marios</a></li>
-			<li><a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a><a class="text-favorite" href="#"> Pablos</a></li>
-			<li><a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a><a class="text-favorite" href="#"> Mikes</a></li>
+			<li>
+				<span *ngFor="let favorite of favorites">
+					<a class="text-favorite font-scale" href="#"><i class="fas fa-star"></i></a>
+				<a class="text-favorite" href="#"> </a>{{favorite.f}}
+				</span>
+
+
+			</li>
+
 		</ul>
 	</div>
 </div>

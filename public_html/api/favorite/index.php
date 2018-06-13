@@ -65,9 +65,6 @@ try {
 			if($favorite !== null) {
 				$reply->data = $favorite;
 			}
-		} else {
-			//if none of the search parameters are met, throw an exception
-			throw new InvalidArgumentException("No favorites here", 404);
 		}
 
 	} else if ($method === "POST") {

@@ -8,7 +8,7 @@ import {SignInComponent} from "./shared/components/navbar/sign-in.component";
 import {TruckComponent} from "./truck/truck.component";
 import {AboutComponent} from "./about/about.component";
 import {CategoriesComponent} from "./categories/categories.component";
-
+import {FavoritesListComponent} from "./favorites/favorites.component";
 
 // import all needed services
 import {AuthService} from "./shared/services/auth.service";
@@ -36,7 +36,7 @@ import {NewTruckFormComponent} from "./new-truck-form/new-truck-form.component";
 
 
 
-export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent, NewTruckFormComponent, AboutComponent, CategoriesComponent];
+export const allAppComponents = [HomeComponent, SignUpComponent, SignInComponent, NavbarComponent, FooterComponent, TruckComponent, NewTruckFormComponent, AboutComponent, CategoriesComponent, FavoritesListComponent];
 
 export const routes: Routes = [
 
@@ -46,7 +46,8 @@ export const routes: Routes = [
     {path: "sign-in", component: SignInComponent},
     {path: "new-truck", component: NewTruckFormComponent},
     {path: "", component: HomeComponent},
-    {path: "categories", component: CategoriesComponent}
+    {path: "categories", component: CategoriesComponent},
+    {path: "favorites", component: FavoritesListComponent}
 ];
 
 
