@@ -110,7 +110,6 @@ var_dump($truck4->getTruckId()->toString());
 
 
 
-
 $truck5= new Truck(generateUuidV4(), $profile5->getProfileId(), "Pulled Pork Sandwhiches", 1, 35.1562086, -106.5981825 , "Gedunk Truck", "Phone: (505) 315-3521", "http://www.google.com");
 $truck5->insert($pdo);
 echo "5th truck";
@@ -128,8 +127,6 @@ outhern comfort, and traditional Portuguese/Italian", 1, 35.1178114, -106.616305
 $truck7->insert($pdo);
 echo "7th truck";
 var_dump($truck7->getTruckId()->toString());
-
-
 
 
 
