@@ -9,9 +9,10 @@ export class AuthService {
 
     private token : string = localStorage.getItem("jwt-token");
 
+
     constructor (
         private jwtHelperService: JwtHelperService,
-        private http: HttpClient
+        private http: HttpClient,
     ) {}
 
     //token : string = this.jwtHelperService.tokenGetter();
@@ -40,3 +41,4 @@ export class AuthService {
         return this.jwtHelperService.decodeToken(this.token);
     }
 }
+

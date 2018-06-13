@@ -39,15 +39,15 @@ export class CategorySearchFormComponent  implements OnInit {
 		});
 
 	}
-
-	getTrucksByCategories(): void {
-
-		let searchArray = [];
-
-		for(i=0; i<=searchTerms.length; i++){
-			searchArray.push(searchTerms[i]);
-		}
-
-		this.truckService.getCategoriesAndTrucksByCategoryId(searchArray)
-	}
+	//
+	// getTrucksByCategories(): void {
+	//
+	// 	let searchArray = [];
+	//
+	// 	for(i=0; i<=searchTerms.length; i++){
+	// 		searchArray.push(searchTerms[i]);
+	// 	}
+	//
+	// 	this.truckService.getCategoriesAndTrucksByCategoryId(searchArray)
+	// }
 }

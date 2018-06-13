@@ -152,20 +152,28 @@ try {
 				$requestObject->truckBio = $truck->getTruckBio();
 			}
 
+			if(empty($requestObject->truckIsOpen) === true) {
+				$requestObject->truckIsOpen = $truck->getTruckIsOpen();
+			}
+
 			if(empty($requestObject->truckLatitude) === true) {
-				$requestObject->truckLatitude = null;
+				$requestObject->truckLatitude = $truck->getTruckLatitude();
 			}
 
 			if(empty($requestObject->truckLongitude) === true) {
-				$requestObject->truckLongitude = null;
+				$requestObject->truckLongitude = $truck->getTruckLongitude();
+			}
+
+			if(empty($requestObject->truckName) === true) {
+				$requestObject->truckName = $truck->getTruckName();
 			}
 
 			if(empty($requestObject->truckPhone) === true) {
-				$requestObject->truckPhone = null;
+				$requestObject->truckPhone = $truck->getTruckPhone();
 			}
 
 			if(empty($requestObject->truckUrl) === true) {
-				$requestObject->truckUrl = null;
+				$requestObject->truckUrl = $truck->getTruckUrl();
 			}
 
 			//enforce the user is signed in and only trying to edit their own truck
@@ -176,14 +184,15 @@ try {
 
 			validateJwtHeader();
 
+
 			// update all attributes
 			$truck->setTruckBio($requestObject->truckBio);
-			$truck->setTruckIsOpen($requestObject->truckIsOpen);
-		$truck->setTruckLatitude($requestObject->truckLatitude);
+			$truck->setTruckIsOpen(1);
+			$truck->setTruckLatitude($requestObject->truckLatitude);
 			$truck->setTruckLongitude($requestObject->truckLongitude);
 			$truck->setTruckName($requestObject->truckName);
 			$truck->setTruckPhone($requestObject->truckPhone);
-			$truck->setTruckUrl($requestObject->truckUrl);
+			$truck->setTruckUrl ($requestObject->truckUrl);
 			$truck->update($pdo);
 
 			// update reply
@@ -198,7 +207,7 @@ try {
 			validateJwtHeader();
 
 			// create new truck and insert into the database
-			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, 1, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
+			$truck = new Truck(generateUuidV4(), $_SESSION["profile"]->getProfileId(), $requestObject->truckBio, $requestObject->truckIsOpen, $requestObject->truckLatitude, $requestObject->truckLongitude, $requestObject->truckName, $requestObject->truckPhone, $requestObject->truckUrl);
 			$truck->insert($pdo);
 
 			// update reply
