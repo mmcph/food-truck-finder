@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS truckCategory;
 DROP TABLE IF EXISTS vote;
 DROP TABLE IF EXISTS truck;
-DROP TABLE IF EXISTS category;
+# DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS profile;
 
 
@@ -22,13 +22,13 @@ CREATE TABLE profile (
 	INDEX(profileId),
 	PRIMARY KEY(profileId)
 );
-
-CREATE TABLE category (
-	categoryId TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	categoryName VARCHAR(32) NOT NULL,
-	UNIQUE(categoryName),
-	PRIMARY KEY(categoryId)
-);
+#
+# CREATE TABLE category (
+# 	categoryId TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+# 	categoryName VARCHAR(32) NOT NULL,
+# 	UNIQUE(categoryName),
+# 	PRIMARY KEY(categoryId)
+# );
 
 CREATE TABLE truck (
 	truckId BINARY(16) NOT NULL,
