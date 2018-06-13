@@ -2,7 +2,7 @@
 		<h1 class="category-title">Search by food type</h1>
 		<button class="btn categoryButton" type="submit">Find Trucks</button>
 
-		<div *ngIf="!truckResults.length === true; else trucksDisplay">
+		<!--<div *ngIf="!truckResults.length === true; else trucksDisplay">-->
 
 		<div class="container">
 
@@ -22,16 +22,16 @@
 		</div>
 
 			<!--ngIf div-->
-		</div>
+		<!--</div>-->
 
 	</form>
 
 	<div class="formSpacer"></div>
 
-<ng-template #trucksDisplay>
-	<div class="container">
-		<div class="categoryBG">
-			<div *ngFor="let truck of truckResults"><a routerLink="truck/:truckId" class="truck-text">{{truck.truckName}}</a></div>
-		</div>
-	</div>
-</ng-template>
+<!--<ng-template #trucksDisplay>-->
+	<!--<div class="container">-->
+		<!--<div class="categoryBG">-->
+			<!--<div *ngFor="let truck of truckResults"><a routerLink="truck/:truckId" class="truck-text">{{truck.truckName}}</a></div>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</ng-template>-->
